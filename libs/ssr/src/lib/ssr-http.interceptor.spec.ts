@@ -70,7 +70,6 @@ describe(`SsrHttpInterceptor`, () => {
         })
       })
     })
-    test('', () => {})
   })
 
 })
