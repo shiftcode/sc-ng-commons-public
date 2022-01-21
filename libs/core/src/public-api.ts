@@ -19,6 +19,8 @@ export * from './lib/logger/logger.service'
 export * from './lib/logger/logger.model'
 export * from './lib/logger/logger-helper'
 export * from './lib/logger/log-transports.token'
+export * from './lib/logger/noop/noop-log-transport.service'
+
 // console logger
 export * from './lib/logger/console/console-log-transport-config.injection-token'
 export * from './lib/logger/console/console-log-transport-config'
