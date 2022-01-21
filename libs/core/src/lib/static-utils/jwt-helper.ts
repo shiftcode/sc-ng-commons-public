@@ -3,7 +3,6 @@ export type TokenString = `${string}:${string}:${string}`
 /**
  * Helper class to decode and find JWT expiration.
  * Made static - copied from https://github.com/auth0/angular2-jwt/blob/master/angular2-jwt.ts
- * @dynamic (allow lambda in static function)
  */
 export class JwtHelper {
   static urlBase64Decode(str: string): string {

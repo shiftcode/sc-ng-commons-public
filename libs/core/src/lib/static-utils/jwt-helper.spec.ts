@@ -2,18 +2,6 @@ import { JwtHelper } from './jwt-helper'
 
 describe('JwtHelper', () => {
 
-  xdescribe('urlBase64Decode', () => {
-    // todo
-  })
-
-  xdescribe('b64DecodeUnicode', () => {
-    // todo
-  })
-
-  xdescribe('b64EncodeUnicode', () => {
-    // todo
-  })
-
   describe('isToken', () => {
     test('returns false when not a string', () => {
       expect(JwtHelper.isToken(null)).toBe(false)
