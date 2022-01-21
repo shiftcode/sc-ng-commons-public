@@ -1,0 +1,137 @@
+@use 'sass:math';
+
+:host {
+  $default-background: #555555;
+  $default-color: #ffffff;
+  $default-border-radius: 2px;
+  $default-font-size: 12px;
+  $default-line-height: 16px;
+  $default-notch-size: 8px;
+  $default-filter: drop-shadow(0 0 0 rgba(1, 1, 1, 0));
+
+  // otherwise we'll have flickering
+  pointer-events: none !important;
+
+  .sc-tooltip {
+    position: relative;
+    background: var(--sc-tooltip-background, #{$default-background});
+    border-radius: var(--sc-tooltip-border-radius, #{$default-border-radius});
+    filter: var(--sc-tooltip-filter, #{$default-filter});
+
+    --notch-size: var(--sc-tooltip-notch-size, #{$default-notch-size});
+    --neg-notch-size: calc(var(--sc-tooltip-notch-size, #{$default-notch-size}) * -1);
+    // the space from notch to the boundary of the tooltip
+    --notch-spacer: calc(var(--sc-tooltip-notch-size, #{$default-notch-size}) * 0.5);
+  }
+
+  .sc-tooltip {
+    // base style for notch with alignment above | below
+    &.sc-tooltip--above,
+    &.sc-tooltip--below {
+      .sc-tooltip__notch {
+        margin-left: var(--neg-notch-size);
+        border-right-color: transparent !important;
+        border-left-color: transparent !important;
+
+        &.sc-tooltip__notch--start {
+          left: calc(
+            var(--notch-size) + var(--notch-spacer)
+          ); // notch-spacer is the actual left because of the -margin on notch
+        }
+
+        &.sc-tooltip__notch--center {
+          left: 50%;
+        }
+
+        &.sc-tooltip__notch--end {
+          right: var(--notch-spacer);
+        }
+      }
+    }
+
+    // notch position bottom
+    &.sc-tooltip--above {
+      margin-bottom: var(--notch-size);
+
+      .sc-tooltip__notch {
+        top: 100%;
+        border-bottom-color: transparent !important;
+      }
+    }
+
+    // notch position top
+    &.sc-tooltip--below {
+      margin-top: var(--notch-size);
+
+      .sc-tooltip__notch {
+        bottom: 100%;
+        border-top-color: transparent !important;
+      }
+    }
+
+    // base style for notch with alignment above | below
+    &.sc-tooltip--before,
+    &.sc-tooltip--after {
+      .sc-tooltip__notch {
+        margin-top: var(--neg-notch-size);
+        border-top-color: transparent !important;
+        border-bottom-color: transparent !important;
+
+        &.sc-tooltip__notch--start {
+          top: calc(var(--notch-size) + var(--notch-spacer));
+        }
+
+        &.sc-tooltip__notch--center {
+          top: 50%;
+        }
+
+        &.sc-tooltip__notch--end {
+          bottom: var(--notch-spacer);
+        }
+      }
+    }
+
+    &.sc-tooltip--before {
+      margin-right: var(--notch-size);
+
+      .sc-tooltip__notch {
+        left: 100%;
+        border-right-color: transparent !important;
+      }
+    }
+
+    &.sc-tooltip--after {
+      margin-left: var(--notch-size);
+
+      .sc-tooltip__notch {
+        right: 100%;
+        border-left-color: transparent !important;
+      }
+    }
+  }
+
+  .sc-tooltip__label {
+    color: var(--sc-tooltip-color, #{$default-color});
+    font-size: var(--sc-tooltip-font-size, #{$default-font-size});
+    line-height: var(--sc-tooltip-line-height, #{$default-line-height});
+    padding: 4px 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 400;
+  }
+
+  .sc-tooltip__notch {
+    position: absolute;
+    border: {
+      width: var(--notch-size);
+      style: solid;
+      color: var(--sc-tooltip-background, #{$default-background});
+    }
+  }
+}
+
+:host-context(.cdk-high-contrast-active) {
+  .sc-tooltip {
+    outline: solid 1px;
+  }
+}

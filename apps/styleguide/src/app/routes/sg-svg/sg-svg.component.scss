@@ -1,0 +1,16 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+
+
+  .icon {
+    width: 48px;
+    height: 48px;
+    color: darkolivegreen;
+  }
+
+  .graphic {
+    width: min(100%, 400px);
+  }
+}

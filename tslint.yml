@@ -1,0 +1,93 @@
+extends:
+  - tslint:latest
+  - tslint-config-prettier
+rulesDirectory:
+  - "node_modules/codelyzer"
+rules:
+  #
+  # override rules from tslint:recommended
+  #
+  array-type:
+    - true
+    - array-simple
+  interface-name:
+    - true
+    - never-prefix
+  member-access:
+    - true
+    - no-public
+  member-ordering: # order: "statics-first"
+    - true
+    - order:
+        - public-static-field
+        - private-static-field
+        - public-instance-field
+        - private-instance-field
+        - public-static-method
+        - private-static-method
+        - constructor
+        - public-instance-method
+        - private-instance-method
+  no-angle-bracket-type-assertion: false # true - use «<Type>» instead of «as Type» for casting
+  object-literal-sort-keys: false
+  quotemark:
+    - true
+    - single
+    - avoid-escape
+  triple-equals: # true - allow for != null check to catch null & undefined
+    - true
+    - allow-null-check
+  no-string-literal: false
+  no-empty: false
+  no-switch-case-fall-through: true
+  semicolon:
+    - true
+    - never
+  arrow-parens: true
+
+  #
+  # override rules from tslint:latest
+  #
+  no-object-literal-type-assertion: false
+  no-submodule-imports:
+    - true
+    - "rxjs/operators"
+    - "aws-sdk"
+    - "@aws-sdk"
+    - "@angular"
+    - "zone.js"
+    - "core-js"
+    - "@nguniversal/express-engine"
+  prefer-conditional-expression: false
+  no-implicit-dependencies:
+    - true
+    - dev
+  variable-name:
+    - true
+    - ban-keywords
+    - check-format
+    - allow-leading-underscore
+
+  #
+  # additional rules
+  #
+  no-inferrable-types:
+    - true
+    - ignore-params
+  no-non-null-assertion: true
+  no-unnecessary-callback-wrapper: true
+  no-unnecessary-type-assertion: true
+  # gives deprecated warning, but still necessary
+  no-unused-variable:
+    - true
+    - { "ignore-pattern": "^_" }
+  no-redundant-jsdoc: true
+  deprecation: false
+
+#  TODO nx-enforce-module-boundaries:
+#    - true
+#    - allow: []
+#      depConstraints:
+#        - sourceTag: "scope:core"
+#          onlyDependOnLibsWithTags:
+#            - "scope:core"

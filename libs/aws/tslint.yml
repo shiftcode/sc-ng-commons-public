@@ -1,0 +1,7 @@
+extends:
+- '../../tslint.yml'
+rules:
+  import-blacklist:
+    - true
+    - aws-sdk
+    - "@shiftcode/ngx-aws"

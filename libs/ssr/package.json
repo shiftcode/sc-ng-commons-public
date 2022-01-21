@@ -1,0 +1,25 @@
+{
+  "name": "@shiftcode/ngx-ssr",
+  "version": "0.0.1",
+  "repository": "https://github.com/shiftcode/sc-ng-commons-public",
+  "license": "MIT",
+  "sideEffects": false,
+  "scripts": {
+    "lint": "yarn lint:lib --fix && yarn lint:test --fix",
+    "lint:ci": "yarn lint:lib && yarn lint:test",
+    "lint:lib": "tslint --format codeFrame --project ./tsconfig.lib.json",
+    "lint:test": "tslint --format codeFrame --project ./tsconfig.spec.json",
+    "prettier": "prettier --write --config ../../.prettierrc.yml 'src/**/*.ts'",
+    "prettier:staged": "prettier --write --config ../../.prettierrc.yml"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "peerDependencies": {
+    "@angular/common": "^13.0.0",
+    "@angular/core": "^13.0.0",
+    "@nguniversal/express-engine": "^13.0.0",
+    "@shiftcode/ngx-core": "^0.0.1",
+    "express": "^4.15.2"
+  }
+}

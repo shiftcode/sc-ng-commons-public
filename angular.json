@@ -1,0 +1,207 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "libs",
+  "projects": {
+    "core": {
+      "root": "libs/core",
+      "sourceRoot": "libs/core/src",
+      "projectType": "library",
+      "prefix": "sc",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "libs/core/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/core/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/core/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-builders/jest:run"
+        }
+      }
+    },
+    "components": {
+      "root": "libs/components",
+      "sourceRoot": "libs/components/src",
+      "projectType": "library",
+      "prefix": "sc",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "libs/components/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/components/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/components/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-builders/jest:run"
+        }
+      }
+    },
+    "styleguide": {
+      "root": "apps/styleguide",
+      "sourceRoot": "apps/styleguide/src",
+      "projectType": "application",
+      "prefix": "sg",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "apps/styleguide/dist",
+            "index": "apps/styleguide/src/index.html",
+            "main": "apps/styleguide/src/main.ts",
+            "polyfills": "apps/styleguide/src/polyfills.ts",
+            "tsConfig": "apps/styleguide/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/styleguide/src/favicon.ico",
+              "apps/styleguide/src/assets"
+            ],
+            "styles": [
+              "apps/styleguide/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/styleguide/src/environments/environment.ts",
+                  "with": "apps/styleguide/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "styleguide:build:production"
+            },
+            "development": {
+              "browserTarget": "styleguide:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        }
+      },
+      "schematics": {
+        "@schematics/angular:component": {
+          "prefix": "sg",
+          "viewEncapsulation": "Emulated"
+        },
+        "@schematics/angular:directive": {
+          "prefix": "sg"
+        }
+      }
+    },
+    "aws": {
+      "root": "libs/aws",
+      "sourceRoot": "libs/aws/src",
+      "projectType": "library",
+      "prefix": "sc",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "libs/aws/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/aws/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/aws/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-builders/jest:run"
+        }
+      }
+    },
+    "ssr": {
+      "root": "libs/ssr",
+      "sourceRoot": "libs/ssr/src",
+      "projectType": "library",
+      "prefix": "sc",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "libs/ssr/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ssr/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/ssr/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-builders/jest:run"
+        }
+      }
+    }
+  },
+  "defaultProject": "styleguide",
+  "cli": {
+    "analytics": false,
+    "packageManager": "yarn"
+  },
+  "schematics": {
+    "@schematics/angular:application": {
+      "strict": true
+    },
+    "@schematics/angular:component": {
+      "prefix": "sc",
+      "style": "scss",
+      "displayBlock": true,
+      "changeDetection": "OnPush",
+      "viewEncapsulation": "None",
+      "skipTests": true
+    },
+    "@schematics/angular:directive": {
+      "prefix": "sc",
+      "skipTests": true
+    },
+    "@schematics/angular:service": {
+      "skipTests": true
+    },
+    "@schematics/angular:pipe": {
+      "skipTests": true
+    }
+  }
+}

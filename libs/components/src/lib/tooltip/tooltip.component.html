@@ -1,0 +1,20 @@
+<div
+  class="sc-tooltip"
+  [ngClass]="tooltipClass"
+  [class.sc-tooltip--above]="tooltipPosition === 'above'"
+  [class.sc-tooltip--below]="tooltipPosition === 'below'"
+  [class.sc-tooltip--before]="tooltipPosition === 'before'"
+  [class.sc-tooltip--after]="tooltipPosition === 'after'"
+  [@state]="visibility"
+  (@state.start)="animationStart()"
+  (@state.done)="animationDone($event)"
+>
+  <div class="sc-tooltip__label" [innerHTML]="message"></div>
+  <div
+    #notch
+    class="sc-tooltip__notch"
+    [class.sc-tooltip__notch--start]="notchPosition === 'start'"
+    [class.sc-tooltip__notch--center]="notchPosition === 'center'"
+    [class.sc-tooltip__notch--end]="notchPosition === 'end'"
+  ></div>
+</div>

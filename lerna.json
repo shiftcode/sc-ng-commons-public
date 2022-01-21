@@ -1,0 +1,15 @@
+{
+  "packages": [
+    "libs/*"
+  ],
+  "version": "independent",
+  "command": {
+    "version": {
+      "allowBranch": "*",
+      "message": "build(release): next version [skip_build]"
+    },
+    "publish": {
+      "contents": "./dist"
+    }
+  }
+}
