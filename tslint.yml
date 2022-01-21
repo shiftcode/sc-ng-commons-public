@@ -83,11 +83,3 @@ rules:
     - { "ignore-pattern": "^_" }
   no-redundant-jsdoc: true
   deprecation: false
-
-#  TODO nx-enforce-module-boundaries:
-#    - true
-#    - allow: []
-#      depConstraints:
-#        - sourceTag: "scope:core"
-#          onlyDependOnLibsWithTags:
-#            - "scope:core"
