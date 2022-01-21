@@ -8,7 +8,11 @@ import { Logger } from './logger.model'
 export class LoggerService {
   private loggers = new Map<string, number>()
 
-  constructor(@Inject(LOG_TRANSPORTS) private logTransports: LogTransport | LogTransport[]) {}
+  constructor(@Inject(LOG_TRANSPORTS) private logTransports: LogTransport[]) {
+    if (!Array.isArray(this.logTransports)) {
+      throw new Error('LOG_TRANSPORTS needs to be provided with multi:true')
+    }
+  }
 
   getInstance(name: string, hexColor?: string): Logger {
     hexColor = hexColor || LoggerHelper.stringToColor(name)
@@ -23,6 +27,6 @@ export class LoggerService {
       this.loggers.set(name, 1)
     }
 
-    return new Logger(name, hexColor, Array.isArray(this.logTransports) ? this.logTransports : [this.logTransports])
+    return new Logger(name, hexColor, this.logTransports)
   }
 }

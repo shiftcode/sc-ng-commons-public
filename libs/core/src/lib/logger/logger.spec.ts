@@ -1,5 +1,6 @@
 import { PLATFORM_ID } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
+import { expect } from '@jest/globals'
 import { ConsoleLogTransportConfig } from './console/console-log-transport-config'
 import { CONSOLE_LOG_TRANSPORT_CONFIG } from './console/console-log-transport-config.injection-token'
 import { NodeConsoleLogTransport } from './console/node-console-log-transport.service'
@@ -8,6 +9,7 @@ import { LogTransport } from './log-transport'
 import { LOG_TRANSPORTS } from './log-transports.token'
 import { Logger } from './logger.model'
 import { LoggerService } from './logger.service'
+import { NoopLogTransport } from './noop/noop-log-transport.service'
 
 // tslint:disable:no-console
 // tslint:disable:max-classes-per-file
@@ -25,6 +27,15 @@ class Dummy2LogTransport extends LogTransport {
 }
 
 describe('Logger', () => {
+
+  describe('when providing LOG_TRANSPORT', () => {
+    test('throws when LOG_TRANSPORT was not provided with multi=true', () => {
+      TestBed.configureTestingModule({
+        providers: [{ provide: LOG_TRANSPORTS, useClass: NoopLogTransport }],
+      })
+      expect(() => TestBed.inject(LoggerService)).toThrow(Error)
+    })
+  })
 
   describe('LoggerService can handle Multiple providers', () => {
     let loggerService: LoggerService
@@ -70,11 +81,11 @@ describe('Logger', () => {
         providers: [
           { provide: PLATFORM_ID, useValue: 'server' },
           { provide: CONSOLE_LOG_TRANSPORT_CONFIG, useValue: warnLoggerConfig },
-          { provide: LOG_TRANSPORTS, useClass: NodeConsoleLogTransport }, // `multi` not set on purpose
+          { provide: LOG_TRANSPORTS, useClass: NodeConsoleLogTransport, multi: true },
           LoggerService,
         ],
       })
-      const transportImpl = <LogTransport>TestBed.inject(LOG_TRANSPORTS)
+      const transportImpl = TestBed.inject(LOG_TRANSPORTS)[0]
       loggerService = TestBed.inject(LoggerService)
       transportSpy = jest.spyOn(transportImpl, 'log')
     })
