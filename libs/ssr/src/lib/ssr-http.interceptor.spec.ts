@@ -2,10 +2,9 @@ import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http'
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
 import { PLATFORM_ID } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
-import { expect, jest } from '@jest/globals'
 import { LOG_TRANSPORTS, LogLevel, NoopLogTransport, ORIGIN } from '@shiftcode/ngx-core'
 import { SsrHttpInterceptor } from './ssr-http.interceptor'
-
+// tslint:disable:no-non-null-assertion
 
 describe(`SsrHttpInterceptor`, () => {
 
@@ -42,9 +41,9 @@ describe(`SsrHttpInterceptor`, () => {
       httpClient = TestBed.inject(HttpClient)
       httpController = TestBed.inject(HttpTestingController)
 
-      const logTransport = TestBed.inject(LOG_TRANSPORTS).find(i => i instanceof NoopLogTransport)!
+      const logTransport = TestBed.inject(LOG_TRANSPORTS).find((i) => i instanceof NoopLogTransport)!
       logTransportSpy = <any>jest.spyOn(logTransport, 'log')
-      const interceptor = TestBed.inject(HTTP_INTERCEPTORS).find(i => i instanceof SsrHttpInterceptor)!
+      const interceptor = TestBed.inject(HTTP_INTERCEPTORS).find((i) => i instanceof SsrHttpInterceptor)!
       interceptorSpy = <any>jest.spyOn(interceptor, 'intercept')
     }
 

@@ -1,6 +1,5 @@
 import { PLATFORM_ID } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
-import { expect } from '@jest/globals'
 import { ConsoleLogTransportConfig } from './console/console-log-transport-config'
 import { CONSOLE_LOG_TRANSPORT_CONFIG } from './console/console-log-transport-config.injection-token'
 import { NodeConsoleLogTransport } from './console/node-console-log-transport.service'
