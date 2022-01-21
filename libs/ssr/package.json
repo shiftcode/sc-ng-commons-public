@@ -1,6 +1,6 @@
 {
   "name": "@shiftcode/ngx-ssr",
-  "version": "1.0.0-pr1.0",
+  "version": "1.0.0-pr1.1",
   "repository": "https://github.com/shiftcode/sc-ng-commons-public",
   "license": "MIT",
   "sideEffects": false,
