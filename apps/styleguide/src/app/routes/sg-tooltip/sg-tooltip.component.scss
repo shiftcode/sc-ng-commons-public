@@ -1,0 +1,24 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .sg-tooltip__hint {
+    margin: 24px 0;
+    font-style: italic;
+  }
+
+  .sg-tooltip__trigger {
+    display: block;
+    margin: 24px 0;
+  }
+
+  .sg-tooltip__meta {
+    display: flex;
+
+    > * {
+      margin-right: 12px;
+    }
+  }
+
+}

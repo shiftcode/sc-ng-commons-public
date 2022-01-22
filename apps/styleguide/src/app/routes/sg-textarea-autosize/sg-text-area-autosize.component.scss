@@ -1,0 +1,10 @@
+:host {
+  display: block;
+
+
+  .sg-text-area-autosize__fields {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    grid-gap: 24px;
+  }
+}

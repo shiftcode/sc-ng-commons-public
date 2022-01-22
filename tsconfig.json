@@ -1,0 +1,54 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    "inlineSources": true,
+    "downlevelIteration": true,
+    "noImplicitOverride": true,
+    "paths": {
+      "@shiftcode/ngx-core": [
+        "libs/core/dist",
+        "libs/core/src/public-api.ts"
+      ],
+      "@shiftcode/ngx-components": [
+        "libs/components/dist",
+        "libs/components/src/public-api.ts"
+      ],
+      "@shiftcode/ngx-aws": [
+        "libs/aws/dist",
+        "libs/aws/src/public-api.ts"
+      ],
+      "@shiftcode/ngx-ssr": [
+        "libs/ssr/dist",
+        "libs/ssr/src/public-api.ts"
+      ]
+    },
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2017",
+    "module": "es2020",
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "esModuleInterop": true
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}

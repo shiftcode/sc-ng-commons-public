@@ -1,0 +1,22 @@
+extends:
+  - "../../tslint.yml"
+rules:
+  directive-selector: [true, "attribute", ["sg"], "camelCase"]
+  component-selector: [true, "element", ["sg"], "kebab-case"]
+  no-implicit-dependencies:
+    - true
+    - - "@angular/core"
+      - "@angular/common"
+      - "@angular/forms"
+      - "@angular/router"
+      - "@angular/platform-browser"
+      - "@shiftcode/ngx-aws"
+      - "@shiftcode/ngx-components"
+      - "@shiftcode/ngx-core"
+      - "@shiftcode/ngx-moment"
+      - "@shiftcode/ngx-ssr"
+      - "@shiftcode/ngx-user-agent"
+      - "@shiftcode/ngx-translation"
+      - "zone.js"
+      - "core-js"
+      - "rxjs"

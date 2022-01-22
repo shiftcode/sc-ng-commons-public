@@ -1,0 +1,4 @@
+# !! no source on root !!
+# sort package.json keys
+./package.json:
+  - sort-package-json

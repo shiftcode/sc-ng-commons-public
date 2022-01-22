@@ -1,0 +1,55 @@
+:host {
+  display: block;
+
+  .sg-button__buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 24px 0;
+  }
+
+  .sg-button__btn {
+    display: inline-block;
+    margin-bottom: 12px;
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    padding: 4px 12px;
+    background-color: #eee;
+    font-size: inherit;
+    &:after {
+      position: absolute;
+      right: 0;
+      top: 0;
+      transform: translateX(100%);
+      padding: 4px 12px;
+    }
+
+
+    &:hover {
+      &:after {content: 'hover';}
+    }
+    &:active { // overrides focus and hover
+      &:after {content: 'active';}
+    }
+    &:focus {
+      &:after {content: 'focus';}
+    }
+
+    &:hover:active {
+      &:after {content: 'hover, active';}
+    }
+    &:focus:hover {
+      &:after {content: 'focus, hover';}
+    }
+    &:focus:active {
+      &:after {content: 'focus, active';}
+    }
+    &:hover:focus:active {
+      &:after {content: 'focus, hover, active';}
+    }
+
+
+  }
+
+}

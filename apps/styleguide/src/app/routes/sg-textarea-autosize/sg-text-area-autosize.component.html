@@ -1,0 +1,12 @@
+<h2>TextArea Autosize</h2>
+<p>only works together with formControl directive on same element</p>
+<div class="sg-text-area-autosize__fields">
+
+  <label for="sg-textarea-autosize-field-1">no autosize</label>
+  <textarea id="sg-textarea-autosize-field-1" rows="4" [formControl]="textCtrl"></textarea>
+
+
+  <label for="sg-textarea-autosize-field-2" >with autosize</label>
+  <textarea id="sg-textarea-autosize-field-2" [rows]="2" scAutosize [formControl]="textCtrl"></textarea>
+
+</div>

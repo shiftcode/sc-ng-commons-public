@@ -1,0 +1,85 @@
+# secrets.GITHUB_TOKEN is provided to each job by default, lifetime: 60minutes.
+# See https://help.github.com/en/actions/automating-your-workflow-with-github-actions/authenticating-with-the-github_token
+name: Lint, Test, Build and optionaly Publish
+
+on:
+  # push only for branches (ignore tags)
+  push:
+    branches:
+      - 'main'
+    tags-ignore:
+      - '**'
+  # pull request only for branches (ignore tags)
+  pull_request:
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
+jobs:
+  checkExecution:
+    runs-on: ubuntu-latest
+    outputs:
+      shouldExecute: ${{ steps.stepCheckExecution.outputs.shouldExecute }}
+    steps:
+      - name: Dump GitHub context
+        run: |
+          echo "::group::github context"
+          echo "$GITHUB_CONTEXT"
+          echo "::endgroup::"
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+      - id: stepCheckExecution
+        name: Check for execution
+        uses: shiftcode/github-action-skip@2.0.0
+        with:
+          skipOnCommitMsg: "[skip_build]"
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+  build:
+    runs-on: ubuntu-latest
+    needs: checkExecution
+    # only execute if not skipped by commit message
+    if: needs.checkExecution.outputs.shouldExecute == 'true'
+    steps:
+      # checkout branch
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          # 0 indicates all history, because publish requires tag information
+          fetch-depth: 0
+          # we need priviledged access to publish to protected branch
+          token: ${{ secrets.GH_TOKEN_PUBLIC_REPO }}
+      # setup node and yarn cache
+      - name: Setup Node and Yarn Cache
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: 'yarn'
+      # NPM Authenticate
+      - name: Auth for githup registry
+        run: |
+          npm config set //npm.pkg.github.com/:_authToken=$REGISTRY_TOKEN
+        env:
+          REGISTRY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # yarn install
+      - name: Install
+        run: yarn --frozen-lockfile
+      # lint
+      - name: Lint
+        run: yarn lint:ci
+      # test
+      - name: Test
+        run: yarn test:ci
+      # build
+      - name: Build
+        run: yarn build:ci
+      - name: Build Styleguide
+        run: yarn build:styleguide
+      # publish
+      - name: Publish
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "Github Actions"
+          yarn publish-libs
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN_PUBLIC_REPO }} # necessary for publish-libs script
