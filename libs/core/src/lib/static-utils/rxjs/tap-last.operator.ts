@@ -26,14 +26,14 @@ class TapLastSubscriber<T> extends Subscriber<T> {
     super(destination)
   }
 
-  protected _next(value: T): void {
+  protected override _next(value: T): void {
     this.hasValue = true
     this.value = value
     // @ts-ignore
     this.destination.next(value)
   }
 
-  protected _complete(): void {
+  protected override _complete(): void {
     if (this.hasValue) {
       try {
         this.callback(this.value)

@@ -13,6 +13,7 @@
     "declarationMap": true,
     "inlineSources": true,
     "downlevelIteration": true,
+    "noImplicitOverride": true,
     "paths": {
       "@shiftcode/ngx-core": [
         "libs/core/dist",

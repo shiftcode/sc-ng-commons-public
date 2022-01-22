@@ -12,7 +12,7 @@ export class CloudWatchErrorHandler extends ErrorHandler {
     super()
   }
 
-  handleError(error: any): void {
+  override handleError(error: any): void {
     // prevent cyclic dependencies (eg. when CLOUD_WATCH_LOG_TRANSPORT_CONFIG needs config from httpClient request)
     const cws = this.injector.get(CloudWatchService)
     cws.addMessage(LogLevel.ERROR, 'BrowserJsException', new Date(), [error])

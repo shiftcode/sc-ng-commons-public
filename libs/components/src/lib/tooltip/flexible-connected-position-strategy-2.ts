@@ -31,7 +31,7 @@ type Dimensions = Omit<DOMRect, 'x' | 'y' | 'toJSON'>
 // @ts-ignore
 export class FlexibleConnectedPositionStrategy2 extends FlexibleConnectedPositionStrategy {
   /** Narrows the given viewport rect by the current _viewportMargin. */
-  private _getNarrowedViewportRect(): Dimensions {
+  private override _getNarrowedViewportRect(): Dimensions {
     // the problem: the viewport changes on mobile browsers depending the scroll direction
     // window innerHeight/innerWidth correctly handles this changes but does not consider scrollbars
     // documentElement clientHeight/clientWidth correctly handles the scrollbars but not the viewport changes
@@ -61,7 +61,7 @@ export class FlexibleConnectedPositionStrategy2 extends FlexibleConnectedPositio
     }
   }
 
-  private _getOverlayFit(
+  private override _getOverlayFit(
     point: Point,
     rawOverlayRect: Dimensions,
     viewport: Dimensions,
@@ -116,7 +116,11 @@ export class FlexibleConnectedPositionStrategy2 extends FlexibleConnectedPositio
   }
 
   /** Gets the exact top/bottom for the overlay when not using flexible sizing or when pushing. */
-  private _getExactOverlayY(position: ConnectedPosition, originPoint: Point, scrollPosition: ViewportScrollPosition) {
+  private override _getExactOverlayY(
+    position: ConnectedPosition,
+    originPoint: Point,
+    scrollPosition: ViewportScrollPosition,
+  ) {
     // Reset any existing styles. This is necessary in case the
     // preferred position has changed since the last `apply`.
     const styles = { top: '', bottom: '' } as CSSStyleDeclaration

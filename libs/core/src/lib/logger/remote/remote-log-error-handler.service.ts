@@ -11,7 +11,7 @@ export class RemoteLogErrorHandler extends ErrorHandler {
     super()
   }
 
-  handleError(error: any) {
+  override handleError(error: any) {
     // submit error to backend
     this.remoteLogService.sendMessage(LogLevel.ERROR, 'BrowserJsException', new Date(), [error])
 
