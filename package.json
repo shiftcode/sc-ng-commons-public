@@ -1,8 +1,9 @@
 {
-  "name": "sc-ng-commons",
+  "name": "sc-ng-commons-public",
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
+  "author": "shiftcode GmbH <team@shiftcode.ch>",
   "scripts": {
     "build:ci": "ng build core && ng build aws && ng build components && ng build ssr",
     "build:styleguide": "ng build styleguide",
