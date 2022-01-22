@@ -4,6 +4,10 @@ import { CLOUD_WATCH_LOG_TRANSPORT_CONFIG } from './cloud-watch-log-transport-co
 import { CloudWatchLogTransportConfig } from './cloud-watch-log-transport-config.model'
 import { CloudWatchService } from './cloud-watch.service'
 
+/**
+ * The LogTransport implementation using {@link CloudWatchService}
+ * requires the {@link CLOUD_WATCH_LOG_TRANSPORT_CONFIG} to be provided.
+ */
 @Injectable({ providedIn: 'root' })
 export class CloudWatchLogTransport extends LogTransport {
   constructor(

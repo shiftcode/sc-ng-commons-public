@@ -4,6 +4,7 @@ import { CloudWatchService } from './cloud-watch.service'
 
 /**
  * Angular ErrorHandler to send uncaught Errors to AWS CloudWatch Logs
+ * requires the {@link CloudWatchService}
  */
 @Injectable({ providedIn: 'root' })
 export class CloudWatchErrorHandler extends ErrorHandler {

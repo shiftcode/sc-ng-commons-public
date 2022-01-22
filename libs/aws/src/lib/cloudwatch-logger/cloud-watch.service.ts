@@ -1,3 +1,4 @@
+// tslint:disable:no-console
 import { Inject, Injectable, Optional } from '@angular/core'
 import {
   CloudWatchLogsClient,
@@ -43,7 +44,10 @@ import {
  * ----
  */
 
-// tslint:disable:no-console
+/**
+ * Service to send messages to CloudWatch
+ * requires the {@link CLOUD_WATCH_LOG_TRANSPORT_CONFIG} to be provided
+ */
 @Injectable({ providedIn: 'root' })
 export class CloudWatchService {
   // max request per second per log stream
@@ -97,6 +101,10 @@ export class CloudWatchService {
     }
   }
 
+  /**
+   * add message to the queue to send to CloudWatch Service
+   * only send when {@link CloudWatchLogTransportConfig#logLevel} is not {@link LogLevel#OFF }
+   */
   addMessage(level: LogLevel, context: string, dTimestamp: Date, args: any[]) {
     // do nothing if LogLevel === OFF
     if (this.config.logLevel !== LogLevel.OFF) {
