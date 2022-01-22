@@ -8,6 +8,9 @@ const absoluteUrlRegex = /^[a-zA-Z\-+.]+:\/\//
 // absolute url with protocol relative: //domain.tld
 const absoluteUrlProtocolRelativeRegex = /^\/\/([^.]+)\.([^.]+)/
 
+/**
+ * HttpInterceptor to rewrite relative urls with the provided #{@link ORIGIN} token
+ */
 @Injectable()
 export class SsrHttpInterceptor implements HttpInterceptor {
   private logger: Logger
