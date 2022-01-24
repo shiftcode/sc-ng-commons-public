@@ -2,16 +2,16 @@
 
 Public Angular libraries used in various shiftcode projects.
 
-> [@shiftcode/ngx-core](libs/core)\
+> [![@shiftcode/ngx-core](https://img.shields.io/github/package-json/v/shiftcode/sc-ng-commons-public?filename=%2Flibs%2Fcore%2Fpackage.json&label=%40shiftcode%2Fngx-core)](libs/core)\
 > Core Utilities; mainly services and some helper functions and rxjs operators
 
-> [@shiftcode/ngx-aws](libs/aws)\
+> [![@shiftcode/ngx-aws](https://img.shields.io/github/package-json/v/shiftcode/sc-ng-commons-public?filename=%2Flibs%2Faws%2Fpackage.json&label=%40shiftcode%2Fngx-aws)](libs/aws)\
 > Angular Services working with AWS
 
-> [@shiftcode/ngx-components](libs/components)\
+> [![@shiftcode/ngx-components](https://img.shields.io/github/package-json/v/shiftcode/sc-ng-commons-public?filename=%2Flibs%2Fcomponents%2Fpackage.json&label=%40shiftcode%2Fngx-components)](libs/components)\
 > Angular components/directives/pipes usable across different projects
 
-> [@shiftcode/ngx-ssr](libs/ssr)\
+> [![@shiftcode/ngx-ssr](https://img.shields.io/github/package-json/v/shiftcode/sc-ng-commons-public?filename=%2Flibs%2Fssr%2Fpackage.json&label=%40shiftcode%2Fngx-ssr)](libs/ssr)\
 > Services and helpers used for server side rendering
 
 ## Anatomy of this workspace
