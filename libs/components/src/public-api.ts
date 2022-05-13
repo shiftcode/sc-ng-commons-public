@@ -4,6 +4,11 @@
 export * from './lib/svg/svg.module'
 export * from './lib/svg/svg-registry.service'
 export * from './lib/svg/svg.component'
+
+// svg-animate
+export * from './lib/svg-animate/svg-animate.module'
+export * from './lib/svg-animate/svg-animate.directive'
+
 // button
 export * from './lib/button/button.module'
 export * from './lib/button/button.component'
