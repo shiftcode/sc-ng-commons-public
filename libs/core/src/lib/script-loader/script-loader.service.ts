@@ -4,7 +4,6 @@ import { Logger } from '../logger/logger.model'
 import { LoggerService } from '../logger/logger.service'
 import { ScriptLoaderError } from './script-loader-error.model'
 
-/** @dynamic */
 @Injectable({ providedIn: 'root' })
 export class ScriptLoaderService {
   private static ELEMENT = 'script'
