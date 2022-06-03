@@ -3653,10 +3653,10 @@
     conventional-changelog-angular "^5.0.13"
     yargs "^17.3.1"
 
-"@shiftcode/utilities@^1.0.0":
-  version "1.0.0"
-  resolved "https://npm.pkg.github.com/download/@shiftcode/utilities/1.0.0/7dd0d04d0c6987257f19a7378c9c6b39bd63c7cf5f2573121cea29b2f58704ee#ae8725e9ff3acb654e8515557f6b9a8f2819bb1d"
-  integrity sha512-QI7ymmH1+YDBJdZnXTDfNZTfhpZvYOCw86D8tkowoX7p7Ok/Hj0gOxq800VZ21DXK5xs4wSNUlNXbRIwTeyNCQ==
+"@shiftcode/utilities@^1.2.0-pr11":
+  version "1.2.0-pr11.0"
+  resolved "https://npm.pkg.github.com/download/@shiftcode/utilities/1.2.0-pr11.0/2950709fba7f32c6245d4e79ccc043a0ec6762c635e942e21927457e6913b913#752b2923f732a6631bcfbb2fda0b14c03729c698"
+  integrity sha512-GllDGrGGqOG/MRJZ6UBfIwMZm5bZNohOTgkOkLiJBL4xEv/yeQWn+hcHpslmo7d77oyksX7zZvhgmAzk3lJmyg==
 
 "@sinclair/typebox@^0.23.3":
   version "0.23.5"
@@ -4398,7 +4398,7 @@ ansi-styles@^5.0.0:
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-5.2.0.tgz#07449690ad45777d1924ac2abb2fc8895dba836b"
   integrity sha512-Cxwpt2SfTzTtXcfOlzGEee8O+c+MmUgGrNiBcXnuWxuFJHe6a5Hz7qwhwe5OgaSYI0IJvkLqWX1ASG+cJOkEiA==
 
-ansi-styles@^6.0.0, ansi-styles@^6.1.0:
+ansi-styles@^6.0.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-6.1.0.tgz#87313c102b8118abd57371afab34618bf7350ed3"
   integrity sha512-VbqNsoz55SYGczauuup0MFUyXNQviSpFTj1RQtFzmQLk18qbVSpTFFGMT293rmDaQuKCT6InmbuEyUne4mTuxQ==
