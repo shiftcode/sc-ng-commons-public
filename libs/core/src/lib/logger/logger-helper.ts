@@ -13,7 +13,7 @@ export class LoggerHelper {
       const value = (hash >> (k * 8)) & 0xff
       color += ('00' + value.toString(16)).substr(-2)
     }
-    return color
+    return color.substring(0, 7)
   }
 
   static sprintFn(format: any[]) {
