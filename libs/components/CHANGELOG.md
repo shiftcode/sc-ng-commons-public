@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-components@1.1.0...@shiftcode/ngx-components@1.2.0) (2022-06-13)
+
+
+### Features
+
+* **tooltip:** use css custom prop for padding ([bb0ea75](https://github.com/shiftcode/sc-ng-commons-public/commit/bb0ea7556c171d0e261603baf1a00850a5784c8e))
+
+
+
+
+
 # [1.1.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-components@1.0.0...@shiftcode/ngx-components@1.1.0) (2022-05-13)
 
 
