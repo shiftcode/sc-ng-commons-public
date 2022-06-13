@@ -18,6 +18,7 @@ import { tooltipAnimation } from './tooltip.animation'
  *   --sc-tooltip-border-radius: 4px;
  *   --sc-tooltip-font-size: 12px;
  *   --sc-tooltip-line-height: 16px;
+ *   --sc-tooltip-padding: 4px 8px;
  * }
  * ```
  */
