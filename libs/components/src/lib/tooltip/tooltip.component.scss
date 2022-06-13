@@ -7,6 +7,7 @@
   $default-font-size: 12px;
   $default-line-height: 16px;
   $default-notch-size: 8px;
+  $default-padding: 4px 8px;
   $default-filter: drop-shadow(0 0 0 rgba(1, 1, 1, 0));
 
   // otherwise we'll have flickering
@@ -114,7 +115,7 @@
     color: var(--sc-tooltip-color, #{$default-color});
     font-size: var(--sc-tooltip-font-size, #{$default-font-size});
     line-height: var(--sc-tooltip-line-height, #{$default-line-height});
-    padding: 4px 8px;
+    padding: var(--sc-tooltip-padding, #{$default-padding});
     overflow: hidden;
     text-overflow: ellipsis;
     font-weight: 400;
