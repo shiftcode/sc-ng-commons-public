@@ -1,6 +1,6 @@
 import { isPlatformServer } from '@angular/common'
 import { HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http'
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core'
+import { inject, Inject, Injectable, PLATFORM_ID } from '@angular/core'
 import { Logger, LoggerService, ORIGIN } from '@shiftcode/ngx-core'
 
 // absolute url with protocol -> https://
@@ -13,15 +13,10 @@ const absoluteUrlProtocolRelativeRegex = /^\/\/([^.]+)\.([^.]+)/
  */
 @Injectable()
 export class SsrHttpInterceptor implements HttpInterceptor {
-  private logger: Logger
+  private readonly logger: Logger = inject(LoggerService).getInstance('SsrHttpInterceptor')
   private readonly origin: string
 
-  constructor(
-    @Inject(ORIGIN) origin: string,
-    @Inject(PLATFORM_ID) private platformId: any,
-    loggerService: LoggerService,
-  ) {
-    this.logger = loggerService.getInstance('SsrHttpInterceptor')
+  constructor(@Inject(ORIGIN) origin: string, @Inject(PLATFORM_ID) private platformId: any) {
     if (!isPlatformServer(this.platformId)) {
       throw new Error('make sure SsrHttpInterceptor is only applied on SSR')
     }
