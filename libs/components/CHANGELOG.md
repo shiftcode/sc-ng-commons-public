@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-components@1.2.0...@shiftcode/ngx-components@1.2.1) (2022-06-14)
+
+
+### Bug Fixes
+
+* **auto-focus-directive:** use ngAfterViewInit lifecycle hook to focus the element ([fdbaa72](https://github.com/shiftcode/sc-ng-commons-public/commit/fdbaa729922ea0dc1c3ab612c03cf0815c1d7d16))
+* **auto-focus.directive:** no longer set tabindex=-1 when element is already focusable ([1aa4706](https://github.com/shiftcode/sc-ng-commons-public/commit/1aa4706f7de0ba92313a8aa48f1cee09f8d0aaa4))
+* **autofocus-directive:** no longer set tabindex=-1 when element is already focusable ([4725ea4](https://github.com/shiftcode/sc-ng-commons-public/commit/4725ea4fa6ad3b090a63abde81a949a4113d4f2a))
+
+
+
+
+
 # [1.2.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-components@1.1.0...@shiftcode/ngx-components@1.2.0) (2022-06-13)
 
 
