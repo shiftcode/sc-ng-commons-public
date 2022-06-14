@@ -1,14 +1,18 @@
 import { DOCUMENT } from '@angular/common'
-import { Directive, ElementRef, inject, OnInit } from '@angular/core'
+import { Directive, ElementRef, Inject, OnInit } from '@angular/core'
 import { isInputElement, Logger, LoggerService } from '@shiftcode/ngx-core'
 
 @Directive({ selector: '[scAutoFocus]' })
 export class AutoFocusDirective implements OnInit {
   readonly element: HTMLElement
-  private readonly logger: Logger = inject(LoggerService).getInstance('AutoFocusDirective')
-  private readonly document: Document = inject(DOCUMENT)
+  private readonly logger: Logger
 
-  constructor(elRef: ElementRef<HTMLElement>) {
+  constructor(
+    loggerService: LoggerService,
+    elRef: ElementRef<HTMLElement>,
+    @Inject(DOCUMENT) private readonly document: Document,
+  ) {
+    this.logger = loggerService.getInstance('AutoFocusDirective')
     this.element = elRef.nativeElement
   }
 
@@ -37,6 +41,7 @@ export class AutoFocusDirective implements OnInit {
     // e.g. the directive is used in an input field inside a disabled fieldset
     return this.element.hasAttribute('disabled') || this.element.matches(':disabled')
   }
+
   private isHiddenInput() {
     return isInputElement(this.element) && this.element.type === 'hidden'
   }
