@@ -1,38 +1,34 @@
 import { DOCUMENT } from '@angular/common'
-import { AfterViewInit, Directive, ElementRef, Inject } from '@angular/core'
+import { AfterViewInit, Directive, ElementRef, inject } from '@angular/core'
 import { isInputElement, Logger, LoggerService } from '@shiftcode/ngx-core'
 
 @Directive({ selector: '[scAutoFocus]' })
 export class AutoFocusDirective implements AfterViewInit {
-  readonly element: HTMLElement
-  private readonly logger: Logger
-
-  constructor(
-    loggerService: LoggerService,
-    elRef: ElementRef<HTMLElement>,
-    @Inject(DOCUMENT) private readonly document: Document,
-  ) {
-    this.logger = loggerService.getInstance('AutoFocusDirective')
-    this.element = elRef.nativeElement
-  }
+  readonly element: HTMLElement = inject(ElementRef).nativeElement
+  private readonly document: Document = inject(DOCUMENT)
+  private readonly logger: Logger = inject(LoggerService).getInstance('AutoFocusDirective')
 
   ngAfterViewInit(): void {
     this.focus()
-    this.logger.debug('activeElement', this.document.activeElement)
   }
 
   focus(): boolean {
-    if (this.isDisabled() || this.isHiddenInput()) {
-      this.logger.warn('cannot focus disabled element or hidden input')
-      return false
-    }
+    if (ngDevMode) {
+      this.logger.debug('try set focus to', this.element)
 
-    this.logger.debug('try set focus to', this.element)
+      if (this.isDisabled() || this.isHiddenInput()) {
+        this.logger.warn('you are trying to focus a disabled element or hidden input')
+      }
+    }
 
     this.element.focus()
     if (this.document.activeElement !== this.element) {
       this.element.setAttribute('tabindex', '-1')
       this.element.focus()
+    }
+
+    if (ngDevMode) {
+      this.logger.debug('activeElement', this.document.activeElement)
     }
     return this.document.activeElement === this.element
   }

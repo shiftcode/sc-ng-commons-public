@@ -10,7 +10,7 @@ import { takeUntil } from 'rxjs/operators'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SgTextAreaAutosizeComponent implements OnDestroy {
-  readonly textCtrl = new FormControl('hello\nWorld\ntype more to see what happens')
+  readonly textCtrl = new FormControl<string>('hello\nWorld\ntype more to see what happens', { nonNullable: true })
 
   private readonly onDestroy = new Subject<void>()
 
@@ -23,7 +23,7 @@ export class SgTextAreaAutosizeComponent implements OnDestroy {
           onlySelf: true,
           emitEvent: false,
           emitModelToViewChange: true,
-          emitViewToModelChange: true
+          emitViewToModelChange: true,
         })
       })
   }

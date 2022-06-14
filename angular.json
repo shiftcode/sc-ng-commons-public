@@ -176,7 +176,6 @@
       }
     }
   },
-  "defaultProject": "styleguide",
   "cli": {
     "analytics": false,
     "packageManager": "yarn"

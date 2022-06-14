@@ -17,7 +17,7 @@ import { Component, EventEmitter, HostListener, Output } from '@angular/core'
 })
 export class ButtonComponent {
   @Output()
-  action = new EventEmitter<void>()
+  readonly action = new EventEmitter<void>()
 
   @HostListener('keypress', ['$event'])
   onKeypress(event: KeyboardEvent) {

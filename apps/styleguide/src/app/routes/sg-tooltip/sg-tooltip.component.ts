@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, Inject, Optional } from '@angular/core'
+import { ChangeDetectionStrategy, Component, inject, Inject, Optional } from '@angular/core'
 import { FormControl } from '@angular/forms'
 import { TOOLTIP_DEFAULT_OPTIONS, TooltipOptions, TooltipPosition } from '@shiftcode/ngx-components'
-import { Logger, LoggerService } from '@shiftcode/ngx-core'
+import { LoggerService } from '@shiftcode/ngx-core'
 
 @Component({
   selector: 'sg-tooltip',
@@ -26,11 +26,10 @@ export class SgTooltipComponent {
     'below-end',
   ]
 
-  readonly positionCtrl = new FormControl(this.tooltipPositions[0])
-  private readonly logger: Logger
+  readonly positionCtrl = new FormControl<TooltipPosition>(this.tooltipPositions[0], { nonNullable: true })
+  private readonly logger = inject(LoggerService).getInstance('SgTooltipComponent')
 
-  constructor(loggerService: LoggerService, @Optional() @Inject(TOOLTIP_DEFAULT_OPTIONS) opts:TooltipOptions) {
-    this.logger = loggerService.getInstance('SgTooltipComponent')
+  constructor(@Optional() @Inject(TOOLTIP_DEFAULT_OPTIONS) opts: TooltipOptions) {
     this.logger.debug('tooltipDefaultOptions', opts)
   }
 

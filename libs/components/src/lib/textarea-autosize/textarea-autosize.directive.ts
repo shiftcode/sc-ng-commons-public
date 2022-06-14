@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, ElementRef, HostBinding, Inject, Input, OnDestroy } from '@angular/core'
+import { AfterViewInit, Directive, ElementRef, HostBinding, inject, Inject, Input, OnDestroy } from '@angular/core'
 import { FormControlDirective } from '@angular/forms'
 import { Logger, LoggerService, ResizeService } from '@shiftcode/ngx-core'
 import { Subject } from 'rxjs'
@@ -12,6 +12,7 @@ import { takeUntil } from 'rxjs/operators'
   selector: 'textarea[scAutosize]',
   host: {
     '[style.resize]': '"none"',
+    '[style.overflow]': '"hidden"',
   },
 })
 export class TextareaAutosizeDirective implements AfterViewInit, OnDestroy {
@@ -19,23 +20,15 @@ export class TextareaAutosizeDirective implements AfterViewInit, OnDestroy {
   @HostBinding('rows')
   rows: number | string = 1
 
-  @HostBinding('style.overflow')
-  readonly overflow = 'hidden'
+  readonly element: HTMLTextAreaElement = inject(ElementRef).nativeElement
 
-  readonly element: HTMLTextAreaElement
-
+  private readonly logger: Logger = inject(LoggerService).getInstance('TextareaAutosizeDirective')
   private readonly onDestroy = new Subject<void>()
-  private readonly logger: Logger
 
   constructor(
-    elem: ElementRef,
-    loggerService: LoggerService,
     resizeService: ResizeService,
     @Inject(FormControlDirective) private readonly formControlDir: FormControlDirective,
   ) {
-    this.logger = loggerService.getInstance('TextareaAutosizeDirective')
-    this.element = elem.nativeElement
-
     resizeService.observe(this.element).pipe(takeUntil(this.onDestroy)).subscribe(this.resize.bind(this))
   }
 
