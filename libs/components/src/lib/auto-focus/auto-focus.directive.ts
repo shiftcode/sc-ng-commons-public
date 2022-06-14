@@ -1,9 +1,9 @@
 import { DOCUMENT } from '@angular/common'
-import { Directive, ElementRef, Inject, OnInit } from '@angular/core'
+import { AfterViewInit, Directive, ElementRef, Inject } from '@angular/core'
 import { isInputElement, Logger, LoggerService } from '@shiftcode/ngx-core'
 
 @Directive({ selector: '[scAutoFocus]' })
-export class AutoFocusDirective implements OnInit {
+export class AutoFocusDirective implements AfterViewInit {
   readonly element: HTMLElement
   private readonly logger: Logger
 
@@ -16,8 +16,9 @@ export class AutoFocusDirective implements OnInit {
     this.element = elRef.nativeElement
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.focus()
+    this.logger.debug('activeElement', this.document.activeElement)
   }
 
   focus(): boolean {
