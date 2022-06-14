@@ -3619,10 +3619,10 @@
     conventional-changelog-angular "^5.0.13"
     yargs "^17.3.1"
 
-"@shiftcode/utilities@^1.2.0-pr11":
-  version "1.2.0-pr11.0"
-  resolved "https://npm.pkg.github.com/download/@shiftcode/utilities/1.2.0-pr11.0/2950709fba7f32c6245d4e79ccc043a0ec6762c635e942e21927457e6913b913#752b2923f732a6631bcfbb2fda0b14c03729c698"
-  integrity sha512-GllDGrGGqOG/MRJZ6UBfIwMZm5bZNohOTgkOkLiJBL4xEv/yeQWn+hcHpslmo7d77oyksX7zZvhgmAzk3lJmyg==
+"@shiftcode/utilities@^1.2.0":
+  version "1.2.0"
+  resolved "https://npm.pkg.github.com/download/@shiftcode/utilities/1.2.0/a015bde1daf39d7918ba624be99262ef78f6afdea0f12a881a720bc5a0c5e7d5#3fe1588d736bad3d7a43af554c9a69b8e0ae992e"
+  integrity sha512-b79hqfmJBwNq/96elDWEQLj30xyHTjfSJylignK6N5CcppUkJ6twhX+q3/VDrWqLOcrqcco/t1+fb+5B2qz1fA==
 
 "@sinclair/typebox@^0.23.3":
   version "0.23.5"
