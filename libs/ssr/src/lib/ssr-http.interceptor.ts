@@ -16,8 +16,8 @@ export class SsrHttpInterceptor implements HttpInterceptor {
   private readonly logger: Logger = inject(LoggerService).getInstance('SsrHttpInterceptor')
   private readonly origin: string
 
-  constructor(@Inject(ORIGIN) origin: string, @Inject(PLATFORM_ID) private platformId: any) {
-    if (!isPlatformServer(this.platformId)) {
+  constructor(@Inject(ORIGIN) origin: string) {
+    if (!isPlatformServer(inject(PLATFORM_ID))) {
       throw new Error('make sure SsrHttpInterceptor is only applied on SSR')
     }
     this.origin = origin.replace(/\/$/, '')

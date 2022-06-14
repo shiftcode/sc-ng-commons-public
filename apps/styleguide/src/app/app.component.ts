@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
 import { ClientIdService, Logger, LoggerService } from '@shiftcode/ngx-core'
 
 @Component({
@@ -14,15 +14,12 @@ export class AppComponent {
     'tooltip',
     'textarea',
     'autofocus',
-    'svg'
+    'svg',
   ]
 
-  private readonly logger: Logger
+  private readonly logger: Logger = inject(LoggerService).getInstance('AppComponent')
 
-  constructor(loggerService: LoggerService,
-              clientIdService: ClientIdService) {
-
-    this.logger = loggerService.getInstance('AppComponent')
+  constructor(clientIdService: ClientIdService) {
     this.logger.debug('constructor()')
     this.logger.debug('clientId', clientIdService.clientId)
   }
