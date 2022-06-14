@@ -1,33 +1,43 @@
 import { DOCUMENT } from '@angular/common'
-import { Directive, ElementRef, Inject, OnInit } from '@angular/core'
-import { Logger, LoggerService } from '@shiftcode/ngx-core'
+import { Directive, ElementRef, inject, OnInit } from '@angular/core'
+import { isInputElement, Logger, LoggerService } from '@shiftcode/ngx-core'
 
 @Directive({ selector: '[scAutoFocus]' })
 export class AutoFocusDirective implements OnInit {
-  private readonly logger: Logger
-  private document: Document
+  readonly element: HTMLElement
+  private readonly logger: Logger = inject(LoggerService).getInstance('AutoFocusDirective')
+  private readonly document: Document = inject(DOCUMENT)
 
-  constructor(loggerService: LoggerService, private elRef: ElementRef, @Inject(DOCUMENT) doc: any) {
-    this.logger = loggerService.getInstance('AutoFocusDirective')
-    this.document = doc
-  }
-
-  get nativeElement() {
-    return this.elRef.nativeElement
+  constructor(elRef: ElementRef<HTMLElement>) {
+    this.element = elRef.nativeElement
   }
 
   ngOnInit(): void {
-    const currentTabindex = this.nativeElement.getAttribute('tabindex')
-    // tslint:disable-next-line:triple-equals
-    if (!currentTabindex || parseInt(currentTabindex, 10) != currentTabindex) {
-      this.nativeElement.setAttribute('tabindex', '-1')
-    }
     this.focus()
   }
 
-  focus() {
-    this.logger.debug('try get focus on', this.nativeElement)
-    this.nativeElement.focus()
-    this.logger.debug('active element:', this.document.activeElement)
+  focus(): boolean {
+    if (this.isDisabled() || this.isHiddenInput()) {
+      this.logger.warn('cannot focus disabled element or hidden input')
+      return false
+    }
+
+    this.logger.debug('try set focus to', this.element)
+
+    this.element.focus()
+    if (this.document.activeElement !== this.element) {
+      this.element.setAttribute('tabindex', '-1')
+      this.element.focus()
+    }
+    return this.document.activeElement === this.element
+  }
+
+  private isDisabled() {
+    // using `matches` for the pseudo selector also correctly returns true when
+    // e.g. the directive is used in an input field inside a disabled fieldset
+    return this.element.hasAttribute('disabled') || this.element.matches(':disabled')
+  }
+  private isHiddenInput() {
+    return isInputElement(this.element) && this.element.type === 'hidden'
   }
 }
