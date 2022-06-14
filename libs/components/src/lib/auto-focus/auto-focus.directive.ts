@@ -10,21 +10,25 @@ export class AutoFocusDirective implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.focus()
-    this.logger.debug('activeElement', this.document.activeElement)
   }
 
   focus(): boolean {
-    if (this.isDisabled() || this.isHiddenInput()) {
-      this.logger.warn('cannot focus disabled element or hidden input')
-      return false
-    }
+    if (ngDevMode) {
+      this.logger.debug('try set focus to', this.element)
 
-    this.logger.debug('try set focus to', this.element)
+      if (this.isDisabled() || this.isHiddenInput()) {
+        this.logger.warn('you are trying to focus a disabled element or hidden input')
+      }
+    }
 
     this.element.focus()
     if (this.document.activeElement !== this.element) {
       this.element.setAttribute('tabindex', '-1')
       this.element.focus()
+    }
+
+    if (ngDevMode) {
+      this.logger.debug('activeElement', this.document.activeElement)
     }
     return this.document.activeElement === this.element
   }
