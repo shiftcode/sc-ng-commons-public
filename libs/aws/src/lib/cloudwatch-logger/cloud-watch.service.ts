@@ -85,17 +85,16 @@ export class CloudWatchService {
       }
 
       // configure cloudwatch client once credentials are ready
-      this.client$ = this.config.awsCredentials$.pipe(
-        map((credentials) => new CloudWatchLogsClient({ credentials, region: this.config.awsRegion })),
+      this.client$ = this.config.clientConfig$.pipe(
+        map((clientConfig) => new CloudWatchLogsClient(clientConfig)),
         // try to create the log stream
         mergeMap(this.tryCreateLogStream),
         // should only happen once AND should return value immediately
         shareReplay(1),
       )
-      this.client$.subscribe(
-        () => {},
-        (err) => console.error('could not create CloudWatchLogsClient', err),
-      )
+      this.client$.subscribe({
+        error: (err) => console.error('could not create CloudWatchLogsClient', err),
+      })
       this.getPublishNextSequenceToken$.subscribe()
       this.setup()
     }
