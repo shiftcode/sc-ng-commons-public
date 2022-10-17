@@ -20,7 +20,7 @@ export class ClickOutsideDirective implements OnDestroy, OnChanges {
 
   /* tslint:disable-next-line:no-output-rename */
   @Output('scClickOutside')
-  notify = new EventEmitter<void>()
+  readonly notify = new EventEmitter<void>()
 
   private stopEventListener = new Subject<void>()
 

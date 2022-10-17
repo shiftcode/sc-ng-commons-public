@@ -2,18 +2,15 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "outDir": "./out-tsc",
+    "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": false,
     "strictPropertyInitialization": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
-    "inlineSources": true,
-    "downlevelIteration": true,
-    "noImplicitOverride": true,
     "paths": {
       "@shiftcode/ngx-core": [
         "libs/core/dist",
@@ -32,21 +29,22 @@
         "libs/ssr/src/public-api.ts"
       ]
     },
-    "allowSyntheticDefaultImports": true,
+    "declaration": false,
+    "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2017",
+    "target": "es2020",
     "module": "es2020",
     "lib": [
-      "es2017",
+      "es2020",
       "dom"
     ],
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
-    "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true

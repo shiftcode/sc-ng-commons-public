@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common'
-import { Inject, Injectable } from '@angular/core'
+import { inject, Injectable } from '@angular/core'
 import { Logger } from '../logger/logger.model'
 import { LoggerService } from '../logger/logger.service'
 import { WindowRef } from '../window/window-ref.service'
@@ -9,17 +9,9 @@ const DURATION_MAX = 0.8
 
 @Injectable({ providedIn: 'root' })
 export class ScrollToService {
-  private readonly logger: Logger
-  private readonly window: Window | null
-
-  constructor(
-    loggerService: LoggerService,
-    windowRef: WindowRef,
-    @Inject(DOCUMENT) private readonly document: Document,
-  ) {
-    this.logger = loggerService.getInstance('ScrollToService')
-    this.window = windowRef.nativeWindow
-  }
+  private readonly logger: Logger = inject(LoggerService).getInstance('ScrollToService')
+  private readonly window: Window | null = inject(WindowRef).nativeWindow
+  private readonly document: Document = inject<Document>(DOCUMENT)
 
   scrollTo(scrollTargetY: number = 0, speed: number = 2000): void {
     const scrollY = this.window?.scrollY ?? this.window?.pageYOffset ?? 0

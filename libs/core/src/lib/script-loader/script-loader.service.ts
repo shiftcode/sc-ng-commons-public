@@ -1,29 +1,21 @@
 import { DOCUMENT, isPlatformServer } from '@angular/common'
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core'
+import { inject, Injectable, PLATFORM_ID } from '@angular/core'
 import { Logger } from '../logger/logger.model'
 import { LoggerService } from '../logger/logger.service'
 import { ScriptLoaderError } from './script-loader-error.model'
 
-/** @dynamic */
 @Injectable({ providedIn: 'root' })
 export class ScriptLoaderService {
   private static ELEMENT = 'script'
 
   private loadedScripts: Map<string, Promise<void>> = new Map()
-  private logger: Logger
-  private document: Document
+  private readonly logger: Logger = inject(LoggerService).getInstance('ScriptLoaderService')
+  private document: Document = inject<Document>(DOCUMENT)
 
-  constructor(
-    loggerService: LoggerService,
-    @Inject(DOCUMENT) document: Document,
-    @Inject(PLATFORM_ID) platformId: any,
-  ) {
-    this.logger = loggerService.getInstance('ScriptLoaderService')
-
-    if (isPlatformServer(platformId)) {
+  constructor() {
+    if (isPlatformServer(inject(PLATFORM_ID))) {
       this.logger.warn('This service can only be used on client side')
     }
-    this.document = document
   }
 
   addScriptToHead(url: string, async?: boolean): Promise<void> {

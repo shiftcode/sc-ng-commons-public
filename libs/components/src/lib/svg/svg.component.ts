@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  inject,
   Input,
   OnChanges,
   Renderer2,
@@ -32,16 +33,13 @@ export class SvgComponent implements OnChanges {
 
   @Input() attrs?: Record<string, string>
 
-  private logger: Logger
+  private readonly logger: Logger = inject(LoggerService).getInstance('SvgComponent')
 
   constructor(
-    private elRef: ElementRef,
-    private renderer: Renderer2,
-    private svgRegistry: SvgRegistry,
-    loggerService: LoggerService,
-  ) {
-    this.logger = loggerService.getInstance('SvgComponent')
-  }
+    protected readonly elRef: ElementRef<HTMLElement>,
+    protected readonly renderer: Renderer2,
+    protected readonly svgRegistry: SvgRegistry,
+  ) {}
 
   ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
     // Only update the inline SVG icon if the inputs changed, to avoid unnecessary DOM operations.

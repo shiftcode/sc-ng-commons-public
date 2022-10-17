@@ -46,25 +46,27 @@ describe('ScriptLoaderService', () => {
     })
 
     test('resolves when script onLoad was called', async () => {
-      const scriptSrc = '/assets/script.js'
+      const scriptSrc = '/assets/script-1.js'
       let req1Resolved = false
       service.addScriptToHead(scriptSrc).then(() => {req1Resolved = true})
       expect(req1Resolved).toBe(false)
 
       const scriptTags = doc.getElementsByTagName('script')
       expect(scriptTags.length).toBe(2)
-      expect(scriptTags[0].src?.replace(/^(https?:\/\/)([^\.\/]+\.)+([^\/\.]+)/, '')).toBe(scriptSrc)
+
+      expect(scriptTags[0].src?.replace(/^(https?:\/\/)([^\.\/]+)/, '')).toBe(scriptSrc)
 
       const scriptEl:HTMLScriptElement = <any>scriptTags[0]
       expect(scriptEl).toBeDefined()
       scriptEl.onload?.(new Event('loaded'))
+
       await new Promise((res) => setTimeout(res, 0))
       expect(req1Resolved).toBe(true)
     })
 
     test('request the same script only once', () => {
-      const req1 = service.addScriptToHead('/assets/script.js')
-      const req2 = service.addScriptToHead('/assets/script.js')
+      const req1 = service.addScriptToHead('/assets/script-2.js')
+      const req2 = service.addScriptToHead('/assets/script-2.js')
       expect(req1 === req2).toBe(true)
     })
   })
