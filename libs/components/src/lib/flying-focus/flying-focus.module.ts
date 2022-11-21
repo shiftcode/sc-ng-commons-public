@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core'
-import { CommonModule } from '@angular/common'
 import { FlyingFocusComponent } from './flying-focus.component'
 
+/**
+ * @deprecated directly import the standalone {@link FlyingFocusComponent}
+ */
 @NgModule({
-  declarations: [FlyingFocusComponent],
-  imports: [CommonModule],
+  imports: [FlyingFocusComponent],
   exports: [FlyingFocusComponent],
 })
 export class FlyingFocusModule {}
