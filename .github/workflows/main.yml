@@ -42,7 +42,7 @@ jobs:
     steps:
       # checkout branch
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           # 0 indicates all history, because publish requires tag information
           fetch-depth: 0
@@ -50,7 +50,7 @@ jobs:
           token: ${{ secrets.GH_TOKEN_PUBLIC_REPO }}
       # setup node and yarn cache
       - name: Setup Node and Yarn Cache
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: 'yarn'
