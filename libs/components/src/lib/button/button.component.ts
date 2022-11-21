@@ -19,19 +19,19 @@ import { Component, EventEmitter, HostListener, Output } from '@angular/core'
 })
 export class ButtonComponent {
   @Output()
-  readonly action = new EventEmitter<void>()
+  readonly action = new EventEmitter<MouseEvent | KeyboardEvent>()
 
   @HostListener('keypress', ['$event'])
   onKeypress(event: KeyboardEvent) {
     switch (event.code) {
       case 'Enter':
       case 'Space':
-        this.action.emit()
+        this.action.emit(event)
     }
   }
 
   @HostListener('click', ['$event'])
   onClick(event: MouseEvent) {
-    this.action.emit()
+    this.action.emit(event)
   }
 }
