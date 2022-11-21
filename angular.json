@@ -79,12 +79,6 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/styleguide/src/environments/environment.ts",
-                  "with": "apps/styleguide/src/environments/environment.prod.ts"
-                }
-              ],
               "outputHashing": "all"
             },
             "development": {

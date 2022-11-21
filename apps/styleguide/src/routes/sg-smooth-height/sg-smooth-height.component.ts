@@ -1,7 +1,11 @@
+import { CommonModule } from '@angular/common'
 import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { SmoothHeightComponent } from '@shiftcode/ngx-components'
 
 @Component({
   selector: 'sg-smooth-height',
+  standalone: true,
+  imports: [CommonModule, SmoothHeightComponent],
   templateUrl: './sg-smooth-height.component.html',
   styleUrls: ['./sg-smooth-height.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

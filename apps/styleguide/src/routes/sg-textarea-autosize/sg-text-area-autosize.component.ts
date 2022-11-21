@@ -1,10 +1,14 @@
+import { CommonModule } from '@angular/common'
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core'
-import { FormControl } from '@angular/forms'
+import { FormControl, ReactiveFormsModule } from '@angular/forms'
+import { TextareaAutosizeDirective } from '@shiftcode/ngx-components'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 
 @Component({
   selector: 'sg-text-area-autosize',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, TextareaAutosizeDirective],
   templateUrl: './sg-text-area-autosize.component.html',
   styleUrls: ['./sg-text-area-autosize.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

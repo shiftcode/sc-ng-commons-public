@@ -1,14 +1,18 @@
-import { enableProdMode } from '@angular/core'
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
+import { provideHttpClient } from '@angular/common/http'
+import { bootstrapApplication } from '@angular/platform-browser'
+import { provideAnimations } from '@angular/platform-browser/animations'
+import { provideRouter } from '@angular/router'
+import { AppComponent } from './app/app.component'
+import { provideSgConfig } from './provide-sg-config'
+import { ROUTES } from './routes/routes.const'
 
-import { AppModule } from './app/app.module'
-import { environment } from './environments/environment'
-
-if (environment.production) {
-  enableProdMode()
-}
-
-platformBrowserDynamic()
-  .bootstrapModule(AppModule)
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideSgConfig(),
+    provideHttpClient(),
+    provideAnimations(),
+    provideRouter(ROUTES),
+  ],
+})
   // tslint:disable-next-line:no-console
   .catch((err) => console.error(err))

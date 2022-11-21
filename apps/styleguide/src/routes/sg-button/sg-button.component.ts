@@ -1,8 +1,11 @@
-import { DOCUMENT } from '@angular/common'
+import { CommonModule, DOCUMENT } from '@angular/common'
 import { ChangeDetectionStrategy, Component, Inject, OnDestroy, Optional } from '@angular/core'
+import { ButtonComponent, SvgComponent, TooltipModule } from '@shiftcode/ngx-components'
 
 @Component({
   selector: 'sg-button',
+  standalone: true,
+  imports: [CommonModule, ButtonComponent, SvgComponent, TooltipModule],
   templateUrl: './sg-button.component.html',
   styleUrls: ['./sg-button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
