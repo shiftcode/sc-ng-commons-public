@@ -12,14 +12,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
+            "tsConfig": "libs/core/tsconfig.lib.json",
             "project": "libs/core/ng-package.json"
           },
           "configurations": {
             "production": {
               "tsConfig": "libs/core/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "libs/core/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -38,14 +36,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "libs/components/ng-package.json"
+            "project": "libs/components/ng-package.json",
+            "tsConfig": "libs/components/tsconfig.lib.json"
           },
           "configurations": {
             "production": {
               "tsConfig": "libs/components/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "libs/components/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -67,9 +63,11 @@
             "outputPath": "apps/styleguide/dist",
             "index": "apps/styleguide/src/index.html",
             "main": "apps/styleguide/src/main.ts",
-            "polyfills": "apps/styleguide/src/polyfills.ts",
             "tsConfig": "apps/styleguide/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "polyfills": [
+              "zone.js"
+            ],
             "assets": [
               "apps/styleguide/src/favicon.ico",
               "apps/styleguide/src/assets"
@@ -132,14 +130,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "libs/aws/ng-package.json"
+            "project": "libs/aws/ng-package.json",
+            "tsConfig": "libs/aws/tsconfig.lib.json"
           },
           "configurations": {
             "production": {
               "tsConfig": "libs/aws/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "libs/aws/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -158,14 +154,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "libs/ssr/ng-package.json"
+            "project": "libs/ssr/ng-package.json",
+            "tsConfig": "libs/ssr/tsconfig.lib.json"
           },
           "configurations": {
             "production": {
               "tsConfig": "libs/ssr/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "libs/ssr/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
