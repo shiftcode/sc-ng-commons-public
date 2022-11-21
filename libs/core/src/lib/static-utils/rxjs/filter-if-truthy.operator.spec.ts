@@ -1,38 +1,38 @@
-import { of, Subject, tap } from 'rxjs'
+import { from, of, scan, tap } from 'rxjs'
 import { filterIfTruthy } from './filter-if-truthy.operator'
 
 
-describe('select operator', () => {
+describe('filterIfTruthy operator', () => {
   const obj = { a: 'ok' }
   const emptyArr: any[] = []
   const emptyObj: any = {}
 
-  test('maps the to the provided property value', () => {
-    const subject = new Subject<any>()
+  test('when truthy', (done) => {
+    const truthyValues = [true, 1, 'ok', obj, emptyArr, emptyObj]
 
-    const onNext = jest.fn()
-    subject.pipe(filterIfTruthy()).subscribe(onNext)
+    from(truthyValues)
+      .pipe(
+        filterIfTruthy(),
+        scan((u, i) => [...u, i], <any[]>[]),
+      )
+      .subscribe({
+        next: (values) => {expect(values).toEqual(truthyValues)},
+        complete: done,
+      })
 
-    subject.next(obj)
-    expect(onNext).toHaveBeenCalledWith(obj)
+  })
+  test('when false', (done) => {
+    const falsyValues = [null, undefined, false, 0, '', NaN]
 
-    subject.next(null)
-    subject.next(undefined)
-    subject.next(false)
-    subject.next(0)
-    subject.next(NaN)
-    expect(onNext).toHaveBeenCalledTimes(1)
+    const next = jest.fn()
+    const complete = () => {
+      expect(next).not.toHaveBeenCalled()
+      done()
+    }
 
-    subject.next(1)
-    expect(onNext).toHaveBeenCalledWith(1)
-
-    subject.next(emptyArr)
-    expect(onNext).toHaveBeenCalledWith(emptyArr)
-
-    subject.next(emptyObj)
-    expect(onNext).toHaveBeenCalledWith(emptyObj)
-
-    subject.complete()
+    from(falsyValues)
+      .pipe(filterIfTruthy())
+      .subscribe({ next, complete })
   })
 
   test('restricts types', () => {
