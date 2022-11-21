@@ -17,8 +17,8 @@
     "tslib": "^2.3.0"
   },
   "peerDependencies": {
-    "@angular/common": "^14.0.0",
-    "@angular/core": "^14.0.0",
+    "@angular/common": "^15.0.0",
+    "@angular/core": "^15.0.0",
     "@aws-sdk/client-cloudwatch-logs": "^3.27.0",
     "@aws-sdk/types": "^3.0.0",
     "@shiftcode/ngx-core": "^2.0.0",
