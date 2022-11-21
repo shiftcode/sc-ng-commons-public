@@ -12,9 +12,10 @@ import { Logger, LoggerService } from '@shiftcode/ngx-core'
 import { SvgRegistry } from './svg-registry.service'
 
 /**
- * Copied from material MdIcon Directive but got rid of unused functionality and refactored to Promises
- * Component to display an svg. It can be used in as follows:
- * - Specify the url input to load an SVG icon from a URL.
+ * Standalone SvgComponent to display svg inline.
+ * (Initially copied from material MdIcon Directive but got rid of unused functionality and refactored to Promises)
+ *
+ *  - Specify the url input to load an SVG icon from a URL.
  *   The SVG content is directly inlined as a child of the <sc-svg> component,
  *   so that CSS styles can easily be applied to it.
  *   The URL is loaded via an XMLHttpRequest, so it must be on the same domain as the page or its
@@ -25,6 +26,7 @@ import { SvgRegistry } from './svg-registry.service'
 @Component({
   selector: 'sc-svg',
   template: '<ng-content></ng-content>',
+  standalone: true,
   styleUrls: ['./svg.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
