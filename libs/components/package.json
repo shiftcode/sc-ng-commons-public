@@ -22,7 +22,7 @@
     "@angular/common": "^15.0.0",
     "@angular/core": "^15.0.0",
     "@angular/forms": "^15.0.0",
-    "@shiftcode/ngx-core": "^2.0.0",
+    "@shiftcode/ngx-core": "^3.0.0 || ^3.0.0-pr15",
     "rxjs": "^7.4.0"
   }
 }
