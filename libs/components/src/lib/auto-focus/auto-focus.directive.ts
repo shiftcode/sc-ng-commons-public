@@ -2,7 +2,16 @@ import { DOCUMENT } from '@angular/common'
 import { AfterViewInit, Directive, ElementRef, inject } from '@angular/core'
 import { isInputElement, Logger, LoggerService } from '@shiftcode/ngx-core'
 
-@Directive({ selector: '[scAutoFocus]' })
+/**
+ * Standalone Autofocus Directive
+ * tries to set focus on host element in ngAfterViewInit lifecycle
+ * if initially not focusable, the directive sets `tabindex` to -1 and retries.
+ * -- will not remove the potentially set tabindex
+ */
+@Directive({
+  selector: '[scAutoFocus]',
+  standalone: true,
+})
 export class AutoFocusDirective implements AfterViewInit {
   readonly element: HTMLElement = inject(ElementRef).nativeElement
   private readonly document: Document = inject(DOCUMENT)
@@ -28,7 +37,9 @@ export class AutoFocusDirective implements AfterViewInit {
     }
 
     if (ngDevMode) {
-      this.logger.debug('activeElement', this.document.activeElement)
+      if (this.document.activeElement !== this.element) {
+        this.logger.error('not able to focus the element', this.element)
+      }
     }
     return this.document.activeElement === this.element
   }
