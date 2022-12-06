@@ -10,14 +10,14 @@
     "@jridgewell/gen-mapping" "^0.1.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@angular-builders/jest@^14.1.0":
-  version "14.1.0"
-  resolved "https://registry.yarnpkg.com/@angular-builders/jest/-/jest-14.1.0.tgz#04c19959021f8462d0027ec895059c7a720e8016"
-  integrity sha512-uGXyJ40F7HXfoWwW1EK5U75sUUQ4zVireLYPUYWT1/t1vqizss0mIPR026bMWwScWJhetdopxlWcql4wfNuXyQ==
+"@angular-builders/jest@^15.0.0-beta.1":
+  version "15.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/@angular-builders/jest/-/jest-15.0.0-beta.1.tgz#96324dab26a885437e525e55c33bc43063e6f384"
+  integrity sha512-hkwbQl7BQZHFhaencBA2rvKeJsJQCRhDjOfN7Np6cL3D0D2vCFteKn8QITev8Zyz66zzWZZCwQV14xQJkl3tUQ==
   dependencies:
-    "@angular-devkit/architect" ">=0.1400.0 < 0.1500.0"
-    "@angular-devkit/core" "^14.0.0"
-    jest-preset-angular "12.2.2"
+    "@angular-devkit/architect" ">=0.1500.0 < 0.1600.0"
+    "@angular-devkit/core" "^15.0.0"
+    jest-preset-angular "12.2.3"
     lodash "^4.17.15"
 
 "@angular-devkit/architect@0.1500.0":
@@ -28,12 +28,12 @@
     "@angular-devkit/core" "15.0.0"
     rxjs "6.6.7"
 
-"@angular-devkit/architect@>=0.1400.0 < 0.1500.0":
-  version "0.1400.1"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.1400.1.tgz#f0929a2f534e66345fc6b004738f8f5ffc9b4e4b"
-  integrity sha512-GJ4hWLIJmhCq4nKNN9c4xocKtCt28muJxN88Wna292SOIaNQuNY5MP9860/4IWRGCJTeJH7LyCc4j/3V0zWrSQ==
+"@angular-devkit/architect@>=0.1500.0 < 0.1600.0":
+  version "0.1500.2"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.1500.2.tgz#a71ee275bda196a8a50c1029d551c718a4fb6438"
+  integrity sha512-gprTEy6vD57yJCd6JqRaFZ/pfmXuEDHlH7mOVBcBdTGuuE1VJkiNJ69E9gw552L7wwVEsF0D6lVYTFHVDkMDmA==
   dependencies:
-    "@angular-devkit/core" "14.0.1"
+    "@angular-devkit/core" "15.0.2"
     rxjs "6.6.7"
 
 "@angular-devkit/build-angular@^15.0.0":
@@ -112,21 +112,21 @@
     "@angular-devkit/architect" "0.1500.0"
     rxjs "6.6.7"
 
-"@angular-devkit/core@14.0.1", "@angular-devkit/core@^14.0.0":
-  version "14.0.1"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-14.0.1.tgz#085108714a7b65246cefe3e065d5bd848ed982b3"
-  integrity sha512-yiduPSPRp4s4yYKc3BOvbL5gOzaOPvRCMcJ3jeQbitLIXD/xwSHO8OmmsLsN/PnM1RzA8vVHsK7lN4v1JvhqPA==
-  dependencies:
-    ajv "8.11.0"
-    ajv-formats "2.1.1"
-    jsonc-parser "3.0.0"
-    rxjs "6.6.7"
-    source-map "0.7.3"
-
 "@angular-devkit/core@15.0.0":
   version "15.0.0"
   resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-15.0.0.tgz#6b6db4ca7998167f1fb58086e9b4349c7774ddc9"
   integrity sha512-2Mg1+eyodO7od2Ax0EaArmm3rDzI2O00pBNU2Upz5hTfHcsqXlPzX5aYjWBiL1lBM0xYLY99dZqSdcQBMZy/Qg==
+  dependencies:
+    ajv "8.11.0"
+    ajv-formats "2.1.1"
+    jsonc-parser "3.2.0"
+    rxjs "6.6.7"
+    source-map "0.7.4"
+
+"@angular-devkit/core@15.0.2", "@angular-devkit/core@^15.0.0":
+  version "15.0.2"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-15.0.2.tgz#47a822ab2cde0afc7fdd4ca101f3fe5353f05358"
+  integrity sha512-XkdNKyeYvnCq0zWuEda163muUV38ifNyK6EjrbhI5pQWNg7myxtDmLenjtpXLGLZwjxqsart2l/uoYsk1xQCmQ==
   dependencies:
     ajv "8.11.0"
     ajv-formats "2.1.1"
@@ -8234,20 +8234,7 @@ jest-pnp-resolver@^1.2.2:
   resolved "https://registry.yarnpkg.com/jest-pnp-resolver/-/jest-pnp-resolver-1.2.2.tgz#b704ac0ae028a89108a4d040b3f919dfddc8e33c"
   integrity sha512-olV41bKSMm8BdnuMsewT4jqlZ8+3TCARAXjZGT9jcoSnrfUnRCqnMoF9XEeoWjbzObpqF9dRhHQj0Xb9QdF6/w==
 
-jest-preset-angular@12.2.2:
-  version "12.2.2"
-  resolved "https://registry.yarnpkg.com/jest-preset-angular/-/jest-preset-angular-12.2.2.tgz#f7414e15e165e34efdc4fd8404a19e8e4856441e"
-  integrity sha512-aj5ZwVW6cGGzZKUn6e/jDwFgQh6FHy1zCCXWOeqFCuM3WODrbdUJ93zKrex18e9K1+PvOcP0e20yKbj3gwhfFg==
-  dependencies:
-    bs-logger "^0.2.6"
-    esbuild-wasm ">=0.13.8"
-    jest-environment-jsdom "^28.0.0"
-    pretty-format "^28.0.0"
-    ts-jest "^28.0.0"
-  optionalDependencies:
-    esbuild ">=0.13.8"
-
-jest-preset-angular@^12.2.3:
+jest-preset-angular@12.2.3, jest-preset-angular@^12.2.3:
   version "12.2.3"
   resolved "https://registry.yarnpkg.com/jest-preset-angular/-/jest-preset-angular-12.2.3.tgz#2a0db250f6e1c83b451a21f5ca4136925f17d5b1"
   integrity sha512-9vgawXuki/lg4IRPtl5k83krWLKADTal7BBm06xNAWOK09AbHK1foXqZdVOMObsWbaMDeQ1cjba60vS/aEVY4Q==
@@ -8576,11 +8563,6 @@ json5@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.1.tgz#655d50ed1e6f95ad1a3caababd2b0efda10b395c"
   integrity sha512-1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA==
-
-jsonc-parser@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/jsonc-parser/-/jsonc-parser-3.0.0.tgz#abdd785701c7e7eaca8a9ec8cf070ca51a745a22"
-  integrity sha512-fQzRfAbIBnR0IQvftw9FJveWiHp72Fg20giDrHz6TdfB12UH/uue0D3hm57UB5KgAVuniLMCaS8P1IMj9NR7cA==
 
 jsonc-parser@3.2.0, jsonc-parser@^3.2.0:
   version "3.2.0"
@@ -11508,11 +11490,6 @@ source-map@0.6.1, source-map@^0.6.0, source-map@^0.6.1, source-map@~0.6.0, sourc
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
   integrity sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
 
-source-map@0.7.3, source-map@~0.7.2:
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.7.3.tgz#5302f8169031735226544092e64981f751750383"
-  integrity sha512-CkCj6giN3S+n9qrYiBTX5gystlENnRW5jZeNLHpe6aue+SrHcG5VYwujhW9s4dY31mEGsxBDrHR6oI69fTXsaQ==
-
 source-map@0.7.4:
   version "0.7.4"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.7.4.tgz#a9bbe705c9d8846f4e08ff6765acf0f1b0898656"
@@ -11522,6 +11499,11 @@ source-map@^0.5.0, source-map@^0.5.7:
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
   integrity sha1-igOdLRAh0i0eoUyA2OpGi6LvP8w=
+
+source-map@~0.7.2:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.7.3.tgz#5302f8169031735226544092e64981f751750383"
+  integrity sha512-CkCj6giN3S+n9qrYiBTX5gystlENnRW5jZeNLHpe6aue+SrHcG5VYwujhW9s4dY31mEGsxBDrHR6oI69fTXsaQ==
 
 sourcemap-codec@^1.4.8:
   version "1.4.8"
