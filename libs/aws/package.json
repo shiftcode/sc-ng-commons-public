@@ -22,7 +22,7 @@
     "@aws-sdk/client-cloudwatch-logs": "^3.27.0",
     "@aws-sdk/types": "^3.0.0",
     "@shiftcode/ngx-core": "^3.0.0 || ^3.0.0-pr15",
-    "@shiftcode/utilities": "^1.0.0",
+    "@shiftcode/utilities": "2.0.0-pr14.5",
     "rxjs": "^7.4.0"
   }
 }
