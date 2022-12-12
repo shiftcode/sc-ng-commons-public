@@ -10,15 +10,16 @@
     "@jridgewell/gen-mapping" "^0.1.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@angular-builders/jest@^15.0.0-beta.1":
-  version "15.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/@angular-builders/jest/-/jest-15.0.0-beta.1.tgz#96324dab26a885437e525e55c33bc43063e6f384"
-  integrity sha512-hkwbQl7BQZHFhaencBA2rvKeJsJQCRhDjOfN7Np6cL3D0D2vCFteKn8QITev8Zyz66zzWZZCwQV14xQJkl3tUQ==
+"@angular-builders/jest@^15.0.0-beta.2":
+  version "15.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/@angular-builders/jest/-/jest-15.0.0-beta.2.tgz#3c395283cc8ef6dd0d3703fbead9ad84f418991a"
+  integrity sha512-5EQXgh1M2VM4pmnqMLXCmKazIcvXf9hrGVC3elE+6sJZhH38C4FD+EE9E/WlfuqaNOw0gCHDX0zoc99Fj7Wx4Q==
   dependencies:
     "@angular-devkit/architect" ">=0.1500.0 < 0.1600.0"
     "@angular-devkit/core" "^15.0.0"
     jest-preset-angular "12.2.3"
     lodash "^4.17.15"
+    tsconfig-paths "^4.1.0"
 
 "@angular-devkit/architect@0.1500.0":
   version "0.1500.0"
@@ -11783,6 +11784,15 @@ tsconfig-paths@^3.9.0:
   dependencies:
     "@types/json5" "^0.0.29"
     json5 "^1.0.1"
+    minimist "^1.2.6"
+    strip-bom "^3.0.0"
+
+tsconfig-paths@^4.1.0:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/tsconfig-paths/-/tsconfig-paths-4.1.1.tgz#7f23094ce897fcf4a93f67c4776e813003e48b75"
+  integrity sha512-VgPrtLKpRgEAJsMj5Q/I/mXouC6A/7eJ/X4Nuk6o0cRPwBtznYxTCU4FodbexbzH9somBPEXYi0ZkUViUpJ21Q==
+  dependencies:
+    json5 "^2.2.1"
     minimist "^1.2.6"
     strip-bom "^3.0.0"
 
