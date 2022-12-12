@@ -3740,23 +3740,23 @@
     "@angular-devkit/schematics" "15.0.0"
     jsonc-parser "3.2.0"
 
-"@shiftcode/branch-utilities@^2.0.0-pr14.5":
-  version "2.0.0-pr14.5"
-  resolved "https://npm.pkg.github.com/download/@shiftcode/branch-utilities/2.0.0-pr14.5/d315926663b29498144f3d1194f43f212189dd6b#d315926663b29498144f3d1194f43f212189dd6b"
-  integrity sha512-CVQpaxnzw0cgpmJQcPgjnWmNsii3RY+tbmj3ZSmc+8KHcLbfn7yCpEynTJgVz+0adbdhH+yvJ95AfIGGaYb5SQ==
+"@shiftcode/branch-utilities@^2.0.1":
+  version "2.0.1"
+  resolved "https://npm.pkg.github.com/download/@shiftcode/branch-utilities/2.0.1/a82e1a3a4f6c4c422998adbf43bd71f53ae845db#a82e1a3a4f6c4c422998adbf43bd71f53ae845db"
+  integrity sha512-gr/JYcpXxdDGR8m8RykReNZ+U7s57THgiSdR9wQY7hsDYkYteKwoIDn8noOfKfrHU1spgFo9mPB9Uz0362aLxA==
 
-"@shiftcode/publish-helper@^2.0.0-pr14.5":
-  version "2.0.0-pr14.5"
-  resolved "https://npm.pkg.github.com/download/@shiftcode/publish-helper/2.0.0-pr14.5/396395c34dc964d8c63ec297b3089e26c28a553e#396395c34dc964d8c63ec297b3089e26c28a553e"
-  integrity sha512-g2bq9Spy4wyfGq3XvKyVzMZ2OmzHlHwQe+pUDykqaQifPAcwm8/7ktUCfm4W8piSIPRxoHqfWUKGFtyWIqEBpQ==
+"@shiftcode/publish-helper@^2.0.1":
+  version "2.0.1"
+  resolved "https://npm.pkg.github.com/download/@shiftcode/publish-helper/2.0.1/a84ffdb4e5fc376308c3dc745f57a024714a813d#a84ffdb4e5fc376308c3dc745f57a024714a813d"
+  integrity sha512-MnmYdXR23YeX6onyNagZ6uWN0FhYAwKLzfYEliTwTJUKjNzpSGXQZ09UABgcc184lFt7kjY3J8AshwMnvqoHcA==
   dependencies:
     conventional-changelog-angular "^5.0.13"
     yargs "^17.6.2"
 
-"@shiftcode/utilities@^2.0.0-pr14.5":
-  version "2.0.0-pr14.5"
-  resolved "https://npm.pkg.github.com/download/@shiftcode/utilities/2.0.0-pr14.5/7f52317b4bee1cab09a1aa610e57948aafa88597#7f52317b4bee1cab09a1aa610e57948aafa88597"
-  integrity sha512-mGEdVRwmYVo6T22yL2/mGe3YD4jU2r4usgKhYOvSX6spxu7RsTSwUdHjFUrG4rV03RSfTm++XZQd/k7kfB1FOA==
+"@shiftcode/utilities@^2.0.1":
+  version "2.0.1"
+  resolved "https://npm.pkg.github.com/download/@shiftcode/utilities/2.0.1/8d13c06b107bbeb4b00ab4439a1fcfe33e951712#8d13c06b107bbeb4b00ab4439a1fcfe33e951712"
+  integrity sha512-rtvrRGueBl1YMTDkHaEKuJSW00KbTj5N89SdsHLS9lsXZGJA/kSuWUfO1rLFrCPTT8s1uWKIjD3ib+nXv96F3A==
 
 "@sinclair/typebox@^0.23.3":
   version "0.23.5"
