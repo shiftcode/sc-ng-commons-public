@@ -10,10 +10,10 @@
     "@jridgewell/gen-mapping" "^0.1.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@angular-builders/jest@^15.0.0-beta.2":
-  version "15.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@angular-builders/jest/-/jest-15.0.0-beta.2.tgz#3c395283cc8ef6dd0d3703fbead9ad84f418991a"
-  integrity sha512-5EQXgh1M2VM4pmnqMLXCmKazIcvXf9hrGVC3elE+6sJZhH38C4FD+EE9E/WlfuqaNOw0gCHDX0zoc99Fj7Wx4Q==
+"@angular-builders/jest@^15.0.0":
+  version "15.0.0"
+  resolved "https://registry.yarnpkg.com/@angular-builders/jest/-/jest-15.0.0.tgz#c21edfa962f86c397d521ab81c7b985d4090b295"
+  integrity sha512-rJpO4QAsAXBXvkTI8E5kHxhLJEh6JR8iBYH3tHuXeTkABgifH+IRdDNWjogHTy32ratnhUPEaMOpPPDryIL+tw==
   dependencies:
     "@angular-devkit/architect" ">=0.1500.0 < 0.1600.0"
     "@angular-devkit/core" "^15.0.0"
