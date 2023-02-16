@@ -23,6 +23,17 @@ Can be customized with css custom properties:
 }
 ```
 
+## [insert-view-ref](./src/lib/insert-view-ref/insert-view-ref.directive.ts)
+Directive to insert a viewRef in a template without the need to get a ViewChild in your controller
+```typescript
+class ComponentX {
+  readonly componentRef: ComponentRef<any> = createComponent(MyDynamicComponent, { ... })
+}
+```
+```html
+  <ng-template [scInsertViewRef]="componentRef.hostView"></ng-template>
+```
+
 ## [smooth-height](./src/lib/smooth-height/smooth-height.component.ts)
 Animated change height of a container triggered by a custom value.
 

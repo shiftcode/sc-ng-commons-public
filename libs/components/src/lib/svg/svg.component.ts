@@ -20,7 +20,7 @@ import { SvgRegistry } from './svg-registry.service'
  *   so that CSS styles can easily be applied to it.
  *   The URL is loaded via an XMLHttpRequest, so it must be on the same domain as the page or its
  *   server must be configured to allow cross-domain requests.
- * @example:
+ * @example
  *   <sc-svg url="assets/arrow.svg"></sc-svg>
  */
 @Component({
