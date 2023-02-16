@@ -32,8 +32,8 @@ import {
 import { Subject } from 'rxjs'
 import { take, takeUntil } from 'rxjs/operators'
 import { FlexibleConnectedPositionStrategy2 } from './flexible-connected-position-strategy-2'
-import { defaultTooltipOptions, TooltipOptions } from './tooltip-options.model'
 import { TOOLTIP_DEFAULT_OPTIONS } from './tooltip-default-options.token'
+import { defaultTooltipOptions, TooltipOptions } from './tooltip-options.model'
 import { TooltipNotchPosition, TooltipPosition, TooltipPositionSimple } from './tooltip-position.type'
 import { TooltipComponent } from './tooltip.component'
 
@@ -44,6 +44,7 @@ import { TooltipComponent } from './tooltip.component'
 @Directive({
   selector: '[scTooltip]',
   exportAs: 'scTooltip',
+  standalone: true,
 })
 export class TooltipDirective implements OnDestroy, OnInit {
   /** Allows the user to define the position of the tooltip relative to the parent element */
@@ -309,10 +310,10 @@ export class TooltipDirective implements OnDestroy, OnInit {
         originPosition = { originX: notchPosition, originY: 'bottom' }
         break
       case 'before':
-        originPosition = { originX: 'start', originY: this.notchPositionToVertical(notchPosition) }
+        originPosition = { originX: 'start', originY: notchPositionToVertical(notchPosition) }
         break
       case 'after':
-        originPosition = { originX: 'end', originY: this.notchPositionToVertical(notchPosition) }
+        originPosition = { originX: 'end', originY: notchPositionToVertical(notchPosition) }
         break
       default:
         throw Error(`Tooltip position "${position}" is invalid.`)
@@ -345,10 +346,10 @@ export class TooltipDirective implements OnDestroy, OnInit {
         overlayPosition = { overlayX: notchPosition, overlayY: 'top' }
         break
       case 'before':
-        overlayPosition = { overlayX: 'end', overlayY: this.notchPositionToVertical(notchPosition) }
+        overlayPosition = { overlayX: 'end', overlayY: notchPositionToVertical(notchPosition) }
         break
       case 'after':
-        overlayPosition = { overlayX: 'start', overlayY: this.notchPositionToVertical(notchPosition) }
+        overlayPosition = { overlayX: 'start', overlayY: notchPositionToVertical(notchPosition) }
         break
       default:
         throw Error(`Tooltip position "${position}" is invalid.`)
@@ -359,17 +360,6 @@ export class TooltipDirective implements OnDestroy, OnInit {
     return {
       main: overlayPosition,
       fallback: { overlayX: x, overlayY: y },
-    }
-  }
-
-  private notchPositionToVertical(position: TooltipNotchPosition): VerticalConnectionPos {
-    switch (position) {
-      case 'start':
-        return 'top'
-      case 'center':
-        return 'center'
-      case 'end':
-        return 'bottom'
     }
   }
 
@@ -485,5 +475,16 @@ export class TooltipDirective implements OnDestroy, OnInit {
     }
 
     return { x, y }
+  }
+}
+
+function notchPositionToVertical(position: TooltipNotchPosition): VerticalConnectionPos {
+  switch (position) {
+    case 'start':
+      return 'top'
+    case 'center':
+      return 'center'
+    case 'end':
+      return 'bottom'
   }
 }
