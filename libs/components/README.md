@@ -1,7 +1,7 @@
 # @shiftcode/ngx-components
 Contains angular components and directives which are usable across different projects.
 
-Important: all components have to use `changeDetection: ChangeDetectionStrategy.OnPush`
+All components use `changeDetection: ChangeDetectionStrategy.OnPush`
 
 ## [auto-focus](./src/lib/auto-focus/auto-focus.directive.ts)
 Autofocus an element when building the view.
@@ -10,11 +10,18 @@ Autofocus an element when building the view.
 Custom button component to fix a bug in Safari/Firefox
 
 ## [click-outside](./src/lib/click-outside/click-outside.directive.ts)
-Event emitter for clicks outside of an element.
+Event emitter for clicks outside an element.
 
 ## [flying-focus](./src/lib/flying-focus/flying-focus.component.ts)
 Visualize focused element when using tab to navigate.
-Can be customized with css custom properties.
+Can be customized with css custom properties:
+```css
+:root {
+    --sc-flying-focus-gap: -4px;
+    --sc-flying-focus-box-shadow: 0 0 0 2px black;
+    --sc-flying-focus-border-radius: 0;
+}
+```
 
 ## [smooth-height](./src/lib/smooth-height/smooth-height.component.ts)
 Animated change height of a container triggered by a custom value.
@@ -27,4 +34,14 @@ Autosize the textarea while typing and/or programmatic value changes.
 
 ## [tooltip](./src/lib/tooltip/tooltip.directive.ts)
 Simple Text Tooltip.
-Can be customized with css custom properties.
+Can be customized with css custom properties:
+```css
+:root {
+  --sc-tooltip-background: #888;
+  --sc-tooltip-color: #eee;
+  --sc-tooltip-border-radius: 4px;
+  --sc-tooltip-font-size: 12px;
+  --sc-tooltip-line-height: 16px;
+  --sc-tooltip-padding: 4px 8px;
+}
+```

@@ -6,8 +6,6 @@ import { firstValueFrom } from 'rxjs'
 /**
  * Service to load, cache and create svg elements
  */
-
-/** @dynamic */
 @Injectable({ providedIn: 'root' })
 export class SvgRegistry {
   private readonly cache = new Map<string, Promise<SVGElement>>()
