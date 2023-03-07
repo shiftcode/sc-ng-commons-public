@@ -9,6 +9,7 @@ import { LOG_TRANSPORTS } from './log-transports.token'
 import { Logger } from './logger.model'
 import { LoggerService } from './logger.service'
 import { NoopLogTransport } from './noop/noop-log-transport.service'
+import { provideNodeConsoleLogTransport } from './console/provide-node-console-log-transport.function'
 
 // tslint:disable:no-console
 // tslint:disable:max-classes-per-file
@@ -34,6 +35,7 @@ describe('Logger', () => {
       })
       expect(() => TestBed.inject(LoggerService)).toThrow(Error)
     })
+
   })
 
   describe('LoggerService can handle Multiple providers', () => {
@@ -79,9 +81,7 @@ describe('Logger', () => {
       TestBed.configureTestingModule({
         providers: [
           { provide: PLATFORM_ID, useValue: 'server' },
-          { provide: CONSOLE_LOG_TRANSPORT_CONFIG, useValue: warnLoggerConfig },
-          { provide: LOG_TRANSPORTS, useClass: NodeConsoleLogTransport, multi: true },
-          LoggerService,
+          provideNodeConsoleLogTransport(warnLoggerConfig),
         ],
       })
       const transportImpl = TestBed.inject(LOG_TRANSPORTS)[0]

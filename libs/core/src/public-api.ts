@@ -26,6 +26,9 @@ export * from './lib/logger/console/console-log-transport-config.injection-token
 export * from './lib/logger/console/console-log-transport-config'
 export * from './lib/logger/console/node-console-log-transport.service'
 export * from './lib/logger/console/console-log-transport.service'
+export * from './lib/logger/console/provide-browser-console-log-transport.function'
+export * from './lib/logger/console/provide-node-console-log-transport.function'
+
 // remote logger
 export * from './lib/logger/remote/remote-log.service'
 export * from './lib/logger/remote/remote-log-config.injection-token'
@@ -33,6 +36,7 @@ export * from './lib/logger/remote/remote-log-config.model'
 export * from './lib/logger/remote/remote-log-data.model'
 export * from './lib/logger/remote/remote-log-error-handler.service'
 export * from './lib/logger/remote/remote-log-transport.service'
+export * from './lib/logger/remote/provide-remote-log-transport.function'
 
 // origin
 export * from './lib/origin/origin.token'
