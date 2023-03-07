@@ -1,18 +1,26 @@
 import { isPlatformServer } from '@angular/common'
 import { isAwsLambdaEnv } from './aws-helper.function'
-import { Request } from 'express'
+import { inject, PLATFORM_ID } from '@angular/core'
+import { REQUEST } from '@nguniversal/express-engine/tokens'
 
-export function determineOrigin(platformId: any, request?: Request): string {
-  if (isPlatformServer(platformId) && request) {
+/**
+ *  determines the origin when running on platform server.
+ *  reads the provided env variable when {@link isAwsLambdaEnv} or uses the protocol+hostname+port_4000
+ */
+export function determineOrigin(envVarName: string = 'FINAL_DOMAIN') {
+  if (!isPlatformServer(inject(PLATFORM_ID))) {
+    throw new Error('can not determine the origin. Ensure the this factory function is only used for SSR.')
+  }
+  if (isAwsLambdaEnv()) {
     // final url differs from api gateway endpoint
-    // we have to add the port to the hostname if we're running local
-    const domain = isAwsLambdaEnv() ? process.env['FINAL_DOMAIN'] : `${request.hostname}:4000`
+    const domain = process.env[envVarName]
     if (!domain || domain === '') {
-      throw new Error('env var FINAL_DOMAIN was not set or is empty')
+      throw new Error(`env var ${envVarName} was not set or is empty`)
     }
-    const protocol = isAwsLambdaEnv() ? 'https' : request.protocol
-    return `${protocol}://${domain}`
+    return `https://${domain}`
   } else {
-    throw new Error('can not determinate the origin - make sure the module is only applied for SSR?')
+    const request = inject(REQUEST)
+    // we have to add the port to the hostname if we're running local
+    return `${request.protocol}://${request.hostname}:4000` // FIXME: use the actual port
   }
 }
