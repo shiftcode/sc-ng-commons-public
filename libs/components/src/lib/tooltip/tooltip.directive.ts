@@ -133,7 +133,7 @@ export class TooltipDirective implements OnDestroy, OnInit {
   private overlayRef: OverlayRef | null
   private tooltipInstance: TooltipComponent | null
   private portal: ComponentPortal<TooltipComponent>
-  private readonly manualListeners = new Map<string, EventListenerOrEventListenerObject>()
+  private readonly manualHostElementListeners = new Map<string, EventListenerOrEventListenerObject>()
   private readonly onDestroy = new Subject<void>()
   private readonly opts: TooltipOptions
 
@@ -153,14 +153,20 @@ export class TooltipDirective implements OnDestroy, OnInit {
   ) {
     this.opts = { ...defaultTooltipOptions, ...opts }
 
+    this.manualHostElementListeners
+      .set('touchstart', () => this.show())
+      .set('touchend', () => this.hide(this.opts.touchendHideDelay))
+
     // The mouse events shouldn't be bound on mobile devices, because they can prevent the
     // first tap from firing its click event or can cause the tooltip to open for clicks.
     if (!platform.IOS && !platform.ANDROID) {
-      this.manualListeners
-        .set('mouseenter', () => this.show())
-        .set('mouseleave', () => this.hide())
-        .forEach((listener, event) => elementRef.nativeElement.addEventListener(event, listener))
+      this.manualHostElementListeners.set('mouseenter', () => this.show()).set('mouseleave', () => this.hide())
     }
+    // we register them all as passive, as we will never call `preventDefault` on them
+    //  basically `passive` would only be needed for `touch*` events
+    this.manualHostElementListeners.forEach((listener, event) => {
+      elementRef.nativeElement.addEventListener(event, listener, { passive: true })
+    })
 
     focusMonitor
       .monitor(elementRef)
@@ -209,10 +215,10 @@ export class TooltipDirective implements OnDestroy, OnInit {
     }
 
     // Clean up the event listeners set in the constructor
-    this.manualListeners.forEach((listener, event) =>
+    this.manualHostElementListeners.forEach((listener, event) =>
       this.elementRef.nativeElement.removeEventListener(event, listener),
     )
-    this.manualListeners.clear()
+    this.manualHostElementListeners.clear()
 
     this.onDestroy.next()
     this.onDestroy.complete()
@@ -277,17 +283,6 @@ export class TooltipDirective implements OnDestroy, OnInit {
       e.stopPropagation()
       this.hide(0)
     }
-  }
-
-  @HostListener('touchstart')
-  handleTouchstart() {
-    this.show()
-  }
-
-  /** Handles the touchend events on the host element. */
-  @HostListener('touchend')
-  handleTouchend() {
-    this.hide(this.opts.touchendHideDelay)
   }
 
   /**
