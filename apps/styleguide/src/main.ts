@@ -2,7 +2,7 @@ import { provideHttpClient } from '@angular/common/http'
 import { bootstrapApplication } from '@angular/platform-browser'
 import { provideAnimations } from '@angular/platform-browser/animations'
 import { provideRouter } from '@angular/router'
-import { provideLogger, LogLevel, withBrowserConsoleTransport, withNodeConsoleTransport } from '@shiftcode/ngx-core'
+import { LogLevel, provideLogger, withBrowserConsoleTransport } from '@shiftcode/ngx-core'
 import { AppComponent } from './app/app.component'
 import { provideSgConfig } from './provide-sg-config'
 import { ROUTES } from './routes/routes.const'
@@ -14,7 +14,6 @@ bootstrapApplication(AppComponent, {
     provideRouter(ROUTES),
     provideLogger(
       withBrowserConsoleTransport(() => ({ logLevel: LogLevel.DEBUG })),
-      withNodeConsoleTransport(() => ({ logLevel: LogLevel.DEBUG })),
     ),
     provideSgConfig(),
   ],
