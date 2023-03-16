@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common'
 import { ChangeDetectionStrategy, Component, inject, Inject, Optional } from '@angular/core'
 import { FormControl, ReactiveFormsModule } from '@angular/forms'
-import { TOOLTIP_DEFAULT_OPTIONS, TooltipModule, TooltipOptions, TooltipPosition } from '@shiftcode/ngx-components'
+import { TOOLTIP_DEFAULT_OPTIONS, TooltipDirective, TooltipOptions, TooltipPosition } from '@shiftcode/ngx-components'
 import { LoggerService } from '@shiftcode/ngx-core'
 
 @Component({
   selector: 'sg-tooltip',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TooltipModule],
+  imports: [CommonModule, ReactiveFormsModule, TooltipDirective],
   templateUrl: './sg-tooltip.component.html',
   styleUrls: ['./sg-tooltip.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

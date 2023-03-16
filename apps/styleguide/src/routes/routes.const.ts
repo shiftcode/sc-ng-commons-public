@@ -12,11 +12,16 @@ export const SUB_ROUTES: Routes = [
   { path: 'tooltip', component: SgTooltipComponent, title: 'Tooltip' },
   { path: 'textarea', component: SgTextAreaAutosizeComponent, title: 'Textarea Autosize' },
   { path: 'autofocus', component: SgAutofocusComponent, title: 'Autofocus' },
-  { path: 'svg', component: SgSvgComponent, title: 'svg' },
-  { path: '**', redirectTo: 'button' },
+  { path: 'svg', component: SgSvgComponent, title: 'SVG' },
 ]
 
 export const ROUTES: Routes = [
-  { path: 'styleguide', children: SUB_ROUTES },
+  {
+    path: 'styleguide',
+    children: [
+      ...SUB_ROUTES,
+      { path: '**', redirectTo: SUB_ROUTES[0].path },
+    ],
+  },
   { path: '**', redirectTo: 'styleguide' },
 ]

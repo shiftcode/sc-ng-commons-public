@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common'
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core'
 import { AutoFocusDirective } from '@shiftcode/ngx-components'
 
@@ -7,7 +6,7 @@ import { AutoFocusDirective } from '@shiftcode/ngx-components'
   templateUrl: './sg-autofocus.component.html',
   styleUrls: ['./sg-autofocus.component.scss'],
   standalone: true,
-  imports: [CommonModule, AutoFocusDirective],
+  imports: [AutoFocusDirective],
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
