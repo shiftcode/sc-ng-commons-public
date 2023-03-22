@@ -27,12 +27,7 @@ import {
 } from 'rxjs/operators'
 import { CLOUD_WATCH_LOG_TRANSPORT_CONFIG } from './cloud-watch-log-transport-config.injection-token'
 import { CloudWatchLogTransportConfig } from './cloud-watch-log-transport-config.model'
-import {
-  isDataAlreadyAcceptedException,
-  isError,
-  isInvalidSequenceTokenException,
-  isResourceAlreadyExistsException,
-} from './is-error.function'
+import { isDataAlreadyAcceptedException, isError, isInvalidSequenceTokenException } from './is-error.function'
 import { LogStreamNotExisting } from './log-stream-not-existing-error'
 
 /*
@@ -88,8 +83,11 @@ export class CloudWatchService {
       // configure cloudwatch client once credentials are ready
       this.client$ = this.config.clientConfig$.pipe(
         map((clientConfig) => new CloudWatchLogsClient(clientConfig)),
-        // try to create the log stream
-        mergeMap(clientIdService.createdInThisSession ? this.tryCreateLogStream : this.tryDescribeOrCreateLogStream),
+        // If the clientId was created in this session, no LogStream can exist of it. therefore we create it.
+        // Otherwise, we try to describe it; which will fall back to create it if not yet existing
+        mergeMap(
+          clientIdService.createdInThisSession ? this.createLogStream : this.getNextSequenceTokenOrCreateLogStream,
+        ),
         // should only happen once AND should return value immediately
         shareReplay(1),
       )
@@ -153,41 +151,31 @@ export class CloudWatchService {
       .subscribe({ error: console.error.bind(console) })
   }
 
-  private tryDescribeOrCreateLogStream = async (client: CloudWatchLogsClient): Promise<CloudWatchLogsClient> => {
+  private getNextSequenceTokenOrCreateLogStream = async (
+    client: CloudWatchLogsClient,
+  ): Promise<CloudWatchLogsClient> => {
     try {
       const nextSequenceToken = await this.getNextSequenceToken(client)
       this.sequenceTokenSubject.next(nextSequenceToken)
       return client
     } catch (err) {
       if (err instanceof LogStreamNotExisting) {
-        // it's important to await promise here to catch potential errors
-        return this.tryCreateLogStream(client)
+        return this.createLogStream(client)
       }
       throw err
     }
   }
 
-  private readonly tryCreateLogStream = async (client: CloudWatchLogsClient): Promise<CloudWatchLogsClient> => {
-    try {
-      // it's important to await promise here to catch potential errors
-      await client.send(
-        new CreateLogStreamCommand({
-          logGroupName: this.config.logGroupName,
-          logStreamName: this.clientId,
-        }),
-      )
-      return client
-    } catch (err) {
-      // ignore error when stream is already created -->
-      // doing it on inner observable let's the whole stream continue on error
-      if (isResourceAlreadyExistsException(err)) {
-        console.debug(`Cloudwatch Logstream '${this.clientId}' already exists. ignoring.`)
-        return client
-      } else {
-        console.error('unable to initialize CloudWatch logger, see error for details')
-        throw err
-      }
-    }
+  private readonly createLogStream = async (client: CloudWatchLogsClient): Promise<CloudWatchLogsClient> => {
+    await client.send(
+      new CreateLogStreamCommand({
+        logGroupName: this.config.logGroupName,
+        logStreamName: this.clientId,
+      }),
+    )
+    // when creating the logStream, the first time sending PutLogEvents NO sequenceToken is necessary
+    this.sequenceTokenSubject.next(undefined)
+    return client
   }
 
   private readonly getNextSequenceToken = async (client: CloudWatchLogsClient): Promise<string | undefined> => {

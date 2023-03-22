@@ -1,18 +1,10 @@
-import {
-  DataAlreadyAcceptedException,
-  InvalidSequenceTokenException,
-  ResourceAlreadyExistsException,
-} from '@aws-sdk/client-cloudwatch-logs'
+import { DataAlreadyAcceptedException, InvalidSequenceTokenException } from '@aws-sdk/client-cloudwatch-logs'
 import { SmithyException } from '@aws-sdk/types/dist/types/shapes'
 
 export function isError(value: any | unknown): value is { name: string; message: string } {
   return (
     value instanceof Error || (typeof value === 'object' && value !== null && 'name' in value && 'message' in value)
   )
-}
-
-export function isResourceAlreadyExistsException(err: unknown): err is ResourceAlreadyExistsException {
-  return isSmithyException(err) && err.name === 'ResourceAlreadyExistsException'
 }
 
 export function isDataAlreadyAcceptedException(err: unknown): err is DataAlreadyAcceptedException {
