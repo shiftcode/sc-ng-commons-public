@@ -33,6 +33,7 @@ import {
   isInvalidSequenceTokenException,
   isResourceAlreadyExistsException,
 } from './is-error.function'
+import { LogStreamNotExisting } from './log-stream-not-existing-error'
 
 /*
  * The role needs to have minimal permissions on the log group
@@ -88,14 +89,13 @@ export class CloudWatchService {
       this.client$ = this.config.clientConfig$.pipe(
         map((clientConfig) => new CloudWatchLogsClient(clientConfig)),
         // try to create the log stream
-        mergeMap(this.tryCreateLogStream),
+        mergeMap(clientIdService.createdInThisSession ? this.tryCreateLogStream : this.tryDescribeOrCreateLogStream),
         // should only happen once AND should return value immediately
         shareReplay(1),
       )
       this.client$.subscribe({
         error: (err) => console.error('could not create CloudWatchLogsClient', err),
       })
-      this.getPublishNextSequenceToken$.subscribe()
       this.setup()
     }
   }
@@ -150,14 +150,26 @@ export class CloudWatchService {
         // put logs to cloudwatch
         mergeMap(this.putLogEvents),
       )
-      .subscribe(
-        () => {},
-        (err) => console.error(err),
-      )
+      .subscribe({ error: console.error.bind(console) })
+  }
+
+  private tryDescribeOrCreateLogStream = async (client: CloudWatchLogsClient): Promise<CloudWatchLogsClient> => {
+    try {
+      const nextSequenceToken = await this.getNextSequenceToken(client)
+      this.sequenceTokenSubject.next(nextSequenceToken)
+      return client
+    } catch (err) {
+      if (err instanceof LogStreamNotExisting) {
+        // it's important to await promise here to catch potential errors
+        return this.tryCreateLogStream(client)
+      }
+      throw err
+    }
   }
 
   private readonly tryCreateLogStream = async (client: CloudWatchLogsClient): Promise<CloudWatchLogsClient> => {
     try {
+      // it's important to await promise here to catch potential errors
       await client.send(
         new CreateLogStreamCommand({
           logGroupName: this.config.logGroupName,
@@ -186,7 +198,7 @@ export class CloudWatchService {
     })
     const res: DescribeLogStreamsCommandOutput = await client.send(cmd)
     if (!res || !res.logStreams || res.logStreams.length === 0) {
-      throw new Error('no logStream returned from DescribeLogStreamsCommand')
+      throw new LogStreamNotExisting(`${this.config.logGroupName}:${this.clientId}`)
     }
     // uploadSequenceToken is undefined for the first time (after creating a new logStream)
     return res.logStreams[0].uploadSequenceToken
