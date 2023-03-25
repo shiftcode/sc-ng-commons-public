@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router'
 import { SgAutofocusComponent } from './sg-autofocus/sg-autofocus.component'
 import { SgButtonComponent } from './sg-button/sg-button.component'
+import { SgLocalStorageComponent } from './sg-local-storage/sg-local-storage.component'
 import { SgSmoothHeightComponent } from './sg-smooth-height/sg-smooth-height.component'
 import { SgSvgComponent } from './sg-svg/sg-svg.component'
 import { SgTextAreaAutosizeComponent } from './sg-textarea-autosize/sg-text-area-autosize.component'
@@ -13,6 +14,7 @@ export const SUB_ROUTES: Routes = [
   { path: 'textarea', component: SgTextAreaAutosizeComponent, title: 'Textarea Autosize' },
   { path: 'autofocus', component: SgAutofocusComponent, title: 'Autofocus' },
   { path: 'svg', component: SgSvgComponent, title: 'SVG' },
+  { path: 'localStorage', component: SgLocalStorageComponent, title: 'LocalStorage' },
 ]
 
 export const ROUTES: Routes = [
