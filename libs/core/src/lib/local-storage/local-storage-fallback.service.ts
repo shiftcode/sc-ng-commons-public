@@ -3,6 +3,7 @@ import { LocalStorage } from './local-storage.service'
 import { StorageItemChangeEvent } from './storage-item-change-event.type'
 
 export class LocalStorageFallback implements LocalStorage {
+  readonly persistent = false
   private readonly ls = new Map<string, any>()
 
   clear(): void {

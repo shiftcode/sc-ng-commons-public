@@ -10,6 +10,7 @@ const STORAGE_EVENT_NAME = 'storage'
 
 @Injectable()
 export class LocalStorageImpl implements LocalStorage {
+  readonly persistent = true
   /**
    * Emits event values from the `storage` event of the {@link Window}
    * Note: This won't work on the same page that is making the changes
