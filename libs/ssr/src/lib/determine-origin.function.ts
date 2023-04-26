@@ -2,6 +2,7 @@ import { isPlatformServer } from '@angular/common'
 import { isAwsLambdaEnv } from './aws-helper.function'
 import { inject, PLATFORM_ID } from '@angular/core'
 import { REQUEST } from '@nguniversal/express-engine/tokens'
+import type { Request } from 'express'
 
 /**
  *  determines the origin when running on platform server.
@@ -19,8 +20,10 @@ export function determineOrigin(envVarName: string = 'FINAL_DOMAIN') {
     }
     return `https://${domain}`
   } else {
-    const request = inject(REQUEST)
-    // we have to add the port to the hostname if we're running local
-    return `${request.protocol}://${request.hostname}:4000` // FIXME: use the actual port
+    const request: Request = inject(REQUEST)
+    // hacky - but as it's only used locally and as it falls back to 4000 it's acceptable
+    // + it will be logged to the console
+    const port = Number(request.headers?.['x-forwarded-port']) || 4000
+    return `${request.protocol}://${request.hostname}:${port}`
   }
 }
