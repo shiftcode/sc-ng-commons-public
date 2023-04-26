@@ -30,7 +30,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
       - id: stepCheckExecution
         name: Check for execution
-        uses: shiftcode/github-action-skip@2.0.0
+        uses: shiftcode/github-action-skip@v3
         with:
           skipOnCommitMsg: "[skip_build]"
           githubToken: ${{ secrets.GITHUB_TOKEN }}
