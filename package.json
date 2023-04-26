@@ -59,7 +59,7 @@
     "ng-packagr": "^15.0.0",
     "prettier": "^2.4.1",
     "reset-css": "^5.0.1",
-    "sort-package-json": "^1.53.1",
+    "sort-package-json": "^2.4.1",
     "ts-jest": "^28.0.4",
     "ts-node": "^10.8.0",
     "tslib": "^2.3.0",
