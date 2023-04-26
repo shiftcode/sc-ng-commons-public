@@ -7,7 +7,6 @@ import { SsrHttpInterceptor } from './ssr-http.interceptor'
 // tslint:disable:no-non-null-assertion
 
 describe(`SsrHttpInterceptor`, () => {
-
   describe('constructor', () => {
     test('throws when not serverside', () => {
       TestBed.configureTestingModule({
@@ -28,11 +27,10 @@ describe(`SsrHttpInterceptor`, () => {
     let logTransportSpy: jest.SpyInstance<void, Parameters<NoopLogTransport['log']>>
 
     function initBeforeEach(this: undefined, origin = targetOrigin) {
-
       TestBed.configureTestingModule({
         imports: [HttpClientTestingModule],
         providers: [
-          { provide: LOG_TRANSPORTS, useClass: NoopLogTransport, multi: true},
+          { provide: LOG_TRANSPORTS, useClass: NoopLogTransport, multi: true },
           { provide: PLATFORM_ID, useValue: 'server' },
           { provide: ORIGIN, useValue: origin },
           { provide: HTTP_INTERCEPTORS, useClass: SsrHttpInterceptor, multi: true },
@@ -128,9 +126,6 @@ describe(`SsrHttpInterceptor`, () => {
         expect(logCallArgs[1]).toEqual('SsrHttpInterceptor')
         expect(logCallArgs[4][0]).toContain(protocolRelativeURL)
       })
-
     })
-
   })
-
 })

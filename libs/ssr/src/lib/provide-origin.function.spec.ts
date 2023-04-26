@@ -11,11 +11,10 @@ const PLATFORM_BROWSER = 'browser'
 const targetDomain = 'target.io'
 
 describe('provideOrigin', () => {
-
   describe('when platform browser', () => {
     test('throws', () => {
       TestBed.configureTestingModule({
-        providers: [{ provide: PLATFORM_ID, useValue: PLATFORM_BROWSER }, provideOrigin()]
+        providers: [{ provide: PLATFORM_ID, useValue: PLATFORM_BROWSER }, provideOrigin()],
       })
       expect(() => TestBed.inject(ORIGIN)).toThrow(Error)
     })
@@ -24,7 +23,7 @@ describe('provideOrigin', () => {
   describe('when platform server nonAws', () => {
     test('throws when no request provided', () => {
       TestBed.configureTestingModule({
-        providers: [{ provide: PLATFORM_ID, useValue: PLATFORM_SERVER }, provideOrigin()]
+        providers: [{ provide: PLATFORM_ID, useValue: PLATFORM_SERVER }, provideOrigin()],
       })
       expect(() => TestBed.inject(ORIGIN)).toThrow(Error)
     })
@@ -34,10 +33,7 @@ describe('provideOrigin', () => {
     beforeEach(() => {
       process.env['AWS_EXECUTION_ENV'] = 'true'
       TestBed.configureTestingModule({
-        providers: [
-          { provide: PLATFORM_ID, useValue: PLATFORM_SERVER },
-          provideOrigin()
-        ],
+        providers: [{ provide: PLATFORM_ID, useValue: PLATFORM_SERVER }, provideOrigin()],
       })
     })
     afterEach(() => {
@@ -55,7 +51,6 @@ describe('provideOrigin', () => {
       process.env['FINAL_DOMAIN'] = targetDomain
       expect(TestBed.inject(ORIGIN)).toBe(`https://${targetDomain}`)
     })
-
   })
 
   describe('when not aws execution env', () => {
@@ -68,14 +63,12 @@ describe('provideOrigin', () => {
         providers: [
           { provide: PLATFORM_ID, useValue: PLATFORM_SERVER },
           { provide: REQUEST, useValue: req },
-          provideOrigin()
+          provideOrigin(),
         ],
       })
     })
     test('returns origin combined from request with port 4000', () => {
       expect(TestBed.inject(ORIGIN)).toBe(`${req.protocol}://${req.hostname}:4000`)
     })
-
   })
-
 })

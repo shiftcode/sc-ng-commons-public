@@ -7,7 +7,6 @@ interface MyObject {
 }
 
 describe('select operator', () => {
-
   test('maps the to the provided property value', () => {
     const subject = new Subject<MyObject>()
 
@@ -22,12 +21,10 @@ describe('select operator', () => {
   })
 
   test('restricts types', () => {
-    of({ val: 'ok' })
-      .pipe(
-        select('val'),
-        tap((val) => val.toUpperCase()),
-      )
+    of({ val: 'ok' }).pipe(
+      select('val'),
+      tap((val) => val.toUpperCase()),
+    )
     expect.anything()
   })
-
 })

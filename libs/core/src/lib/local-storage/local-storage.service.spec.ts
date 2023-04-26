@@ -29,11 +29,7 @@ function configureTestBed(options: LocalStorageOptions = { prefix }) {
     useValue: options,
   }
   TestBed.configureTestingModule({
-    providers: [
-      windowRefMockProvider,
-      optionsProvider,
-      { provide: LocalStorage, useClass: LocalStorageImpl },
-    ],
+    providers: [windowRefMockProvider, optionsProvider, { provide: LocalStorage, useClass: LocalStorageImpl }],
   })
 }
 
@@ -53,7 +49,6 @@ describe('LocalStorage', () => {
       service = TestBed.inject(LocalStorage)
     })
     test('only emits events of provided key with configured prefix', async () => {
-
       expect(winSpy).toHaveBeenCalledTimes(0) // since its a cold observable
 
       const key = 'ThisIsMyKey'
@@ -192,5 +187,4 @@ describe('LocalStorage', () => {
       expect(service.keys()).toEqual(keys)
     })
   })
-
 })

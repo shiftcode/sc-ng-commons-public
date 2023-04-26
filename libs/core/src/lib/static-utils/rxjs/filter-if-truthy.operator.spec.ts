@@ -1,7 +1,6 @@
 import { from, of, scan, tap } from 'rxjs'
 import { filterIfTruthy } from './filter-if-truthy.operator'
 
-
 describe('filterIfTruthy operator', () => {
   const obj = { a: 'ok' }
   const emptyArr: any[] = []
@@ -16,10 +15,11 @@ describe('filterIfTruthy operator', () => {
         scan((u, i) => [...u, i], <any[]>[]),
       )
       .subscribe({
-        next: (values) => {expect(values).toEqual(truthyValues)},
+        next: (values) => {
+          expect(values).toEqual(truthyValues)
+        },
         complete: done,
       })
-
   })
   test('when false', (done) => {
     const falsyValues = [null, undefined, false, 0, '', NaN]
@@ -30,18 +30,14 @@ describe('filterIfTruthy operator', () => {
       done()
     }
 
-    from(falsyValues)
-      .pipe(filterIfTruthy())
-      .subscribe({ next, complete })
+    from(falsyValues).pipe(filterIfTruthy()).subscribe({ next, complete })
   })
 
   test('restricts types', () => {
-    of<{ z: string } | null>(null)
-      .pipe(
-        filterIfTruthy(),
-        tap((val) => val.z.toUpperCase()),
-      )
+    of<{ z: string } | null>(null).pipe(
+      filterIfTruthy(),
+      tap((val) => val.z.toUpperCase()),
+    )
     expect.anything()
   })
-
 })

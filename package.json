@@ -57,7 +57,7 @@
     "lerna": "^6.0.3",
     "lint-staged": "^13.2.1",
     "ng-packagr": "^15.0.0",
-    "prettier": "^2.4.1",
+    "prettier": "^2.8.8",
     "reset-css": "^5.0.1",
     "sort-package-json": "^2.4.1",
     "ts-jest": "^28.0.4",

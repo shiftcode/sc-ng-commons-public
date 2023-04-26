@@ -27,16 +27,13 @@ class Dummy2LogTransport extends LogTransport {
 }
 
 describe('Logger', () => {
-
   describe('when providing LOG_TRANSPORT', () => {
-
     test('throws when LOG_TRANSPORT was not provided with multi=true', () => {
       TestBed.configureTestingModule({
         providers: [{ provide: LOG_TRANSPORTS, useClass: NoopLogTransport }],
       })
       expect(() => TestBed.inject(LoggerService)).toThrow(Error)
     })
-
   })
 
   describe('LoggerService can handle Multiple providers', () => {

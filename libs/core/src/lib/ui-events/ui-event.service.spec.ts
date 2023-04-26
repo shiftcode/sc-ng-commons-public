@@ -51,5 +51,4 @@ describe('UIEventService', () => {
     expect(receivedEvent).toBeInstanceOf(CustomEvent)
     expect(receivedEvent.value).toBe('def')
   })
-
 })

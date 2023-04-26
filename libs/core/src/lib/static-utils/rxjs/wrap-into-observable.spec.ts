@@ -2,7 +2,6 @@ import { wrapIntoObservable } from './wrap-into-observable'
 import { isObservable, Observable, of } from 'rxjs'
 
 describe('wrapIntoObservable', () => {
-
   test('returns observable from promise', (done) => {
     expect.assertions(2)
     const p = Promise.resolve('ok')

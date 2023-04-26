@@ -1,7 +1,6 @@
 import { Subject } from 'rxjs'
 import { filterIfFalsy } from './filter-if-falsy.operator'
 
-
 describe('select operator', () => {
   const obj = { a: 'ok' }
   const emptyArr: any[] = []
@@ -36,5 +35,4 @@ describe('select operator', () => {
 
     subject.complete()
   })
-
 })

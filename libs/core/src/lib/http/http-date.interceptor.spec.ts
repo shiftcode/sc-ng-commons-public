@@ -18,15 +18,14 @@ describe('HttpDateInterceptor', () => {
   let httpController: HttpTestingController
   let mapResponseSpy: jest.SpyInstance
 
-
   beforeEach(() => {
     TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule],
-        providers: [momentInterceptorProvider],
-      },
+      imports: [HttpClientTestingModule],
+      providers: [momentInterceptorProvider],
+    })
+    interceptor = <HttpDateInterceptor>(
+      TestBed.inject<HttpInterceptor[]>(HTTP_INTERCEPTORS).find((i) => i instanceof HttpDateInterceptor)!
     )
-    interceptor = <HttpDateInterceptor>TestBed.inject<HttpInterceptor[]>(HTTP_INTERCEPTORS)
-      .find((i) => i instanceof HttpDateInterceptor)!
     httpClient = TestBed.inject(HttpClient)
     httpController = TestBed.inject(HttpTestingController)
     mapResponseSpy = jest.spyOn(interceptor, 'mapResponse')
@@ -57,5 +56,4 @@ describe('HttpDateInterceptor', () => {
     await request
     expect(mapResponseSpy).not.toHaveBeenCalled()
   })
-
 })
