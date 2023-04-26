@@ -17,11 +17,11 @@ Public Angular libraries used in various shiftcode projects.
 ## Angular to Lib Version Mapping
 Shows the mapping between the angular version and our lib versions.
 
-| Min. Angular Version  | Min. Lib Version |
-|-----------------------|------------------|
-| 15                    | 3                |
-| 14                    | 2                |
-| 13                    | 1                |
+| Angular Version | Lib Version |
+|-----------------|-------------|
+| `^15`           | `^3`        |
+| `^14`           | `^2`        |
+| `^13`           | `^1`        |
 
 
 ## Anatomy of this workspace
