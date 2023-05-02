@@ -1,10 +1,11 @@
-import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { TextareaAutosizeDirective } from './textarea-autosize.directive'
 
+/**
+ * @deprecated directly import the standalone {@link TextareaAutosizeDirective}
+ */
 @NgModule({
-  imports: [CommonModule],
-  declarations: [TextareaAutosizeDirective],
+  imports: [TextareaAutosizeDirective],
   exports: [TextareaAutosizeDirective],
 })
 export class TextareaAutosizeModule {}

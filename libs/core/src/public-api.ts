@@ -10,6 +10,7 @@ export * from './lib/json-ld/json-ld.service'
 // local storage
 export * from './lib/local-storage/local-storage.service'
 export * from './lib/local-storage/local-storage-options'
+export * from './lib/local-storage/provide-local-storage'
 
 // logger
 export * from './lib/logger/log-level.enum'
@@ -19,6 +20,10 @@ export * from './lib/logger/logger.service'
 export * from './lib/logger/logger.model'
 export * from './lib/logger/logger-helper'
 export * from './lib/logger/log-transports.token'
+export * from './lib/logger/provide-logger'
+
+// noop logger transport
+export * from './lib/logger/noop/with-noop-transport.function'
 export * from './lib/logger/noop/noop-log-transport.service'
 
 // console logger
@@ -26,6 +31,9 @@ export * from './lib/logger/console/console-log-transport-config.injection-token
 export * from './lib/logger/console/console-log-transport-config'
 export * from './lib/logger/console/node-console-log-transport.service'
 export * from './lib/logger/console/console-log-transport.service'
+export * from './lib/logger/console/with-browser-console-transport.function'
+export * from './lib/logger/console/with-node-console-transport.function'
+
 // remote logger
 export * from './lib/logger/remote/remote-log.service'
 export * from './lib/logger/remote/remote-log-config.injection-token'
@@ -33,10 +41,13 @@ export * from './lib/logger/remote/remote-log-config.model'
 export * from './lib/logger/remote/remote-log-data.model'
 export * from './lib/logger/remote/remote-log-error-handler.service'
 export * from './lib/logger/remote/remote-log-transport.service'
+export * from './lib/logger/remote/with-remote-transport.function'
 
 // origin
 export * from './lib/origin/origin.token'
 export * from './lib/origin/origin.module'
+export * from './lib/origin/provide-origin.function'
+export * from './lib/origin/determine-origin.function'
 
 // resize
 export * from './lib/resize/resize.service'

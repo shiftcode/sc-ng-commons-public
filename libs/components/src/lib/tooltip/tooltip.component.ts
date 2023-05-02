@@ -2,6 +2,7 @@
 // tslint:disable:no-host-metadata-property
 import { AnimationEvent, trigger } from '@angular/animations'
 import { ConnectedOverlayPositionChange } from '@angular/cdk/overlay'
+import { NgClass } from '@angular/common'
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core'
 import { Observable, Subject } from 'rxjs'
 import { TooltipNotchPosition, TooltipPosition, TooltipPositionSimple } from './tooltip-position.type'
@@ -35,6 +36,8 @@ import { tooltipAnimation } from './tooltip.animation'
     '(body:click)': 'this.handleBodyInteraction()',
     'aria-hidden': 'true',
   },
+  standalone: true,
+  imports: [NgClass],
 })
 export class TooltipComponent implements OnDestroy {
   get tooltipPosition(): TooltipPositionSimple {

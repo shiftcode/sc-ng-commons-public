@@ -5,11 +5,12 @@ import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 
 /**
- * Autosize for TextArea
+ * Standalone AutosizeDirective for TextArea
  * ONLY works with Reactive Forms (necessary to use FormControlDirective)
  */
 @Directive({
   selector: 'textarea[scAutosize]',
+  standalone: true,
   host: {
     '[style.resize]': '"none"',
     '[style.overflow]': '"hidden"',

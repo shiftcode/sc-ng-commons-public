@@ -11,17 +11,20 @@ abstract class Base {
 class A extends Base {
   type: 'A'
 
-  get a() { return this.type }
+  get a() {
+    return this.type
+  }
 }
 
 class B extends Base {
   type: 'B'
 
-  get b() { return this.type }
+  get b() {
+    return this.type
+  }
 }
 
 describe('filterIfInstanceOf', () => {
-
   test('filters to instance', () => {
     const subject = new Subject<Base>()
 
@@ -36,12 +39,10 @@ describe('filterIfInstanceOf', () => {
     expect(onNext.mock.calls[0][0]).toBeInstanceOf(B)
   })
   test('restricts types', () => {
-    of<Base>(new A())
-      .pipe(
-        filterIfInstanceOf(B),
-        tap((b) => b.b.toUpperCase())
-      )
+    of<Base>(new A()).pipe(
+      filterIfInstanceOf(B),
+      tap((b) => b.b.toUpperCase()),
+    )
     expect.anything()
   })
-
 })

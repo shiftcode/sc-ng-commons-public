@@ -1,6 +1,6 @@
 {
   "name": "@shiftcode/ngx-aws",
-  "version": "2.0.0",
+  "version": "3.0.0-pr15.24",
   "repository": "https://github.com/shiftcode/sc-ng-commons-public",
   "license": "MIT",
   "author": "shiftcode GmbH <team@shiftcode.ch>",
@@ -17,12 +17,12 @@
     "tslib": "^2.3.0"
   },
   "peerDependencies": {
-    "@angular/common": "^14.0.0",
-    "@angular/core": "^14.0.0",
+    "@angular/common": "^15.0.0",
+    "@angular/core": "^15.0.0",
     "@aws-sdk/client-cloudwatch-logs": "^3.27.0",
     "@aws-sdk/types": "^3.0.0",
-    "@shiftcode/ngx-core": "^2.0.0",
-    "@shiftcode/utilities": "^1.0.0",
+    "@shiftcode/ngx-core": "^3.0.0 || ^3.0.0-pr15",
+    "@shiftcode/utilities": "^2.0.1",
     "rxjs": "^7.4.0"
   }
 }

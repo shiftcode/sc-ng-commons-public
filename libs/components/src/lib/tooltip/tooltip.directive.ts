@@ -32,8 +32,8 @@ import {
 import { Subject } from 'rxjs'
 import { take, takeUntil } from 'rxjs/operators'
 import { FlexibleConnectedPositionStrategy2 } from './flexible-connected-position-strategy-2'
-import { defaultTooltipOptions, TooltipOptions } from './tooltip-options.model'
 import { TOOLTIP_DEFAULT_OPTIONS } from './tooltip-default-options.token'
+import { defaultTooltipOptions, TooltipOptions } from './tooltip-options.model'
 import { TooltipNotchPosition, TooltipPosition, TooltipPositionSimple } from './tooltip-position.type'
 import { TooltipComponent } from './tooltip.component'
 
@@ -44,6 +44,7 @@ import { TooltipComponent } from './tooltip.component'
 @Directive({
   selector: '[scTooltip]',
   exportAs: 'scTooltip',
+  standalone: true,
 })
 export class TooltipDirective implements OnDestroy, OnInit {
   /** Allows the user to define the position of the tooltip relative to the parent element */
@@ -132,7 +133,7 @@ export class TooltipDirective implements OnDestroy, OnInit {
   private overlayRef: OverlayRef | null
   private tooltipInstance: TooltipComponent | null
   private portal: ComponentPortal<TooltipComponent>
-  private readonly manualListeners = new Map<string, EventListenerOrEventListenerObject>()
+  private readonly manualHostElementListeners = new Map<string, EventListenerOrEventListenerObject>()
   private readonly onDestroy = new Subject<void>()
   private readonly opts: TooltipOptions
 
@@ -152,14 +153,20 @@ export class TooltipDirective implements OnDestroy, OnInit {
   ) {
     this.opts = { ...defaultTooltipOptions, ...opts }
 
+    this.manualHostElementListeners
+      .set('touchstart', () => this.show())
+      .set('touchend', () => this.hide(this.opts.touchendHideDelay))
+
     // The mouse events shouldn't be bound on mobile devices, because they can prevent the
     // first tap from firing its click event or can cause the tooltip to open for clicks.
     if (!platform.IOS && !platform.ANDROID) {
-      this.manualListeners
-        .set('mouseenter', () => this.show())
-        .set('mouseleave', () => this.hide())
-        .forEach((listener, event) => elementRef.nativeElement.addEventListener(event, listener))
+      this.manualHostElementListeners.set('mouseenter', () => this.show()).set('mouseleave', () => this.hide())
     }
+    // we register them all as passive, as we will never call `preventDefault` on them
+    //  basically `passive` would only be needed for `touch*` events
+    this.manualHostElementListeners.forEach((listener, event) => {
+      elementRef.nativeElement.addEventListener(event, listener, { passive: true })
+    })
 
     focusMonitor
       .monitor(elementRef)
@@ -208,10 +215,10 @@ export class TooltipDirective implements OnDestroy, OnInit {
     }
 
     // Clean up the event listeners set in the constructor
-    this.manualListeners.forEach((listener, event) =>
+    this.manualHostElementListeners.forEach((listener, event) =>
       this.elementRef.nativeElement.removeEventListener(event, listener),
     )
-    this.manualListeners.clear()
+    this.manualHostElementListeners.clear()
 
     this.onDestroy.next()
     this.onDestroy.complete()
@@ -278,17 +285,6 @@ export class TooltipDirective implements OnDestroy, OnInit {
     }
   }
 
-  @HostListener('touchstart')
-  handleTouchstart() {
-    this.show()
-  }
-
-  /** Handles the touchend events on the host element. */
-  @HostListener('touchend')
-  handleTouchend() {
-    this.hide(this.opts.touchendHideDelay)
-  }
-
   /**
    * Returns the origin position and a fallback position based on the user's position preference.
    * The fallback position is the inverse of the origin (e.g. `'below' -> 'above'`).
@@ -309,10 +305,10 @@ export class TooltipDirective implements OnDestroy, OnInit {
         originPosition = { originX: notchPosition, originY: 'bottom' }
         break
       case 'before':
-        originPosition = { originX: 'start', originY: this.notchPositionToVertical(notchPosition) }
+        originPosition = { originX: 'start', originY: notchPositionToVertical(notchPosition) }
         break
       case 'after':
-        originPosition = { originX: 'end', originY: this.notchPositionToVertical(notchPosition) }
+        originPosition = { originX: 'end', originY: notchPositionToVertical(notchPosition) }
         break
       default:
         throw Error(`Tooltip position "${position}" is invalid.`)
@@ -345,10 +341,10 @@ export class TooltipDirective implements OnDestroy, OnInit {
         overlayPosition = { overlayX: notchPosition, overlayY: 'top' }
         break
       case 'before':
-        overlayPosition = { overlayX: 'end', overlayY: this.notchPositionToVertical(notchPosition) }
+        overlayPosition = { overlayX: 'end', overlayY: notchPositionToVertical(notchPosition) }
         break
       case 'after':
-        overlayPosition = { overlayX: 'start', overlayY: this.notchPositionToVertical(notchPosition) }
+        overlayPosition = { overlayX: 'start', overlayY: notchPositionToVertical(notchPosition) }
         break
       default:
         throw Error(`Tooltip position "${position}" is invalid.`)
@@ -359,17 +355,6 @@ export class TooltipDirective implements OnDestroy, OnInit {
     return {
       main: overlayPosition,
       fallback: { overlayX: x, overlayY: y },
-    }
-  }
-
-  private notchPositionToVertical(position: TooltipNotchPosition): VerticalConnectionPos {
-    switch (position) {
-      case 'start':
-        return 'top'
-      case 'center':
-        return 'center'
-      case 'end':
-        return 'bottom'
     }
   }
 
@@ -485,5 +470,16 @@ export class TooltipDirective implements OnDestroy, OnInit {
     }
 
     return { x, y }
+  }
+}
+
+function notchPositionToVertical(position: TooltipNotchPosition): VerticalConnectionPos {
+  switch (position) {
+    case 'start':
+      return 'top'
+    case 'center':
+      return 'center'
+    case 'end':
+      return 'bottom'
   }
 }

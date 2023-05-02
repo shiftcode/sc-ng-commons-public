@@ -2,6 +2,7 @@
 import { Component, EventEmitter, HostListener, Output } from '@angular/core'
 
 /**
+ * Standalone Button Component.
  * This component imitates a standard button.
  * why? cuz safari and firefox behave silly on OSX: onMousedown, the focus is set to body instead the button
  * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
@@ -10,6 +11,7 @@ import { Component, EventEmitter, HostListener, Output } from '@angular/core'
   selector: 'sc-button',
   template: ` <ng-content></ng-content> `,
   styleUrls: ['./button.component.scss'],
+  standalone: true,
   host: {
     role: 'button',
     tabindex: '0',
@@ -17,19 +19,19 @@ import { Component, EventEmitter, HostListener, Output } from '@angular/core'
 })
 export class ButtonComponent {
   @Output()
-  readonly action = new EventEmitter<void>()
+  readonly action = new EventEmitter<MouseEvent | KeyboardEvent>()
 
   @HostListener('keypress', ['$event'])
   onKeypress(event: KeyboardEvent) {
     switch (event.code) {
       case 'Enter':
       case 'Space':
-        this.action.emit()
+        this.action.emit(event)
     }
   }
 
   @HostListener('click', ['$event'])
   onClick(event: MouseEvent) {
-    this.action.emit()
+    this.action.emit(event)
   }
 }

@@ -3,7 +3,7 @@
   <nav class="app__nav">
     <ul>
       <li *ngFor="let link of navItems">
-        <a [routerLink]="['styleguide/', link]">{{link}}</a>
+        <a [routerLink]="['styleguide/', link.path]">{{link.title}}</a>
       </li>
     </ul>
   </nav>

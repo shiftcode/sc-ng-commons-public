@@ -1,0 +1,23 @@
+<h2>Tooltip</h2>
+<p class="sg-tooltip__hint">hint: will probably not work properly when container is horizontally scrollable.</p>
+
+<div class="sg-tooltip__meta">
+  <select [formControl]="positionCtrl">
+    <option *ngFor="let tooltipPosition of tooltipPositions" [value]="tooltipPosition">{{tooltipPosition}}</option>
+  </select>
+
+  <button (click)="tooltipDirective.show()">show</button>
+  <button (click)="tooltipDirective.hide()">hide</button>
+</div>
+
+<span class="sg-tooltip__trigger"
+      #tooltipDirective="scTooltip"
+      [scTooltip]="tooltip"
+      [scTooltipShowDelay]="0"
+      [scTooltipPosition]="positionCtrl.value">My element which has a tooltip</span>
+
+<div class="sg-tooltip__trigger"
+     [scTooltip]="'a differently styled tooltip'"
+     [scTooltipPosition]="positionCtrl.value"
+     scTooltipClass="sg-tooltip-custom-style"
+>a differently styled tooltip</div>

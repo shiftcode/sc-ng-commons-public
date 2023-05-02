@@ -1,7 +1,6 @@
 import { JwtHelper } from './jwt-helper'
 
 describe('JwtHelper', () => {
-
   describe('isToken', () => {
     test('returns false when not a string', () => {
       expect(JwtHelper.isToken(null)).toBe(false)
@@ -48,7 +47,6 @@ describe('JwtHelper', () => {
     })
     test('throws when not decodable', () => {
       expect(() => JwtHelper.decodeToken('abc:def:ghi')).toThrow(Error)
-
     })
     test('throws when decoded & parsed part not an object', () => {
       const tokenString = `part1.${JwtHelper.b64EncodeUnicode('just a string')}.part3`
@@ -104,5 +102,4 @@ describe('JwtHelper', () => {
       expect(JwtHelper.isTokenExpired(tokenString, 60)).toBe(true)
     })
   })
-
 })

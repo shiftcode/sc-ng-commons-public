@@ -3,7 +3,6 @@ import { tapLast } from './tap-last.operator'
 
 describe('tapLast operator', () => {
   test('does only execute right before observable completes', () => {
-
     const subject = new Subject<number>()
 
     let callCounter = 0
@@ -12,9 +11,7 @@ describe('tapLast operator', () => {
     const onTapLast = jest.fn(() => callCounter++)
     const onComplete = jest.fn(() => callCounter++)
 
-    subject
-      .pipe(tapLast(onTapLast))
-      .subscribe({ next: onNext, complete: onComplete })
+    subject.pipe(tapLast(onTapLast)).subscribe({ next: onNext, complete: onComplete })
 
     subject.next(1)
     subject.next(2)
@@ -29,6 +26,5 @@ describe('tapLast operator', () => {
 
     // expect(onTapLast).toHaveBeenCalledBefore(onComplete)
     expect(onTapLast.mock.results[0].value).toBeLessThan(onComplete.mock.results[0].value)
-
   })
 })

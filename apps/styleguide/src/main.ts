@@ -1,14 +1,24 @@
-import { enableProdMode } from '@angular/core'
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
+import { provideHttpClient } from '@angular/common/http'
+import { bootstrapApplication } from '@angular/platform-browser'
+import { provideAnimations } from '@angular/platform-browser/animations'
+import { provideRouter } from '@angular/router'
+import { LogLevel, provideLocalStorage, provideLogger, withBrowserConsoleTransport } from '@shiftcode/ngx-core'
+import { AppComponent } from './app/app.component'
+import { provideSgConfig } from './provide-sg-config'
+import { ROUTES } from './routes/routes.const'
 
-import { AppModule } from './app/app.module'
-import { environment } from './environments/environment'
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideHttpClient(),
+    provideAnimations(),
+    provideRouter(ROUTES),
 
-if (environment.production) {
-  enableProdMode()
-}
-
-platformBrowserDynamic()
-  .bootstrapModule(AppModule)
+    provideLocalStorage({ prefix: 'sg.' }),
+    provideLogger(
+      withBrowserConsoleTransport(() => ({ logLevel: LogLevel.DEBUG })),
+    ),
+    provideSgConfig(),
+  ],
+})
   // tslint:disable-next-line:no-console
   .catch((err) => console.error(err))

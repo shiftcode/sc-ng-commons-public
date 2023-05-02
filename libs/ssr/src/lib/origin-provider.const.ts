@@ -5,6 +5,7 @@ import { determineOrigin } from './determine-origin.function'
 
 /**
  * provides the origin token: when in Lambda use the FINAL_DOMAIN env var otherwise `${request.hostname}:4000`
+ * @deprecated use {@link provideOrigin} instead
  */
 export const ORIGIN_PROVIDER: FactoryProvider = {
   provide: ORIGIN,

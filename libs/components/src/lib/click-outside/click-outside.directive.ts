@@ -13,7 +13,10 @@ import { UIEventService } from '@shiftcode/ngx-core'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 
-@Directive({ selector: '[scClickOutside]' })
+/**
+ * Standalone Directive to listen for 'outside' element clicks
+ */
+@Directive({ selector: '[scClickOutside]', standalone: true })
 export class ClickOutsideDirective implements OnDestroy, OnChanges {
   @Input('scClickOutside') // tslint:disable-line:no-input-rename
   isActive: boolean
@@ -24,14 +27,14 @@ export class ClickOutsideDirective implements OnDestroy, OnChanges {
 
   private stopEventListener = new Subject<void>()
 
-  constructor(private elementRef: ElementRef, private uiEventService: UIEventService) {}
+  constructor(private elementRef: ElementRef<HTMLElement>, private uiEventService: UIEventService) {}
 
   ngOnDestroy(): void {
     this.stopEventListener.next()
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const change: SimpleChange = changes['isActive']
+    const change: SimpleChange = changes[<keyof ClickOutsideDirective>'isActive']
 
     if (change) {
       if (change.currentValue === true) {

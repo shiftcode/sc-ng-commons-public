@@ -2,7 +2,7 @@ import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion'
 import { AfterViewInit, Directive, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core'
 
 /**
- * Directive to animate SVG parts by calling beginElement method
+ * Standalone Directive to animate SVG parts by calling beginElement method
  * by default the initially active states are applied without animation (disable behaviour with `withInitAnimation`)
  * @example
  * ```typescript
@@ -17,7 +17,7 @@ import { AfterViewInit, Directive, ElementRef, Input, OnChanges, SimpleChanges }
  *  <sc-svg url="/assets/icon/close-anim.svg" [scSvgAnimate]="iconAnimState" (click)="setState()"></sc-svg>
  *  ```
  */
-@Directive({ selector: '[scSvgAnimate]' })
+@Directive({ selector: '[scSvgAnimate]', standalone: true })
 export class SvgAnimateDirective implements OnChanges, AfterViewInit {
   /**
    * state input in form {selector:state} - will be animated when state === true

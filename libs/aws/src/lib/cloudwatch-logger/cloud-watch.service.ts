@@ -27,12 +27,8 @@ import {
 } from 'rxjs/operators'
 import { CLOUD_WATCH_LOG_TRANSPORT_CONFIG } from './cloud-watch-log-transport-config.injection-token'
 import { CloudWatchLogTransportConfig } from './cloud-watch-log-transport-config.model'
-import {
-  isDataAlreadyAcceptedException,
-  isError,
-  isInvalidSequenceTokenException,
-  isResourceAlreadyExistsException,
-} from './is-error.function'
+import { isDataAlreadyAcceptedException, isError, isInvalidSequenceTokenException } from './is-error.function'
+import { LogStreamNotExisting } from './log-stream-not-existing-error'
 
 /*
  * The role needs to have minimal permissions on the log group
@@ -87,15 +83,17 @@ export class CloudWatchService {
       // configure cloudwatch client once credentials are ready
       this.client$ = this.config.clientConfig$.pipe(
         map((clientConfig) => new CloudWatchLogsClient(clientConfig)),
-        // try to create the log stream
-        mergeMap(this.tryCreateLogStream),
+        // If the clientId was created in this session, no LogStream can exist of it. therefore we create it.
+        // Otherwise, we try to describe it; which will fall back to create it if not yet existing
+        mergeMap(
+          clientIdService.createdInThisSession ? this.createLogStream : this.getNextSequenceTokenOrCreateLogStream,
+        ),
         // should only happen once AND should return value immediately
         shareReplay(1),
       )
       this.client$.subscribe({
         error: (err) => console.error('could not create CloudWatchLogsClient', err),
       })
-      this.getPublishNextSequenceToken$.subscribe()
       this.setup()
     }
   }
@@ -150,32 +148,34 @@ export class CloudWatchService {
         // put logs to cloudwatch
         mergeMap(this.putLogEvents),
       )
-      .subscribe(
-        () => {},
-        (err) => console.error(err),
-      )
+      .subscribe({ error: console.error.bind(console) })
   }
 
-  private readonly tryCreateLogStream = async (client: CloudWatchLogsClient): Promise<CloudWatchLogsClient> => {
+  private getNextSequenceTokenOrCreateLogStream = async (
+    client: CloudWatchLogsClient,
+  ): Promise<CloudWatchLogsClient> => {
     try {
-      await client.send(
-        new CreateLogStreamCommand({
-          logGroupName: this.config.logGroupName,
-          logStreamName: this.clientId,
-        }),
-      )
+      const nextSequenceToken = await this.getNextSequenceToken(client)
+      this.sequenceTokenSubject.next(nextSequenceToken)
       return client
     } catch (err) {
-      // ignore error when stream is already created -->
-      // doing it on inner observable let's the whole stream continue on error
-      if (isResourceAlreadyExistsException(err)) {
-        console.debug(`Cloudwatch Logstream '${this.clientId}' already exists. ignoring.`)
-        return client
-      } else {
-        console.error('unable to initialize CloudWatch logger, see error for details')
-        throw err
+      if (err instanceof LogStreamNotExisting) {
+        return this.createLogStream(client)
       }
+      throw err
     }
+  }
+
+  private readonly createLogStream = async (client: CloudWatchLogsClient): Promise<CloudWatchLogsClient> => {
+    await client.send(
+      new CreateLogStreamCommand({
+        logGroupName: this.config.logGroupName,
+        logStreamName: this.clientId,
+      }),
+    )
+    // when creating the logStream, the first time sending PutLogEvents NO sequenceToken is necessary
+    this.sequenceTokenSubject.next(undefined)
+    return client
   }
 
   private readonly getNextSequenceToken = async (client: CloudWatchLogsClient): Promise<string | undefined> => {
@@ -186,7 +186,7 @@ export class CloudWatchService {
     })
     const res: DescribeLogStreamsCommandOutput = await client.send(cmd)
     if (!res || !res.logStreams || res.logStreams.length === 0) {
-      throw new Error('no logStream returned from DescribeLogStreamsCommand')
+      throw new LogStreamNotExisting(`${this.config.logGroupName}:${this.clientId}`)
     }
     // uploadSequenceToken is undefined for the first time (after creating a new logStream)
     return res.logStreams[0].uploadSequenceToken

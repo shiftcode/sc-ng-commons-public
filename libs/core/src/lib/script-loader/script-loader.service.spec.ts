@@ -48,7 +48,9 @@ describe('ScriptLoaderService', () => {
     test('resolves when script onLoad was called', async () => {
       const scriptSrc = '/assets/script-1.js'
       let req1Resolved = false
-      service.addScriptToHead(scriptSrc).then(() => {req1Resolved = true})
+      service.addScriptToHead(scriptSrc).then(() => {
+        req1Resolved = true
+      })
       expect(req1Resolved).toBe(false)
 
       const scriptTags = doc.getElementsByTagName('script')
@@ -56,7 +58,7 @@ describe('ScriptLoaderService', () => {
 
       expect(scriptTags[0].src?.replace(/^(https?:\/\/)([^\.\/]+)/, '')).toBe(scriptSrc)
 
-      const scriptEl:HTMLScriptElement = <any>scriptTags[0]
+      const scriptEl: HTMLScriptElement = <any>scriptTags[0]
       expect(scriptEl).toBeDefined()
       scriptEl.onload?.(new Event('loaded'))
 
@@ -70,6 +72,4 @@ describe('ScriptLoaderService', () => {
       expect(req1 === req2).toBe(true)
     })
   })
-
-
 })

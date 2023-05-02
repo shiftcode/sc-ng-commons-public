@@ -4,31 +4,36 @@ Angular Services working with AWS
 ## Cloudwatch Logger
 Send Logs to AWS CloudWatch Logs
 
-Use the `CloudWatchErrorHandler` to send uncaught errors to CloudWatch Logs
+Use the `withCloudwatchTransport(...)` feature for the `Logger` to send log statements to CloudWatch Logs.\
+Optionally the `CloudWatchErrorHandler` can be provided to send uncaught errors to CloudWatch Logs.
 
 ### Example Usage
-```typescript
+```ts
 import { ErrorHandler, NgModule } from '@angular/core'
-import { LOG_TRANSPORTS, LogLevel } from '@shiftcode/ngx-core'
-import {
-  CLOUD_WATCH_LOG_TRANSPORT_CONFIG,
-  CloudWatchErrorHandler,
-  CloudWatchLogTransport,
-  CloudWatchLogTransportConfig,
-} from '@shiftcode/ngx-aws'
+import { provideLogger, LogLevel } from '@shiftcode/ngx-core'
+import { CloudWatchErrorHandler, CloudWatchLogTransportConfig } from '@shiftcode/ngx-aws'
 
-const cloudWatchLogConfig: CloudWatchLogTransportConfig = {
-  awsRegion: 'eu-central-1',
-  logLevel: LogLevel.WARN,
-  logGroupName: 'client-log-group-name',
-  flushInterval: 3000,
-  awsCredentials$: of({/* get your credentials */}),
+function cloudWatchLogConfigFactory(): CloudWatchLogTransportConfig {
+  const appConfig = inject(APP_CONFIG)
+  return  {
+    logLevel: LogLevel.WARN,
+    logGroupName: 'client-log-group-name',
+    flushInterval: 3000,
+    clientConfig$: of({
+      region: 'eu-central-1',
+      credentials: {
+        accessKeyId: appConfig.iamAccessKeyId,
+        secretAccessKey: appConfig.iamSecretAccessKey,
+      },
+    }),
+  }
 }
 
 @NgModule({
   providers: [
-    { provide: CLOUD_WATCH_LOG_TRANSPORT_CONFIG, useValue: cloudWatchLogConfig },
-    { provide: LOG_TRANSPORTS, useClass: CloudWatchLogTransport, multi: true },
+    provideLogger(
+      withCloudwatchTransport(cloudWatchLogConfigFactory), // instead of a factory the value itself could be provided
+    ),
     { provide: ErrorHandler, useClass: CloudWatchErrorHandler },
   ],
 })

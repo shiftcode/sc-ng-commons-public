@@ -1,7 +1,7 @@
 @use '@angular/cdk' as cdk;
 
 /* reset css for a clean cross browser base */
-@import '~reset-css/reset';
+@import 'reset-css/reset';
 
 @include cdk.overlay();
 @include cdk.a11y-visually-hidden();

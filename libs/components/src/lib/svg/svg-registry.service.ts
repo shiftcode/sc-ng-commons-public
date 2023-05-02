@@ -1,18 +1,15 @@
 import { DOCUMENT } from '@angular/common'
-import { HttpClient } from '@angular/common/http'
-import { Inject, Injectable } from '@angular/core'
+import { HttpClient, HttpErrorResponse } from '@angular/common/http'
+import { inject, Injectable } from '@angular/core'
 import { firstValueFrom } from 'rxjs'
 
 /**
  * Service to load, cache and create svg elements
  */
-
-/** @dynamic */
 @Injectable({ providedIn: 'root' })
 export class SvgRegistry {
   private readonly cache = new Map<string, Promise<SVGElement>>()
-
-  private readonly document: Document
+  private readonly document = inject(DOCUMENT)
 
   /**
    * Creates a DOM element from the given SVG string, and adds default attributes.
@@ -43,10 +40,7 @@ export class SvgRegistry {
     return svg
   }
 
-  // tslint:disable-next-line:ban-types
-  constructor(private httpClient: HttpClient, @Inject(DOCUMENT) doc: any) {
-    this.document = doc
-  }
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Returns a Promise that produces the icon (as an <svg> DOM element) from the given URL.
@@ -54,12 +48,10 @@ export class SvgRegistry {
    * the produced element will always be a new copy of the originally fetched icon.
    * (That is, it will not contain any modifications made to elements previously returned).
    */
-  getFromUrl(url: string): Promise<SVGElement> {
-    return (
-      this.getFromCacheOrLoadFromUrl(url)
-        // always clone it
-        .then((svg) => <SVGElement>svg.cloneNode(true))
-    )
+  async getFromUrl(url: string): Promise<SVGElement> {
+    const svg = await this.getFromCacheOrLoadFromUrl(url)
+    // always clone it
+    return <SVGElement>svg.cloneNode(true)
   }
 
   /**
@@ -71,6 +63,12 @@ export class SvgRegistry {
       // create promise and add to cache
       promise = this.loadSvgFromUrl(url)
       this.cache.set(url, promise)
+      promise.catch((err) => {
+        if (err instanceof HttpErrorResponse && err.status === 0) {
+          // in case of no internet or a timeout we remove the cached promise, so it can be retried
+          this.cache.delete(url)
+        }
+      })
     }
     return promise
   }

@@ -6,7 +6,9 @@ import { fromEvent } from 'rxjs'
 const CRUCIAL_KEYS = ['Tab', 'Enter', 'Space', 'Escape', 'ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft']
 
 /**
- * flying focus component - use component inside the root app-component
+ * Standalone FlyingFocus component as a11y feature to visualize keyboard initialized focus.
+ *
+ * use component inside the root app-component
  *
  * appearance configurable through css custom properties:
  * ```css
@@ -19,6 +21,7 @@ const CRUCIAL_KEYS = ['Tab', 'Enter', 'Space', 'Escape', 'ArrowUp', 'ArrowRight'
  */
 @Component({
   selector: 'sc-flying-focus',
+  standalone: true,
   template: '',
   styleUrls: ['./flying-focus.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,6 +35,7 @@ export class FlyingFocusComponent implements OnInit {
   private focusMoveTimeout: any
   private readonly isBrowser: boolean
   private readonly win: Window | null
+
   constructor(
     @Inject(PLATFORM_ID) platformId: any,
     @Inject(DOCUMENT) doc: Document,

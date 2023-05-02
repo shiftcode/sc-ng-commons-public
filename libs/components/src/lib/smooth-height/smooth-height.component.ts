@@ -2,11 +2,14 @@ import { animate, style, transition, trigger } from '@angular/animations'
 import { Component, ElementRef, HostBinding, Input, OnChanges } from '@angular/core'
 
 /**
+ * Standalone Component to smoothly animate height changes.
  * Animates the height property when the content of sc-smooth-height changes
+ * use the {@link trigger} input to provide the essential value changes to trigger a resize
  */
 @Component({
   selector: 'sc-smooth-height',
-  template: ` <ng-content></ng-content> `,
+  standalone: true,
+  template: `<ng-content></ng-content>`,
   styleUrls: ['./smooth-height.component.scss'],
   animations: [
     trigger('grow', [

@@ -1,6 +1,6 @@
 {
   "name": "@shiftcode/ngx-components",
-  "version": "2.0.0",
+  "version": "3.0.0-pr15.24",
   "repository": "https://github.com/shiftcode/sc-ng-commons-public",
   "license": "MIT",
   "author": "shiftcode GmbH <team@shiftcode.ch>",
@@ -17,12 +17,12 @@
     "tslib": "^2.3.0"
   },
   "peerDependencies": {
-    "@angular/animations": "^14.0.0",
-    "@angular/cdk": "^14.0.0",
-    "@angular/common": "^14.0.0",
-    "@angular/core": "^14.0.0",
-    "@angular/forms": "^14.0.0",
-    "@shiftcode/ngx-core": "^2.0.0",
+    "@angular/animations": "^15.0.0",
+    "@angular/cdk": "^15.0.0",
+    "@angular/common": "^15.0.0",
+    "@angular/core": "^15.0.0",
+    "@angular/forms": "^15.0.0",
+    "@shiftcode/ngx-core": "^3.0.0 || ^3.0.0-pr15",
     "rxjs": "^7.4.0"
   }
 }

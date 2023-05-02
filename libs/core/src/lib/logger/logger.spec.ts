@@ -2,13 +2,14 @@ import { PLATFORM_ID } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { ConsoleLogTransportConfig } from './console/console-log-transport-config'
 import { CONSOLE_LOG_TRANSPORT_CONFIG } from './console/console-log-transport-config.injection-token'
-import { NodeConsoleLogTransport } from './console/node-console-log-transport.service'
+import { withNodeConsoleTransport } from './console/with-node-console-transport.function'
 import { LogLevel } from './log-level.enum'
 import { LogTransport } from './log-transport'
 import { LOG_TRANSPORTS } from './log-transports.token'
 import { Logger } from './logger.model'
 import { LoggerService } from './logger.service'
 import { NoopLogTransport } from './noop/noop-log-transport.service'
+import { provideLogger } from './provide-logger'
 
 // tslint:disable:no-console
 // tslint:disable:max-classes-per-file
@@ -26,7 +27,6 @@ class Dummy2LogTransport extends LogTransport {
 }
 
 describe('Logger', () => {
-
   describe('when providing LOG_TRANSPORT', () => {
     test('throws when LOG_TRANSPORT was not provided with multi=true', () => {
       TestBed.configureTestingModule({
@@ -79,9 +79,7 @@ describe('Logger', () => {
       TestBed.configureTestingModule({
         providers: [
           { provide: PLATFORM_ID, useValue: 'server' },
-          { provide: CONSOLE_LOG_TRANSPORT_CONFIG, useValue: warnLoggerConfig },
-          { provide: LOG_TRANSPORTS, useClass: NodeConsoleLogTransport, multi: true },
-          LoggerService,
+          provideLogger(withNodeConsoleTransport(warnLoggerConfig)),
         ],
       })
       const transportImpl = TestBed.inject(LOG_TRANSPORTS)[0]

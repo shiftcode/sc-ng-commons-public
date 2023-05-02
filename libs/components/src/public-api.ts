@@ -1,5 +1,3 @@
-// components
-
 // svg
 export * from './lib/svg/svg.module'
 export * from './lib/svg/svg-registry.service'
@@ -12,6 +10,7 @@ export * from './lib/svg-animate/svg-animate.directive'
 // button
 export * from './lib/button/button.module'
 export * from './lib/button/button.component'
+
 // smooth-height
 export * from './lib/smooth-height/smooth-height.module'
 export * from './lib/smooth-height/smooth-height.component'
@@ -39,3 +38,6 @@ export * from './lib/tooltip/tooltip-position.type'
 export * from './lib/tooltip/tooltip.directive'
 export * from './lib/tooltip/tooltip.module'
 export * from './lib/tooltip/tooltip-default-options.token'
+
+// insert-view-ref
+export * from './lib/insert-view-ref/insert-view-ref.directive'

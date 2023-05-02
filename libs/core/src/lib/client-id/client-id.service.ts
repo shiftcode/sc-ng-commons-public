@@ -11,13 +11,25 @@ export class ClientIdService implements OnDestroy {
     return this._clientId
   }
 
-  private readonly _clientId: string
-  private subs: Subscription
+  /** whether the clientId was created in this session */
+  get createdInThisSession(): boolean {
+    return this._createdInThisSession
+  }
 
-  constructor(private localStorage: LocalStorage) {
+  private readonly _clientId: string
+  private readonly _createdInThisSession: boolean
+  private readonly subs: Subscription
+
+  constructor(private readonly localStorage: LocalStorage) {
     const clientId = this._getClientId()
     // if no clientID is present inside ls generate a new one
-    this._clientId = typeof clientId === 'string' ? clientId : this.generateNewClientId()
+    if (typeof clientId === 'string') {
+      this._clientId = clientId
+      this._createdInThisSession = false
+    } else {
+      this._clientId = this.generateNewClientId()
+      this._createdInThisSession = true
+    }
 
     this.subs = localStorage.observe(ClientIdService.UNIQUE_ID_KEY).subscribe(() => this._setClientId(this.clientId))
   }
