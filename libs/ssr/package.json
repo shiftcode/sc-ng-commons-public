@@ -17,10 +17,10 @@
     "tslib": "^2.3.0"
   },
   "peerDependencies": {
-    "@angular/common": "^15.0.0",
-    "@angular/core": "^15.0.0",
-    "@nguniversal/express-engine": "^15.0.0",
-    "@shiftcode/ngx-core": "^3.0.0 || ^3.0.0-pr15",
+    "@angular/common": "^15.2.0",
+    "@angular/core": "^15.2.0",
+    "@nguniversal/express-engine": "^15.2.0",
+    "@shiftcode/ngx-core": "^3.0.0 || ^3.0.0-pr18 || ^4.0.0-pr18",
     "express": "^4.15.2"
   }
 }
