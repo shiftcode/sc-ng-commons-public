@@ -23,7 +23,11 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-builders/jest:run"
+          "builder":"@angular-devkit/build-angular:jest",
+          "options": {
+            "tsConfig": "tsconfig.spec.json",
+            "polyfills": ["zone.js", "zone.js/testing"]
+          }
         }
       }
     },
@@ -47,7 +51,11 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-builders/jest:run"
+          "builder": "@angular-devkit/build-angular:jest",
+          "options": {
+            "tsConfig": "tsconfig.spec.json",
+            "polyfills": ["zone.js", "zone.js/testing"]
+          }
         }
       }
     },
@@ -135,7 +143,11 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-builders/jest:run"
+          "builder": "@angular-devkit/build-angular:jest",
+          "options": {
+            "tsConfig": "tsconfig.spec.json",
+            "polyfills": ["zone.js", "zone.js/testing"]
+          }
         }
       }
     },
@@ -159,7 +171,11 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-builders/jest:run"
+          "builder": "@angular-devkit/build-angular:jest",
+          "options": {
+            "tsConfig": "tsconfig.spec.json",
+            "polyfills": ["zone.js", "zone.js/testing"]
+          }
         }
       }
     }
@@ -178,16 +194,19 @@
       "displayBlock": true,
       "changeDetection": "OnPush",
       "viewEncapsulation": "None",
-      "skipTests": true
+      "skipTests": true,
+      "standalone": true
     },
     "@schematics/angular:directive": {
       "prefix": "sc",
-      "skipTests": true
-    },
-    "@schematics/angular:service": {
-      "skipTests": true
+      "skipTests": true,
+      "standalone": true
     },
     "@schematics/angular:pipe": {
+      "skipTests": true,
+      "standalone": true
+    },
+    "@schematics/angular:service": {
       "skipTests": true
     }
   }
