@@ -10,12 +10,12 @@ import { SgTooltipComponent } from './sg-tooltip/sg-tooltip.component'
 
 export const SUB_ROUTES: Routes = [
   { path: 'button', component: SgButtonComponent, title: 'Button' },
-  { path: 'smoothHeight', component: SgSmoothHeightComponent, title: 'Smooth Height' },
+  { path: 'smooth-height', component: SgSmoothHeightComponent, title: 'Smooth Height' },
   { path: 'tooltip', component: SgTooltipComponent, title: 'Tooltip' },
   { path: 'textarea', component: SgTextAreaAutosizeComponent, title: 'Textarea Autosize' },
   { path: 'autofocus', component: SgAutofocusComponent, title: 'Autofocus' },
   { path: 'svg', component: SgSvgComponent, title: 'SVG' },
-  { path: 'localStorage', component: SgLocalStorageComponent, title: 'LocalStorage' },
+  { path: 'local-storage', component: SgLocalStorageComponent, title: 'LocalStorage' },
   { path: 'click-outside', component: SgClickOutsideComponent, title: 'ClickOutside' },
 ]
 
