@@ -2,62 +2,46 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   OnDestroy,
   Output,
-  SimpleChange,
   SimpleChanges,
 } from '@angular/core'
 import { UIEventService } from '@shiftcode/ngx-core'
-import { Subject } from 'rxjs'
-import { takeUntil } from 'rxjs/operators'
+import { Subscription } from 'rxjs'
 
 /**
  * Standalone Directive to listen for 'outside' element clicks
  */
 @Directive({ selector: '[scClickOutside]', standalone: true })
 export class ClickOutsideDirective implements OnDestroy, OnChanges {
-  @Input('scClickOutside') // tslint:disable-line:no-input-rename
-  isActive: boolean
+  // tslint:disable-next-line:no-input-rename
+  @Input('scClickOutsideDisabled') disabled = false
 
-  /* tslint:disable-next-line:no-output-rename */
-  @Output('scClickOutside')
-  readonly notify = new EventEmitter<void>()
+  @Output() readonly scClickOutside = new EventEmitter<Event>()
 
-  private stopEventListener = new Subject<void>()
+  private subscription?: Subscription
+  private readonly element: HTMLElement = inject(ElementRef).nativeElement
 
-  constructor(private elementRef: ElementRef<HTMLElement>, private uiEventService: UIEventService) {}
-
-  ngOnDestroy(): void {
-    this.stopEventListener.next()
-  }
+  constructor(private uiEventService: UIEventService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    const change: SimpleChange = changes[<keyof ClickOutsideDirective>'isActive']
-
-    if (change) {
-      if (change.currentValue === true) {
-        this.uiEventService
-          .forEvent(['click', 'touchstart'])
-          .pipe(takeUntil(this.stopEventListener))
-          .subscribe(this.handleDocumentClick)
-      } else {
-        this.stopEventListener.next()
-      }
+    // as there is only one input, ngOnChanges is only called when `isActive` changes
+    this.subscription?.unsubscribe()
+    if (!this.disabled) {
+      this.subscription = this.uiEventService.forEvent(['click', 'touchstart']).subscribe(this.handleDocumentClick)
     }
   }
 
-  private handleDocumentClick = (event: Event): void => {
-    const isElement: boolean = this.elementRef.nativeElement === event.target
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe()
+  }
 
-    let isWithinClickedElement = true
-    if (!isElement) {
-      isWithinClickedElement = this.elementRef.nativeElement.contains(<HTMLElement>event.target)
-    }
-
-    if (!isElement && !isWithinClickedElement) {
-      this.notify.emit()
+  private handleDocumentClick = (event: Event) => {
+    if (!(this.element === event.target || this.element.contains(<Node>event.target))) {
+      this.scClickOutside.emit(event)
     }
   }
 }

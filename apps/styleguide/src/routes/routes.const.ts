@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router'
 import { SgAutofocusComponent } from './sg-autofocus/sg-autofocus.component'
 import { SgButtonComponent } from './sg-button/sg-button.component'
+import { SgClickOutsideComponent } from './sg-click-outside/sg-click-outside.component'
 import { SgLocalStorageComponent } from './sg-local-storage/sg-local-storage.component'
 import { SgSmoothHeightComponent } from './sg-smooth-height/sg-smooth-height.component'
 import { SgSvgComponent } from './sg-svg/sg-svg.component'
@@ -15,6 +16,7 @@ export const SUB_ROUTES: Routes = [
   { path: 'autofocus', component: SgAutofocusComponent, title: 'Autofocus' },
   { path: 'svg', component: SgSvgComponent, title: 'SVG' },
   { path: 'localStorage', component: SgLocalStorageComponent, title: 'LocalStorage' },
+  { path: 'click-outside', component: SgClickOutsideComponent, title: 'ClickOutside' },
 ]
 
 export const ROUTES: Routes = [
