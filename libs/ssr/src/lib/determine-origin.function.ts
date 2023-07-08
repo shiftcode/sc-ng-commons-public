@@ -18,12 +18,12 @@ export function determineOrigin(envVarName: string = 'FINAL_DOMAIN') {
     if (!domain || domain === '') {
       throw new Error(`env var ${envVarName} was not set or is empty`)
     }
-    return `https://${domain}`
+    return `https://${domain}`.replace(/\/$/, '') // ensure no trailing slash
   } else {
     const request: Request = inject(REQUEST)
     // hacky - but as it's only used locally and as it falls back to 4000 it's acceptable
     // + it will be logged to the console
     const port = Number(request.headers?.['x-forwarded-port']) || 4000
-    return `${request.protocol}://${request.hostname}:${port}`
+    return `${request.protocol}://${request.hostname}:${port}` // no-trailing slash
   }
 }
