@@ -8,7 +8,7 @@ import type { Request } from 'express'
  *  determines the origin when running on platform server.
  *  reads the provided env variable when {@link isAwsLambdaEnv} or uses the protocol+hostname+port_4000
  */
-export function determineOrigin(envVarName: string = 'FINAL_DOMAIN') {
+export function determineOrigin(envVarName: string) {
   if (!isPlatformServer(inject(PLATFORM_ID))) {
     throw new Error('can not determine the origin. Ensure the this factory function is only used for SSR.')
   }

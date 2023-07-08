@@ -1,5 +1,6 @@
 export * from './lib/aws-helper.function'
 export * from './lib/origin-provider.const'
 export * from './lib/ssr-http.interceptor'
+export * from './lib/origin-http-interceptor.function'
 export * from './lib/determine-origin.function'
 export * from './lib/provide-origin.function'
