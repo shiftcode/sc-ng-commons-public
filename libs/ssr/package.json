@@ -20,7 +20,7 @@
     "@angular/common": "^16.0.0",
     "@angular/core": "^16.0.0",
     "@nguniversal/express-engine": "^16.0.0",
-    "@shiftcode/ngx-core": "^3.0.0 || ^4.0.0-pr18",
+    "@shiftcode/ngx-core": "^4.0.0 || ^4.0.0-pr18",
     "express": "^4.15.2"
   }
 }

@@ -21,7 +21,7 @@
     "@angular/core": "^16.0.0",
     "@aws-sdk/client-cloudwatch-logs": "^3.27.0",
     "@aws-sdk/types": "^3.0.0",
-    "@shiftcode/ngx-core": "^3.0.0 || ^4.0.0-pr18",
+    "@shiftcode/ngx-core": "^4.0.0 || ^4.0.0-pr18",
     "@shiftcode/utilities": "^2.0.1",
     "rxjs": "^7.5.0"
   }
