@@ -5,19 +5,13 @@ import {
   inject,
   Input,
   OnChanges,
-  OnDestroy,
   SimpleChanges,
   TemplateRef,
   Type,
-  ViewContainerRef,
 } from '@angular/core'
-import { from, Observable, Subscription } from 'rxjs'
-import {
-  assertAngularInput,
-  ERROR_INPUT_NAME,
-  RX_DEFAULT_ERROR_COMPONENT,
-  RX_DEFAULT_SUSPENSE_COMPONENT,
-} from './internals'
+import { asapScheduler, ObservableInput, Subscription } from 'rxjs'
+import { BaseRxDirective } from './base-rx.directive'
+import { assertAngularInput, ERROR_INPUT_NAME, RX_DEFAULT_SUSPENSE_COMPONENT } from './internals'
 
 export interface RxLetContext<T> {
   $implicit: T
@@ -36,10 +30,10 @@ export interface RxLetContext<T> {
  * ```
  */
 @Directive({ selector: '[scRxLet][scRxLetOf]', standalone: true })
-export class RxLetDirective<T> implements OnChanges, OnDestroy {
+export class RxLetDirective<T> extends BaseRxDirective<T, RxLetContext<T>> implements OnChanges {
   @Input()
-  set scRxLetOf(value: Observable<T> | Promise<T> | null) {
-    this._value = value
+  set scRxLetOf(value: ObservableInput<T> | null) {
+    this._input = value
   }
 
   @Input()
@@ -56,117 +50,81 @@ export class RxLetDirective<T> implements OnChanges, OnDestroy {
     this._errorTplOrComponent = tpl
   }
 
-  /** whether the current provided observable has emitted a value yet */
-  private isSuspense: boolean
+  protected handleNextValue(value: T) {
+    this._suspenseRenderSubscription?.unsubscribe()
+    this._suspenseRenderSubscription = null
+
+    if (this._suspenseViewRef) {
+      this.clear()
+    }
+    this.renderDataView({ $implicit: value })
+  }
+
+  private _suspenseRenderSubscription: Subscription | null = null
   private _suspenseTplOrComponent: TemplateRef<void> | null | Type<any> = inject(RX_DEFAULT_SUSPENSE_COMPONENT, {
     optional: true,
   })
-  private _errorTplOrComponent:
-    | TemplateRef<{
-        $implicit: unknown
-      }>
-    | Type<any>
-    | null = inject(RX_DEFAULT_ERROR_COMPONENT, { optional: true })
-
-  private _subscription: Subscription | null = null
-  private _dataViewRef: EmbeddedViewRef<RxLetContext<T>> | null = null
   private _suspenseViewRef: EmbeddedViewRef<void> | ComponentRef<any> | null = null
-  private _value: Observable<T> | Promise<T> | null = null
 
   static ngTemplateContextGuard<T>(dir: RxLetDirective<T>, ctx: any): ctx is RxLetContext<T> {
     return true
   }
 
-  constructor(
-    private readonly templateRef: TemplateRef<RxLetContext<T>>,
-    private readonly containerRef: ViewContainerRef,
-  ) {}
+  constructor() {
+    super()
+  }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['scRxLetOf' satisfies keyof RxLetDirective<any>]) {
-      this.handleNewValue(this._value)
+    if (changes['scRxLetSuspense' satisfies keyof this]) {
+      this._suspenseViewRef = null // forces it to rerender if it currently exists
+    }
+    if (changes['scRxLetOf' satisfies keyof this]) {
+      this.subscribeTo(this._input)
     }
   }
 
-  ngOnDestroy() {
-    this._subscription?.unsubscribe()
+  override clear() {
+    super.clear()
+    this._suspenseViewRef = null
   }
 
-  private handleNewValue(value: Observable<T> | Promise<T> | null) {
+  private subscribeTo(input: ObservableInput<T> | null) {
     // for every new value we set the suspense view (unless an event will be emitted synchronously)
-    this.isSuspense = true
+    this._suspenseRenderSubscription = asapScheduler.schedule(this.renderSuspenseViewOrClear.bind(this))
 
-    if (this._subscription) {
-      this._subscription.unsubscribe()
-      this._subscription = null
-    }
-    if (value) {
-      const value$ = value instanceof Promise ? from(value) : value
-      this._subscription = value$.subscribe({
-        next: this.renderDataView.bind(this),
-        error: this.renderErrorView.bind(this),
-      })
-      if (this.isSuspense) {
-        // if the observable did not emit synchronously, we can show the suspense view
-        this.renderSuspenseView()
-      }
-    } else {
-      // show the suspense view when null is passed
-      this.renderSuspenseView()
+    this.unsubscribe()
+    if (input) {
+      this.subscribe(input)
     }
   }
 
-  private renderDataView(value: T) {
-    this.isSuspense = false
-
-    if (this._suspenseViewRef) {
-      this.clear()
-      this._suspenseViewRef = null
-    }
-    if (this._dataViewRef) {
-      this._dataViewRef.context = { $implicit: value }
-    } else {
-      this._dataViewRef = this.containerRef.createEmbeddedView(this.templateRef, { $implicit: value })
-    }
-    this._dataViewRef.detectChanges()
-  }
-
-  private renderErrorView(error: unknown) {
-    this.isSuspense = false
-
-    this.clear()
-    if (!this._errorTplOrComponent) {
-      return
-    } else if (this._errorTplOrComponent instanceof TemplateRef) {
-      const ref = this.containerRef.createEmbeddedView(this._errorTplOrComponent, { $implicit: error })
-      ref.detectChanges()
-    } else {
-      const ref = this.containerRef.createComponent(this._errorTplOrComponent)
-      ref.setInput(ERROR_INPUT_NAME, error)
-      ref.changeDetectorRef.detectChanges()
-    }
-  }
-
-  // called twice: once in ngOnInit and once in handleNewValue (in case the observableLike changes)
-  private renderSuspenseView() {
+  private renderSuspenseViewOrClear() {
     if (this._suspenseTplOrComponent) {
+      this.renderSuspenseView(this._suspenseTplOrComponent)
+    } else {
       this.clear()
+    }
+  }
 
-      if (this._suspenseTplOrComponent instanceof TemplateRef) {
-        const ref = this.containerRef.createEmbeddedView(this._suspenseTplOrComponent)
+  private renderSuspenseView(tplRefOrComponent: Type<any> | TemplateRef<any>) {
+    if (
+      this._suspenseViewRef &&
+      this.containerRef.indexOf(
+        this._suspenseViewRef instanceof ComponentRef ? this._suspenseViewRef.hostView : this._suspenseViewRef,
+      ) === 0
+    ) {
+      return
+    } else {
+      this.clear()
+      if (tplRefOrComponent instanceof TemplateRef) {
+        const ref = this.containerRef.createEmbeddedView(tplRefOrComponent)
         ref.detectChanges()
         this._suspenseViewRef = ref
       } else {
-        const ref = this.containerRef.createComponent(this._suspenseTplOrComponent)
+        const ref = this.containerRef.createComponent(tplRefOrComponent)
         ref.changeDetectorRef.detectChanges()
         this._suspenseViewRef = ref
       }
     }
-  }
-
-  private clear() {
-    this.containerRef.clear()
-    this._dataViewRef = null
-    this._suspenseViewRef = null
   }
 }

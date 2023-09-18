@@ -43,5 +43,6 @@ export * from './lib/tooltip/tooltip-default-options.token'
 export * from './lib/insert-view-ref/insert-view-ref.directive'
 
 // rx
+export * from './lib/rx/rx-if.directive'
 export * from './lib/rx/rx-let.directive'
 export * from './lib/rx/provide-defaults'
