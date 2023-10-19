@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-aws@3.0.0...@shiftcode/ngx-aws@4.0.0) (2023-10-19)
+
+### Features
+
+- **angular:** use angular 16 ([6d34a53](https://github.com/shiftcode/sc-ng-commons-public/commit/6d34a534d7ce2a88f2ecfee6429b226ce493d20b))
+
+### BREAKING CHANGES
+
+- **angular:** requires angular@16
+
 # [3.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-aws@2.0.0...@shiftcode/ngx-aws@3.0.0) (2023-05-02)
 
 ### Features

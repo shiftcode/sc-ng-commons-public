@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-core@3.0.0...@shiftcode/ngx-core@4.0.0) (2023-10-19)
+
+### Bug Fixes
+
+- **determine-origin:** ensure no trailing slash in origin ([f8f3171](https://github.com/shiftcode/sc-ng-commons-public/commit/f8f31715a5425a4fc7302c4dfef58e1ea7ef0bcb))
+
+### Code Refactoring
+
+- **modules:** remove deprecated ng modules ([9449828](https://github.com/shiftcode/sc-ng-commons-public/commit/9449828b9bc639e9292979024e1416098a15c80b))
+
+### Features
+
+- **angular:** use angular 16 ([6d34a53](https://github.com/shiftcode/sc-ng-commons-public/commit/6d34a534d7ce2a88f2ecfee6429b226ce493d20b))
+- **rxjs:** add observable factory `onDestroy` which uses the new `DestroyRef` ([f8410de](https://github.com/shiftcode/sc-ng-commons-public/commit/f8410de470088619103791b902a39d1ba3c58270))
+
+### BREAKING CHANGES
+
+- **modules:** All ng-module classes have been removed. Import standalone Components/Directives directly.
+- **angular:** requires angular@16
+
 # [3.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-core@2.0.0...@shiftcode/ngx-core@3.0.0) (2023-05-02)
 
 ### Bug Fixes
