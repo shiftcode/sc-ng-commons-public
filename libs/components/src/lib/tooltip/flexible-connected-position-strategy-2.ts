@@ -28,7 +28,7 @@ type Dimensions = Omit<DOMRect, 'x' | 'y' | 'toJSON'>
 
 // tslint:disable:no-unused-variable
 
-// @ts-ignore
+// @ts-expect-error
 export class FlexibleConnectedPositionStrategy2 extends FlexibleConnectedPositionStrategy {
   /** Narrows the given viewport rect by the current _viewportMargin. */
   private override _getNarrowedViewportRect(): Dimensions {
@@ -39,13 +39,13 @@ export class FlexibleConnectedPositionStrategy2 extends FlexibleConnectedPositio
     // therefore we use `clientWidth` for the width and `innerHeight` for the height
     // this works for use because we never have horizontal scrollbars
 
-    // @ts-ignore
+    // @ts-expect-error
     const viewportMargin = this._viewportMargin
 
-    // @ts-ignore
+    // @ts-expect-error
     const docEl = this._document.documentElement
 
-    // @ts-ignore
+    // @ts-expect-error
     const scrollPosition = this._viewportRuler.getViewportScrollPosition()
 
     const width = docEl.clientWidth
@@ -72,9 +72,9 @@ export class FlexibleConnectedPositionStrategy2 extends FlexibleConnectedPositio
     const overlay = getRoundedBoundingClientRect(rawOverlayRect)
 
     let { x, y } = point
-    // @ts-ignore
+    // @ts-expect-error
     const offsetX = this._getOffset(position, 'x')
-    // @ts-ignore
+    // @ts-expect-error
     const offsetY = this._getOffset(position, 'y')
     // Account for the offsets since they could push the overlay out of the viewport.
     if (offsetX) {
@@ -89,9 +89,9 @@ export class FlexibleConnectedPositionStrategy2 extends FlexibleConnectedPositio
     const topOverflow = 0 - y
     const bottomOverflow = y + overlay.height - viewport.height
     // Visible parts of the element on each axis.
-    // @ts-ignore
+    // @ts-expect-error
     const visibleWidth = this._subtractOverflows(overlay.width, leftOverflow, rightOverflow)
-    // @ts-ignore
+    // @ts-expect-error
     const visibleHeight = this._subtractOverflows(overlay.height, topOverflow, bottomOverflow)
 
     // MUMIS FIX:
@@ -124,16 +124,16 @@ export class FlexibleConnectedPositionStrategy2 extends FlexibleConnectedPositio
     // Reset any existing styles. This is necessary in case the
     // preferred position has changed since the last `apply`.
     const styles = { top: '', bottom: '' } as CSSStyleDeclaration
-    // @ts-ignore
+    // @ts-expect-error
     let overlayPoint = this._getOverlayPoint(originPoint, this._overlayRect, position)
 
-    // @ts-ignore
+    // @ts-expect-error
     if (this._isPushed) {
-      // @ts-ignore
+      // @ts-expect-error
       overlayPoint = this._pushOverlayOnScreen(overlayPoint, this._overlayRect, scrollPosition)
     }
 
-    // @ts-ignore
+    // @ts-expect-error
     const virtualKeyboardOffset = this._overlayContainer.getContainerElement().getBoundingClientRect().top
 
     // Normally this would be zero, however when the overlay is attached to an input (e.g. in an
@@ -148,13 +148,13 @@ export class FlexibleConnectedPositionStrategy2 extends FlexibleConnectedPositio
       // When using `bottom`, we adjust the y position such that it is the distance
       // from the bottom of the viewport rather than the top.
 
-      // @ts-ignore
+      // @ts-expect-error
       const docEl = this._document.documentElement
 
       // THIS IS OUR FIX HERE: innerHeight instead of clientHeight
       const documentHeight = window?.innerHeight ?? docEl.clientHeight
 
-      // @ts-ignore
+      // @ts-expect-error
       styles.bottom = `${documentHeight - (overlayPoint.y + this._overlayRect.height)}px`
     } else {
       styles.top = coerceCssPixelValue(overlayPoint.y)
