@@ -8,4 +8,10 @@
     padding: 16px;
     border: 1px solid #ccc;
   }
+
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
 }

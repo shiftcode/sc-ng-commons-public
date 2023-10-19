@@ -1,12 +1,71 @@
 import { AsyncPipe, JsonPipe, NgIf } from '@angular/common'
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core'
-import { AutoFocusDirective, RxLetDirective } from '@shiftcode/ngx-components'
-import { async, BehaviorSubject, EMPTY, NEVER, Observable, Subject } from 'rxjs'
+import { AutoFocusDirective, RxIfDirective, RxLetDirective } from '@shiftcode/ngx-components'
+import { Observable, ReplaySubject, Subject } from 'rxjs'
+
+
+class TestObsController {
+  get value$() {
+    return this._value$
+  }
+
+  private _value$: Observable<number>|null
+  private valueSubject: Subject<number>
+  private _needsNewObservable = true
+
+  setNull(){
+    this._needsNewObservable = true
+    this._value$ = null
+  }
+  setNewEmpty() {
+    this.setObservable(new Subject())
+  }
+
+  readonly nextAsync = () => {
+    this.ensureSubject()
+    setTimeout(this.emitValue, 1_000)
+  }
+
+  readonly next = () => {
+    this.ensureSubject(() => new ReplaySubject(1))
+    this.emitValue()
+  }
+
+  readonly errorAsync = () => {
+    this.ensureSubject()
+    setTimeout(this.emitError, 1_000)
+  }
+
+  readonly error = () => {
+    this.ensureSubject()
+    this.emitError()
+  }
+
+  private emitValue = () => {
+    this.valueSubject.next(Math.random())
+  }
+  private emitError = () => {
+    this.valueSubject.error(new Error('error-by-button'))
+    this._needsNewObservable = true
+  }
+
+  private ensureSubject(factoryFn: () => Subject<number> = () => new Subject()) {
+    if (this._needsNewObservable) {
+      this.setObservable(factoryFn())
+    }
+  }
+
+  private setObservable(subject: Subject<number>) {
+    this._needsNewObservable = false
+    this.valueSubject = subject
+    this._value$ = this.valueSubject.asObservable()
+  }
+}
 
 @Component({
-  selector: 'sg-sg-rx',
+  selector: 'sg-sc-rx',
   standalone: true,
-  imports: [AsyncPipe, JsonPipe, RxLetDirective, AutoFocusDirective, NgIf],
+  imports: [NgIf, AsyncPipe, JsonPipe, AutoFocusDirective, RxLetDirective, RxIfDirective],
   templateUrl: './sg-rx.component.html',
   styleUrls: ['./sg-rx.component.scss'],
   encapsulation: ViewEncapsulation.Emulated,
@@ -14,46 +73,12 @@ import { async, BehaviorSubject, EMPTY, NEVER, Observable, Subject } from 'rxjs'
 })
 export class SgRxComponent {
 
-  protected value$: Observable<number>
-  private valueSubject: Subject<number>
-  protected needsNewObservable = false
-
-  constructor() {
-    this.setNewSubjectAndObservable()
-  }
-
-  protected setNewEmpty() {
-    this.value$ = NEVER
-    this.needsNewObservable = true
-  }
-
-  protected next() {
-    if (this.needsNewObservable) {
-      this.needsNewObservable = false
-      this.valueSubject = new Subject()
-      this.value$ = this.valueSubject.asObservable()
-    }
-    setTimeout(()=> {
-      this.valueSubject.next(Math.random())
-    }, 1000)
-  }
-
-  protected error() {
-    setTimeout(() => {
-      this.needsNewObservable = true
-      this.valueSubject.error(new Error('error-by-button'))
-    }, 1000)
-  }
+  readonly rxLetObs = new TestObsController()
+  readonly rxIfObs = new TestObsController()
 
   protected randomNum() {
     return Math.random()
   }
 
 
-  private setNewSubjectAndObservable() {
-    this.valueSubject = new Subject<number>()
-    this.value$ = this.valueSubject.asObservable()
-  }
-
-  protected readonly async = async
 }

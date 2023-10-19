@@ -19,7 +19,11 @@ export abstract class BaseRxDirective<T, Ctx> {
     inject(DestroyRef).onDestroy(this.unsubscribe.bind(this))
   }
 
+  /** use this to call {@link renderDataView} */
   protected abstract handleNextValue(value: T): void
+
+  /** use this to call {@link renderError} */
+  protected abstract handleError(err: unknown): void
 
   protected unsubscribe() {
     if (this._subscription) {
@@ -32,10 +36,14 @@ export abstract class BaseRxDirective<T, Ctx> {
     const value$ = isObservable(input) ? input : from(input)
     this._subscription = value$.subscribe({
       next: this.handleNextValue.bind(this),
-      error: this.renderError.bind(this),
+      error: this.handleError.bind(this),
     })
   }
 
+  /**
+   * updates the embedded view with the new context
+   * or clears the container and creates the embedded view if not yet the dataView is shown
+   */
   protected renderDataView(context: Ctx) {
     if (this._dataViewRef && this.containerRef.indexOf(this._dataViewRef) === 0) {
       this._dataViewRef.context = context
@@ -46,6 +54,9 @@ export abstract class BaseRxDirective<T, Ctx> {
     this._dataViewRef.detectChanges()
   }
 
+  /**
+   *  clears the view and renders the error component/template if any
+   */
   protected renderError(error: unknown) {
     this.clear()
     if (!this._errorTplOrComponent) {

@@ -4,9 +4,20 @@ import { BaseRxDirective } from './base-rx.directive'
 import { assertAngularInput, ERROR_INPUT_NAME } from './internals'
 
 export interface RxIfContext<T> {
-  $implicit: T
+  /** by using the directive name we enable the `as` syntax */
+  scRxIf: T
 }
 
+/**
+ * Directive to render a template based on an observable or promise.
+ * - renders the view in case of a truthy emitted value
+ * - renders the else template (if specified) as long as there is no value resolved or emitted, when a falsy value was emitted, or when not an observable/promise but null was provided
+ * - renders the error template/component (if specified or a default was set) in case of an error
+ * It's basically an alternative to the angular *ngIf Directive + the async pipe BUT does not trigger change detection cycles on every emission in the whole component but only inside the ViewRef Container of the directive itself.
+ * @example ```html
+ * <ng-template #noItemsTpl>No Items</ng-template>
+ * <p *scRxIf="count$ as count;else noItemsTpl">{{count}} item(s)</p>
+ */
 @Directive({ selector: '[scRxIf]', standalone: true })
 export class RxIfDirective<T> extends BaseRxDirective<T | null | undefined, RxIfContext<T>> implements OnChanges {
   @Input()
@@ -26,17 +37,6 @@ export class RxIfDirective<T> extends BaseRxDirective<T | null | undefined, RxIf
       assertAngularInput(tpl, ERROR_INPUT_NAME)
     }
     this._errorTplOrComponent = tpl
-  }
-
-  protected handleNextValue(value: T | null | undefined) {
-    this._elseRenderSubscription?.unsubscribe()
-    this._elseRenderSubscription = null
-
-    if (value !== null && value !== undefined) {
-      this.renderDataView({ $implicit: value })
-    } else {
-      this.renderElseOrClear()
-    }
   }
 
   private _elseRenderSubscription: Subscription | null = null
@@ -60,17 +60,33 @@ export class RxIfDirective<T> extends BaseRxDirective<T | null | undefined, RxIf
     }
   }
 
-  override clear() {
+  protected handleNextValue(value: T | null | undefined) {
+    this._elseRenderSubscription?.unsubscribe()
+    this._elseRenderSubscription = null
+
+    if (!!value) {
+      this.renderDataView({ scRxIf: value })
+    } else {
+      this.renderElseOrClear()
+    }
+  }
+  protected handleError(err: unknown) {
+    this._elseRenderSubscription?.unsubscribe()
+    this._elseRenderSubscription = null
+    this.renderError(err)
+  }
+
+  protected override clear() {
     super.clear()
     this._elseViewRef = null
   }
 
   private subscribeTo(input: ObservableInput<T | null | undefined> | null) {
     this.unsubscribe()
-    // we only want it to `clear` if the input won't emit synchronously
+    // we only want it to clear/use the elseTemplate if the input won't emit synchronously
     this._elseRenderSubscription = asapScheduler.schedule(this.renderElseOrClear.bind(this))
     if (input) {
-      super.subscribe(input)
+      this.subscribe(input)
     } else {
       this.renderElseOrClear()
     }

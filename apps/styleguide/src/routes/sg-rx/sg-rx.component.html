@@ -1,21 +1,45 @@
 <h2 scAutoFocus>rx-let</h2>
 
-<button (click)="setNewEmpty()">set empty</button>
-<button (click)="next()">next (timeout 1000) (creates new observable when errored/empty)</button>
-<button (click)="error()" [disabled]="needsNewObservable">error</button>
-
+<div class="buttons">
+  <button (click)="rxLetObs.setNull()">set null</button>
+  <button (click)="rxLetObs.setNewEmpty()">set empty</button>
+  <button (click)="rxLetObs.nextAsync()">next (timeout 1000)</button>
+  <button (click)="rxLetObs.next()">next (sync)</button>
+  <button (click)="rxLetObs.errorAsync()">error (timeout 1000)</button>
+  <button (click)="rxLetObs.error()">error (sync)</button>
+</div>
 <div>{{randomNum()}} (changes whenever cd runs on component level)</div>
+
+<ng-template #errorTpl let-error>
+  <div>error: {{error|json}}</div>
+</ng-template>
 
 <div class="wrapper">
   <ng-template #suspenseTpl>
     <div>...no value yet. click next to start</div>
   </ng-template>
-  <ng-template #errorTpl let-error>
-    <div>error: {{error|json}}</div>
-  </ng-template>
-
-  <div *scRxLet="let value of value$; suspense:suspenseTpl; error:errorTpl">
+  <div *scRxLet="rxLetObs.value$ as value; suspense:suspenseTpl; error:errorTpl">
     {{value}} (changes when observable emits)
   </div>
 </div>
 
+
+<h2>rx-if</h2>
+<div class="buttons">
+  <button (click)="rxIfObs.setNull()">set null</button>
+  <button (click)="rxIfObs.setNewEmpty()">set empty</button>
+  <button (click)="rxIfObs.nextAsync()">next (timeout 1000)</button>
+  <button (click)="rxIfObs.next()">next (sync)</button>
+  <button (click)="rxIfObs.errorAsync()">error (timeout 1000)</button>
+  <button (click)="rxIfObs.error()">error (sync)</button>
+</div>
+<div>{{randomNum()}} (changes whenever cd runs on component level)</div>
+
+<div class="wrapper">
+  <ng-template #elseTpl>
+    <div>The <i>else</i></div>
+  </ng-template>
+  <div *scRxIf="rxIfObs.value$ as value; error:errorTpl; else elseTpl">
+    {{value}} (changes when observable emits)
+  </div>
+</div>
