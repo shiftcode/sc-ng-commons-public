@@ -31,7 +31,7 @@ import { SvgRegistry } from './svg-registry.service'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SvgComponent implements OnChanges {
-  @Input() url?: string
+  @Input({ required: true }) url: string
 
   @Input() attrs?: Record<string, string>
 
@@ -44,16 +44,14 @@ export class SvgComponent implements OnChanges {
   ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
     // Only update the inline SVG icon if the inputs changed, to avoid unnecessary DOM operations.
     if ('attrs' in changes || 'url' in changes) {
-      if (this.url) {
-        if (!this.url.endsWith('.svg')) {
-          this.logger.warn('svg url does not end with *.svg')
-        }
-        this.svgRegistry
-          .getFromUrl(this.url)
-          .then(this.modifySvgElement)
-          .then(this.setSvgElement)
-          .catch((err: any) => this.logger.error(`Error retrieving icon for path ${this.url}`, err))
+      if (!this.url.endsWith('.svg')) {
+        this.logger.warn('svg url does not end with *.svg')
       }
+      this.svgRegistry
+        .getFromUrl(this.url)
+        .then(this.modifySvgElement)
+        .then(this.setSvgElement)
+        .catch((err: any) => this.logger.error(`Error retrieving icon for path ${this.url}`, err))
     }
   }
 

@@ -45,7 +45,6 @@ export * from './lib/logger/remote/with-remote-transport.function'
 
 // origin
 export * from './lib/origin/origin.token'
-export * from './lib/origin/origin.module'
 export * from './lib/origin/provide-origin.function'
 export * from './lib/origin/determine-origin.function'
 
@@ -64,6 +63,7 @@ export * from './lib/scroll-to/scroll-to.service'
 export * from './lib/static-utils/rxjs/filter-if-falsy.operator'
 export * from './lib/static-utils/rxjs/filter-if-instance-of.operator'
 export * from './lib/static-utils/rxjs/filter-if-truthy.operator'
+export * from './lib/static-utils/rxjs/on-destroy.observable'
 export * from './lib/static-utils/rxjs/select.operator'
 export * from './lib/static-utils/rxjs/setup.operator'
 export * from './lib/static-utils/rxjs/tap-last.operator'

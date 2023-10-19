@@ -1,13 +1,13 @@
-<sc-flying-focus></sc-flying-focus>
+<sc-flying-focus />
 <div class="app">
   <nav class="app__nav">
     <ul>
       <li *ngFor="let link of navItems">
-        <a [routerLink]="['styleguide/', link.path]">{{link.title}}</a>
+        <a [routerLink]="[basePath, link.path]">{{link.title}}</a>
       </li>
     </ul>
   </nav>
   <div class="app__content">
-    <router-outlet></router-outlet>
+    <router-outlet />
   </div>
 </div>

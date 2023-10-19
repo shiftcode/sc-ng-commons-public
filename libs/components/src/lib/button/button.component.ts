@@ -9,7 +9,7 @@ import { Component, EventEmitter, HostListener, Output } from '@angular/core'
  */
 @Component({
   selector: 'sc-button',
-  template: ` <ng-content></ng-content> `,
+  template: ` <ng-content /> `,
   styleUrls: ['./button.component.scss'],
   standalone: true,
   host: {

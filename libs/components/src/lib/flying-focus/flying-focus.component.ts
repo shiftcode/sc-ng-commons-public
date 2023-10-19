@@ -1,5 +1,13 @@
 import { DOCUMENT, isPlatformServer } from '@angular/common'
-import { ChangeDetectionStrategy, Component, ElementRef, Inject, OnInit, PLATFORM_ID } from '@angular/core'
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  inject,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core'
 import { WindowRef } from '@shiftcode/ngx-core'
 import { fromEvent } from 'rxjs'
 
@@ -27,26 +35,22 @@ const CRUCIAL_KEYS = ['Tab', 'Enter', 'Space', 'Escape', 'ArrowUp', 'ArrowRight'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlyingFocusComponent implements OnInit {
-  readonly element: HTMLElement
+  readonly element: HTMLElement = inject(ElementRef).nativeElement
 
-  private readonly docEl: HTMLElement
-  private readonly bodyEl: HTMLElement
   private keyDownTime: number
   private focusMoveTimeout: any
-  private readonly isBrowser: boolean
-  private readonly win: Window | null
+  private readonly docEl: HTMLElement
+  private readonly bodyEl: HTMLElement
+  private readonly isBrowser: boolean = !isPlatformServer(inject(PLATFORM_ID))
+  private readonly win: Window | null = inject(WindowRef).nativeWindow
 
-  constructor(
-    @Inject(PLATFORM_ID) platformId: any,
-    @Inject(DOCUMENT) doc: Document,
-    windowRef: WindowRef,
-    elRef: ElementRef<HTMLElement>,
-  ) {
-    this.element = elRef.nativeElement
+  constructor() {
+    // no need for cd cycles here.
+    inject(ChangeDetectorRef).detach()
+
+    const doc = inject(DOCUMENT)
     this.docEl = doc.documentElement
     this.bodyEl = doc.body
-    this.isBrowser = !isPlatformServer(platformId)
-    this.win = windowRef.nativeWindow
   }
 
   ngOnInit() {
@@ -100,7 +104,7 @@ export class FlyingFocusComponent implements OnInit {
     this.onEnd()
   }
 
-  private onEnd = () => {
+  private onEnd() {
     clearTimeout(this.focusMoveTimeout)
     this.element.classList.remove('--visible')
     this.element.removeAttribute('style')
