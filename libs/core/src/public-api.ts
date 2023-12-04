@@ -74,6 +74,7 @@ export * from './lib/static-utils/jwt-helper'
 export * from './lib/static-utils/regex'
 export * from './lib/static-utils/key-names.const'
 export * from './lib/static-utils/is-input-element.function'
+export * from './lib/static-utils/to-promise.function'
 
 // ui event
 export * from './lib/ui-events/ui-event.service'
