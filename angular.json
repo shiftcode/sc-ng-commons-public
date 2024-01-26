@@ -104,10 +104,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "styleguide:build:production"
+              "buildTarget": "styleguide:build:production"
             },
             "development": {
-              "browserTarget": "styleguide:build:development"
+              "buildTarget": "styleguide:build:development"
             }
           },
           "defaultConfiguration": "development"
