@@ -1,8 +1,8 @@
 import { isPlatformServer } from '@angular/common'
 import { isAwsLambdaEnv } from './aws-helper.function'
 import { inject, PLATFORM_ID } from '@angular/core'
-import { REQUEST } from '@nguniversal/express-engine/tokens'
 import type { Request } from 'express'
+import { REQUEST } from './request.injection-token'
 
 /**
  *  determines the origin when running on platform server.

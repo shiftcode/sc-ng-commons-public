@@ -1,7 +1,7 @@
 import { FactoryProvider, Optional, PLATFORM_ID } from '@angular/core'
-import { REQUEST } from '@nguniversal/express-engine/tokens'
 import { ORIGIN } from '@shiftcode/ngx-core'
 import { determineOrigin } from './determine-origin.function'
+import { REQUEST } from './request.injection-token'
 
 /**
  * provides the origin token: when in Lambda use the FINAL_DOMAIN env var otherwise `${request.hostname}:4000`

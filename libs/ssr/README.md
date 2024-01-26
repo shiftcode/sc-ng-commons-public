@@ -1,6 +1,11 @@
 # @shiftcode/ngx-ssr
 Services and helpers used for server side rendering.
 
+### TODO Angular 17
+Think about how we gonna replace the REQUEST which was previously provided from @nguniversal/express-engine/tokens,
+according to a first quick investigation this token should not be provided by express directly (see:
+https://medium.com/@aayyash/replacing-angular-universal-with-ssr-version-f257dfae305f)
+
 ### SsrHttpInterceptor & ORIGIN Token
 Rewrites relative urls on ssr to `${ORIGIN}/${relativeUrl}`\
 where Origin is the injected value from the `ORIGIN` token.
@@ -30,6 +35,5 @@ export class AppServerModule {}
 
 ## depends on
 - `@angular/core` + `@angular/commons`
-- `@nguniversal/express-engine`
 - `express`
 - `@shiftcode/ngx-core` (`Logger`)

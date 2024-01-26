@@ -1,7 +1,7 @@
 import { Request } from 'express'
 import { TestBed } from '@angular/core/testing'
 import { PLATFORM_ID } from '@angular/core'
-import { REQUEST } from '@nguniversal/express-engine/tokens'
+import { REQUEST } from './request.injection-token'
 import { provideOrigin } from './provide-origin.function'
 import { ORIGIN } from '@shiftcode/ngx-core'
 
