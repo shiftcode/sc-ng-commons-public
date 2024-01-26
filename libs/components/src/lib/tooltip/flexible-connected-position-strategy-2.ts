@@ -30,6 +30,19 @@ type Dimensions = Omit<DOMRect, 'x' | 'y' | 'toJSON'>
 
 // @ts-expect-error
 export class FlexibleConnectedPositionStrategy2 extends FlexibleConnectedPositionStrategy {
+  /** Default offset for the overlay along the x axis. */
+  private override _offsetX = 0
+
+  /** Default offset for the overlay along the y axis. */
+  private override _offsetY = 0
+
+  /** Subtracts the amount that an element is overflowing on an axis from its length. */
+  private override _subtractOverflows(length: number, ...overflows: number[]): number {
+    return overflows.reduce((currentValue: number, currentOverflow: number) => {
+      return currentValue - Math.max(currentOverflow, 0)
+    }, length)
+  }
+
   /** Narrows the given viewport rect by the current _viewportMargin. */
   private override _getNarrowedViewportRect(): Dimensions {
     // the problem: the viewport changes on mobile browsers depending the scroll direction
@@ -61,6 +74,18 @@ export class FlexibleConnectedPositionStrategy2 extends FlexibleConnectedPositio
     }
   }
 
+  /** Retrieves the offset of a position along the x or y axis. */
+  private override _getOffset(position: ConnectedPosition, axis: 'x' | 'y') {
+    if (axis === 'x') {
+      // We don't do something like `position['offset' + axis]` in
+      // order to avoid breaking minifiers that rename properties.
+      return position.offsetX == null ? this._offsetX : position.offsetX
+    }
+
+    return position.offsetY == null ? this._offsetY : position.offsetY
+  }
+
+  /** Gets how well an overlay at the given point will fit within the viewport. */
   private override _getOverlayFit(
     point: Point,
     rawOverlayRect: Dimensions,
@@ -70,30 +95,29 @@ export class FlexibleConnectedPositionStrategy2 extends FlexibleConnectedPositio
     // Round the overlay rect when comparing against the
     // viewport, because the viewport is always rounded.
     const overlay = getRoundedBoundingClientRect(rawOverlayRect)
-
     let { x, y } = point
-    // @ts-expect-error
     const offsetX = this._getOffset(position, 'x')
-    // @ts-expect-error
     const offsetY = this._getOffset(position, 'y')
+
     // Account for the offsets since they could push the overlay out of the viewport.
     if (offsetX) {
       x += offsetX
     }
+
     if (offsetY) {
       y += offsetY
     }
+
     // How much the overlay would overflow at this position, on each side.
     const leftOverflow = 0 - x
     const rightOverflow = x + overlay.width - viewport.width
     const topOverflow = 0 - y
     const bottomOverflow = y + overlay.height - viewport.height
-    // Visible parts of the element on each axis.
-    // @ts-expect-error
-    const visibleWidth = this._subtractOverflows(overlay.width, leftOverflow, rightOverflow)
-    // @ts-expect-error
-    const visibleHeight = this._subtractOverflows(overlay.height, topOverflow, bottomOverflow)
 
+    // Visible parts of the element on each axis.
+    const visibleWidth = this._subtractOverflows(overlay.width, leftOverflow, rightOverflow)
+    const visibleHeight = this._subtractOverflows(overlay.height, topOverflow, bottomOverflow)
+    // let visibleArea = visibleWidth * visibleHeight;
     // MUMIS FIX:
     //  IF the visible area is negative, we need to invert the order for the best fallback
     // otherwise the least ideal will be chosen. eg.
