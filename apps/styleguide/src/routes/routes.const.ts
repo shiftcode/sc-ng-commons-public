@@ -9,7 +9,7 @@ import { SgSvgComponent } from './sg-svg/sg-svg.component'
 import { SgTextAreaAutosizeComponent } from './sg-textarea-autosize/sg-text-area-autosize.component'
 import { SgTooltipComponent } from './sg-tooltip/sg-tooltip.component'
 
-export const SUB_ROUTES: Routes = [
+export const SUB_ROUTES = [
   { path: 'button', component: SgButtonComponent, title: 'Button' },
   { path: 'smooth-height', component: SgSmoothHeightComponent, title: 'Smooth Height' },
   { path: 'tooltip', component: SgTooltipComponent, title: 'Tooltip' },
@@ -19,9 +19,11 @@ export const SUB_ROUTES: Routes = [
   { path: 'local-storage', component: SgLocalStorageComponent, title: 'LocalStorage' },
   { path: 'click-outside', component: SgClickOutsideComponent, title: 'ClickOutside' },
   { path: 'rx', component: SgRxComponent, title: 'RX' },
-]
 
-export const ROUTES: Routes = [
+  { path: 'just-a-test-route', title: 'Test', loadChildren: () => import('./sg-test-page/sg-test-page.routes') },
+] satisfies Routes
+
+export const ROUTES = [
   {
     path: 'styleguide',
     children: [
@@ -30,4 +32,4 @@ export const ROUTES: Routes = [
     ],
   },
   { path: '**', redirectTo: 'styleguide' },
-]
+] satisfies Routes
