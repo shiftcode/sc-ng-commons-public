@@ -26,25 +26,11 @@ interface OverlayFit {
 /** Equivalent of `ClientRect` without some of the properties we don't care about. */
 type Dimensions = Omit<DOMRect, 'x' | 'y' | 'toJSON'>
 
-// tslint:disable:no-unused-variable
+export class FlexibleConnectedPositionStrategy2 extends FlexibleConnectedPositionStrategy {}
 
-// @ts-expect-error
-export class FlexibleConnectedPositionStrategy2 extends FlexibleConnectedPositionStrategy {
-  /** Default offset for the overlay along the x axis. */
-  private override _offsetX = 0
-
-  /** Default offset for the overlay along the y axis. */
-  private override _offsetY = 0
-
-  /** Subtracts the amount that an element is overflowing on an axis from its length. */
-  private override _subtractOverflows(length: number, ...overflows: number[]): number {
-    return overflows.reduce((currentValue: number, currentOverflow: number) => {
-      return currentValue - Math.max(currentOverflow, 0)
-    }, length)
-  }
-
-  /** Narrows the given viewport rect by the current _viewportMargin. */
-  private override _getNarrowedViewportRect(): Dimensions {
+/** Narrows the given viewport rect by the current _viewportMargin. */
+FlexibleConnectedPositionStrategy2.prototype['_getNarrowedViewportRect'] =
+  function _getNarrowedViewportRect(): Dimensions {
     // the problem: the viewport changes on mobile browsers depending the scroll direction
     // window innerHeight/innerWidth correctly handles this changes but does not consider scrollbars
     // documentElement clientHeight/clientWidth correctly handles the scrollbars but not the viewport changes
@@ -74,118 +60,99 @@ export class FlexibleConnectedPositionStrategy2 extends FlexibleConnectedPositio
     }
   }
 
-  /** Retrieves the offset of a position along the x or y axis. */
-  private override _getOffset(position: ConnectedPosition, axis: 'x' | 'y') {
-    if (axis === 'x') {
-      // We don't do something like `position['offset' + axis]` in
-      // order to avoid breaking minifiers that rename properties.
-      return position.offsetX == null ? this._offsetX : position.offsetX
-    }
+/** Gets how well an overlay at the given point will fit within the viewport. */
+FlexibleConnectedPositionStrategy2.prototype['_getOverlayFit'] = function _getOverlayFit(
+  point: Point,
+  rawOverlayRect: Dimensions,
+  viewport: Dimensions,
+  position: ConnectedPosition,
+): OverlayFit {
+  // Round the overlay rect when comparing against the
+  // viewport, because the viewport is always rounded.
+  const overlay = getRoundedBoundingClientRect(rawOverlayRect)
+  let { x, y } = point
+  // @ts-ignore
+  const offsetX = this._getOffset(position, 'x')
+  // @ts-ignore
+  const offsetY = this._getOffset(position, 'y')
+  // Account for the offsets since they could push the overlay out of the viewport.
+  if (offsetX) {
+    x += offsetX
+  }
+  if (offsetY) {
+    y += offsetY
+  }
+  // How much the overlay would overflow at this position, on each side.
+  const leftOverflow = 0 - x
+  const rightOverflow = x + overlay.width - viewport.width
+  const topOverflow = 0 - y
+  const bottomOverflow = y + overlay.height - viewport.height
+  // Visible parts of the element on each axis.
+  // @ts-ignore
+  const visibleWidth = this._subtractOverflows(overlay.width, leftOverflow, rightOverflow)
+  // @ts-ignore
+  const visibleHeight = this._subtractOverflows(overlay.height, topOverflow, bottomOverflow)
+  const visibleArea =
+    visibleWidth < 0 && visibleHeight < 0
+      ? Number.MIN_SAFE_INTEGER
+      : visibleWidth < 0 || visibleHeight < 0
+      ? Number.MIN_SAFE_INTEGER + Math.abs(visibleWidth * visibleHeight)
+      : visibleWidth * visibleHeight
 
-    return position.offsetY == null ? this._offsetY : position.offsetY
+  return {
+    visibleArea,
+    isCompletelyWithinViewport: overlay.width * overlay.height === visibleArea,
+    fitsInViewportVertically: visibleHeight === overlay.height,
+    fitsInViewportHorizontally: visibleWidth === overlay.width,
+  }
+}
+
+/** Gets the exact top/bottom for the overlay when not using flexible sizing or when pushing. */
+FlexibleConnectedPositionStrategy2.prototype['_getExactOverlayY'] = function _getExactOverlayY(
+  position: ConnectedPosition,
+  originPoint: Point,
+  scrollPosition: ViewportScrollPosition,
+) {
+  // Reset any existing styles. This is necessary in case the
+  // preferred position has changed since the last `apply`.
+  const styles = { top: '', bottom: '' } as CSSStyleDeclaration
+  // @ts-expect-error
+  let overlayPoint = this._getOverlayPoint(originPoint, this._overlayRect, position)
+
+  // @ts-expect-error
+  if (this._isPushed) {
+    // @ts-expect-error
+    overlayPoint = this._pushOverlayOnScreen(overlayPoint, this._overlayRect, scrollPosition)
   }
 
-  /** Gets how well an overlay at the given point will fit within the viewport. */
-  private override _getOverlayFit(
-    point: Point,
-    rawOverlayRect: Dimensions,
-    viewport: Dimensions,
-    position: ConnectedPosition,
-  ): OverlayFit {
-    // Round the overlay rect when comparing against the
-    // viewport, because the viewport is always rounded.
-    const overlay = getRoundedBoundingClientRect(rawOverlayRect)
-    let { x, y } = point
-    const offsetX = this._getOffset(position, 'x')
-    const offsetY = this._getOffset(position, 'y')
+  // @ts-expect-error
+  const virtualKeyboardOffset = this._overlayContainer.getContainerElement().getBoundingClientRect().top
 
-    // Account for the offsets since they could push the overlay out of the viewport.
-    if (offsetX) {
-      x += offsetX
-    }
+  // Normally this would be zero, however when the overlay is attached to an input (e.g. in an
+  // autocomplete), mobile browsers will shift everything in order to put the input in the middle
+  // of the screen and to make space for the virtual keyboard. We need to account for this offset,
+  // otherwise our positioning will be thrown off.
+  overlayPoint.y -= virtualKeyboardOffset
 
-    if (offsetY) {
-      y += offsetY
-    }
+  // We want to set either `top` or `bottom` based on whether the overlay wants to appear
+  // above or below the origin and the direction in which the element will expand.
+  if (position.overlayY === 'bottom') {
+    // When using `bottom`, we adjust the y position such that it is the distance
+    // from the bottom of the viewport rather than the top.
 
-    // How much the overlay would overflow at this position, on each side.
-    const leftOverflow = 0 - x
-    const rightOverflow = x + overlay.width - viewport.width
-    const topOverflow = 0 - y
-    const bottomOverflow = y + overlay.height - viewport.height
+    // @ts-expect-error
+    const docEl = this._document.documentElement
 
-    // Visible parts of the element on each axis.
-    const visibleWidth = this._subtractOverflows(overlay.width, leftOverflow, rightOverflow)
-    const visibleHeight = this._subtractOverflows(overlay.height, topOverflow, bottomOverflow)
-    // let visibleArea = visibleWidth * visibleHeight;
-    // MUMIS FIX:
-    //  IF the visible area is negative, we need to invert the order for the best fallback
-    // otherwise the least ideal will be chosen. eg.
-    //    A: visibleWidth: 10 * visibleHeight: -10  =  -100
-    //    B: visibleWidth: 5 * visibleHeight: -10   =  -50 --> B > A, but B is less ideal
-    //    C: visibleWidth: -10 * visibleHeight: -10 =   100 --> C is the worst, gets the biggest area
-    const visibleArea =
-      visibleWidth < 0 && visibleHeight < 0
-        ? Number.MIN_SAFE_INTEGER
-        : visibleWidth < 0 || visibleHeight < 0
-        ? Number.MIN_SAFE_INTEGER + Math.abs(visibleWidth * visibleHeight)
-        : visibleWidth * visibleHeight
+    // THIS IS OUR FIX HERE: innerHeight instead of clientHeight
+    const documentHeight = window?.innerHeight ?? docEl.clientHeight
 
-    return {
-      visibleArea,
-      isCompletelyWithinViewport: overlay.width * overlay.height === visibleArea,
-      fitsInViewportVertically: visibleHeight === overlay.height,
-      fitsInViewportHorizontally: visibleWidth === overlay.width,
-    }
+    // @ts-expect-error
+    styles.bottom = `${documentHeight - (overlayPoint.y + this._overlayRect.height)}px`
+  } else {
+    styles.top = coerceCssPixelValue(overlayPoint.y)
   }
 
-  /** Gets the exact top/bottom for the overlay when not using flexible sizing or when pushing. */
-  private override _getExactOverlayY(
-    position: ConnectedPosition,
-    originPoint: Point,
-    scrollPosition: ViewportScrollPosition,
-  ) {
-    // Reset any existing styles. This is necessary in case the
-    // preferred position has changed since the last `apply`.
-    const styles = { top: '', bottom: '' } as CSSStyleDeclaration
-    // @ts-expect-error
-    let overlayPoint = this._getOverlayPoint(originPoint, this._overlayRect, position)
-
-    // @ts-expect-error
-    if (this._isPushed) {
-      // @ts-expect-error
-      overlayPoint = this._pushOverlayOnScreen(overlayPoint, this._overlayRect, scrollPosition)
-    }
-
-    // @ts-expect-error
-    const virtualKeyboardOffset = this._overlayContainer.getContainerElement().getBoundingClientRect().top
-
-    // Normally this would be zero, however when the overlay is attached to an input (e.g. in an
-    // autocomplete), mobile browsers will shift everything in order to put the input in the middle
-    // of the screen and to make space for the virtual keyboard. We need to account for this offset,
-    // otherwise our positioning will be thrown off.
-    overlayPoint.y -= virtualKeyboardOffset
-
-    // We want to set either `top` or `bottom` based on whether the overlay wants to appear
-    // above or below the origin and the direction in which the element will expand.
-    if (position.overlayY === 'bottom') {
-      // When using `bottom`, we adjust the y position such that it is the distance
-      // from the bottom of the viewport rather than the top.
-
-      // @ts-expect-error
-      const docEl = this._document.documentElement
-
-      // THIS IS OUR FIX HERE: innerHeight instead of clientHeight
-      const documentHeight = window?.innerHeight ?? docEl.clientHeight
-
-      // @ts-expect-error
-      styles.bottom = `${documentHeight - (overlayPoint.y + this._overlayRect.height)}px`
-    } else {
-      styles.top = coerceCssPixelValue(overlayPoint.y)
-    }
-
-    return styles
-  }
+  return styles
 }
 
 /**
