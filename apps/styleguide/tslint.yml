@@ -13,5 +13,4 @@ rules:
       - "@shiftcode/ngx-aws"
       - "@shiftcode/ngx-components"
       - "@shiftcode/ngx-core"
-      - "@shiftcode/ngx-ssr"
       - "rxjs"
