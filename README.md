@@ -11,14 +11,16 @@ Public Angular libraries used in various shiftcode projects.
 > [![@shiftcode/ngx-components](https://img.shields.io/github/package-json/v/shiftcode/sc-ng-commons-public?filename=%2Flibs%2Fcomponents%2Fpackage.json&label=%40shiftcode%2Fngx-components)](libs/components)\
 > Angular components/directives/pipes usable across different projects. More details in [README](./libs/components/README.md).
 
-> [![@shiftcode/ngx-ssr](https://img.shields.io/github/package-json/v/shiftcode/sc-ng-commons-public?filename=%2Flibs%2Fssr%2Fpackage.json&label=%40shiftcode%2Fngx-ssr)](libs/ssr)\
-> Services and helpers used for server side rendering. More details in [README](./libs/ssr/README.md).
+> ![@shiftcode/ngx-ssr](https://img.shields.io/badge/@shiftcode/ngx--ssr-deprecated-f48700)\
+> Not used anymore with Angular 17. See necessary changes in [ssr.md](./ssr.md)
 
 ## Angular to Lib Version Mapping
 Shows the mapping between the angular version and our lib versions.
 
 | Angular Version | Lib Version |
 |-----------------|-------------|
+| `^17`           | `^5`        |
+| `^16`           | `^4`        |
 | `^15`           | `^3`        |
 | `^14`           | `^2`        |
 | `^13`           | `^1`        |

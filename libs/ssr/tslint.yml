@@ -1,6 +1,0 @@
-extends:
-- '../../tslint.yml'
-rules:
-  import-blacklist:
-    - true
-    - "@shiftcode/ngx-aws"
