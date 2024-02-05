@@ -1,5 +1,4 @@
 import { ResolveFn } from '@angular/router'
-import { expect } from '@jest/globals'
 import { resolveFnToCanActivateFn } from './resolve-fn-to-can-activate-fn.function'
 
 describe('resolveFnToCanActivateFn', () => {
