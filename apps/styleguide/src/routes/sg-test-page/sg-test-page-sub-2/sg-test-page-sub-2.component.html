@@ -1,0 +1,8 @@
+<h1>Test Route Sub 2</h1>
+<p>set query params to change the behavior of the can activate guard:</p>
+<hr>
+<a [routerLink]="['../1']" [queryParams]="qp(5000)">delay by 5s, then allow</a>
+<hr>
+<a [routerLink]="['../1']" [queryParams]="qp(2000, true)">delay by 2s, then disallow</a>
+<hr>
+

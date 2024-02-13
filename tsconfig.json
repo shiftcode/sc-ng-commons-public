@@ -23,10 +23,6 @@
       "@shiftcode/ngx-aws": [
         "libs/aws/dist",
         "libs/aws/src/public-api.ts"
-      ],
-      "@shiftcode/ngx-ssr": [
-        "libs/ssr/dist",
-        "libs/ssr/src/public-api.ts"
       ]
     },
     "declaration": false,

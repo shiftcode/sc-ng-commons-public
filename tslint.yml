@@ -81,5 +81,9 @@ rules:
   no-unused-variable:
     - true
     - { "ignore-pattern": "^_" }
-  no-redundant-jsdoc: true
   deprecation: false
+  unnecessary-bind: false
+  no-shadowed-variable: false
+  prefer-for-of: false
+  no-redundant-jsdoc: false
+  no-unnecessary-initializer: false
