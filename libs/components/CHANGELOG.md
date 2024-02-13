@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-components@4.0.0...@shiftcode/ngx-components@5.0.0) (2024-02-13)
+
+### Bug Fixes
+
+- **tooltip:** update source to satisfy constraints from super class ([118ba89](https://github.com/shiftcode/sc-ng-commons-public/commit/118ba89a55e88defdd9e04c7a360f0db461b5ddb))
+
+### Code Refactoring
+
+- **dependencies:** add @angular/router to peer dependencies ([0251132](https://github.com/shiftcode/sc-ng-commons-public/commit/0251132a0ebf2bfbe7f14734fb43568f5b401bee))
+
+### Features
+
+- **components:** update angular to version 17 ([c07933d](https://github.com/shiftcode/sc-ng-commons-public/commit/c07933ddb30658e1798a456ba77ee439c3fb6772))
+- **navigation-class-handler:** new utility to add/remove a css class on the body while navigating ([6dd1466](https://github.com/shiftcode/sc-ng-commons-public/commit/6dd14668c9b146f4645b3ebc5b2a50d9d7dc6345))
+
+### BREAKING CHANGES
+
+- **dependencies:** requires the `@angular/router` as peer dependency
+- **components:** requires angular 17.1.1 as a peer dependency
+
 # [4.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-components@3.0.0...@shiftcode/ngx-components@4.0.0) (2023-10-19)
 
 ### Bug Fixes

@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-aws@4.0.0...@shiftcode/ngx-aws@5.0.0) (2024-02-13)
+
+### Features
+
+- **aws:** update angular to version 17 ([910061f](https://github.com/shiftcode/sc-ng-commons-public/commit/910061fdfe9bfc0ab9e43725ef77a8ffc994f626))
+
+### BREAKING CHANGES
+
+- **aws:** requires angular 17.1.1 as a peer dependency
+
 # [4.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-aws@3.0.0...@shiftcode/ngx-aws@4.0.0) (2023-10-19)
 
 ### Features

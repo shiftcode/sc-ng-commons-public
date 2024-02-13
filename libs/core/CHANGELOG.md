@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-core@4.0.0...@shiftcode/ngx-core@5.0.0) (2024-02-13)
+
+### Code Refactoring
+
+- **origin:** remove no longer needed origin providers (`provideOrigin` function) ([c4145cd](https://github.com/shiftcode/sc-ng-commons-public/commit/c4145cd4560d2bdd600559cd66f7e817c78de893))
+
+### Features
+
+- **core:** update angular to version 17 ([1352165](https://github.com/shiftcode/sc-ng-commons-public/commit/1352165888d7488080b6c5297f3c33fdee5af819))
+- **resolve-fn-to-can-activate-fn:** new utility to transform a ResolveFn to a CanActivateFn ([40cd715](https://github.com/shiftcode/sc-ng-commons-public/commit/40cd7153dbaecc8faf68d973980fb6c80c89a9bf))
+- **to-promise:** static util function to ensure returned value is a promise ([5e89db0](https://github.com/shiftcode/sc-ng-commons-public/commit/5e89db0541c70f383c9ed4f3ccecd063abc2a3f7))
+
+### BREAKING CHANGES
+
+- **origin:** for ssr use `@angular/ssr` and refactor accordingly
+- **core:** requires angular 17.1.1 as a peer dependency
+
 # [4.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-core@3.0.0...@shiftcode/ngx-core@4.0.0) (2023-10-19)
 
 ### Bug Fixes
