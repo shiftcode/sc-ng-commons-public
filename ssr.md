@@ -22,7 +22,7 @@ export const appConfig: ApplicationConfig = {
     /** this new provider from @angular/ssr can be used to rehydrate the app. might introduce problems. */
     provideClientHydration(), 
     
-    /** we can make use of the moden fetch api which is available in the browser and node */
+    /** we can make use of the modern fetch api which is available in the browser and node */
     provideHttpClient(withFetch()),
     
     /* other providers used in the app */
