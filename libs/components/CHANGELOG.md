@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.1](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-components@5.0.0...@shiftcode/ngx-components@5.0.1) (2024-02-15)
+
+### Bug Fixes
+
+- update version range for rxjs ([b6a8f74](https://github.com/shiftcode/sc-ng-commons-public/commit/b6a8f748168eaeb8079e67e18641fe242692b8cb))
+
 # [5.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-components@4.0.0...@shiftcode/ngx-components@5.0.0) (2024-02-13)
 
 ### Bug Fixes
