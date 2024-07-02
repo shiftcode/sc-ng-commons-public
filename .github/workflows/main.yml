@@ -42,7 +42,7 @@ jobs:
     steps:
       # checkout branch
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           # 0 indicates all history, because publish requires tag information
           fetch-depth: 0
@@ -50,12 +50,12 @@ jobs:
           token: ${{ secrets.GH_TOKEN_PUBLIC_REPO }}
       # setup node and yarn cache
       - name: Setup Node and Yarn Cache
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'yarn'
       # NPM Authenticate
-      - name: Auth for githup registry
+      - name: Auth for github registry
         run: |
           npm config set //npm.pkg.github.com/:_authToken=$REGISTRY_TOKEN
         env:
