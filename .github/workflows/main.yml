@@ -1,6 +1,6 @@
 # secrets.GITHUB_TOKEN is provided to each job by default, lifetime: 60minutes.
 # See https://help.github.com/en/actions/automating-your-workflow-with-github-actions/authenticating-with-the-github_token
-name: Lint, Test, Build and optionaly Publish
+name: Lint, Test, Build and optionally Publish
 
 on:
   # push only for branches (ignore tags)
@@ -30,7 +30,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
       - id: stepCheckExecution
         name: Check for execution
-        uses: shiftcode/github-action-skip@v3.0.0
+        uses: shiftcode/github-action-skip@v4.0.0
         with:
           skipOnCommitMsg: "[skip_build]"
           githubToken: ${{ secrets.GITHUB_TOKEN }}
@@ -42,7 +42,7 @@ jobs:
     steps:
       # checkout branch
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           # 0 indicates all history, because publish requires tag information
           fetch-depth: 0
@@ -50,12 +50,12 @@ jobs:
           token: ${{ secrets.GH_TOKEN_PUBLIC_REPO }}
       # setup node and dependency cache
       - name: Setup Node and NPM Cache
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: 'npm'
       # NPM Authenticate
-      - name: Auth for githup registry
+      - name: Auth for github registry
         run: |
           npm config set //npm.pkg.github.com/:_authToken=$REGISTRY_TOKEN
         env:
