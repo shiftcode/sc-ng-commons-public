@@ -52,7 +52,7 @@ jobs:
       - name: Setup Node and Yarn Cache
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version-file: .nvmrc
           cache: 'yarn'
       # NPM Authenticate
       - name: Auth for githup registry
