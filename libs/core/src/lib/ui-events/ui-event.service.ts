@@ -10,7 +10,10 @@ export class UIEventService {
   private observables: Map<string, Map<any, Observable<UIEvent>>> = new Map()
   private window: Window | null
 
-  constructor(windowRef: WindowRef, @Inject(DOCUMENT) private readonly document: Document) {
+  constructor(
+    windowRef: WindowRef,
+    @Inject(DOCUMENT) private readonly document: Document,
+  ) {
     this.window = windowRef.nativeWindow
   }
 

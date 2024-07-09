@@ -2,7 +2,6 @@ import { DestroyRef, EnvironmentInjector, Injector, runInInjectionContext } from
 import { BehaviorSubject, takeUntil } from 'rxjs'
 import { onDestroy } from './on-destroy.observable'
 
-
 describe('onDestroy', () => {
   it('should emit and complete when DestroyRef#onDestroy emits', () => {
     const injector = Injector.create({ providers: [] }) as EnvironmentInjector

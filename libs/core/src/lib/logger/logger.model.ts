@@ -2,7 +2,11 @@ import { LogLevel } from './log-level.enum'
 import { LogTransport } from './log-transport'
 
 export class Logger {
-  constructor(private name: string, private color: string, private loggerTransports: LogTransport[]) {}
+  constructor(
+    private name: string,
+    private color: string,
+    private loggerTransports: LogTransport[],
+  ) {}
 
   info(...args: any[]) {
     this.log(LogLevel.INFO, args)

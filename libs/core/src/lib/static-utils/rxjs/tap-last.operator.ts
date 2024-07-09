@@ -22,7 +22,10 @@ class TapLastSubscriber<T> extends Subscriber<T> {
   private hasValue = false
   private value: T
 
-  constructor(destination: Subscriber<T>, private callback: (val: T) => void) {
+  constructor(
+    destination: Subscriber<T>,
+    private callback: (val: T) => void,
+  ) {
     super(destination)
   }
 
