@@ -48,38 +48,38 @@ jobs:
           fetch-depth: 0
           # we need priviledged access to publish to protected branch
           token: ${{ secrets.GH_TOKEN_PUBLIC_REPO }}
-      # setup node and yarn cache
-      - name: Setup Node and Yarn Cache
+      # setup node and dependency cache
+      - name: Setup Node and NPM Cache
         uses: actions/setup-node@v3
         with:
           node-version-file: .nvmrc
-          cache: 'yarn'
+          cache: 'npm'
       # NPM Authenticate
       - name: Auth for githup registry
         run: |
           npm config set //npm.pkg.github.com/:_authToken=$REGISTRY_TOKEN
         env:
           REGISTRY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # yarn install
+      # install dependencies
       - name: Install
-        run: HUSKY=0 yarn --frozen-lockfile
+        run: HUSKY=0 npm ci
       # lint
       - name: Lint
-        run: yarn lint:ci
+        run: npm run lint:ci
       # test
       - name: Test
-        run: yarn test:ci
+        run: npm run test:ci
       # build
       - name: Build
-        run: yarn build:ci
+        run: npm run build:ci
       - name: Build Styleguide
-        run: yarn build:styleguide
+        run: npm run build:styleguide
       # publish
       - name: Publish
         run: |
           git config user.email "actions@github.com"
           git config user.name "Github Actions"
-          yarn publish-libs
+          npx publish-lib
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
           GH_TOKEN: ${{ secrets.GH_TOKEN_PUBLIC_REPO }} # necessary for publish-libs script

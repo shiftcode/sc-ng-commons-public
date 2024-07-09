@@ -28,7 +28,7 @@ Shows the mapping between the angular version and our lib versions.
 
 
 ## Anatomy of this workspace
-Package manager client: `yarn`
+Package manager client: `npm`
 
 Individual packages can depend on each other, the dependency is resolved using ts paths (see ./tsconfig.json) make sure to build the package you depend on. Or change the tsconfig.paths to reference the files under `src` directory.
 

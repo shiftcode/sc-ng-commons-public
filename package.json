@@ -13,7 +13,6 @@
     "prepare": "husky install",
     "prepublishOnly": "lerna exec --stream -- ts-node --project \\$LERNA_ROOT_PATH/scripts/ts/tsconfig.json \\$LERNA_ROOT_PATH/scripts/ts/copy-version.ts",
     "prettier:all": "lerna run prettier --stream",
-    "publish-libs": "npx publish-lib",
     "start": "ng serve",
     "test": "ng test",
     "test:ci": "ng test",
@@ -69,7 +68,6 @@
     "zone.js": "~0.14.3"
   },
   "engines": {
-    "node": ">=20.11.1",
-    "yarn": ">=1.22.5 <2"
+    "node": ">=20.11.1"
   }
 }
