@@ -1,7 +1,7 @@
 # @shiftcode/ngx-ssr ![@shiftcode/ngx-ssr](https://img.shields.io/badge/deprecated-f48700)
 
-**Our Package is not used anymore with Angular 17.**\
-Instead take the following actions when migrating to Angular 17:
+**Our Package is not used anymore starting with Angular 17.**\
+Instead take the following actions when migrating to Angular ^17:
 
 - ensure AppComponent is a standalone component and not declared in a module
 - remove the usage of `SsrHttpInterceptor` and `provideOrigin` (both from `@shiftcode/ngx-core` and `@shiftcode/ngx-ssr` package)\

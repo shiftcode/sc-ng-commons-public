@@ -12,13 +12,14 @@ Public Angular libraries used in various shiftcode projects.
 > Angular components/directives/pipes usable across different projects. More details in [README](./libs/components/README.md).
 
 > ![@shiftcode/ngx-ssr](https://img.shields.io/badge/@shiftcode/ngx--ssr-deprecated-f48700)\
-> Not used anymore with Angular 17. See necessary changes in [ssr.md](./ssr.md)
+> Not used anymore starting with Angular 17. See necessary changes in [ssr.md](./ssr.md)
 
 ## Angular to Lib Version Mapping
 Shows the mapping between the angular version and our lib versions.
 
 | Angular Version | Lib Version |
 |-----------------|-------------|
+| `^18`           | `^6`        | 
 | `^17`           | `^5`        |
 | `^16`           | `^4`        |
 | `^15`           | `^3`        |
@@ -27,7 +28,7 @@ Shows the mapping between the angular version and our lib versions.
 
 
 ## Anatomy of this workspace
-Package manager client: `yarn`
+Package manager client: `npm`
 
 Individual packages can depend on each other, the dependency is resolved using ts paths (see ./tsconfig.json) make sure to build the package you depend on. Or change the tsconfig.paths to reference the files under `src` directory.
 

@@ -1,12 +1,12 @@
 # we use tslint instead of ng lint, because we can't use --project (tsconfig specifying files with include, exclude )
 # and --files argument pointing to other files
 src/{**/,}!(*.+(spec|test)).ts:
-  - yarn prettier:staged
-  - yarn lint:lib --fix
+  - npm run prettier:staged
+  - npm run lint:lib -- --fix
 # test folder and specs
 test/{**/,}*.ts,src/{**/,}*.+(spec|test).ts:
-  - yarn prettier:staged
-  - yarn lint:test --fix
+  - npm run prettier:staged
+  - npm run lint:test -- --fix
 # sort package.json keys
 ./package.json:
   - npx sort-package-json

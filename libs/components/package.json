@@ -1,13 +1,13 @@
 {
   "name": "@shiftcode/ngx-components",
-  "version": "5.0.1",
+  "version": "6.0.0-pr28.5",
   "repository": "https://github.com/shiftcode/sc-ng-commons-public",
   "license": "MIT",
   "author": "shiftcode GmbH <team@shiftcode.ch>",
   "sideEffects": false,
   "scripts": {
-    "lint": "yarn lint:lib --fix && yarn lint:test --fix",
-    "lint:ci": "yarn lint:lib && yarn lint:test",
+    "lint": "npm run lint:lib -- --fix && npm run lint:test -- --fix",
+    "lint:ci": "npm run lint:lib && npm run lint:test",
     "lint:lib": "tslint --format codeFrame --project ./tsconfig.lib.json",
     "lint:test": "tslint --format codeFrame --project ./tsconfig.spec.json",
     "prettier": "prettier --write --config ../../.prettierrc.yml 'src/**/*.ts'",
@@ -17,13 +17,13 @@
     "tslib": "^2.5.0"
   },
   "peerDependencies": {
-    "@angular/animations": "^17.1.1",
-    "@angular/cdk": "^17.1.1",
-    "@angular/common": "^17.1.1",
-    "@angular/core": "^17.1.1",
-    "@angular/forms": "^17.1.1",
-    "@angular/router": "^17.1.1",
-    "@shiftcode/ngx-core": "^5.0.0 || ^5.0.0-pr24",
+    "@angular/animations": "^18.0.0",
+    "@angular/cdk": "^18.0.0",
+    "@angular/common": "^18.0.0",
+    "@angular/core": "^18.0.0",
+    "@angular/forms": "^18.0.0",
+    "@angular/router": "^18.0.0",
+    "@shiftcode/ngx-core": "^6.0.0 || ^6.0.0-pr28",
     "rxjs": "^6.5.3 || ^7.4.0"
   }
 }

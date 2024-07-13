@@ -7,7 +7,10 @@ import { RemoteLogService } from './remote-log.service'
 
 @Injectable({ providedIn: 'root' })
 export class RemoteLogTransport extends LogTransport {
-  constructor(@Inject(REMOTE_LOG_CONFIG) config: RemoteLogConfig, private remoteLogService: RemoteLogService) {
+  constructor(
+    @Inject(REMOTE_LOG_CONFIG) config: RemoteLogConfig,
+    private remoteLogService: RemoteLogService,
+  ) {
     super()
     this.logLevel = config.logLevel
   }

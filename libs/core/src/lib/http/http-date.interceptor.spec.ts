@@ -1,5 +1,11 @@
-import { HTTP_INTERCEPTORS, HttpClient, HttpInterceptor } from '@angular/common/http'
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  HttpInterceptor,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http'
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing'
 import { ClassProvider } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { firstValueFrom } from 'rxjs'
@@ -20,8 +26,8 @@ describe('HttpDateInterceptor', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [momentInterceptorProvider],
+      imports: [],
+      providers: [momentInterceptorProvider, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()],
     })
     interceptor = <HttpDateInterceptor>(
       TestBed.inject<HttpInterceptor[]>(HTTP_INTERCEPTORS).find((i) => i instanceof HttpDateInterceptor)!

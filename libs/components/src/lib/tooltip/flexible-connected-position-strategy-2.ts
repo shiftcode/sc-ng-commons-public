@@ -96,8 +96,8 @@ FlexibleConnectedPositionStrategy2.prototype['_getOverlayFit'] = function _getOv
     visibleWidth < 0 && visibleHeight < 0
       ? Number.MIN_SAFE_INTEGER
       : visibleWidth < 0 || visibleHeight < 0
-      ? Number.MIN_SAFE_INTEGER + Math.abs(visibleWidth * visibleHeight)
-      : visibleWidth * visibleHeight
+        ? Number.MIN_SAFE_INTEGER + Math.abs(visibleWidth * visibleHeight)
+        : visibleWidth * visibleHeight
 
   return {
     visibleArea,

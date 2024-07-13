@@ -1,13 +1,13 @@
 {
   "name": "@shiftcode/ngx-core",
-  "version": "5.0.1",
+  "version": "6.0.0-pr28.5",
   "repository": "https://github.com/shiftcode/sc-ng-commons-public",
   "license": "MIT",
   "author": "shiftcode GmbH <team@shiftcode.ch>",
   "sideEffects": false,
   "scripts": {
-    "lint": "yarn lint:lib --fix && yarn lint:test --fix",
-    "lint:ci": "yarn lint:lib && yarn lint:test",
+    "lint": "npm run lint:lib -- --fix && npm run lint:test -- --fix",
+    "lint:ci": "npm run lint:lib && npm run lint:test",
     "lint:lib": "tslint --format codeFrame --project ./tsconfig.lib.json",
     "lint:test": "tslint --format codeFrame --project ./tsconfig.spec.json",
     "prettier": "prettier --write --config ../../.prettierrc.yml 'src/**/*.ts'",
@@ -17,11 +17,11 @@
     "tslib": "^2.5.0"
   },
   "peerDependencies": {
-    "@angular/common": "^17.1.1",
-    "@angular/core": "^17.1.1",
-    "@angular/platform-browser": "^17.1.1",
-    "@angular/router": "^17.1.1",
-    "@shiftcode/utilities": "^2.0.1",
+    "@angular/common": "^18.0.0",
+    "@angular/core": "^18.0.0",
+    "@angular/platform-browser": "^18.0.0",
+    "@angular/router": "^18.0.0",
+    "@shiftcode/utilities": "^3.0.0",
     "rxjs": "^6.5.3 || ^7.4.0"
   }
 }
