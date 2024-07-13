@@ -2,11 +2,11 @@
 # and --files argument pointing to other files
 src/{**/,}!(*.+(spec|test)).ts:
   - npm run prettier:staged
-  - npm run lint:lib --fix
+  - npm run lint:lib -- --fix
 # test folder and specs
 test/{**/,}*.ts,src/{**/,}*.+(spec|test).ts:
   - npm run prettier:staged
-  - npm run lint:test --fix
+  - npm run lint:test -- --fix
 # all html files
 src/**/*.html:
   - npm run prettier:staged

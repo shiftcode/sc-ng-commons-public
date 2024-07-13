@@ -6,7 +6,7 @@
   "author": "shiftcode GmbH <team@shiftcode.ch>",
   "sideEffects": false,
   "scripts": {
-    "lint": "npm run lint:lib --fix && npm run lint:test --fix",
+    "lint": "npm run lint:lib -- --fix && npm run lint:test -- --fix",
     "lint:ci": "npm run lint:lib && npm run lint:test",
     "lint:lib": "tslint --format codeFrame --project ./tsconfig.lib.json",
     "lint:test": "tslint --format codeFrame --project ./tsconfig.spec.json",
