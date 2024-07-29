@@ -8,13 +8,25 @@
   "scripts": {
     "lint": "yarn lint:lib --fix && yarn lint:test --fix",
     "lint:ci": "yarn lint:lib && yarn lint:test",
-    "lint:lib": "tslint --format codeFrame --project ./tsconfig.lib.json",
-    "lint:test": "tslint --format codeFrame --project ./tsconfig.spec.json",
+    "lint:lib": "eslint --config ./.eslintrc.cjs ./src",
+    "lint:test": "eslint --config ./.eslintrc.cjs ./test",
     "prettier": "prettier --write --config ../../.prettierrc.yml 'src/**/*.ts'",
     "prettier:staged": "prettier --write --config ../../.prettierrc.yml"
   },
   "dependencies": {
     "tslib": "^2.5.0"
+  },
+  "devDependencies": {
+    "@angular-eslint/builder": "^17.1.1",
+    "@angular-eslint/eslint-plugin": "^17.1.1",
+    "@angular-eslint/eslint-plugin-template": "^17.1.1",
+    "@angular-eslint/schematics": "^17.1.1",
+    "@angular-eslint/template-parser": "^17.1.1",
+    "@typescript-eslint/eslint-plugin": "^7.16.0",
+    "@typescript-eslint/parser": "^7.16.0",
+    "eslint": "^9.7.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3"
   },
   "peerDependencies": {
     "@angular/animations": "^17.1.1",

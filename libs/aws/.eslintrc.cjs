@@ -1,6 +1,17 @@
-const typescriptEslint = require('@shiftcode/eslint-config')
-
 module.exports = {
-  ...typescriptEslint,
-  root: true,
+  overrides: [
+    {
+      files: ['*.ts'],
+      rules: {
+        'import/no-internal-modules': ['error', { allow: ['aws-cdk-lib/*', '@shiftcode/iac-helper/*'] }],
+      },
+    },
+  ],
+
+  parserOptions: {
+    project: [
+      "./tsconfig.lib.json",
+      "./tsconfig.spec.json"
+    ]
+  }
 }

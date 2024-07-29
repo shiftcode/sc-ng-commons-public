@@ -8,16 +8,17 @@
   "scripts": {
     "lint": "yarn lint:lib --fix && yarn lint:test --fix",
     "lint:ci": "yarn lint:lib && yarn lint:test",
-    "lint:lib": "tslint --format codeFrame --project ./tsconfig.lib.json",
-    "lint:test": "tslint --format codeFrame --project ./tsconfig.spec.json",
+    "lint:lib": "eslint --format codeframe --config ./.eslintrc.cjs --ext .ts ./src",
+    "lint:test": "eslint --format codeframe --config ./.eslintrc.cjs --ext .ts ./tests",
     "prettier": "prettier --write --config ../../.prettierrc.yml 'src/**/*.ts'",
     "prettier:staged": "prettier --write --config ../../.prettierrc.yml"
   },
   "dependencies": {
-    "@shiftcode/eslint-config": "^2.6.0",
+    "@shiftcode/eslint-config-recommended": "2.0.1",
     "tslib": "^2.5.0"
   },
   "peerDependencies": {
+    "@angular-eslint/eslint-plugin": "^17.1.1",
     "@angular/common": "^17.1.1",
     "@angular/core": "^17.1.1",
     "@angular/platform-browser": "^17.1.1",
