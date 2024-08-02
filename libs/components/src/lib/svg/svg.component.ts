@@ -10,6 +10,7 @@ import {
 } from '@angular/core'
 import { Logger, LoggerService } from '@shiftcode/ngx-core'
 import { SvgRegistry } from './svg-registry.service'
+import { HttpErrorResponse } from '@angular/common/http'
 
 /**
  * Standalone SvgComponent to display svg inline.
@@ -51,7 +52,14 @@ export class SvgComponent implements OnChanges {
         .getFromUrl(this.url)
         .then(this.modifySvgElement)
         .then(this.setSvgElement)
-        .catch((err: any) => this.logger.error(`Error retrieving icon for path ${this.url}`, err))
+        .catch((err: any) => {
+          if (err instanceof HttpErrorResponse && err.status === 0) {
+            // in case of no internet or a timeout log a warning, we can not do anything about that
+            this.logger.warn(`Error retrieving icon for path ${this.url}, due to no network`, err)
+          } else {
+            this.logger.error(`Error retrieving icon for path ${this.url}`, err)
+          }
+        })
     }
   }
 
