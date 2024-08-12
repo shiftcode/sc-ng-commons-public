@@ -1,18 +1,10 @@
-# we use tslint instead of ng lint, because we can't use --project (tsconfig specifying files with include, exclude )
+# we use eslint instead of ng lint, because we can't use --project (tsconfig specifying files with include, exclude)
 # and --files argument pointing to other files
-src/{**/,}!(*.+(spec|test)).ts:
-  - yarn prettier:staged
-  - yarn lint:lib --fix
-# test folder and specs
-test/{**/,}*.ts,src/{**/,}*.+(spec|test).ts:
-  - yarn prettier:staged
-  - yarn lint:test --fix
-# all html files
-src/**/*.html:
-  - yarn prettier:staged
-# all scss files
+"*.{ts,html}":
+  - npm run prettier:staged
+  - npm run lint:staged
 src/**/*.scss:
-  - yarn prettier:staged
+  - npm run prettier:staged
 # sort package.json keys
 ./package.json:
   - npx sort-package-json
