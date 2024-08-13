@@ -6,12 +6,11 @@
   "author": "shiftcode GmbH <team@shiftcode.ch>",
   "sideEffects": false,
   "scripts": {
-    "lint": "yarn lint:lib --fix && yarn lint:test --fix",
-    "lint:ci": "yarn lint:lib && yarn lint:test",
-    "lint:lib": "eslint --config ./.eslintrc.cjs ./src",
-    "lint:test": "eslint --config ./.eslintrc.cjs ./test",
-    "prettier": "prettier --write --config ../../.prettierrc.yml 'src/**/*.ts'",
-    "prettier:staged": "prettier --write --config ../../.prettierrc.yml"
+    "lint:ci": "npm run lint:lib",
+    "lint:lib": "eslint ./src",
+    "lint:staged": "npm run lint:lib --fix",
+    "prettier:base": "prettier --write --config ../../.prettierrc.yml",
+    "prettier:staged": "npm run prettier:base"
   },
   "dependencies": {
     "tslib": "^2.5.0"

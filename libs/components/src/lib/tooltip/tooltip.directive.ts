@@ -1,4 +1,3 @@
-// tslint:disable:no-input-rename
 import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y'
 import { coerceBooleanProperty } from '@angular/cdk/coercion'
 import { ESCAPE } from '@angular/cdk/keycodes'
@@ -95,6 +94,7 @@ export class TooltipDirective implements OnDestroy, OnInit {
     this.ariaDescriber.removeDescription(this.elementRef.nativeElement, this._message)
 
     // If the message is not a string (e.g. number), convert it to a string and trim it.
+    // eslint-disable-next-line eqeqeq
     this._message = value != null ? `${value}`.trim() : ''
 
     if (!this._message && this.isTooltipVisible()) {
@@ -233,8 +233,7 @@ export class TooltipDirective implements OnDestroy, OnInit {
     if (
       this.disabled ||
       !this.message ||
-      // tslint:disable-next-line:no-non-null-assertion
-      (this.isTooltipVisible() && !this.tooltipInstance!.showTimeoutId && !this.tooltipInstance!.hideTimeoutId)
+      (this.isTooltipVisible() && !this.tooltipInstance?.showTimeoutId && !this.tooltipInstance?.hideTimeoutId)
     ) {
       return
     }
@@ -278,7 +277,6 @@ export class TooltipDirective implements OnDestroy, OnInit {
   /** Handles the keydown events on the host element. */
   @HostListener('keydown', ['$event'])
   handleKeydown(e: KeyboardEvent) {
-    // tslint:disable-next-line:deprecation
     if (this.isTooltipVisible() && (e.keyCode === ESCAPE || e.key === 'Escape')) {
       e.stopPropagation()
       this.hide(0)
@@ -416,8 +414,7 @@ export class TooltipDirective implements OnDestroy, OnInit {
 
   /** Updates the position of the current tooltip. */
   private updatePosition() {
-    // tslint:disable-next-line:no-non-null-assertion
-    const position: FlexibleConnectedPositionStrategy = <any>this.overlayRef!.getConfig().positionStrategy
+    const position: FlexibleConnectedPositionStrategy = <any>this.overlayRef?.getConfig().positionStrategy
     const origin = this.getOrigin()
     const overlay = this.getOverlayPosition()
     position.withPositions([

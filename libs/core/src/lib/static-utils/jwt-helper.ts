@@ -56,7 +56,10 @@ export class JwtHelper {
             const parsed = JSON.parse(decoded)
             return typeof parsed === 'object' && parsed !== null
           }
-        } catch (err) {}
+        } catch (err) {
+          // eslint-disable-next-line no-console
+          console.error(err)
+        }
       }
     }
     return false
@@ -77,7 +80,10 @@ export class JwtHelper {
       let parsed: any
       try {
         parsed = JSON.parse(decoded)
-      } catch (err) {}
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error(err)
+      }
       if (typeof parsed !== 'object' || parsed === null) {
         throw new Error('token value not an object')
       }
@@ -88,10 +94,8 @@ export class JwtHelper {
   }
 
   static getTokenExpirationDate(token: string): Date | null {
-    let decoded: any
-    decoded = JwtHelper.decodeToken(token)
-
-    if (!decoded.hasOwnProperty('exp')) {
+    const decoded: any = JwtHelper.decodeToken(token)
+    if (!Object.prototype.hasOwnProperty.call(decoded, 'exp')) {
       return null
     }
 
@@ -110,7 +114,7 @@ export class JwtHelper {
       return true
     } else {
       const date = this.getTokenExpirationDate(token)
-
+      // eslint-disable-next-line eqeqeq
       if (date == null) {
         return false
       }

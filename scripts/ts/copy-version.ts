@@ -1,4 +1,3 @@
-// tslint:disable:no-console
 import { readFileSync, writeFileSync } from 'fs'
 
 class CausedError extends Error {

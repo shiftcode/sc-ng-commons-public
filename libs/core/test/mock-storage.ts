@@ -1,5 +1,4 @@
 export class MockStorage {
-
   clear(): void {
     Object.keys(this).forEach((key) => {
       delete (<any>this)[key]
@@ -15,11 +14,10 @@ export class MockStorage {
   }
 
   setItem(key: string, value: string): void {
-    (<any>this)[key] = value
+    ;(<any>this)[key] = value
   }
 
   removeItem(key: string): void {
     delete (<any>this)[key]
   }
-
 }

@@ -5,20 +5,26 @@
   "license": "MIT",
   "author": "shiftcode GmbH <team@shiftcode.ch>",
   "sideEffects": false,
+  "type": "module",
   "scripts": {
-    "lint": "yarn lint:lib --fix && yarn lint:test --fix",
-    "lint:ci": "yarn lint:lib && yarn lint:test",
-    "lint:lib": "eslint --format codeframe --config ./.eslintrc.cjs --ext .ts ./src",
-    "lint:test": "eslint --format codeframe --config ./.eslintrc.cjs --ext .ts ./tests",
-    "prettier": "prettier --write --config ../../.prettierrc.yml 'src/**/*.ts'",
-    "prettier:staged": "prettier --write --config ../../.prettierrc.yml"
+    "lint:ci": "npm run lint:lib && npm run lint:test",
+    "lint:lib": "eslint ./src",
+    "lint:staged": "npm run lint:lib --fix && npm run lint:test --fix",
+    "lint:test": "eslint ./test",
+    "prettier:base": "prettier --write --config ../../.prettierrc.yml",
+    "prettier:staged": "npm run prettier:base"
   },
   "dependencies": {
-    "@shiftcode/eslint-config-recommended": "2.0.1",
     "tslib": "^2.5.0"
   },
-  "peerDependencies": {
+  "devDependencies": {
+    "@angular-eslint/builder": "^17.1.1",
     "@angular-eslint/eslint-plugin": "^17.1.1",
+    "@angular-eslint/eslint-plugin-template": "^17.1.1",
+    "@angular-eslint/schematics": "^17.1.1",
+    "@angular-eslint/template-parser": "^17.1.1"
+  },
+  "peerDependencies": {
     "@angular/common": "^17.1.1",
     "@angular/core": "^17.1.1",
     "@angular/platform-browser": "^17.1.1",

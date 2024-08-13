@@ -1,5 +1,3 @@
-// tslint:disable:no-non-null-assertion
-
 import { ClassProvider, ValueProvider } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { firstValueFrom, scan, shareReplay } from 'rxjs'

@@ -5,8 +5,6 @@ import { TestBed } from '@angular/core/testing'
 import { firstValueFrom } from 'rxjs'
 import { HttpDateInterceptor } from './http-date.interceptor'
 
-// tslint:disable:no-non-null-assertion
-
 describe('HttpDateInterceptor', () => {
   const momentInterceptorProvider: ClassProvider = {
     provide: HTTP_INTERCEPTORS,

@@ -1,6 +1,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "module": "esnext",
+    "target": "esnext",
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
@@ -30,8 +32,8 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2022",
-    "module": "es2020",
+    "emitDecoratorMetadata": true,
+    "resolveJsonModule": true,
     "lib": [
       "es2022",
       "dom"

@@ -17,7 +17,6 @@ import { Subscription } from 'rxjs'
  */
 @Directive({ selector: '[scClickOutside]', standalone: true })
 export class ClickOutsideDirective implements OnDestroy, OnChanges {
-  // tslint:disable-next-line:no-input-rename
   @Input('scClickOutsideDisabled') disabled = false
 
   @Output() readonly scClickOutside = new EventEmitter<Event>()
@@ -27,7 +26,7 @@ export class ClickOutsideDirective implements OnDestroy, OnChanges {
 
   constructor(private uiEventService: UIEventService) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(_changes: SimpleChanges): void {
     // as there is only one input, ngOnChanges is only called when `isActive` changes
     this.subscription?.unsubscribe()
     if (!this.disabled) {

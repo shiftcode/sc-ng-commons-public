@@ -7,6 +7,7 @@ import { REGEX_DATE_STRING, REGEX_DATE_STRING_WITH_MS } from '../static-utils/re
 
 @Injectable({ providedIn: 'root' })
 export class HttpDateInterceptor implements HttpInterceptor {
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   static convertDates(value: string | any): Date | any {
     if (typeof value === 'string' && (REGEX_DATE_STRING.test(value) || REGEX_DATE_STRING_WITH_MS.test(value))) {
       return new Date(value)

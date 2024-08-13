@@ -5,13 +5,13 @@
   "license": "MIT",
   "author": "shiftcode GmbH <team@shiftcode.ch>",
   "sideEffects": false,
+  "type": "module",
   "scripts": {
-    "lint": "yarn lint:lib --fix && yarn lint:test --fix",
-    "lint:ci": "yarn lint:lib && yarn lint:test",
-    "lint:lib": "eslint --ext .ts,.html --format codeFrame --config .eslintrc-lib.json --project ./tsconfig.lib.json",
-    "lint:test": "eslint --ext .ts,.html --format codeFrame --config .eslintrc-test.json --project ./tsconfig.spec.json",
-    "prettier": "prettier --write --config ../../.prettierrc.yml 'src/**/*.ts'",
-    "prettier:staged": "prettier --write --config ../../.prettierrc.yml"
+    "lint:ci": "npm run lint:lib",
+    "lint:lib": "eslint ./src",
+    "lint:staged": "eslint ./src --fix --cache",
+    "prettier:base": "prettier --write --config ../../.prettierrc.yml",
+    "prettier:staged": "npm run prettier:base"
   },
   "dependencies": {
     "tslib": "^2.5.0"

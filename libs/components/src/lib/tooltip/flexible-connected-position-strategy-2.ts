@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { coerceCssPixelValue } from '@angular/cdk/coercion'
 import { ConnectedPosition, FlexibleConnectedPositionStrategy } from '@angular/cdk/overlay'
 import { ViewportScrollPosition } from '@angular/cdk/scrolling'
@@ -71,9 +72,7 @@ FlexibleConnectedPositionStrategy2.prototype['_getOverlayFit'] = function _getOv
   // viewport, because the viewport is always rounded.
   const overlay = getRoundedBoundingClientRect(rawOverlayRect)
   let { x, y } = point
-  // @ts-ignore
   const offsetX = this._getOffset(position, 'x')
-  // @ts-ignore
   const offsetY = this._getOffset(position, 'y')
   // Account for the offsets since they could push the overlay out of the viewport.
   if (offsetX) {
@@ -88,16 +87,14 @@ FlexibleConnectedPositionStrategy2.prototype['_getOverlayFit'] = function _getOv
   const topOverflow = 0 - y
   const bottomOverflow = y + overlay.height - viewport.height
   // Visible parts of the element on each axis.
-  // @ts-ignore
   const visibleWidth = this._subtractOverflows(overlay.width, leftOverflow, rightOverflow)
-  // @ts-ignore
   const visibleHeight = this._subtractOverflows(overlay.height, topOverflow, bottomOverflow)
   const visibleArea =
     visibleWidth < 0 && visibleHeight < 0
       ? Number.MIN_SAFE_INTEGER
       : visibleWidth < 0 || visibleHeight < 0
-      ? Number.MIN_SAFE_INTEGER + Math.abs(visibleWidth * visibleHeight)
-      : visibleWidth * visibleHeight
+        ? Number.MIN_SAFE_INTEGER + Math.abs(visibleWidth * visibleHeight)
+        : visibleWidth * visibleHeight
 
   return {
     visibleArea,

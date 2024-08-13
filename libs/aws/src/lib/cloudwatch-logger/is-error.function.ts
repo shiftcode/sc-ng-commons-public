@@ -1,6 +1,7 @@
 import { DataAlreadyAcceptedException, InvalidSequenceTokenException } from '@aws-sdk/client-cloudwatch-logs'
 import { SmithyException } from '@aws-sdk/types/dist/types/shapes'
 
+// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 export function isError(value: any | unknown): value is { name: string; message: string } {
   return (
     value instanceof Error || (typeof value === 'object' && value !== null && 'name' in value && 'message' in value)
