@@ -72,7 +72,11 @@ FlexibleConnectedPositionStrategy2.prototype['_getOverlayFit'] = function _getOv
   // viewport, because the viewport is always rounded.
   const overlay = getRoundedBoundingClientRect(rawOverlayRect)
   let { x, y } = point
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const offsetX = this._getOffset(position, 'x')
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const offsetY = this._getOffset(position, 'y')
   // Account for the offsets since they could push the overlay out of the viewport.
   if (offsetX) {
@@ -87,7 +91,9 @@ FlexibleConnectedPositionStrategy2.prototype['_getOverlayFit'] = function _getOv
   const topOverflow = 0 - y
   const bottomOverflow = y + overlay.height - viewport.height
   // Visible parts of the element on each axis.
+  // @ts-ignore
   const visibleWidth = this._subtractOverflows(overlay.width, leftOverflow, rightOverflow)
+  // @ts-ignore
   const visibleHeight = this._subtractOverflows(overlay.height, topOverflow, bottomOverflow)
   const visibleArea =
     visibleWidth < 0 && visibleHeight < 0
