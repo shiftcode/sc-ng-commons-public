@@ -6,35 +6,24 @@
   "author": "shiftcode GmbH <team@shiftcode.ch>",
   "sideEffects": false,
   "scripts": {
+    "lint": "eslint ./src --fix --cache",
     "lint:ci": "npm run lint:lib",
     "lint:lib": "eslint ./src",
-    "lint:staged": "npm run lint:lib --fix",
+    "lint:test": "eslint ./test",
     "prettier:base": "prettier --write --config ../../.prettierrc.yml",
-    "prettier:staged": "npm run prettier:base"
+    "prettier:staged": "prettier --write --config ../../.prettierrc.yml"
   },
   "dependencies": {
     "tslib": "^2.5.0"
   },
-  "devDependencies": {
-    "@angular-eslint/builder": "^17.1.1",
-    "@angular-eslint/eslint-plugin": "^17.1.1",
-    "@angular-eslint/eslint-plugin-template": "^17.1.1",
-    "@angular-eslint/schematics": "^17.1.1",
-    "@angular-eslint/template-parser": "^17.1.1",
-    "@typescript-eslint/eslint-plugin": "^7.16.0",
-    "@typescript-eslint/parser": "^7.16.0",
-    "eslint": "^9.7.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.1.3"
-  },
   "peerDependencies": {
-    "@angular/animations": "^17.1.1",
-    "@angular/cdk": "^17.1.1",
-    "@angular/common": "^17.1.1",
-    "@angular/core": "^17.1.1",
-    "@angular/forms": "^17.1.1",
-    "@angular/router": "^17.1.1",
-    "@shiftcode/ngx-core": "^5.0.0 || ^5.0.0-pr24",
+    "@angular/animations": "^18.0.0",
+    "@angular/cdk": "^18.0.0",
+    "@angular/common": "^18.0.0",
+    "@angular/core": "^18.0.0",
+    "@angular/forms": "^18.0.0",
+    "@angular/router": "^18.0.0",
+    "@shiftcode/ngx-core": "^6.0.0 || ^6.0.0-pr28",
     "rxjs": "^6.5.3 || ^7.4.0"
   }
 }

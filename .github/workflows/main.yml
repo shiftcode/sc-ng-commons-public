@@ -1,6 +1,6 @@
 # secrets.GITHUB_TOKEN is provided to each job by default, lifetime: 60minutes.
 # See https://help.github.com/en/actions/automating-your-workflow-with-github-actions/authenticating-with-the-github_token
-name: Lint, Test, Build and optionaly Publish
+name: Lint, Test, Build and optionally Publish
 
 on:
   # push only for branches (ignore tags)
@@ -30,7 +30,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
       - id: stepCheckExecution
         name: Check for execution
-        uses: shiftcode/github-action-skip@v3.0.0
+        uses: shiftcode/github-action-skip@v4.0.0
         with:
           skipOnCommitMsg: "[skip_build]"
           githubToken: ${{ secrets.GITHUB_TOKEN }}
@@ -48,11 +48,11 @@ jobs:
           fetch-depth: 0
           # we need priviledged access to publish to protected branch
           token: ${{ secrets.GH_TOKEN_PUBLIC_REPO }}
-      # setup node and npm cache
+      # setup node and dependency cache
       - name: Setup Node and NPM Cache
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: .nvmrc
           cache: 'npm'
       # NPM Authenticate
       - name: Auth for github registry
@@ -60,7 +60,7 @@ jobs:
           npm config set //npm.pkg.github.com/:_authToken=$REGISTRY_TOKEN
         env:
           REGISTRY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # npm install
+      # install dependencies
       - name: Install
         run: HUSKY=0 npm ci
       # lint
@@ -79,7 +79,7 @@ jobs:
         run: |
           git config user.email "actions@github.com"
           git config user.name "Github Actions"
-          npm run publish-libs
+          npx publish-lib
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
           GH_TOKEN: ${{ secrets.GH_TOKEN_PUBLIC_REPO }} # necessary for publish-libs script

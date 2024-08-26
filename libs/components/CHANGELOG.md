@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.1.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-components@6.0.0...@shiftcode/ngx-components@6.1.0) (2024-08-23)
+
+### Features
+
+- **svg-component:** change log level in case of no internet ([b644f4c](https://github.com/shiftcode/sc-ng-commons-public/commit/b644f4c2c4df1474b07d19cc64e4a76986490345))
+
+# [6.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-components@5.0.1...@shiftcode/ngx-components@6.0.0) (2024-07-13)
+
+### Features
+
+- **angular:** use angular 18 ([4610203](https://github.com/shiftcode/sc-ng-commons-public/commit/46102035f219c1c54cd5799879216cfd3e15f32e))
+
+### BREAKING CHANGES
+
+- **angular:** requires angular@18
+
 ## [5.0.1](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-components@5.0.0...@shiftcode/ngx-components@5.0.1) (2024-02-15)
 
 ### Bug Fixes

@@ -1,35 +1,26 @@
 {
   "name": "@shiftcode/ngx-core",
-  "version": "5.0.1",
+  "version": "6.0.0",
   "repository": "https://github.com/shiftcode/sc-ng-commons-public",
   "license": "MIT",
   "author": "shiftcode GmbH <team@shiftcode.ch>",
   "sideEffects": false,
-  "type": "module",
   "scripts": {
-    "lint:ci": "npm run lint:lib && npm run lint:test",
+    "lint": "npm run lint:lib -- --fix && npm run lint:test -- --fix",
     "lint:lib": "eslint ./src",
-    "lint:staged": "npm run lint:lib --fix && npm run lint:test --fix",
     "lint:test": "eslint ./test",
-    "prettier:base": "prettier --write --config ../../.prettierrc.yml",
-    "prettier:staged": "npm run prettier:base"
+    "prettier": "prettier --write --config ../../.prettierrc.yml 'src/**/*.ts'",
+    "prettier:staged": "prettier --write --config ../../.prettierrc.yml"
   },
   "dependencies": {
     "tslib": "^2.5.0"
   },
-  "devDependencies": {
-    "@angular-eslint/builder": "^17.1.1",
-    "@angular-eslint/eslint-plugin": "^17.1.1",
-    "@angular-eslint/eslint-plugin-template": "^17.1.1",
-    "@angular-eslint/schematics": "^17.1.1",
-    "@angular-eslint/template-parser": "^17.1.1"
-  },
   "peerDependencies": {
-    "@angular/common": "^17.1.1",
-    "@angular/core": "^17.1.1",
-    "@angular/platform-browser": "^17.1.1",
-    "@angular/router": "^17.1.1",
-    "@shiftcode/utilities": "^2.0.1",
+    "@angular/common": "^18.0.0",
+    "@angular/core": "^18.0.0",
+    "@angular/platform-browser": "^18.0.0",
+    "@angular/router": "^18.0.0",
+    "@shiftcode/utilities": "^3.0.0",
     "rxjs": "^6.5.3 || ^7.4.0"
   }
 }
