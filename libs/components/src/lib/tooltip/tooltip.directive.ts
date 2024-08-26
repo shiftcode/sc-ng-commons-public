@@ -233,7 +233,8 @@ export class TooltipDirective implements OnDestroy, OnInit {
     if (
       this.disabled ||
       !this.message ||
-      (this.isTooltipVisible() && !this.tooltipInstance?.showTimeoutId && !this.tooltipInstance?.hideTimeoutId)
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      (this.isTooltipVisible() && !this.tooltipInstance!.showTimeoutId && !this.tooltipInstance!.hideTimeoutId)
     ) {
       return
     }
@@ -414,7 +415,8 @@ export class TooltipDirective implements OnDestroy, OnInit {
 
   /** Updates the position of the current tooltip. */
   private updatePosition() {
-    const position: FlexibleConnectedPositionStrategy = <any>this.overlayRef?.getConfig().positionStrategy
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const position: FlexibleConnectedPositionStrategy = <any>this.overlayRef!.getConfig().positionStrategy
     const origin = this.getOrigin()
     const overlay = this.getOverlayPosition()
     position.withPositions([

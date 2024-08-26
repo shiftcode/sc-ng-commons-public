@@ -10,7 +10,7 @@
     "lint:ci": "npm run lint:lib",
     "lint:lib": "eslint ./src",
     "lint:test": "eslint ./test",
-    "prettier:base": "prettier --write --config ../../.prettierrc.yml 'src/**/*.ts'",
+    "prettier": "prettier --write --config ../../.prettierrc.yml 'src/**/*.ts'",
     "prettier:staged": "prettier --write --config ../../.prettierrc.yml"
   },
   "dependencies": {

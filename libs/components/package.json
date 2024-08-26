@@ -6,11 +6,11 @@
   "author": "shiftcode GmbH <team@shiftcode.ch>",
   "sideEffects": false,
   "scripts": {
-    "lint": "eslint ./src --fix --cache",
+    "lint": "eslint ./src -- --fix --cache",
     "lint:ci": "npm run lint:lib",
     "lint:lib": "eslint ./src",
     "lint:test": "eslint ./test",
-    "prettier:base": "prettier --write --config ../../.prettierrc.yml",
+    "prettier": "prettier --write --config ../../.prettierrc.yml 'src/**/*.ts'",
     "prettier:staged": "prettier --write --config ../../.prettierrc.yml"
   },
   "dependencies": {
