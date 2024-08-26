@@ -7,9 +7,10 @@
   "sideEffects": false,
   "scripts": {
     "lint": "npm run lint:lib -- --fix && npm run lint:test -- --fix",
+    "lint:ci": "npm run lint:lib",
     "lint:lib": "eslint ./src",
     "lint:test": "eslint ./test",
-    "prettier": "prettier --write --config ../../.prettierrc.yml 'src/**/*.ts'",
+    "prettier:base": "prettier --write --config ../../.prettierrc.yml 'src/**/*.ts'",
     "prettier:staged": "prettier --write --config ../../.prettierrc.yml"
   },
   "dependencies": {
