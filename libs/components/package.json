@@ -23,7 +23,7 @@
     "@angular/core": "^18.0.0",
     "@angular/forms": "^18.0.0",
     "@angular/router": "^18.0.0",
-    "@shiftcode/ngx-core": "^6.0.0 || ^6.0.0-pr28",
+    "@shiftcode/ngx-core": "^6.0.0 || ^6.1.0-pr22.4",
     "rxjs": "^6.5.3 || ^7.4.0"
   }
 }
