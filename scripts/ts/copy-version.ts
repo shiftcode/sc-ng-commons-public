@@ -1,10 +1,8 @@
 import { readFileSync, writeFileSync } from 'fs'
 
 class CausedError extends Error {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+// eslint-disable-next-line
   constructor(message: string, readonly cause: unknown) { super(message) }
-
 }
 
 interface Package {
