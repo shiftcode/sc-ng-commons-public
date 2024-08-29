@@ -1,4 +1,4 @@
-// tslint:disable:max-classes-per-file
+/* eslint-disable max-classes-per-file */
 import { MonoTypeOperatorFunction, Observable, Operator, Subscriber, TeardownLogic } from 'rxjs'
 
 /**
@@ -32,7 +32,6 @@ class TapLastSubscriber<T> extends Subscriber<T> {
   protected override _next(value: T): void {
     this.hasValue = true
     this.value = value
-    // @ts-ignore
     this.destination.next(value)
   }
 
@@ -41,12 +40,10 @@ class TapLastSubscriber<T> extends Subscriber<T> {
       try {
         this.callback(this.value)
       } catch (err) {
-        // @ts-ignore
         this.destination.error(err)
         return
       }
     }
-    // @ts-ignore
     return this.destination.complete()
   }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { isPlatformBrowser } from '@angular/common'
 import { colorizeForConsole } from '@shiftcode/utilities'
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core'
@@ -37,25 +38,23 @@ export class NodeConsoleLogTransport extends LogTransport {
         args.splice(0, 0, colorizeForConsole(`${now} - ${clazzName} ::`, hexColor), firstArgument)
       }
 
-      // tslint:disable:no-console
       switch (level) {
         case LogLevel.DEBUG:
-          console.debug.apply<Console, any[], void>(console, args)
+          console.debug(...args)
           break
         case LogLevel.ERROR:
-          console.error.apply<Console, any[], void>(console, args)
+          console.error(...args)
           break
         case LogLevel.INFO:
-          console.info.apply<Console, any[], void>(console, args)
+          console.info(...args)
           break
         case LogLevel.WARN:
-          console.warn.apply<Console, any[], void>(console, args)
+          console.warn(...args)
           break
         default:
-          console.log.apply<Console, any[], void>(console, args)
+          console.log(...args)
           break
       }
-      // tslint:enable:no-console
     }
   }
 }

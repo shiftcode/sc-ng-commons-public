@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Inject, Injectable, Optional } from '@angular/core'
 import { getEnumKeyFromNum } from '@shiftcode/utilities'
@@ -37,7 +38,6 @@ export class RemoteLogService {
       remoteLogData.data = this.tryStringify(args)
       this.postToBackend(remoteLogData)
     } else {
-      // tslint:disable-next-line:no-console
       console.warn('make sure to supply string or error as first argument in log statements')
     }
   }
@@ -53,7 +53,7 @@ export class RemoteLogService {
         responseType: 'text', // prevent angular from parsing something
       })
       .subscribe({
-        error: (err) => console.warn('log could not be submitted', err), // tslint:disable-line:no-console
+        error: (err) => console.warn('log could not be submitted', err),
       })
   }
 
@@ -64,7 +64,6 @@ export class RemoteLogService {
     try {
       return JSON.stringify(data)
     } catch (err) {
-      // tslint:disable-next-line:no-console
       console.warn('could not stringify provided log object', data)
       return
     }

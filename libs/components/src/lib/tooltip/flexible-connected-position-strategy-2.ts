@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { coerceCssPixelValue } from '@angular/cdk/coercion'
 import { ConnectedPosition, FlexibleConnectedPositionStrategy } from '@angular/cdk/overlay'
 import { ViewportScrollPosition } from '@angular/cdk/scrolling'
@@ -71,8 +72,10 @@ FlexibleConnectedPositionStrategy2.prototype['_getOverlayFit'] = function _getOv
   // viewport, because the viewport is always rounded.
   const overlay = getRoundedBoundingClientRect(rawOverlayRect)
   let { x, y } = point
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const offsetX = this._getOffset(position, 'x')
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const offsetY = this._getOffset(position, 'y')
   // Account for the offsets since they could push the overlay out of the viewport.

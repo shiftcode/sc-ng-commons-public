@@ -1,5 +1,3 @@
-// tslint:disable:max-classes-per-file
-
 import { filterIfInstanceOf } from './filter-if-instance-of.operator'
 import { of, Subject } from 'rxjs'
 import { tap } from 'rxjs/operators'

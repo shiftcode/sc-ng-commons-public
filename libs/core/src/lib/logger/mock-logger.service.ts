@@ -5,7 +5,7 @@ export class MockLoggerService {
 
   constructor() {}
 
-  getInstance(name: string, hexColor?: string): MockLogger {
+  getInstance(name: string, _hexColor?: string): MockLogger {
     const logger = new MockLogger()
 
     const existingArray = this.loggers.get(name) || []

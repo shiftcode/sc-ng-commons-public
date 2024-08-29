@@ -11,19 +11,16 @@ import { LoggerService } from './logger.service'
 import { NoopLogTransport } from './noop/noop-log-transport.service'
 import { provideLogger } from './provide-logger'
 
-// tslint:disable:no-console
-// tslint:disable:max-classes-per-file
-
 const warnLoggerConfig: ConsoleLogTransportConfig = {
   logLevel: LogLevel.WARN,
 }
 
 class Dummy1LogTransport extends LogTransport {
-  log(level: LogLevel, clazzName: string, color: string, timestamp: Date, args: any[]): void {}
+  log(_level: LogLevel, _clazzName: string, _color: string, _timestamp: Date, _args: any[]): void {}
 }
 
 class Dummy2LogTransport extends LogTransport {
-  log(level: LogLevel, clazzName: string, color: string, timestamp: Date, args: any[]): void {}
+  log(_level: LogLevel, _clazzName: string, _color: string, _timestamp: Date, _args: any[]): void {}
 }
 
 describe('Logger', () => {
