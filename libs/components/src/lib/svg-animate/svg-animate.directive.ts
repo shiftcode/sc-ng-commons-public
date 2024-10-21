@@ -1,5 +1,5 @@
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion'
-import { AfterViewInit, Directive, ElementRef, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core'
+import { AfterViewInit, Directive, ElementRef, Input, OnChanges, OnInit } from '@angular/core'
 
 /**
  * Standalone Directive to animate SVG parts by calling beginElement method
@@ -54,7 +54,7 @@ export class SvgAnimateDirective implements OnChanges, AfterViewInit, OnInit {
     }
   }
 
-  ngOnChanges(_changes: SimpleChanges) {
+  ngOnChanges() {
     this.apply()
   }
 

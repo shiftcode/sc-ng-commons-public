@@ -94,8 +94,7 @@ export class TooltipDirective implements OnDestroy, OnInit {
     this.ariaDescriber.removeDescription(this.elementRef.nativeElement, this._message)
 
     // If the message is not a string (e.g. number), convert it to a string and trim it.
-    // eslint-disable-next-line eqeqeq
-    this._message = value != null ? `${value}`.trim() : ''
+    this._message = value !== null ? `${value}`.trim() : ''
 
     if (!this._message && this.isTooltipVisible()) {
       this.hide(0)

@@ -3,6 +3,7 @@ module.exports = {
   extends: ['@shiftcode/eslint-config-recommended/ng-config'],
   overrides: [
     {
+      plugins: ['@shiftcode/rules'],
       files: ['*.ts'],
       rules: {
         'import/no-internal-modules': ['error', { allow: ['rxjs/operators'] }],

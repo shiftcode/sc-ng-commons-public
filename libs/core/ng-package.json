@@ -5,9 +5,6 @@
     "CHANGELOG.md",
     "LICENSE"
   ],
-  "allowedNonPeerDependencies": [
-    "@shiftcode/eslint-config-recommended"
-  ],
   "lib": {
     "entryFile": "src/public-api.ts"
   }

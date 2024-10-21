@@ -64,8 +64,7 @@ export class RxIfDirective<T> extends BaseRxDirective<T | null | undefined, RxIf
     this._elseRenderSubscription?.unsubscribe()
     this._elseRenderSubscription = null
 
-    // eslint-disable-next-line no-extra-boolean-cast
-    if (!!value) {
+    if (value) {
       this.renderDataView({ scRxIf: value })
     } else {
       this.renderElseOrClear()
