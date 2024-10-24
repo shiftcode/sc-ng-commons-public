@@ -6,7 +6,7 @@ module.exports = {
       plugins: ['@shiftcode/rules'],
       files: ['*.ts'],
       rules: {
-        'import/no-internal-modules': ['error', { allow: ['rxjs/operators'] }],
+        'import/no-internal-modules': ['error', { allow: ['rxjs/operators', '@angular/**/*'] }],
         '@typescript-eslint/naming-convention': [
           'error',
           {
@@ -23,6 +23,42 @@ module.exports = {
             }
           },
         ],
+        '@shiftcode/rules/import-denylist': [
+          'error', {
+            patterns: [
+              /\.\/(models|static|core|shared)\/.*/,
+              /src\/.*/
+            ],
+          },
+        ],
+        '@angular-eslint/directive-selector': [
+          'error',
+          {
+            type: 'attribute',
+            prefix: ['pl', 'ch', 'sc'],
+            style: 'camelCase',
+          },
+        ],
+        '@angular-eslint/component-selector': [
+          'error',
+          {
+            type: 'element',
+            prefix: ['pl', 'ch', 'sc'],
+            style: 'kebab-case',
+          },
+        ],
+      },
+    },
+    {
+      files: ['*.html'],
+      rules: {
+        '@angular-eslint/template/no-negated-async': 'off',
+      },
+    },
+    {
+      files: ['*.js', '*.mjs', '*.cjs'],
+      rules: {
+        'no-undef': 'off',
       },
     },
   ],
@@ -31,6 +67,14 @@ module.exports = {
     project: [
       "./tsconfig.lib.json",
       "./tsconfig.spec.json"
-    ]
-  }
+    ],
+    tsconfigRootDir: __dirname,
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    env: {
+      browser: true,
+      node: true,
+      es6: true,
+    },
+  },
 }
