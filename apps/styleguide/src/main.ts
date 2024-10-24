@@ -22,5 +22,4 @@ bootstrapApplication(AppComponent, {
     provideSgConfig(),
   ],
 })
-  // tslint:disable-next-line:no-console
   .catch((err) => console.error(err))

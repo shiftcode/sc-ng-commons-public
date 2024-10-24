@@ -2,7 +2,6 @@
 export class LoggerHelper {
   static REGEX_PLACEHOLDERS = /%((%)|s|i|f|o|c)/g
 
-  /* tslint:disable:no-bitwise */
   static stringToColor(str: string): string {
     let hash = 0
     for (let i = 0; i < str.length; i++) {
@@ -40,7 +39,7 @@ export class LoggerHelper {
               val = JSON.stringify(val2)
             } catch (e) {
               val = 'NOT SERIALIZABLE TO JSON'
-              // tslint:disable-next-line:no-console
+              // eslint-disable-next-line no-console
               console.warn('Make sure logged object is serializable to json for loggly %o', e)
             }
             break

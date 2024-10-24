@@ -1,9 +1,8 @@
-// tslint:disable:no-console
 import { readFileSync, writeFileSync } from 'fs'
 
 class CausedError extends Error {
+// eslint-disable-next-line
   constructor(message: string, readonly cause: unknown) { super(message) }
-
 }
 
 interface Package {

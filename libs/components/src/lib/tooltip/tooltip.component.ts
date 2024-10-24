@@ -1,5 +1,3 @@
-// tslint:disable:use-host-property-decorator
-// tslint:disable:no-host-metadata-property
 import { AnimationEvent, trigger } from '@angular/animations'
 import { ConnectedOverlayPositionChange } from '@angular/cdk/overlay'
 import { NgClass } from '@angular/common'
@@ -47,6 +45,7 @@ export class TooltipComponent implements OnDestroy {
   get notchPosition(): TooltipNotchPosition {
     return ((this._rendererPosition || '').split('-')[1] || 'center') as TooltipNotchPosition
   }
+
   /** Message to display in the tooltip */
   message: string
 
@@ -54,9 +53,11 @@ export class TooltipComponent implements OnDestroy {
   tooltipClass: string | string[] | Set<string> | { [key: string]: any }
 
   /** The timeout ID of any current timer set to show the tooltip */
+  //eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   showTimeoutId: any | null
 
   /** The timeout ID of any current timer set to hide the tooltip */
+  //eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   hideTimeoutId: any | null
 
   /** Property watched by the animation framework to show or hide the tooltip */

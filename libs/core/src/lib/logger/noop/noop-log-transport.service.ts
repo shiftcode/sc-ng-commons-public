@@ -4,5 +4,5 @@ import { LogTransport } from '../log-transport'
 
 @Injectable({ providedIn: 'root' })
 export class NoopLogTransport extends LogTransport {
-  log(level: LogLevel, clazzName: string, color: string, timestamp: Date, args: any[]): void {}
+  log(_level: LogLevel, _clazzName: string, _color: string, _timestamp: Date, _args: any[]): void {}
 }
