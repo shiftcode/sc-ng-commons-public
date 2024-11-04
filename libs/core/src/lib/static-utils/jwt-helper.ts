@@ -114,7 +114,8 @@ export class JwtHelper {
       return true
     } else {
       const date = this.getTokenExpirationDate(token)
-      if (date === null) {
+      // eslint-disable-next-line eqeqeq
+      if (date == null) {
         return false
       }
 

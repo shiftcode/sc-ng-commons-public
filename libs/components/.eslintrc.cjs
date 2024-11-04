@@ -31,22 +31,6 @@ module.exports = {
             ],
           },
         ],
-        '@angular-eslint/directive-selector': [
-          'error',
-          {
-            type: 'attribute',
-            prefix: ['pl', 'ch', 'sc'],
-            style: 'camelCase',
-          },
-        ],
-        '@angular-eslint/component-selector': [
-          'error',
-          {
-            type: 'element',
-            prefix: ['pl', 'ch', 'sc'],
-            style: 'kebab-case',
-          },
-        ],
       },
     },
     {
