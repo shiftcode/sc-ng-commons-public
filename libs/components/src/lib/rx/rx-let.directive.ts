@@ -40,7 +40,7 @@ export interface RxLetContext<T> {
  * </ng-container>
  * ```
  */
-@Directive({ selector: '[scRxLet]', standalone: true })
+@Directive({ selector: '[scRxLet]' })
 export class RxLetDirective<T> extends BaseRxDirective<T, RxLetContext<T>> implements OnChanges {
   @Input()
   set scRxLet(value: ObservableInput<T> | null) {

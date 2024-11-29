@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs'
 /**
  * Standalone Directive to listen for 'outside' element clicks
  */
-@Directive({ selector: '[scClickOutside]', standalone: true })
+@Directive({ selector: '[scClickOutside]' })
 export class ClickOutsideDirective implements OnDestroy, OnChanges {
   @Input('scClickOutsideDisabled') disabled = false
 

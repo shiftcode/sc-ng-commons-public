@@ -17,7 +17,7 @@ import { AfterViewInit, Directive, ElementRef, Input, OnChanges, OnInit } from '
  *  <sc-svg url="/assets/icon/close-anim.svg" [scSvgAnimate]="iconAnimState" (click)="setState()"></sc-svg>
  *  ```
  */
-@Directive({ selector: '[scSvgAnimate]', standalone: true })
+@Directive({ selector: '[scSvgAnimate]' })
 export class SvgAnimateDirective implements OnChanges, AfterViewInit, OnInit {
   /**
    * state input in form {selector:state} - will be animated when state === true

@@ -43,7 +43,6 @@ import { TooltipComponent } from './tooltip.component'
 @Directive({
   selector: '[scTooltip]',
   exportAs: 'scTooltip',
-  standalone: true,
 })
 export class TooltipDirective implements OnDestroy, OnInit {
   /** Allows the user to define the position of the tooltip relative to the parent element */

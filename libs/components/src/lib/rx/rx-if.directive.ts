@@ -18,7 +18,7 @@ export interface RxIfContext<T> {
  * <ng-template #noItemsTpl>No Items</ng-template>
  * <p *scRxIf="count$ as count;else noItemsTpl">{{count}} item(s)</p>
  */
-@Directive({ selector: '[scRxIf]', standalone: true })
+@Directive({ selector: '[scRxIf]' })
 export class RxIfDirective<T> extends BaseRxDirective<T | null | undefined, RxIfContext<T>> implements OnChanges {
   @Input()
   set scRxIf(value: ObservableInput<T | null | undefined> | null) {

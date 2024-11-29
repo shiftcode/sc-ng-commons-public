@@ -13,7 +13,7 @@ import { Directive, Input, ViewContainerRef, ViewRef } from '@angular/core'
  *   <ng-template [scInsertViewRef]="componentRef.hostView"></ng-template>
  * ```
  */
-@Directive({ selector: '[scInsertViewRef]', standalone: true })
+@Directive({ selector: '[scInsertViewRef]' })
 export class InsertViewRefDirective {
   @Input()
   set scInsertViewRef(val: ViewRef | null | undefined) {

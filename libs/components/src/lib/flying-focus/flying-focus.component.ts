@@ -29,7 +29,6 @@ const CRUCIAL_KEYS = ['Tab', 'Enter', 'Space', 'Escape', 'ArrowUp', 'ArrowRight'
  */
 @Component({
   selector: 'sc-flying-focus',
-  standalone: true,
   template: '',
   styleUrls: ['./flying-focus.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

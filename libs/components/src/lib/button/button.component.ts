@@ -10,7 +10,6 @@ import { Component, EventEmitter, HostListener, Output } from '@angular/core'
   selector: 'sc-button',
   template: ` <ng-content /> `,
   styleUrls: ['./button.component.scss'],
-  standalone: true,
   host: {
     role: 'button',
     tabindex: '0',

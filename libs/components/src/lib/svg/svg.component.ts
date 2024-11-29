@@ -27,7 +27,6 @@ import { HttpErrorResponse } from '@angular/common/http'
 @Component({
   selector: 'sc-svg',
   template: '<ng-content></ng-content>',
-  standalone: true,
   styleUrls: ['./svg.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

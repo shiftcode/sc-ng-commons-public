@@ -8,7 +8,6 @@ import { Component, ElementRef, HostBinding, Input, OnChanges } from '@angular/c
  */
 @Component({
   selector: 'sc-smooth-height',
-  standalone: true,
   template: `<ng-content />`,
   styleUrls: ['./smooth-height.component.scss'],
   animations: [

@@ -10,7 +10,6 @@ import { takeUntil } from 'rxjs/operators'
  */
 @Directive({
   selector: 'textarea[scAutosize]',
-  standalone: true,
   host: {
     '[style.resize]': '"none"',
     '[style.overflow]': '"hidden"',

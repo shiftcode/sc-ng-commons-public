@@ -10,7 +10,6 @@ import { isInputElement, Logger, LoggerService } from '@shiftcode/ngx-core'
  */
 @Directive({
   selector: '[scAutoFocus]',
-  standalone: true,
 })
 export class AutoFocusDirective implements AfterViewInit {
   readonly element: HTMLElement = inject(ElementRef).nativeElement
