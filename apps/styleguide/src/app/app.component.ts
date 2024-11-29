@@ -6,12 +6,11 @@ import { ClientIdService, Logger, LoggerService } from '@shiftcode/ngx-core'
 import { SUB_ROUTES } from '../routes/routes.const'
 
 @Component({
-  selector: 'sg-root',
-  standalone: true,
-  imports: [NgFor, RouterLink, RouterOutlet, FlyingFocusComponent],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'sg-root',
+    imports: [NgFor, RouterLink, RouterOutlet, FlyingFocusComponent],
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
   protected readonly basePath = 'styleguide'

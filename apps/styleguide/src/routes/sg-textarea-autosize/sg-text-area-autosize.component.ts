@@ -5,12 +5,11 @@ import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 
 @Component({
-  selector: 'sg-text-area-autosize',
-  standalone: true,
-  imports: [ReactiveFormsModule, TextareaAutosizeDirective],
-  templateUrl: './sg-text-area-autosize.component.html',
-  styleUrls: ['./sg-text-area-autosize.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'sg-text-area-autosize',
+    imports: [ReactiveFormsModule, TextareaAutosizeDirective],
+    templateUrl: './sg-text-area-autosize.component.html',
+    styleUrls: ['./sg-text-area-autosize.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SgTextAreaAutosizeComponent implements OnDestroy {
   readonly textCtrl = new FormControl<string>('hello\nWorld\ntype more to see what happens', { nonNullable: true })

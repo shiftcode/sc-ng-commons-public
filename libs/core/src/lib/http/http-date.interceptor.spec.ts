@@ -27,6 +27,7 @@ describe('HttpDateInterceptor', () => {
       imports: [],
       providers: [momentInterceptorProvider, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()],
     })
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     interceptor = <HttpDateInterceptor>(
       TestBed.inject<HttpInterceptor[]>(HTTP_INTERCEPTORS).find((i) => i instanceof HttpDateInterceptor)!
     )

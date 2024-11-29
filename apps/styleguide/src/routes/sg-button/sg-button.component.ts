@@ -3,12 +3,11 @@ import { ChangeDetectionStrategy, Component, Inject, OnDestroy, Optional } from 
 import { ButtonComponent, SvgComponent, TooltipDirective } from '@shiftcode/ngx-components'
 
 @Component({
-  selector: 'sg-button',
-  standalone: true,
-  imports: [ButtonComponent, SvgComponent, TooltipDirective],
-  templateUrl: './sg-button.component.html',
-  styleUrls: ['./sg-button.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'sg-button',
+    imports: [ButtonComponent, SvgComponent, TooltipDirective],
+    templateUrl: './sg-button.component.html',
+    styleUrls: ['./sg-button.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SgButtonComponent implements OnDestroy {
   counter1 = 0

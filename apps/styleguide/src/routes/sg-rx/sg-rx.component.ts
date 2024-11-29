@@ -63,13 +63,12 @@ class TestObsController {
 }
 
 @Component({
-  selector: 'sg-sc-rx',
-  standalone: true,
-  imports: [NgIf, AsyncPipe, JsonPipe, AutoFocusDirective, RxLetDirective, RxIfDirective],
-  templateUrl: './sg-rx.component.html',
-  styleUrls: ['./sg-rx.component.scss'],
-  encapsulation: ViewEncapsulation.Emulated,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'sg-sc-rx',
+    imports: [NgIf, AsyncPipe, JsonPipe, AutoFocusDirective, RxLetDirective, RxIfDirective],
+    templateUrl: './sg-rx.component.html',
+    styleUrls: ['./sg-rx.component.scss'],
+    encapsulation: ViewEncapsulation.Emulated,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SgRxComponent {
 

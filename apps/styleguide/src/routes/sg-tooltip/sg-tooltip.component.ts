@@ -5,12 +5,11 @@ import { TOOLTIP_DEFAULT_OPTIONS, TooltipDirective, TooltipOptions, TooltipPosit
 import { LoggerService } from '@shiftcode/ngx-core'
 
 @Component({
-  selector: 'sg-tooltip',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TooltipDirective],
-  templateUrl: './sg-tooltip.component.html',
-  styleUrls: ['./sg-tooltip.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'sg-tooltip',
+    imports: [CommonModule, ReactiveFormsModule, TooltipDirective],
+    templateUrl: './sg-tooltip.component.html',
+    styleUrls: ['./sg-tooltip.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SgTooltipComponent {
   readonly tooltip = '<b>Gefällt mir</b><br>Michael Wittwer<br>Michael Lieberherr'
