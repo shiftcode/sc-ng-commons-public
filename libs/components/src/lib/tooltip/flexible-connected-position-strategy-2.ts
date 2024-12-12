@@ -37,16 +37,13 @@ FlexibleConnectedPositionStrategy2.prototype['_getNarrowedViewportRect'] =
     // therefore we use `clientWidth` for the width and `innerHeight` for the height
     // this works for use because we never have horizontal scrollbars
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore: Accessing private member '_viewportMargin'
+    // @ts-expect-error: Property might not be declared or initialized
     const viewportMargin = this._viewportMargin
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore: Accessing private member '_document'
+    // @ts-expect-error: Document element may not be fully typed
     const docEl = this._document.documentElement
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore: Accessing private member '._viewportRuler'
+    // @ts-expect-error: Method return type may not match TypeScript expectations
     const scrollPosition = this._viewportRuler.getViewportScrollPosition()
 
     const width = docEl.clientWidth
@@ -74,12 +71,10 @@ FlexibleConnectedPositionStrategy2.prototype['_getOverlayFit'] = function _getOv
   const overlay = getRoundedBoundingClientRect(rawOverlayRect)
   let { x, y } = point
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore: Accessing private member '_getOffset'
+  // @ts-expect-error: Accessing private member '_getOffset'
   const offsetX = this._getOffset(position, 'x')
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore: Accessing private member '_getOffset'
+  // @ts-expect-error: Accessing private member '_getOffset'
   const offsetY = this._getOffset(position, 'y')
   // Account for the offsets since they could push the overlay out of the viewport.
   if (offsetX) {
@@ -94,12 +89,12 @@ FlexibleConnectedPositionStrategy2.prototype['_getOverlayFit'] = function _getOv
   const topOverflow = 0 - y
   const bottomOverflow = y + overlay.height - viewport.height
   // Visible parts of the element on each axis.
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore: Accessing private member '_subtractOverflows'
+  // @ts-expect-error: Accessing private member '_subtractOverflows'
   const visibleWidth = this._subtractOverflows(overlay.width, leftOverflow, rightOverflow)
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore: Accessing private member '_subtractOverflows'
+
+  // @ts-expect-error: Accessing private member '_subtractOverflows'
   const visibleHeight = this._subtractOverflows(overlay.height, topOverflow, bottomOverflow)
+
   const visibleArea =
     visibleWidth < 0 && visibleHeight < 0
       ? Number.MIN_SAFE_INTEGER
