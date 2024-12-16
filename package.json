@@ -70,6 +70,9 @@
     "typescript": "5.6.3",
     "zone.js": "~0.15.0"
   },
+  "optionalDependencies": {
+    "@nx/nx-linux-x64-gnu": "^19.4.2"
+  },
   "engines": {
     "node": ">=20.11.1"
   }
