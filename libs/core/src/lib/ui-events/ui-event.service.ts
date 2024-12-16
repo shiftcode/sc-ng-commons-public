@@ -7,8 +7,7 @@ import { WindowRef } from '../window/window-ref.service'
 @Injectable({ providedIn: 'root' })
 export class UIEventService {
   // Map<string, Map<FromEventTarget, Observable<UIEvent>>> -> FromEventTarget is internal source of rxjs
-  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-  private observables: Map<string, Map<any, Observable<UIEvent>>> = new Map()
+  private observables: Map<string, Map<any, Observable<UIEvent>>> = new Map<string, Map<any, Observable<UIEvent>>>()
   private window: Window | null
 
   constructor(

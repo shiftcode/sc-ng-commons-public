@@ -1,16 +1,15 @@
-import { NgForOf } from '@angular/common'
+
 import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { LocalStorage, LoggerService } from '@shiftcode/ngx-core'
 
 @Component({
-  selector: 'sg-sg-local-storage',
-  standalone: true,
-  imports: [NgForOf, ReactiveFormsModule],
-  templateUrl: './sg-local-storage.component.html',
-  styleUrls: ['./sg-local-storage.component.scss'],
-  encapsulation: ViewEncapsulation.Emulated,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'sg-sg-local-storage',
+    imports: [ReactiveFormsModule],
+    templateUrl: './sg-local-storage.component.html',
+    styleUrls: ['./sg-local-storage.component.scss'],
+    encapsulation: ViewEncapsulation.Emulated,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SgLocalStorageComponent {
   readonly grp = new FormGroup({

@@ -4,7 +4,6 @@
     "libs/*"
   ],
   "version": "independent",
-  "npmClient": "npm",
   "command": {
     "version": {
       "allowBranch": "*",

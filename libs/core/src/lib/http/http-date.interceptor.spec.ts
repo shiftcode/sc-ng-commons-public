@@ -27,9 +27,14 @@ describe('HttpDateInterceptor', () => {
       imports: [],
       providers: [momentInterceptorProvider, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()],
     })
-    interceptor = <HttpDateInterceptor>(
-      TestBed.inject<HttpInterceptor[]>(HTTP_INTERCEPTORS).find((i) => i instanceof HttpDateInterceptor)!
-    )
+
+    const interceptors = TestBed.inject<HttpInterceptor[]>(HTTP_INTERCEPTORS)
+    const dateInterceptor = interceptors.find((i): i is HttpDateInterceptor => i instanceof HttpDateInterceptor)
+    if (!dateInterceptor) {
+      throw new Error('HttpDateInterceptor not found in interceptors')
+    }
+    interceptor = dateInterceptor
+
     httpClient = TestBed.inject(HttpClient)
     httpController = TestBed.inject(HttpTestingController)
     mapResponseSpy = jest.spyOn(interceptor, 'mapResponse')

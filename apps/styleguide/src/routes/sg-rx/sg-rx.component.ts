@@ -1,4 +1,4 @@
-import { AsyncPipe, JsonPipe, NgIf } from '@angular/common'
+import { JsonPipe } from '@angular/common'
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core'
 import { AutoFocusDirective, RxIfDirective, RxLetDirective } from '@shiftcode/ngx-components'
 import { Observable, ReplaySubject, Subject } from 'rxjs'
@@ -9,14 +9,15 @@ class TestObsController {
     return this._value$
   }
 
-  private _value$: Observable<number>|null
+  private _value$: Observable<number> | null
   private valueSubject: Subject<number>
   private _needsNewObservable = true
 
-  setNull(){
+  setNull() {
     this._needsNewObservable = true
     this._value$ = null
   }
+
   setNewEmpty() {
     this.setObservable(new Subject())
   }
@@ -64,8 +65,7 @@ class TestObsController {
 
 @Component({
   selector: 'sg-sc-rx',
-  standalone: true,
-  imports: [NgIf, AsyncPipe, JsonPipe, AutoFocusDirective, RxLetDirective, RxIfDirective],
+  imports: [JsonPipe, AutoFocusDirective, RxLetDirective, RxIfDirective],
   templateUrl: './sg-rx.component.html',
   styleUrls: ['./sg-rx.component.scss'],
   encapsulation: ViewEncapsulation.Emulated,

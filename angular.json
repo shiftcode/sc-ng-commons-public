@@ -66,11 +66,12 @@
       "prefix": "sg",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "apps/styleguide/dist",
+            "outputPath": {
+              "base": "apps/styleguide/dist"
+            },
             "index": "apps/styleguide/src/index.html",
-            "main": "apps/styleguide/src/main.ts",
             "tsConfig": "apps/styleguide/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "polyfills": [
@@ -83,16 +84,15 @@
             "styles": [
               "apps/styleguide/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "browser": "apps/styleguide/src/main.ts"
           },
           "configurations": {
             "production": {
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
@@ -166,17 +166,14 @@
       "displayBlock": true,
       "changeDetection": "OnPush",
       "viewEncapsulation": "None",
-      "skipTests": true,
-      "standalone": true
+      "skipTests": true
     },
     "@schematics/angular:directive": {
       "prefix": "sc",
-      "skipTests": true,
-      "standalone": true
+      "skipTests": true
     },
     "@schematics/angular:pipe": {
-      "skipTests": true,
-      "standalone": true
+      "skipTests": true
     },
     "@schematics/angular:service": {
       "skipTests": true

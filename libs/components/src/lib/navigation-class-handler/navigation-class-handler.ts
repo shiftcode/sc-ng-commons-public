@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common'
-import { APP_INITIALIZER, EnvironmentProviders, makeEnvironmentProviders } from '@angular/core'
+import { EnvironmentProviders, makeEnvironmentProviders, inject, provideAppInitializer } from '@angular/core'
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router'
 import { delay, filter, switchMap, take, tap } from 'rxjs'
 
@@ -33,11 +33,12 @@ function provideNavigationClassHandlerFactory(
  */
 export function provideNavigationClassHandler(className: string): EnvironmentProviders {
   return makeEnvironmentProviders([
-    {
-      provide: APP_INITIALIZER,
-      multi: true,
-      useFactory: provideNavigationClassHandlerFactory.bind(void 0, className),
-      deps: [DOCUMENT, Router],
-    },
+    provideAppInitializer(() => {
+      const initializerFn = provideNavigationClassHandlerFactory.bind(void 0, className)(
+        inject(DOCUMENT),
+        inject(Router),
+      )
+      return initializerFn()
+    }),
   ])
 }

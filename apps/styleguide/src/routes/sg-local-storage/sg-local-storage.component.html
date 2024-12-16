@@ -11,10 +11,12 @@
 
 <h3>Keys</h3>
 <ul>
-  <li *ngFor="let key of ls.keys()">
-    <strong>{{key}}</strong>
-    <button type="button" (click)="ls.delete(key)">delete</button>
-  </li>
+  @for (key of ls.keys(); track key) {
+    <li>
+      <strong>{{key}}</strong>
+      <button type="button" (click)="ls.delete(key)">delete</button>
+    </li>
+  }
 </ul>
 
 
