@@ -6,10 +6,10 @@
   "author": "shiftcode GmbH <team@shiftcode.ch>",
   "sideEffects": false,
   "scripts": {
-    "lint": "eslint ./src -- --fix --cache",
+    "lint": "eslint ./src --fix --cache",
     "lint:ci": "npm run lint:lib",
     "lint:lib": "eslint ./src",
-    "lint:staged": "eslint ./src -- --fix --cache",
+    "lint:staged": "eslint --fix --cache",
     "prettier": "prettier --write --config ../../.prettierrc.yml 'src/**/*.ts'",
     "prettier:staged": "prettier --write --config ../../.prettierrc.yml"
   },

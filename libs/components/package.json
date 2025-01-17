@@ -9,6 +9,7 @@
     "lint:ci": "npm run lint:lib",
     "lint:lib": "eslint ./src",
     "lint:src": "eslint ./src --fix --cache",
+    "lint:staged": "eslint --fix --cache",
     "lint:test": "eslint ./test",
     "prettier": "prettier --write --config ../../.prettierrc.yml 'src/**/*.ts'",
     "prettier:staged": "prettier --write --config ../../.prettierrc.yml"
