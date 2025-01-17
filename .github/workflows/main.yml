@@ -62,7 +62,7 @@ jobs:
           REGISTRY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # install dependencies
       - name: Install
-        run: HUSKY=0 npm ci
+        run: HUSKY=0 npm ci  --include=optional
       # lint
       - name: Lint
         run: npm run lint:ci

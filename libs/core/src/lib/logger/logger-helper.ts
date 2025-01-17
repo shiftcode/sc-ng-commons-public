@@ -87,7 +87,7 @@ export class LoggerHelper {
             } else {
               try {
                 return JSON.stringify(value)
-              } catch (e) {
+              } catch {
                 return 'NOT SERIALIZABLE TO JSON'
               }
             }
