@@ -267,6 +267,7 @@ export class TooltipDirective implements OnDestroy, OnInit {
 
   /** Shows/hides the tooltip */
   toggle(): void {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     this.isTooltipVisible() ? this.hide() : this.show()
   }
 
