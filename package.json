@@ -71,7 +71,8 @@
     "zone.js": "~0.15.0"
   },
   "optionalDependencies": {
-    "@nx/nx-linux-x64-gnu": "^19.4.2"
+    "@nx/nx-linux-x64-gnu": "^19.4.2",
+    "@rollup/rollup-linux-x64-gnu": "^4.20.0"
   },
   "engines": {
     "node": ">=20.11.1"
