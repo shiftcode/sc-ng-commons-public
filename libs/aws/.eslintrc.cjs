@@ -5,12 +5,13 @@ module.exports = {
     {
       files: ['*.ts'],
       rules: {
-        'import/no-internal-modules': ['error', { allow: ['aws-cdk-lib/*', '@shiftcode/iac-helper/*', 'rxjs/operators'] }],
+        'import/no-internal-modules': ['error', { allow: ['rxjs/operators'] }],
         '@typescript-eslint/naming-convention': [
           'error',
           {
-            selector: 'property',
-            format: ['camelCase', 'UPPER_CASE'],
+            selector: ['classProperty'],
+            modifiers: ['static'],
+            format: ['UPPER_CASE'],
           },
         ],
       },

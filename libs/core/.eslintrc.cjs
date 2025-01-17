@@ -34,12 +34,6 @@ module.exports = {
       }
     },
     {
-      files: ['*.html'],
-      rules: {
-        '@angular-eslint/template/no-negated-async': 'off',
-      },
-    },
-    {
       files: ['*.js', '*.mjs', '*.cjs'],
       rules: {
         'no-undef': 'off',
