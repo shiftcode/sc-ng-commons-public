@@ -1,9 +1,7 @@
-// tslint:disable:no-console
 import { readFileSync, writeFileSync } from 'fs'
 
 class CausedError extends Error {
   constructor(message: string, readonly cause: unknown) { super(message) }
-
 }
 
 interface Package {

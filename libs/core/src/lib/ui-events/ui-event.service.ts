@@ -7,7 +7,7 @@ import { WindowRef } from '../window/window-ref.service'
 @Injectable({ providedIn: 'root' })
 export class UIEventService {
   // Map<string, Map<FromEventTarget, Observable<UIEvent>>> -> FromEventTarget is internal source of rxjs
-  private observables: Map<string, Map<any, Observable<UIEvent>>> = new Map()
+  private observables: Map<string, Map<any, Observable<UIEvent>>> = new Map<string, Map<any, Observable<UIEvent>>>()
   private window: Window | null
 
   constructor(
@@ -16,7 +16,7 @@ export class UIEventService {
   ) {
     this.window = windowRef.nativeWindow
   }
-
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   forEvent(types: string | string[], target: 'document' | 'window' | 'body' | any = 'document'): Observable<UIEvent> {
     if (Array.isArray(types)) {
       const obs: Array<Observable<UIEvent>> = types.map((type) => this.forSingleEvent(type, target))
@@ -25,7 +25,7 @@ export class UIEventService {
       return this.forSingleEvent(types, target)
     }
   }
-
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   private forSingleEvent(type: string, target: 'document' | 'window' | 'body' | any): Observable<UIEvent> {
     // init the type object to store the observables linked to the event target
     const map = this.observables.get(type) || new Map<any, Observable<UIEvent>>()

@@ -1,4 +1,4 @@
-// tslint:disable:no-console
+/* eslint-disable no-console */
 import { Inject, Injectable, Optional } from '@angular/core'
 import {
   CloudWatchLogsClient,

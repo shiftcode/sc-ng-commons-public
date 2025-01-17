@@ -1,15 +1,15 @@
 {
   "name": "@shiftcode/ngx-aws",
-  "version": "6.0.0",
+  "version": "6.1.0-pr22.12",
   "repository": "https://github.com/shiftcode/sc-ng-commons-public",
   "license": "MIT",
   "author": "shiftcode GmbH <team@shiftcode.ch>",
   "sideEffects": false,
   "scripts": {
-    "lint": "npm run lint:lib -- --fix && npm run lint:test -- --fix",
-    "lint:ci": "npm run lint:lib && npm run lint:test",
-    "lint:lib": "tslint --format codeFrame --project ./tsconfig.lib.json",
-    "lint:test": "tslint --format codeFrame --project ./tsconfig.spec.json",
+    "lint": "eslint ./src --fix --cache",
+    "lint:ci": "npm run lint:lib",
+    "lint:lib": "eslint ./src",
+    "lint:staged": "eslint --fix --cache",
     "prettier": "prettier --write --config ../../.prettierrc.yml 'src/**/*.ts'",
     "prettier:staged": "prettier --write --config ../../.prettierrc.yml"
   },
@@ -21,7 +21,7 @@
     "@angular/core": "^18.0.0",
     "@aws-sdk/client-cloudwatch-logs": "^3.27.0",
     "@aws-sdk/types": "^3.0.0",
-    "@shiftcode/ngx-core": "^6.0.0 || ^6.0.0-pr28",
+    "@shiftcode/ngx-core": "^6.0.0 || ^6.1.0-pr22.1",
     "@shiftcode/utilities": "^3.0.0",
     "rxjs": "^6.5.3 || ^7.4.0"
   }

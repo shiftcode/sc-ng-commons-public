@@ -56,42 +56,51 @@ export class JwtHelper {
             const parsed = JSON.parse(decoded)
             return typeof parsed === 'object' && parsed !== null
           }
-        } catch (err) {}
+        } catch (err) {
+          // eslint-disable-next-line no-console
+          console.error(err)
+        }
       }
     }
     return false
   }
 
   static decodeToken<T>(token: unknown): T {
-    if (typeof token === 'string') {
-      const parts = token.split('.')
-
-      if (parts.length !== 3) {
-        throw new Error('JWT must have 3 parts')
-      }
-
-      const decoded = JwtHelper.urlBase64Decode(parts[1])
-      if (!decoded) {
-        throw new Error('Cannot decode the token')
-      }
-      let parsed: any
-      try {
-        parsed = JSON.parse(decoded)
-      } catch (err) {}
-      if (typeof parsed !== 'object' || parsed === null) {
-        throw new Error('token value not an object')
-      }
-      return parsed
-    } else {
+    if (typeof token !== 'string') {
       throw new Error('token provided is not a string')
     }
+
+    const parts = token.split('.')
+
+    if (parts.length !== 3) {
+      throw new Error('JWT must have 3 parts')
+    }
+
+    const decoded = JwtHelper.urlBase64Decode(parts[1])
+    if (!decoded) {
+      throw new Error('Cannot decode the token')
+    }
+
+    const parsed = (() => {
+      try {
+        return JSON.parse(decoded)
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error(err)
+      }
+    })()
+
+    if (typeof parsed !== 'object' || parsed === null) {
+      throw new Error('token value not an object')
+    }
+
+    return parsed
   }
 
   static getTokenExpirationDate(token: string): Date | null {
-    let decoded: any
-    decoded = JwtHelper.decodeToken(token)
+    const decoded: any = JwtHelper.decodeToken(token)
 
-    if (!decoded.hasOwnProperty('exp')) {
+    if (!('exp' in decoded)) {
       return null
     }
 
@@ -110,8 +119,7 @@ export class JwtHelper {
       return true
     } else {
       const date = this.getTokenExpirationDate(token)
-
-      if (date == null) {
+      if (!date) {
         return false
       }
 

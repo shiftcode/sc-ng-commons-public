@@ -34,17 +34,16 @@ FlexibleConnectedPositionStrategy2.prototype['_getNarrowedViewportRect'] =
     // the problem: the viewport changes on mobile browsers depending the scroll direction
     // window innerHeight/innerWidth correctly handles this changes but does not consider scrollbars
     // documentElement clientHeight/clientWidth correctly handles the scrollbars but not the viewport changes
-    //
     // therefore we use `clientWidth` for the width and `innerHeight` for the height
     // this works for use because we never have horizontal scrollbars
 
-    // @ts-expect-error
+    // @ts-expect-error: Property might not be declared or initialized
     const viewportMargin = this._viewportMargin
 
-    // @ts-expect-error
+    // @ts-expect-error: Document element may not be fully typed
     const docEl = this._document.documentElement
 
-    // @ts-expect-error
+    // @ts-expect-error: Method return type may not match TypeScript expectations
     const scrollPosition = this._viewportRuler.getViewportScrollPosition()
 
     const width = docEl.clientWidth
@@ -71,9 +70,11 @@ FlexibleConnectedPositionStrategy2.prototype['_getOverlayFit'] = function _getOv
   // viewport, because the viewport is always rounded.
   const overlay = getRoundedBoundingClientRect(rawOverlayRect)
   let { x, y } = point
-  // @ts-ignore
+
+  // @ts-expect-error: Accessing private member '_getOffset'
   const offsetX = this._getOffset(position, 'x')
-  // @ts-ignore
+
+  // @ts-expect-error: Accessing private member '_getOffset'
   const offsetY = this._getOffset(position, 'y')
   // Account for the offsets since they could push the overlay out of the viewport.
   if (offsetX) {
@@ -88,10 +89,12 @@ FlexibleConnectedPositionStrategy2.prototype['_getOverlayFit'] = function _getOv
   const topOverflow = 0 - y
   const bottomOverflow = y + overlay.height - viewport.height
   // Visible parts of the element on each axis.
-  // @ts-ignore
+  // @ts-expect-error: Accessing private member '_subtractOverflows'
   const visibleWidth = this._subtractOverflows(overlay.width, leftOverflow, rightOverflow)
-  // @ts-ignore
+
+  // @ts-expect-error: Accessing private member '_subtractOverflows'
   const visibleHeight = this._subtractOverflows(overlay.height, topOverflow, bottomOverflow)
+
   const visibleArea =
     visibleWidth < 0 && visibleHeight < 0
       ? Number.MIN_SAFE_INTEGER
@@ -116,16 +119,18 @@ FlexibleConnectedPositionStrategy2.prototype['_getExactOverlayY'] = function _ge
   // Reset any existing styles. This is necessary in case the
   // preferred position has changed since the last `apply`.
   const styles = { top: '', bottom: '' } as CSSStyleDeclaration
-  // @ts-expect-error
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore: Accessing private member '_overlayRect' '_getOverlayPoint'
   let overlayPoint = this._getOverlayPoint(originPoint, this._overlayRect, position)
-
-  // @ts-expect-error
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore: Accessing private member '_isPushed'
   if (this._isPushed) {
-    // @ts-expect-error
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore: Accessing private member '_overlayRect', '._pushOverlayOnScreen'
     overlayPoint = this._pushOverlayOnScreen(overlayPoint, this._overlayRect, scrollPosition)
   }
-
-  // @ts-expect-error
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore: Accessing private member '_overlayContainer'
   const virtualKeyboardOffset = this._overlayContainer.getContainerElement().getBoundingClientRect().top
 
   // Normally this would be zero, however when the overlay is attached to an input (e.g. in an
@@ -140,13 +145,15 @@ FlexibleConnectedPositionStrategy2.prototype['_getExactOverlayY'] = function _ge
     // When using `bottom`, we adjust the y position such that it is the distance
     // from the bottom of the viewport rather than the top.
 
-    // @ts-expect-error
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore: Accessing private member '_document'
     const docEl = this._document.documentElement
 
     // THIS IS OUR FIX HERE: innerHeight instead of clientHeight
     const documentHeight = window?.innerHeight ?? docEl.clientHeight
 
-    // @ts-expect-error
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore: Accessing private member '_overlayRect'
     styles.bottom = `${documentHeight - (overlayPoint.y + this._overlayRect.height)}px`
   } else {
     styles.top = coerceCssPixelValue(overlayPoint.y)

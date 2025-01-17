@@ -1,4 +1,3 @@
-// tslint:disable:no-host-metadata-property
 import { Component, EventEmitter, HostListener, Output } from '@angular/core'
 
 /**

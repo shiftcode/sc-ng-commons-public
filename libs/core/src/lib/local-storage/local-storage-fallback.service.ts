@@ -22,7 +22,7 @@ export class LocalStorageFallback implements LocalStorage {
     return Array.from(this.ls.keys())
   }
 
-  observe(key: string): Observable<StorageItemChangeEvent> {
+  observe(_key: string): Observable<StorageItemChangeEvent> {
     return NEVER
   }
 
