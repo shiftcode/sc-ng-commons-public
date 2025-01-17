@@ -6,43 +6,7 @@ module.exports = {
       plugins: ['@shiftcode/rules'],
       files: ['*.ts'],
       rules: {
-        'import/no-internal-modules': ['error', { allow: ['rxjs/operators', '@angular/**/*'] }],
-        '@typescript-eslint/naming-convention': [
-          'error',
-          {
-            selector: 'property',
-            format: ['camelCase', 'UPPER_CASE'],
-            leadingUnderscore: 'allow'
-          },
-          {
-            selector: "objectLiteralProperty",
-            format: null,
-            filter: {
-              regex: '^(\\[.*\\]|\\(.*\\)|aria-.*)$',
-              match: true
-            }
-          },
-        ],
-        '@shiftcode/rules/import-denylist': [
-          'error', {
-            patterns: [
-              /\.\/(models|static|core|shared)\/.*/,
-              /src\/.*/
-            ],
-          },
-        ],
-      },
-    },
-    {
-      files: ['*.html'],
-      rules: {
-        '@angular-eslint/template/no-negated-async': 'off',
-      },
-    },
-    {
-      files: ['*.js', '*.mjs', '*.cjs'],
-      rules: {
-        'no-undef': 'off',
+        'import/no-internal-modules': ['error', { allow: ['rxjs/operators'] }],
       },
     },
   ],

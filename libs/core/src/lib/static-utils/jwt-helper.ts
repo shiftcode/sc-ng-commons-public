@@ -66,36 +66,41 @@ export class JwtHelper {
   }
 
   static decodeToken<T>(token: unknown): T {
-    if (typeof token === 'string') {
-      const parts = token.split('.')
+    if (typeof token !== 'string') {
+      throw new Error('token provided is not a string')
+    }
 
-      if (parts.length !== 3) {
-        throw new Error('JWT must have 3 parts')
-      }
+    const parts = token.split('.')
 
-      const decoded = JwtHelper.urlBase64Decode(parts[1])
-      if (!decoded) {
-        throw new Error('Cannot decode the token')
-      }
-      let parsed: any
+    if (parts.length !== 3) {
+      throw new Error('JWT must have 3 parts')
+    }
+
+    const decoded = JwtHelper.urlBase64Decode(parts[1])
+    if (!decoded) {
+      throw new Error('Cannot decode the token')
+    }
+
+    const parsed = (() => {
       try {
-        parsed = JSON.parse(decoded)
+        return JSON.parse(decoded)
       } catch (err) {
         // eslint-disable-next-line no-console
         console.error(err)
       }
-      if (typeof parsed !== 'object' || parsed === null) {
-        throw new Error('token value not an object')
-      }
-      return parsed
-    } else {
-      throw new Error('token provided is not a string')
+    })()
+
+    if (typeof parsed !== 'object' || parsed === null) {
+      throw new Error('token value not an object')
     }
+
+    return parsed
   }
 
   static getTokenExpirationDate(token: string): Date | null {
     const decoded: any = JwtHelper.decodeToken(token)
-    if (!Object.prototype.hasOwnProperty.call(decoded, 'exp')) {
+
+    if (!('exp' in decoded)) {
       return null
     }
 
