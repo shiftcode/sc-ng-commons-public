@@ -1,6 +1,6 @@
 {
   "name": "@shiftcode/ngx-components",
-  "version": "6.1.0-pr22.8",
+  "version": "6.1.0-pr22.12",
   "repository": "https://github.com/shiftcode/sc-ng-commons-public",
   "license": "MIT",
   "author": "shiftcode GmbH <team@shiftcode.ch>",
@@ -24,7 +24,7 @@
     "@angular/core": "^19.0.0",
     "@angular/forms": "^19.0.0",
     "@angular/router": "^19.0.0",
-    "@shiftcode/ngx-core": "^6.1.0-pr22.9",
+    "@shiftcode/ngx-core": "^6.1.0-pr22.13",
     "rxjs": "^6.5.3 || ^7.4.0"
   }
 }
