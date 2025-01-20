@@ -3,11 +3,11 @@ import { ChangeDetectionStrategy, Component, Inject, OnDestroy, Optional } from 
 import { ButtonComponent } from '@shiftcode/ngx-components'
 
 @Component({
-    selector: 'sg-button',
-    imports: [ButtonComponent],
-    templateUrl: './sg-button.component.html',
-    styleUrls: ['./sg-button.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'sg-button',
+  imports: [ButtonComponent],
+  templateUrl: './sg-button.component.html',
+  styleUrls: ['./sg-button.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SgButtonComponent implements OnDestroy {
   counter1 = 0
@@ -25,7 +25,6 @@ export class SgButtonComponent implements OnDestroy {
     this.document = document
     this.intervalId = setInterval(this.updateActiveEl, 100)
   }
-
 
   ngOnDestroy(): void {
     clearInterval(this.intervalId)

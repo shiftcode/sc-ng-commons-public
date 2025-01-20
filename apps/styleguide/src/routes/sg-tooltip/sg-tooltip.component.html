@@ -4,7 +4,7 @@
 <div class="sg-tooltip__meta">
   <select [formControl]="positionCtrl">
     @for (tooltipPosition of tooltipPositions; track tooltipPosition) {
-      <option [value]="tooltipPosition">{{tooltipPosition}}</option>
+      <option [value]="tooltipPosition">{{ tooltipPosition }}</option>
     }
   </select>
 
@@ -12,14 +12,20 @@
   <button (click)="tooltipDirective.hide()">hide</button>
 </div>
 
-<span class="sg-tooltip__trigger"
+<span
+  class="sg-tooltip__trigger"
   #tooltipDirective="scTooltip"
   [scTooltip]="tooltip"
   [scTooltipShowDelay]="0"
-[scTooltipPosition]="positionCtrl.value">My element which has a tooltip</span>
+  [scTooltipPosition]="positionCtrl.value"
+  >My element which has a tooltip</span
+>
 
-<div class="sg-tooltip__trigger"
+<div
+  class="sg-tooltip__trigger"
   [scTooltip]="'a differently styled tooltip'"
   [scTooltipPosition]="positionCtrl.value"
   scTooltipClass="sg-tooltip-custom-style"
->a differently styled tooltip</div>
+>
+  a differently styled tooltip
+</div>

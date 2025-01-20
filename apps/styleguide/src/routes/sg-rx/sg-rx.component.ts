@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 import { AutoFocusDirective, RxIfDirective, RxLetDirective } from '@shiftcode/ngx-components'
 import { Observable, ReplaySubject, Subject } from 'rxjs'
 
-
 class TestObsController {
   get value$() {
     return this._value$
@@ -72,13 +71,10 @@ class TestObsController {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SgRxComponent {
-
   readonly rxLetObs = new TestObsController()
   readonly rxIfObs = new TestObsController()
 
   protected randomNum() {
     return Math.random()
   }
-
-
 }

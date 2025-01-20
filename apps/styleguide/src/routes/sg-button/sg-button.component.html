@@ -2,14 +2,16 @@
 <p>Why is that? Check out the behaviour in Safari &#64; MacOS (does not gain focus on click) vs. Firefox/Chrome.</p>
 
 <div class="sg-button__buttons">
-
-  <button id="btn-1" class="sg-button__btn" (click)="counter1 = counter1 + 1">native button (clicked: {{counter1}})
+  <button id="btn-1" class="sg-button__btn" (click)="counter1 = counter1 + 1">
+    native button (clicked: {{ counter1 }})
   </button>
 
-  <sc-button id="btn-2" class="sg-button__btn" (action)="counter2 = counter2 + 1">sc-button (clicked: {{counter2}})
+  <sc-button id="btn-2" class="sg-button__btn" (action)="counter2 = counter2 + 1"
+    >sc-button (clicked: {{ counter2 }})
   </sc-button>
 
-  <sc-button id="btn-3" class="sg-button__btn" (action)="counter3 = counter3 + 1">sc-button (clicked: {{counter3}})
+  <sc-button id="btn-3" class="sg-button__btn" (action)="counter3 = counter3 + 1"
+    >sc-button (clicked: {{ counter3 }})
   </sc-button>
 </div>
-<p>active element: {{activeEl}}</p>
+<p>active element: {{ activeEl }}</p>
