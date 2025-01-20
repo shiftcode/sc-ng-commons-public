@@ -19,4 +19,5 @@ bootstrapApplication(AppComponent, {
     provideNavigationClassHandler('sg-navigating'),
     provideSgConfig(),
   ],
+  // eslint-disable-next-line no-console
 }).catch((err) => console.error(err))

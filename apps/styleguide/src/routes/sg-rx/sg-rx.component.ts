@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-classes-per-file
 import { JsonPipe } from '@angular/common'
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core'
 import { AutoFocusDirective, RxIfDirective, RxLetDirective } from '@shiftcode/ngx-components'
