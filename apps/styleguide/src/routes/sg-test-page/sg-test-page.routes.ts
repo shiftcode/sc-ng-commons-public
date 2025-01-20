@@ -10,7 +10,6 @@ const canActivateByQueryParam: CanActivateFn = async (ars) => {
   return !disallow
 }
 
-
 const ROUTES: Routes = [
   {
     path: '',

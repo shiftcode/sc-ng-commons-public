@@ -7,11 +7,11 @@
   "scripts": {
     "build:ci": "ng build core && ng build aws && ng build components",
     "build:styleguide": "ng build styleguide",
-    "copy-version": "lerna exec --stream -- ts-node --project \\$LERNA_ROOT_PATH/scripts/ts/tsconfig.json \\$LERNA_ROOT_PATH/scripts/ts/copy-version.ts",
+    "copy-version": "lerna exec --ignore @shiftcode/styleguide --stream -- ts-node --project \\$LERNA_ROOT_PATH/scripts/ts/tsconfig.json \\$LERNA_ROOT_PATH/scripts/ts/copy-version.ts",
     "lint": "lerna run lint --stream",
     "lint:ci": "lerna run lint:ci --stream",
     "prepare": "husky",
-    "prepublishOnly": "lerna exec --stream -- ts-node --project \\$LERNA_ROOT_PATH/scripts/ts/tsconfig.json \\$LERNA_ROOT_PATH/scripts/ts/copy-version.ts",
+    "prepublishOnly": "lerna exec --ignore @shiftcode/styleguide --stream -- ts-node --project \\$LERNA_ROOT_PATH/scripts/ts/tsconfig.json \\$LERNA_ROOT_PATH/scripts/ts/copy-version.ts",
     "prettier:all": "lerna run prettier --stream",
     "start": "ng serve",
     "test": "ng test",

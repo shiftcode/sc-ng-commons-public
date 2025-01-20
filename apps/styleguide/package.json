@@ -1,0 +1,11 @@
+{
+  "name": "@shiftcode/styleguide",
+  "private": true,
+  "scripts": {
+    "lint": "npm run lint:ci -- --fix",
+    "lint:ci": "eslint ./src",
+    "lint:staged": "eslint --fix",
+    "prettier": "prettier --write --config ../../.prettierrc.yml 'src/**/*.{ts,html,scss}'",
+    "prettier:staged": "prettier --write --config ../../.prettierrc.yml"
+  }
+}

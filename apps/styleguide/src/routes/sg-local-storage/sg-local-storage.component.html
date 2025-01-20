@@ -3,9 +3,9 @@
 <h3>Add Key-Value to LS</h3>
 <form>
   <label for="sg-ls-key">Key:</label>
-  <input id="sg-ls-key" type="text" name="key" [formControl]="grp.controls.key">
+  <input id="sg-ls-key" type="text" name="key" [formControl]="grp.controls.key" />
   <label for="sg-ls-val">Value</label>
-  <input id="sg-ls-val" type="text" name="value" [formControl]="grp.controls.value"/>
+  <input id="sg-ls-val" type="text" name="value" [formControl]="grp.controls.value" />
   <button type="button" (click)="save()" [disabled]="!grp.valid">save</button>
 </form>
 
@@ -13,10 +13,8 @@
 <ul>
   @for (key of ls.keys(); track key) {
     <li>
-      <strong>{{key}}</strong>
+      <strong>{{ key }}</strong>
       <button type="button" (click)="ls.delete(key)">delete</button>
     </li>
   }
 </ul>
-
-

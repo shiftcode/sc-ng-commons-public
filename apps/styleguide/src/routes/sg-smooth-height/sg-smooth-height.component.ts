@@ -2,11 +2,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { SmoothHeightComponent } from '@shiftcode/ngx-components'
 
 @Component({
-    selector: 'sg-smooth-height',
-    imports: [SmoothHeightComponent],
-    templateUrl: './sg-smooth-height.component.html',
-    styleUrls: ['./sg-smooth-height.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'sg-smooth-height',
+  imports: [SmoothHeightComponent],
+  templateUrl: './sg-smooth-height.component.html',
+  styleUrls: ['./sg-smooth-height.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SgSmoothHeightComponent {
   content = ''
@@ -20,8 +20,8 @@ export class SgSmoothHeightComponent {
     'Dolorem nesciunt repellat ullam vel. Aliquam dicta laborum qui!',
     'Corporis dignissimos impedit natus nihil nostrum.',
     'Accusantium asperiores consequatur corporis cum cupiditate delectus dolorem dolores ' +
-    'eos fugiat harum hic libero neque nisi quibusdam, ' +
-    'quidem recusandae reiciendis repudiandae sapiente similique sunt!',
+      'eos fugiat harum hic libero neque nisi quibusdam, ' +
+      'quidem recusandae reiciendis repudiandae sapiente similique sunt!',
   ]
 
   constructor() {

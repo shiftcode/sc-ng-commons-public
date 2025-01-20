@@ -1,15 +1,14 @@
-
 import { ChangeDetectionStrategy, Component, inject, Inject, Optional } from '@angular/core'
 import { FormControl, ReactiveFormsModule } from '@angular/forms'
 import { TOOLTIP_DEFAULT_OPTIONS, TooltipDirective, TooltipOptions, TooltipPosition } from '@shiftcode/ngx-components'
 import { LoggerService } from '@shiftcode/ngx-core'
 
 @Component({
-    selector: 'sg-tooltip',
+  selector: 'sg-tooltip',
   imports: [ReactiveFormsModule, TooltipDirective, TooltipDirective, TooltipDirective, TooltipDirective],
-    templateUrl: './sg-tooltip.component.html',
-    styleUrls: ['./sg-tooltip.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './sg-tooltip.component.html',
+  styleUrls: ['./sg-tooltip.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SgTooltipComponent {
   readonly tooltip = '<b>Gefällt mir</b><br>Michael Wittwer<br>Michael Lieberherr'
@@ -34,5 +33,4 @@ export class SgTooltipComponent {
   constructor(@Optional() @Inject(TOOLTIP_DEFAULT_OPTIONS) opts: TooltipOptions) {
     this.logger.debug('tooltipDefaultOptions', opts)
   }
-
 }

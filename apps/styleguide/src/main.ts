@@ -15,11 +15,10 @@ bootstrapApplication(AppComponent, {
     provideRouter(ROUTES),
 
     provideLocalStorage({ prefix: 'sg.' }),
-    provideLogger(
-      withBrowserConsoleTransport(() => ({ logLevel: LogLevel.DEBUG })),
-    ),
+    provideLogger(withBrowserConsoleTransport(() => ({ logLevel: LogLevel.DEBUG }))),
     provideNavigationClassHandler('sg-navigating'),
     provideSgConfig(),
   ],
 })
+  // eslint-disable-next-line no-console
   .catch((err) => console.error(err))

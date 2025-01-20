@@ -1,7 +1,6 @@
 import { EnvironmentProviders, makeEnvironmentProviders } from '@angular/core'
 import { TOOLTIP_DEFAULT_OPTIONS, TooltipOptions } from '@shiftcode/ngx-components'
 
-
 export function provideSgConfig(): EnvironmentProviders {
   return makeEnvironmentProviders([
     // tooltip

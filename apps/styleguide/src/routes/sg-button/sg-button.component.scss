@@ -25,31 +25,42 @@
       padding: 4px 12px;
     }
 
-
     &:hover {
-      &:after {content: 'hover';}
+      &:after {
+        content: 'hover';
+      }
     }
-    &:active { // overrides focus and hover
-      &:after {content: 'active';}
+    &:active {
+      // overrides focus and hover
+      &:after {
+        content: 'active';
+      }
     }
     &:focus {
-      &:after {content: 'focus';}
+      &:after {
+        content: 'focus';
+      }
     }
 
     &:hover:active {
-      &:after {content: 'hover, active';}
+      &:after {
+        content: 'hover, active';
+      }
     }
     &:focus:hover {
-      &:after {content: 'focus, hover';}
+      &:after {
+        content: 'focus, hover';
+      }
     }
     &:focus:active {
-      &:after {content: 'focus, active';}
+      &:after {
+        content: 'focus, active';
+      }
     }
     &:hover:focus:active {
-      &:after {content: 'focus, hover, active';}
+      &:after {
+        content: 'focus, hover, active';
+      }
     }
-
-
   }
-
 }

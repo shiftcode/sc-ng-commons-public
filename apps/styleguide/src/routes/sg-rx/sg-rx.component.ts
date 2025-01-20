@@ -1,8 +1,8 @@
+// eslint-disable-next-line max-classes-per-file
 import { JsonPipe } from '@angular/common'
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core'
 import { AutoFocusDirective, RxIfDirective, RxLetDirective } from '@shiftcode/ngx-components'
 import { Observable, ReplaySubject, Subject } from 'rxjs'
-
 
 class TestObsController {
   get value$() {
@@ -72,13 +72,10 @@ class TestObsController {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SgRxComponent {
-
   readonly rxLetObs = new TestObsController()
   readonly rxIfObs = new TestObsController()
 
   protected randomNum() {
     return Math.random()
   }
-
-
 }
