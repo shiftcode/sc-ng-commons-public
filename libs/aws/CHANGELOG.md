@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-aws@6.0.0...@shiftcode/ngx-aws@7.0.0) (2025-01-20)
+
+### Bug Fixes
+
+- **aws:** update ngx-core ([4867aeb](https://github.com/shiftcode/sc-ng-commons-public/commit/4867aeb7ebf83dc604e0410a34f9f290e876681f))
+- **libs:** solve review comments ([1216b96](https://github.com/shiftcode/sc-ng-commons-public/commit/1216b9698f8d9e147accd35853613ac9483b7ccb))
+- revert version of --fix flag command and prettier scripts ([26d0f73](https://github.com/shiftcode/sc-ng-commons-public/commit/26d0f73a07905d6bc1bc29e40b3c0715c6f51d27))
+
+### Features
+
+- **angular:** use angular 19 ([2907ec9](https://github.com/shiftcode/sc-ng-commons-public/commit/2907ec944420ce01e38b11a9e2fb6b03a8543a7f))
+- **lint:** update eslint configs to only include necessary rules ([21af752](https://github.com/shiftcode/sc-ng-commons-public/commit/21af752ef3e939260bdcd3dbb91fe28098fd81bf))
+- remove tslint, add .eslintrc.cjs files ([8bebbd9](https://github.com/shiftcode/sc-ng-commons-public/commit/8bebbd9aa3cd17d8a6e3d7ed8f81bce9147eb87a))
+- replace tslint to eslint ([ad6c76c](https://github.com/shiftcode/sc-ng-commons-public/commit/ad6c76cc40b89ab3fd3833dc0e8679a1a2165503))
+- **root:** migrate to npm ([94a6d6d](https://github.com/shiftcode/sc-ng-commons-public/commit/94a6d6d7e75b33ceebddcde3e5f08a23858e676d))
+- **root:** tslint -> eslint and yarn -> npm migrations ([e6c4786](https://github.com/shiftcode/sc-ng-commons-public/commit/e6c47865872529e169848b6f4ea5e421a76a24fb))
+
+### BREAKING CHANGES
+
+- **angular:** requires angular@19
+
 # [6.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-aws@5.0.1...@shiftcode/ngx-aws@6.0.0) (2024-07-13)
 
 ### Features
