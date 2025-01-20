@@ -1,7 +1,8 @@
 {
   "useNx": false,
   "packages": [
-    "libs/*"
+    "libs/*",
+    "apps/*"
   ],
   "version": "independent",
   "command": {

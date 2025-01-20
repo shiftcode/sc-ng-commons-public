@@ -8,21 +8,20 @@
   <button (click)="rxLetObs.errorAsync()">error (timeout 1000)</button>
   <button (click)="rxLetObs.error()">error (sync)</button>
 </div>
-<div>{{randomNum()}} (changes whenever cd runs on component level)</div>
+<div>{{ randomNum() }} (changes whenever cd runs on component level)</div>
 
 <ng-template #errorTpl let-error>
-  <div>error: {{error|json}}</div>
+  <div>error: {{ error | json }}</div>
 </ng-template>
 
 <div class="wrapper">
   <ng-template #suspenseTpl>
     <div>...no value yet. click next to start</div>
   </ng-template>
-  <div *scRxLet="rxLetObs.value$ as value; suspense:suspenseTpl; error:errorTpl">
-    {{value}} (changes when observable emits)
+  <div *scRxLet="rxLetObs.value$ as value; suspense: suspenseTpl; error: errorTpl">
+    {{ value }} (changes when observable emits)
   </div>
 </div>
-
 
 <h2>rx-if</h2>
 <div class="buttons">
@@ -33,13 +32,13 @@
   <button (click)="rxIfObs.errorAsync()">error (timeout 1000)</button>
   <button (click)="rxIfObs.error()">error (sync)</button>
 </div>
-<div>{{randomNum()}} (changes whenever cd runs on component level)</div>
+<div>{{ randomNum() }} (changes whenever cd runs on component level)</div>
 
 <div class="wrapper">
   <ng-template #elseTpl>
     <div>The <i>else</i></div>
   </ng-template>
-  <div *scRxIf="rxIfObs.value$ as value; error:errorTpl; else elseTpl">
-    {{value}} (changes when observable emits)
+  <div *scRxIf="rxIfObs.value$ as value; error: errorTpl; else: elseTpl">
+    {{ value }} (changes when observable emits)
   </div>
 </div>

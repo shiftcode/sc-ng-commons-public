@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common'
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
 import { RouterLink, RouterOutlet } from '@angular/router'
 import { FlyingFocusComponent } from '@shiftcode/ngx-components'
@@ -7,8 +6,7 @@ import { SUB_ROUTES } from '../routes/routes.const'
 
 @Component({
   selector: 'sg-root',
-  standalone: true,
-  imports: [NgFor, RouterLink, RouterOutlet, FlyingFocusComponent],
+  imports: [RouterLink, RouterOutlet, FlyingFocusComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -34,7 +34,6 @@ import { tooltipAnimation } from './tooltip.animation'
     '(body:click)': 'this.handleBodyInteraction()',
     'aria-hidden': 'true',
   },
-  standalone: true,
   imports: [NgClass],
 })
 export class TooltipComponent implements OnDestroy {

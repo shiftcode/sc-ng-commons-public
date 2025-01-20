@@ -4,7 +4,6 @@ import { sgTestPageCreateQueryParams } from '../sg-test-page-create-query-params
 
 @Component({
   selector: 'sg-test-page-sub-2',
-  standalone: true,
   imports: [RouterLink],
   templateUrl: './sg-test-page-sub-2.component.html',
   styleUrls: ['./sg-test-page-sub-2.component.scss'],

@@ -5,7 +5,6 @@ import { AutoFocusDirective } from '@shiftcode/ngx-components'
   selector: 'sg-sg-autofocus',
   templateUrl: './sg-autofocus.component.html',
   styleUrls: ['./sg-autofocus.component.scss'],
-  standalone: true,
   imports: [AutoFocusDirective],
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -103,7 +103,7 @@ export class LocalStorageImpl implements LocalStorage {
     }
     try {
       return JSON.parse(val)
-    } catch (err: unknown) {
+    } catch {
       return null
     }
   }

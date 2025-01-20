@@ -3,7 +3,6 @@ import { SvgComponent } from '@shiftcode/ngx-components'
 
 @Component({
   selector: 'sg-sg-icon',
-  standalone: true,
   imports: [SvgComponent],
   templateUrl: './sg-svg.component.html',
   styleUrls: ['./sg-svg.component.scss'],

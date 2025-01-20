@@ -3,21 +3,29 @@
 
 <div class="sg-tooltip__meta">
   <select [formControl]="positionCtrl">
-    <option *ngFor="let tooltipPosition of tooltipPositions" [value]="tooltipPosition">{{tooltipPosition}}</option>
+    @for (tooltipPosition of tooltipPositions; track tooltipPosition) {
+      <option [value]="tooltipPosition">{{ tooltipPosition }}</option>
+    }
   </select>
 
   <button (click)="tooltipDirective.show()">show</button>
   <button (click)="tooltipDirective.hide()">hide</button>
 </div>
 
-<span class="sg-tooltip__trigger"
-      #tooltipDirective="scTooltip"
-      [scTooltip]="tooltip"
-      [scTooltipShowDelay]="0"
-      [scTooltipPosition]="positionCtrl.value">My element which has a tooltip</span>
+<span
+  class="sg-tooltip__trigger"
+  #tooltipDirective="scTooltip"
+  [scTooltip]="tooltip"
+  [scTooltipShowDelay]="0"
+  [scTooltipPosition]="positionCtrl.value"
+  >My element which has a tooltip</span
+>
 
-<div class="sg-tooltip__trigger"
-     [scTooltip]="'a differently styled tooltip'"
-     [scTooltipPosition]="positionCtrl.value"
-     scTooltipClass="sg-tooltip-custom-style"
->a differently styled tooltip</div>
+<div
+  class="sg-tooltip__trigger"
+  [scTooltip]="'a differently styled tooltip'"
+  [scTooltipPosition]="positionCtrl.value"
+  scTooltipClass="sg-tooltip-custom-style"
+>
+  a differently styled tooltip
+</div>

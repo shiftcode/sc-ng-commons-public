@@ -63,7 +63,7 @@ export class RemoteLogService {
     }
     try {
       return JSON.stringify(data)
-    } catch (err) {
+    } catch {
       console.warn('could not stringify provided log object', data)
       return
     }

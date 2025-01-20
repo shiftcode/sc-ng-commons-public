@@ -1,0 +1,8 @@
+"*.{ts,html}":
+  - npm run prettier:staged
+  - npm run lint:staged
+src/**/*.scss:
+  - npm run prettier:staged
+# sort package.json keys
+./package.json:
+  - sort-package-json

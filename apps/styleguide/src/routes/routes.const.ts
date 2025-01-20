@@ -26,10 +26,7 @@ export const SUB_ROUTES = [
 export const ROUTES = [
   {
     path: 'styleguide',
-    children: [
-      ...SUB_ROUTES,
-      { path: '**', redirectTo: SUB_ROUTES[0].path },
-    ],
+    children: [...SUB_ROUTES, { path: '**', redirectTo: SUB_ROUTES[0].path }],
   },
   { path: '**', redirectTo: 'styleguide' },
 ] satisfies Routes

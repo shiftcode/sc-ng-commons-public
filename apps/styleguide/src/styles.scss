@@ -1,21 +1,21 @@
 @use '@angular/cdk' as cdk;
 
 /* reset css for a clean cross browser base */
-@import 'reset-css/reset';
+@use 'reset-css/reset';
 
 @include cdk.overlay();
 @include cdk.a11y-visually-hidden();
-
 
 * {
   box-sizing: border-box;
 }
 
-html, body {
-  font-family: "Helvetica Neue", sans-serif;
+html,
+body {
+  font-family: 'Helvetica Neue', sans-serif;
 }
 
-body.sg-navigating *{
+body.sg-navigating * {
   cursor: wait !important;
 }
 
@@ -37,6 +37,6 @@ body.sg-navigating *{
   --sc-tooltip-line-height: 14px;
   --sc-tooltip-notch-size: 12px;
   --sc-tooltip-padding: 16px;
-  --sc-tooltip-filter: drop-shadow(0 0 1px #ccc) drop-shadow(0 16px 16px rgba(13, 27, 41, 0.08)) drop-shadow(0 8px 8px rgba(13, 27, 41, 0.08));
-
+  --sc-tooltip-filter: drop-shadow(0 0 1px #ccc) drop-shadow(0 16px 16px rgba(13, 27, 41, 0.08))
+    drop-shadow(0 8px 8px rgba(13, 27, 41, 0.08));
 }
