@@ -1,5 +1,5 @@
 import { HttpHeaders } from '@angular/common/http'
-import { LogLevel } from '../log-level.enum'
+import { LogLevel } from '@shiftcode/logger'
 
 export interface RemoteLogConfig {
   logLevel: LogLevel

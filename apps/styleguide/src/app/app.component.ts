@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
 import { RouterLink, RouterOutlet } from '@angular/router'
 import { FlyingFocusComponent } from '@shiftcode/ngx-components'
-import { ClientIdService, Logger, LoggerService } from '@shiftcode/ngx-core'
+import { ClientIdService, LoggerService } from '@shiftcode/ngx-core'
+import { Logger } from '@shiftcode/logger'
 import { SUB_ROUTES } from '../routes/routes.const'
 
 @Component({

@@ -3,8 +3,7 @@ import { isPlatformBrowser } from '@angular/common'
 import { colorizeForConsole } from '@shiftcode/utilities'
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core'
 import { leadingZero } from '../helper/leading-zero.function'
-import { LogLevel } from '../log-level.enum'
-import { LogTransport } from '../log-transport'
+import { LogLevel, LogTransport } from '@shiftcode/logger'
 import { ConsoleLogTransportConfig } from './console-log-transport-config'
 import { CONSOLE_LOG_TRANSPORT_CONFIG } from './console-log-transport-config.injection-token'
 
@@ -14,11 +13,10 @@ export class NodeConsoleLogTransport extends LogTransport {
     @Inject(CONSOLE_LOG_TRANSPORT_CONFIG) consoleLoggerConfig: ConsoleLogTransportConfig,
     @Inject(PLATFORM_ID) platformId: any,
   ) {
-    super()
+    super(consoleLoggerConfig.logLevel)
     if (isPlatformBrowser(platformId)) {
       throw new Error('This log transport is only for server side use - consider using "ConsoleLogTransport"')
     }
-    this.logLevel = consoleLoggerConfig.logLevel
   }
 
   log(level: LogLevel, clazzName: string, hexColor: string, timestamp: Date, args: any[]) {

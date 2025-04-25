@@ -9,7 +9,8 @@ import {
   PutLogEventsCommand,
   PutLogEventsResponse,
 } from '@aws-sdk/client-cloudwatch-logs'
-import { ClientIdService, LogLevel, LogRequestInfoProvider } from '@shiftcode/ngx-core'
+import { ClientIdService, LogRequestInfoProvider } from '@shiftcode/ngx-core'
+import { LogLevel } from '@shiftcode/logger'
 import { getEnumKeyFromNum, jsonMapSetStringifyReplacer } from '@shiftcode/utilities'
 import { Observable, of, ReplaySubject, Subject, throwError, timer } from 'rxjs'
 import {

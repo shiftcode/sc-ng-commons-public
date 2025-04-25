@@ -1,5 +1,5 @@
 import { CloudWatchLogsClientConfig } from '@aws-sdk/client-cloudwatch-logs'
-import { LogLevel } from '@shiftcode/ngx-core'
+import { LogLevel } from '@shiftcode/logger'
 import { Observable } from 'rxjs'
 
 export interface CloudWatchLogTransportConfig {

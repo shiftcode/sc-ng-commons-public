@@ -1,4 +1,5 @@
-import { LOG_TRANSPORTS, LoggerFeature, LoggerFeatureKind } from '@shiftcode/ngx-core'
+import { LoggerFeature, LoggerFeatureKind } from '@shiftcode/ngx-core'
+import { LogTransport } from '@shiftcode/logger'
 import { CLOUD_WATCH_LOG_TRANSPORT_CONFIG } from './cloud-watch-log-transport-config.injection-token'
 import { CloudWatchLogTransportConfig } from './cloud-watch-log-transport-config.model'
 import { CloudWatchLogTransport } from './cloud-watch-log-transport.service'
@@ -13,6 +14,6 @@ export function withCloudwatchTransport(
 
   return {
     kind: LoggerFeatureKind.TRANSPORT,
-    providers: [configProvider, { provide: LOG_TRANSPORTS, useClass: CloudWatchLogTransport, multi: true }],
+    providers: [configProvider, { provide: LogTransport, useClass: CloudWatchLogTransport, multi: true }],
   }
 }

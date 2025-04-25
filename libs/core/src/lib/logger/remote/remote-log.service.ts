@@ -2,7 +2,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Inject, Injectable, Optional } from '@angular/core'
 import { getEnumKeyFromNum } from '@shiftcode/utilities'
-import { LogLevel } from '../log-level.enum'
+import { LogLevel } from '@shiftcode/logger'
 import { LogRequestInfoProvider } from '../log-request-info-provider'
 import { LoggerHelper } from '../logger-helper'
 import { REMOTE_LOG_CONFIG } from './remote-log-config.injection-token'

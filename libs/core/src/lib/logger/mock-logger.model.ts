@@ -1,4 +1,4 @@
-import { LogLevel } from './log-level.enum'
+import { LogLevel } from '@shiftcode/logger'
 
 export class MockLogger {
   readonly statements: Record<LogLevel, any[][]> = {
