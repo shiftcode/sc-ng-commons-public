@@ -4,7 +4,7 @@ import { ClientIdService, LogRequestInfoProvider, RemoteLogData } from '@shiftco
 import { createJsonLogObjectData, LogLevel } from '@shiftcode/logger'
 import { jsonMapSetStringifyReplacer } from '@shiftcode/utilities'
 import { Observable, of, Subject, throwError } from 'rxjs'
-import { catchError, filter, map, mergeMap, shareReplay, withLatestFrom } from 'rxjs/operators'
+import { catchError, map, mergeMap, shareReplay, withLatestFrom } from 'rxjs/operators'
 import { CLOUD_WATCH_LOG_TRANSPORT_CONFIG } from './cloud-watch-log-transport-config.injection-token'
 import { CloudWatchLogTransportConfig } from './cloud-watch-log-transport-config.model'
 import { InputLogEvent } from '@aws-sdk/client-cloudwatch-logs'
@@ -36,8 +36,7 @@ export class CloudWatchService {
       return
     }
     this.logStream$ = of(void 0).pipe(
-      filter(() => clientIdService.createdInThisSession),
-      mergeMap(this.createLogStream),
+      mergeMap(() => (clientIdService.createdInThisSession ? this.createLogStream() : of(void 0))),
       shareReplay(1),
     )
     this.setup()
