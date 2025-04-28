@@ -15,7 +15,6 @@ export * from './lib/local-storage/provide-local-storage'
 // logger
 export * from './lib/logger/log-request-info-provider'
 export * from './lib/logger/logger.service'
-export * from './lib/logger/logger-helper'
 export * from './lib/logger/provide-logger'
 
 // console logger

@@ -1,12 +1,9 @@
-import { CloudWatchLogsClientConfig } from '@aws-sdk/client-cloudwatch-logs'
 import { LogLevel } from '@shiftcode/logger'
-import { Observable } from 'rxjs'
 
 export interface CloudWatchLogTransportConfig {
   logLevel: LogLevel
   logGroupName: string
-  clientConfig$: Observable<CloudWatchLogsClientConfig>
-  /** milliseconds until logs are flushed to aws */
-  flushInterval: number
+  logApiUrl: string
+  createLogStreamApiUrl: string
   jsonStringifyReplacer?: (key: string, value: any) => any
 }
