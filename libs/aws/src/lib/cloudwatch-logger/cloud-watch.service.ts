@@ -97,20 +97,33 @@ export class CloudWatchService {
       )
   }
 
-  private readonly putLogEvent = (logEvent: CloudWatchLogEvent): Observable<boolean> => {
+  private readonly putLogEvent = (logEvent: CloudWatchLogEvent): Observable<void> => {
     // outer observable only for retry logic -- see below
     return of(logEvent).pipe(
       // call to cloudwatch
-      mergeMap((logEvent) => of(this.sendPutLogEvent(logEvent))),
+      mergeMap((logEvent) => this.sendPutLogEvent(logEvent)),
       // we catch and ignore all errors
       catchError((err) => {
         console.warn('unable to put logs to CloudWatch --> we try again with the next log event', err)
-        return of(false)
+        return of(void 0)
       }),
     )
   }
 
-  private readonly sendPutLogEvent = (logEvent: CloudWatchLogEvent): boolean => {
-    return navigator.sendBeacon(this.config.logApiUrl, JSON.stringify(logEvent))
+  private readonly sendPutLogEvent = (logEvent: CloudWatchLogEvent): Observable<void> => {
+    return this.httpClient
+      .post(this.config.logApiUrl, logEvent, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        responseType: 'text', // prevent angular from parsing something
+      })
+      .pipe(
+        map(() => void 0),
+        catchError((err) => {
+          console.error('unable to put log to CloudWatch:', err)
+          return throwError(() => new Error('unable to put log to CloudWatch'))
+        }),
+      )
   }
 }
