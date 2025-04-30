@@ -3,12 +3,13 @@ import { Inject, Injectable, Optional } from '@angular/core'
 import { ClientIdService, LogRequestInfoProvider, RemoteLogData } from '@shiftcode/ngx-core'
 import { createJsonLogObjectData, LogLevel } from '@shiftcode/logger'
 import { jsonMapSetStringifyReplacer } from '@shiftcode/utilities'
-import { Observable, of, Subject, throwError } from 'rxjs'
+import { Observable, of, retryWhen, Subject, throwError } from 'rxjs'
 import { catchError, map, mergeMap, shareReplay, withLatestFrom } from 'rxjs/operators'
 import { CLOUD_WATCH_LOG_TRANSPORT_CONFIG } from './cloud-watch-log-transport-config.injection-token'
 import { CloudWatchLogTransportConfig } from './cloud-watch-log-transport-config.model'
 import { InputLogEvent } from '@aws-sdk/client-cloudwatch-logs'
 import { HttpClient } from '@angular/common/http'
+import { isLogStreamNotFoundError } from './is-error.function'
 
 type CloudWatchLogEvent = InputLogEvent & { logStreamName: string }
 
@@ -102,6 +103,17 @@ export class CloudWatchService {
     return of(logEvent).pipe(
       // call to cloudwatch
       mergeMap((logEvent) => this.sendPutLogEvent(logEvent)),
+      retryWhen((errors) =>
+        errors.pipe(
+          mergeMap((err) => {
+            if (isLogStreamNotFoundError(err)) {
+              return this.createLogStream()
+            }
+            return throwError(() => err)
+          }),
+        ),
+      ),
+      map(() => void 0),
       // we catch and ignore all errors
       catchError((err) => {
         console.warn('unable to put logs to CloudWatch --> we try again with the next log event', err)
@@ -110,20 +122,12 @@ export class CloudWatchService {
     )
   }
 
-  private readonly sendPutLogEvent = (logEvent: CloudWatchLogEvent): Observable<void> => {
-    return this.httpClient
-      .post(this.config.logApiUrl, logEvent, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        responseType: 'text', // prevent angular from parsing something
-      })
-      .pipe(
-        map(() => void 0),
-        catchError((err) => {
-          console.error('unable to put log to CloudWatch:', err)
-          return throwError(() => new Error('unable to put log to CloudWatch'))
-        }),
-      )
+  private readonly sendPutLogEvent = (logEvent: CloudWatchLogEvent): Observable<string> => {
+    return this.httpClient.post(this.config.logApiUrl, logEvent, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      responseType: 'text', // prevent angular from parsing something
+    })
   }
 }
