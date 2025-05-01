@@ -21,10 +21,6 @@
       "@shiftcode/ngx-components": [
         "libs/components/dist",
         "libs/components/src/public-api.ts"
-      ],
-      "@shiftcode/ngx-aws": [
-        "libs/aws/dist",
-        "libs/aws/src/public-api.ts"
       ]
     },
     "declaration": false,

@@ -5,9 +5,6 @@ Public Angular libraries used in various shiftcode projects.
 > [![@shiftcode/ngx-core](https://img.shields.io/github/package-json/v/shiftcode/sc-ng-commons-public?filename=%2Flibs%2Fcore%2Fpackage.json&label=%40shiftcode%2Fngx-core)](libs/core)\
 > Core Utilities; mainly services and some helper functions and rxjs operators. More details in [README](./libs/core/README.md).
 
-> [![@shiftcode/ngx-aws](https://img.shields.io/github/package-json/v/shiftcode/sc-ng-commons-public?filename=%2Flibs%2Faws%2Fpackage.json&label=%40shiftcode%2Fngx-aws)](libs/aws)\
-> Angular Services working with AWS. More details in [README](./libs/aws/README.md).
-
 > [![@shiftcode/ngx-components](https://img.shields.io/github/package-json/v/shiftcode/sc-ng-commons-public?filename=%2Flibs%2Fcomponents%2Fpackage.json&label=%40shiftcode%2Fngx-components)](libs/components)\
 > Angular components/directives/pipes usable across different projects. More details in [README](./libs/components/README.md).
 

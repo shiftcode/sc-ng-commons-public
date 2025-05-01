@@ -7,9 +7,6 @@
       ],
       "@shiftcode/ngx-components": [
         "../libs/components/src/public-api.ts"
-      ],
-      "@shiftcode/ngx-aws": [
-        "../libs/aws/src/public-api.ts"
       ]
     }
   },

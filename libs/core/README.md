@@ -59,4 +59,4 @@ class MyDirective {
 - Browser Console: `withBrowserConsoleTransport(...)`
 - Node Console: `withNodeConsoleTransport(...)`
 - Remote: `withRemoteTransport(...)`
-- AWS CloudFront: see `@shiftcode/ngx-aws`
+- AWS CloudFront: see `withCloudwatchTransport(...)`

@@ -122,34 +122,6 @@
           "prefix": "sg"
         }
       }
-    },
-    "aws": {
-      "root": "libs/aws",
-      "sourceRoot": "libs/aws/src",
-      "projectType": "library",
-      "prefix": "sc",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "libs/aws/ng-package.json",
-            "tsConfig": "libs/aws/tsconfig.lib.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "libs/aws/tsconfig.lib.prod.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:jest",
-          "options": {
-            "tsConfig": "tsconfig.spec.json",
-            "polyfills": ["zone.js", "zone.js/testing"]
-          }
-        }
-      }
     }
   },
   "cli": {
