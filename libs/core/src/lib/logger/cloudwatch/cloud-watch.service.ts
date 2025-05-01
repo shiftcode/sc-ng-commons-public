@@ -1,17 +1,22 @@
 /* eslint-disable no-console */
 import { Inject, Injectable, Optional } from '@angular/core'
-import { ClientIdService, LogRequestInfoProvider, RemoteLogData } from '@shiftcode/ngx-core'
 import { createJsonLogObjectData, LogLevel } from '@shiftcode/logger'
 import { jsonMapSetStringifyReplacer } from '@shiftcode/utilities'
 import { Observable, of, retryWhen, Subject, throwError } from 'rxjs'
 import { catchError, map, mergeMap, shareReplay, withLatestFrom } from 'rxjs/operators'
 import { CLOUD_WATCH_LOG_TRANSPORT_CONFIG } from './cloud-watch-log-transport-config.injection-token'
 import { CloudWatchLogTransportConfig } from './cloud-watch-log-transport-config.model'
-import { InputLogEvent } from '@aws-sdk/client-cloudwatch-logs'
 import { HttpClient } from '@angular/common/http'
 import { isLogStreamNotFoundError } from './is-error.function'
+import { ClientIdService } from '../../client-id/client-id.service'
+import { LogRequestInfoProvider } from '../log-request-info-provider'
+import { RemoteLogData } from '../remote/remote-log-data.model'
 
-type CloudWatchLogEvent = InputLogEvent & { logStreamName: string }
+interface CloudWatchLogEvent {
+  logStreamName: string
+  timestamp: number
+  message: string
+}
 
 /**
  * Service to send messages to CloudWatch via APIGateway
