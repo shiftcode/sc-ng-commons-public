@@ -18,7 +18,7 @@ export class RemoteLogService {
   sendMessage(level: LogLevel, context: string, timestamp: Date, args: any[]) {
     const remoteLogData: RemoteLogData = {
       ...createJsonLogObjectData(level, context, timestamp, args),
-      requestInfo: this.logRequestInfoProvider ? this.logRequestInfoProvider.getRequestInfo() : {},
+      requestInfo: this.logRequestInfoProvider?.getRequestInfo() ?? {},
     }
     this.postToBackend(remoteLogData)
   }

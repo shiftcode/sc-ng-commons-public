@@ -60,7 +60,7 @@ export class CloudWatchService {
 
     const logDataObject: RemoteLogData = {
       ...createJsonLogObjectData(level, context, dTimestamp, args),
-      requestInfo: this.logRequestInfoProvider ? this.logRequestInfoProvider.getRequestInfo() : {},
+      requestInfo: this.logRequestInfoProvider?.getRequestInfo() ?? {},
     }
 
     this.logsSubject.next({
