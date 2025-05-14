@@ -27,7 +27,7 @@
     "@angular/platform-browser": "^19.0.0",
     "@angular/router": "^19.0.0",
     "@angular/ssr": "^19.0.0",
-    "@shiftcode/logger": "^0.2.0-pr12.2",
+    "@shiftcode/logger": "^1.1.0",
     "@shiftcode/utilities": "^3.0.0",
     "rxjs": "^6.5.3 || ^7.4.0",
     "tslib": "^2.5.0"
