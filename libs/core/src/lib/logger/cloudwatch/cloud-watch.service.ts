@@ -154,7 +154,7 @@ export class CloudWatchService {
               }),
             )
           } else {
-            return this.waitForRetryCompletion()
+            return of(void 0)
           }
         }
         return throwError(() => err)
