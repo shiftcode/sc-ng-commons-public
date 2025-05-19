@@ -2,8 +2,8 @@
 import { Inject, Injectable, Optional } from '@angular/core'
 import { createJsonLogObjectData, LogLevel } from '@shiftcode/logger'
 import { jsonMapSetStringifyReplacer } from '@shiftcode/utilities'
-import { concatMap, Observable, of, retryWhen, Subject, throwError } from 'rxjs'
-import { catchError, map, mergeMap, shareReplay } from 'rxjs/operators'
+import { BehaviorSubject, concatMap, Observable, of, retryWhen, Subject, throwError } from 'rxjs'
+import { catchError, filter, map, mergeMap, shareReplay, take } from 'rxjs/operators'
 import { CLOUD_WATCH_LOG_TRANSPORT_CONFIG } from './cloud-watch-log-transport-config.injection-token'
 import { CloudWatchLogTransportConfig } from './cloud-watch-log-transport-config.model'
 import { HttpClient } from '@angular/common/http'
@@ -24,6 +24,7 @@ interface CloudWatchLogEvent {
  */
 @Injectable({ providedIn: 'root' })
 export class CloudWatchService {
+  private readonly retrying$ = new BehaviorSubject<boolean>(false)
   private readonly logStream$ = new Observable<void>()
   private readonly logsSubject = new Subject<CloudWatchLogEvent>()
   private readonly clientId: string
@@ -111,17 +112,8 @@ export class CloudWatchService {
     // outer observable only for retry logic -- see below
     return of(logEvent).pipe(
       // call to cloudwatch
-      mergeMap((logEvent) => this.sendPutLogEvent(logEvent)),
-      retryWhen((errors) =>
-        errors.pipe(
-          mergeMap((err) => {
-            if (isLogStreamNotFoundError(err)) {
-              return this.createLogStream()
-            }
-            return throwError(() => err)
-          }),
-        ),
-      ),
+      mergeMap((logEvent) => this.waitForRetryCompletion().pipe(mergeMap(() => this.sendPutLogEvent(logEvent)))),
+      retryWhen((errors) => this.handleRetry(errors)),
       map(() => void 0),
       // we catch and ignore all errors
       catchError((err) => {
@@ -138,5 +130,35 @@ export class CloudWatchService {
       },
       responseType: 'text', // prevent angular from parsing something
     })
+  }
+
+  private waitForRetryCompletion(): Observable<void> {
+    return this.retrying$.pipe(
+      filter((retrying) => !retrying),
+      take(1),
+      map(() => void 0),
+    )
+  }
+
+  private handleRetry(errors: Observable<any>): Observable<void> {
+    return errors.pipe(
+      mergeMap((err) => {
+        if (isLogStreamNotFoundError(err)) {
+          if (!this.retrying$.value) {
+            this.retrying$.next(true)
+            return this.createLogStream().pipe(
+              map(() => this.retrying$.next(false)),
+              catchError((retryErr) => {
+                this.retrying$.next(false)
+                return throwError(() => retryErr)
+              }),
+            )
+          } else {
+            return this.waitForRetryCompletion()
+          }
+        }
+        return throwError(() => err)
+      }),
+    )
   }
 }
