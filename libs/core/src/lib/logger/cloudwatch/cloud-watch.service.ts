@@ -2,8 +2,8 @@
 import { Inject, Injectable, Optional } from '@angular/core'
 import { createJsonLogObjectData, LogLevel } from '@shiftcode/logger'
 import { jsonMapSetStringifyReplacer } from '@shiftcode/utilities'
-import { Observable, of, retryWhen, Subject, throwError } from 'rxjs'
-import { catchError, map, mergeMap, shareReplay, withLatestFrom } from 'rxjs/operators'
+import { concatMap, Observable, of, retryWhen, Subject, throwError } from 'rxjs'
+import { catchError, map, mergeMap, shareReplay } from 'rxjs/operators'
 import { CLOUD_WATCH_LOG_TRANSPORT_CONFIG } from './cloud-watch-log-transport-config.injection-token'
 import { CloudWatchLogTransportConfig } from './cloud-watch-log-transport-config.model'
 import { HttpClient } from '@angular/common/http'
@@ -74,10 +74,14 @@ export class CloudWatchService {
     // actual log subscription
     this.logsSubject
       .pipe(
-        // wait for log stream to be created
-        withLatestFrom(this.logStream$),
+        // Ensure the log stream is created before processing log events
+        concatMap((logEvent) =>
+          this.logStream$.pipe(
+            map(() => logEvent), // Pass the logEvent after the logStream is ready
+          ),
+        ),
         // put logs to cloudwatch
-        mergeMap(([logEvent]) => this.putLogEvent(logEvent)),
+        mergeMap((logEvent) => this.putLogEvent(logEvent)),
       )
       .subscribe({ error: console.error.bind(console) })
   }
