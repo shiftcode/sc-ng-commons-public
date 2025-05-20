@@ -2,7 +2,7 @@
 import { Inject, Injectable, Optional } from '@angular/core'
 import { createJsonLogObjectData, LogLevel } from '@shiftcode/logger'
 import { jsonMapSetStringifyReplacer } from '@shiftcode/utilities'
-import { BehaviorSubject, concatMap, Observable, of, retryWhen, Subject, throwError } from 'rxjs'
+import { BehaviorSubject, concatMap, Observable, of, retry, Subject, throwError } from 'rxjs'
 import { catchError, filter, map, mergeMap, shareReplay, take } from 'rxjs/operators'
 import { CLOUD_WATCH_LOG_TRANSPORT_CONFIG } from './cloud-watch-log-transport-config.injection-token'
 import { CloudWatchLogTransportConfig } from './cloud-watch-log-transport-config.model'
@@ -113,7 +113,7 @@ export class CloudWatchService {
     return of(logEvent).pipe(
       // call to cloudwatch
       mergeMap((logEvent) => this.waitForRetryCompletion().pipe(mergeMap(() => this.sendPutLogEvent(logEvent)))),
-      retryWhen((errors) => this.handleRetry(errors)),
+      retry({ delay: (errors) => this.handleRetry(errors) }),
       map(() => void 0),
       // we catch and ignore all errors
       catchError((err) => {
