@@ -113,7 +113,7 @@ export class CloudWatchService {
     return of(logEvent).pipe(
       // call to cloudwatch
       mergeMap((logEvent) => this.waitForRetryCompletion().pipe(mergeMap(() => this.sendPutLogEvent(logEvent)))),
-      retry({ delay: (errors) => this.handleRetry(errors) }),
+      retry({ delay: (error) => this.handleRetry(error) }),
       map(() => void 0),
       // we catch and ignore all errors
       catchError((err) => {
@@ -140,25 +140,24 @@ export class CloudWatchService {
     )
   }
 
-  private handleRetry(errors: Observable<any>): Observable<void> {
-    return errors.pipe(
-      mergeMap((err) => {
-        if (isLogStreamNotFoundError(err)) {
-          if (!this.retrying$.value) {
-            this.retrying$.next(true)
-            return this.createLogStream().pipe(
-              map(() => this.retrying$.next(false)),
-              catchError((retryErr) => {
-                this.retrying$.next(false)
-                return throwError(() => retryErr)
-              }),
-            )
-          } else {
-            return of(void 0)
-          }
-        }
-        return throwError(() => err)
-      }),
-    )
+  private handleRetry(error: any): Observable<void> {
+    if (isLogStreamNotFoundError(error)) {
+      if (!this.retrying$.value) {
+        this.retrying$.next(true)
+        return this.createLogStream().pipe(
+          map(() => {
+            this.retrying$.next(false)
+            return void 0
+          }),
+          catchError((retryErr) => {
+            this.retrying$.next(false)
+            return throwError(() => retryErr)
+          }),
+        )
+      } else {
+        return of(void 0)
+      }
+    }
+    return throwError(() => error)
   }
 }
