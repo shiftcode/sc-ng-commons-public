@@ -13,18 +13,18 @@ export * from './lib/local-storage/local-storage-options'
 export * from './lib/local-storage/provide-local-storage'
 
 // logger
-export * from './lib/logger/log-level.enum'
 export * from './lib/logger/log-request-info-provider'
-export * from './lib/logger/log-transport'
 export * from './lib/logger/logger.service'
-export * from './lib/logger/logger.model'
-export * from './lib/logger/logger-helper'
-export * from './lib/logger/log-transports.token'
 export * from './lib/logger/provide-logger'
 
-// noop logger transport
-export * from './lib/logger/noop/with-noop-transport.function'
-export * from './lib/logger/noop/noop-log-transport.service'
+//cloudwatch logger
+export * from './lib/logger/cloudwatch/cloud-watch.service'
+export * from './lib/logger/cloudwatch/cloud-watch-error-handler.service'
+export * from './lib/logger/cloudwatch/cloud-watch-log-transport.service'
+export * from './lib/logger/cloudwatch/cloud-watch-log-transport-config.injection-token'
+export * from './lib/logger/cloudwatch/cloud-watch-log-transport-config.model'
+export * from './lib/logger/cloudwatch/is-error.function'
+export * from './lib/logger/cloudwatch/with-cloudwatch-transport.function'
 
 // console logger
 export * from './lib/logger/console/console-log-transport-config.injection-token'

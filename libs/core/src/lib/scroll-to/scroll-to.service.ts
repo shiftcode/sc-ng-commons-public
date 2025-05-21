@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common'
 import { inject, Injectable } from '@angular/core'
-import { Logger } from '../logger/logger.model'
+import { Logger } from '@shiftcode/logger'
 import { LoggerService } from '../logger/logger.service'
 import { WindowRef } from '../window/window-ref.service'
 

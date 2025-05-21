@@ -1,6 +1,6 @@
 import { DOCUMENT, isPlatformServer } from '@angular/common'
 import { inject, Injectable, PLATFORM_ID } from '@angular/core'
-import { Logger } from '../logger/logger.model'
+import { Logger } from '@shiftcode/logger'
 import { LoggerService } from '../logger/logger.service'
 import { ScriptLoaderError } from './script-loader-error.model'
 

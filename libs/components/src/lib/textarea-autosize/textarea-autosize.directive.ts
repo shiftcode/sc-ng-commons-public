@@ -1,6 +1,7 @@
 import { AfterViewInit, Directive, ElementRef, HostBinding, inject, Inject, Input, OnDestroy } from '@angular/core'
 import { FormControlDirective } from '@angular/forms'
-import { Logger, LoggerService, ResizeService } from '@shiftcode/ngx-core'
+import { LoggerService, ResizeService } from '@shiftcode/ngx-core'
+import { Logger } from '@shiftcode/logger'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 

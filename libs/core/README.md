@@ -43,7 +43,8 @@ Inside your Component/Service/... inject the `LoggerService` and create a logger
 
 ```ts
 import { Directive, inject } from '@angular/core'
-import { Logger, LoggerService } from '@shiftcode/ngx-core'
+import { LoggerService } from '@shiftcode/ngx-core'
+import { Logger } from '@shiftcode/logger'
 
 @Directive({ ... })
 class MyDirective {
@@ -58,4 +59,4 @@ class MyDirective {
 - Browser Console: `withBrowserConsoleTransport(...)`
 - Node Console: `withNodeConsoleTransport(...)`
 - Remote: `withRemoteTransport(...)`
-- AWS CloudFront: see `@shiftcode/ngx-aws`
+- AWS CloudWatch: see `withCloudwatchTransport(...)`

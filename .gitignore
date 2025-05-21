@@ -9,7 +9,6 @@ apps/**/coverage
 /out-tsc
 
 #eslint cache
-libs/aws/.eslintcache
 libs/components/.eslintcache
 libs/core/.eslintcache
 .eslintcache

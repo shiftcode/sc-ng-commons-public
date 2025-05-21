@@ -1,5 +1,5 @@
 import { ErrorHandler, Injectable, Injector } from '@angular/core'
-import { LogLevel } from '@shiftcode/ngx-core'
+import { LogLevel } from '@shiftcode/logger'
 import { CloudWatchService } from './cloud-watch.service'
 
 /**

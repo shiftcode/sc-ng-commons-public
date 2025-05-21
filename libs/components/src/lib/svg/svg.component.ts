@@ -8,7 +8,8 @@ import {
   Renderer2,
   SimpleChange,
 } from '@angular/core'
-import { Logger, LoggerService } from '@shiftcode/ngx-core'
+import { LoggerService } from '@shiftcode/ngx-core'
+import { Logger } from '@shiftcode/logger'
 import { SvgRegistry } from './svg-registry.service'
 import { HttpErrorResponse } from '@angular/common/http'
 

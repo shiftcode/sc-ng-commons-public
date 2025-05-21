@@ -1,10 +1,5 @@
-export interface RemoteLogData {
-  level: string
-  timestamp: string
-  logger: string
+import { JsonLogObjectData } from '@shiftcode/logger'
+
+export interface RemoteLogData extends JsonLogObjectData {
   requestInfo: Record<string, string>
-  message?: string
-  errorName?: string
-  exception?: string | undefined
-  data?: string | undefined
 }

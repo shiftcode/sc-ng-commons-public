@@ -1,6 +1,0 @@
-export * from './lib/cloudwatch-logger/cloud-watch.service'
-export * from './lib/cloudwatch-logger/cloud-watch-error-handler.service'
-export * from './lib/cloudwatch-logger/cloud-watch-log-transport.service'
-export * from './lib/cloudwatch-logger/cloud-watch-log-transport-config.injection-token'
-export * from './lib/cloudwatch-logger/cloud-watch-log-transport-config.model'
-export * from './lib/cloudwatch-logger/with-cloudwatch-transport.function'

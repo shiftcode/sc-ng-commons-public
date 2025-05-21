@@ -1,5 +1,5 @@
 import { ErrorHandler, Injectable } from '@angular/core'
-import { LogLevel } from '../log-level.enum'
+import { LogLevel } from '@shiftcode/logger'
 import { RemoteLogService } from './remote-log.service'
 
 /**

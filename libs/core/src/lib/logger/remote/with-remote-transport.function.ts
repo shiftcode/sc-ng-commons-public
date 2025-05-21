@@ -1,8 +1,8 @@
-import { LOG_TRANSPORTS } from '../log-transports.token'
 import { LoggerFeature, LoggerFeatureKind } from '../provide-logger'
 import { REMOTE_LOG_CONFIG } from './remote-log-config.injection-token'
 import { RemoteLogConfig } from './remote-log-config.model'
 import { RemoteLogTransport } from './remote-log-transport.service'
+import { LogTransport } from '@shiftcode/logger'
 
 export function withRemoteTransport(
   remoteLogConfigOrFactory: RemoteLogConfig | (() => RemoteLogConfig),
@@ -14,6 +14,6 @@ export function withRemoteTransport(
 
   return {
     kind: LoggerFeatureKind.TRANSPORT,
-    providers: [configProvider, { provide: LOG_TRANSPORTS, useClass: RemoteLogTransport, multi: true }],
+    providers: [configProvider, { provide: LogTransport, useClass: RemoteLogTransport, multi: true }],
   }
 }

@@ -1,4 +1,4 @@
-import { LogLevel } from '../log-level.enum'
+import { LogLevel } from '@shiftcode/logger'
 
 export interface ConsoleLogTransportConfig {
   logLevel: LogLevel
