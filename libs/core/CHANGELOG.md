@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-core@7.0.0...@shiftcode/ngx-core@8.0.0) (2025-05-21)
+
+### Bug Fixes
+
+- **cloud-watch-service:** adjust handleRetry logic to retry API ([6aaacd0](https://github.com/shiftcode/sc-ng-commons-public/commit/6aaacd0731ee8e4defded262c361ed21a3fa6a48))
+- **cloud-watch-service:** ensure all log events wait for logStream ([dec6eda](https://github.com/shiftcode/sc-ng-commons-public/commit/dec6edadb278e020ebf4856e7b9a83c100087f4e))
+- **cloud-watch-service:** improve retry logic for log event sending to avoid race conditions ([57d6058](https://github.com/shiftcode/sc-ng-commons-public/commit/57d6058d6008e1db863a08e9feaca3d8f26fe377))
+- **cloud-watch-service:** remove redundant wait call ([235fe64](https://github.com/shiftcode/sc-ng-commons-public/commit/235fe6411c9b525daef398275b68c9aceb913a71))
+- **cloud-watch-service:** use retry instead of deprecated retryWhen ([b0a0eed](https://github.com/shiftcode/sc-ng-commons-public/commit/b0a0eedaea5ed6aa2d1eed7394d588945da71c0c))
+
+### Build System
+
+- **deps:** update @shiftcode/logger to version 1.1.0 ([558223d](https://github.com/shiftcode/sc-ng-commons-public/commit/558223de7a250531ce8d1c2cd0f0003f7ad1ee8d))
+
+### Features
+
+- **aws:** update cloud watch service to write logs to APIGateway ([8db28be](https://github.com/shiftcode/sc-ng-commons-public/commit/8db28be48d469ef65d4132442bbdfed510b8fa6b))
+- **logger:** implement base logger from @shiftcode/logger ([8561742](https://github.com/shiftcode/sc-ng-commons-public/commit/8561742b0053c5c41a324c8d479d5ea3ebcc0c34))
+- update @shiftcode/logger to version ^3.0.0 and @shiftcode/utilities to version ^4.0.0 ([727a2cb](https://github.com/shiftcode/sc-ng-commons-public/commit/727a2cb68d00a0993dfb8a9c755d6c8283aab44f))
+
+### BREAKING CHANGES
+
+- requires @shiftcode/logger ^3.0.0,
+  requires @shiftcode/utilities ^4.0.0
+- **deps:** Implementing @shiftcode/logger leads to the consumer having to change the imports
+
 # [7.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-core@6.0.0...@shiftcode/ngx-core@7.0.0) (2025-01-20)
 
 ### Bug Fixes
