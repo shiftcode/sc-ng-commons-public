@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-core@8.0.0...@shiftcode/ngx-core@9.0.0) (2025-05-22)
+
+### Build System
+
+- **core:** update version ([523eab9](https://github.com/shiftcode/sc-ng-commons-public/commit/523eab9cda067c911b0f30eaaa087259ba243885))
+
+### BREAKING CHANGES
+
+- **core:** logGroupName was removed from CloudWatchLogTransportConfig
+
 # [8.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-core@7.0.0...@shiftcode/ngx-core@8.0.0) (2025-05-21)
 
 ### Bug Fixes

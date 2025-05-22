@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-components@8.0.0...@shiftcode/ngx-components@9.0.0) (2025-05-22)
+
+### Build System
+
+- **components:** update @shiftcode/ngx-core version to ^9.0.0 || ^9.0.0-pr46 ([1f167b0](https://github.com/shiftcode/sc-ng-commons-public/commit/1f167b0fa500c3f81d1ce429d222dd29b219c358))
+
+### BREAKING CHANGES
+
+- **components:** requires @shiftcode/ngx-core version to ^9.0.0
+
 # [8.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-components@7.0.0...@shiftcode/ngx-components@8.0.0) (2025-05-21)
 
 ### Build System
