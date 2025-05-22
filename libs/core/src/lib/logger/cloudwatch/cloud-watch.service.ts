@@ -89,7 +89,6 @@ export class CloudWatchService {
 
   private readonly createLogStream = (): Observable<void> => {
     const logStream = {
-      logGroupName: this.config.logGroupName,
       logStreamName: this.clientId,
     }
     return this.httpClient
