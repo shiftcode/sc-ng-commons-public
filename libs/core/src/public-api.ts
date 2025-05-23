@@ -13,7 +13,8 @@ export * from './lib/local-storage/local-storage-options'
 export * from './lib/local-storage/provide-local-storage'
 
 // logger
-export * from './lib/logger/log-request-info-provider'
+export * from './lib/logger/log-request-info.token'
+export * from './lib/logger/provide-log-request-info'
 export * from './lib/logger/logger.service'
 export * from './lib/logger/provide-logger'
 
