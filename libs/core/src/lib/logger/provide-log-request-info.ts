@@ -1,5 +1,5 @@
 import { EnvironmentProviders, FactoryProvider, makeEnvironmentProviders, ValueProvider } from '@angular/core'
-import { LOG_REQUEST_INFO } from '@shiftcode/ngx-core'
+import { LOG_REQUEST_INFO } from './log-request-info.token'
 
 export function provideLogRequestInfo(
   logRequestInfoOrFactory: Record<string, string> | (() => Record<string, string>),
