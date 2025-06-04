@@ -1,4 +1,3 @@
-import { DOCUMENT } from '@angular/common'
 import { TestBed } from '@angular/core/testing'
 import { firstValueFrom, Observable } from 'rxjs'
 import { UIEventService } from './ui-event.service'
