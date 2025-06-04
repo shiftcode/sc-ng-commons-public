@@ -15,7 +15,7 @@ import {
 } from '@angular/cdk/overlay'
 import { Platform } from '@angular/cdk/platform'
 import { ComponentPortal } from '@angular/cdk/portal'
-import { DOCUMENT } from '@angular/common'
+
 import {
   Directive,
   ElementRef,
@@ -27,6 +27,7 @@ import {
   OnInit,
   Optional,
   ViewContainerRef,
+  DOCUMENT,
 } from '@angular/core'
 import { Subject } from 'rxjs'
 import { take, takeUntil } from 'rxjs/operators'

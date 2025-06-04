@@ -3,8 +3,7 @@
   "compilerOptions": {
     "types": [
       "jest",
-      "node",
-      "../../ng-dev-mode"
+      "node"
     ]
   }
 }

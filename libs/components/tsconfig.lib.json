@@ -1,8 +1,4 @@
 {
   "extends": "../tsconfig.lib.json",
-  "compilerOptions": {
-    "types": [
-      "../../ng-dev-mode"
-    ]
-  }
+  "compilerOptions": {}
 }

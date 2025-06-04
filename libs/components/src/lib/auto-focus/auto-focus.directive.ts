@@ -1,5 +1,4 @@
-import { DOCUMENT } from '@angular/common'
-import { AfterViewInit, Directive, ElementRef, inject } from '@angular/core'
+import { AfterViewInit, Directive, ElementRef, inject, DOCUMENT } from '@angular/core'
 import { isInputElement, LoggerService } from '@shiftcode/ngx-core'
 import { Logger } from '@shiftcode/logger'
 

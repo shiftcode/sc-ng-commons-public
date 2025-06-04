@@ -1,6 +1,5 @@
-import { DOCUMENT } from '@angular/common'
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
-import { inject, Injectable } from '@angular/core'
+import { inject, Injectable, DOCUMENT } from '@angular/core'
 import { firstValueFrom } from 'rxjs'
 
 /**

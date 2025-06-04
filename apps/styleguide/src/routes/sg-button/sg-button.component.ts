@@ -1,5 +1,4 @@
-import { DOCUMENT } from '@angular/common'
-import { ChangeDetectionStrategy, Component, Inject, OnDestroy, Optional } from '@angular/core'
+import { ChangeDetectionStrategy, Component, Inject, OnDestroy, Optional, DOCUMENT } from '@angular/core'
 import { ButtonComponent } from '@shiftcode/ngx-components'
 
 @Component({
