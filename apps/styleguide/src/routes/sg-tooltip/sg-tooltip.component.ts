@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, Inject, Optional } from '@angular/core'
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
 import { FormControl, ReactiveFormsModule } from '@angular/forms'
 import { TOOLTIP_DEFAULT_OPTIONS, TooltipDirective, TooltipOptions, TooltipPosition } from '@shiftcode/ngx-components'
 import { LoggerService } from '@shiftcode/ngx-core'
@@ -30,7 +30,9 @@ export class SgTooltipComponent {
   readonly positionCtrl = new FormControl<TooltipPosition>(this.tooltipPositions[0], { nonNullable: true })
   private readonly logger = inject(LoggerService).getInstance('SgTooltipComponent')
 
-  constructor(@Optional() @Inject(TOOLTIP_DEFAULT_OPTIONS) opts: TooltipOptions) {
+  constructor() {
+    const opts = inject<TooltipOptions>(TOOLTIP_DEFAULT_OPTIONS, { optional: true })
+
     this.logger.debug('tooltipDefaultOptions', opts)
   }
 }

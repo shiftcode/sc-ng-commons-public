@@ -18,7 +18,9 @@ export class AppComponent {
 
   private readonly logger: Logger = inject(LoggerService).getInstance('AppComponent')
 
-  constructor(clientIdService: ClientIdService) {
+  constructor() {
+    const clientIdService = inject(ClientIdService)
+
     this.logger.debug('constructor()')
     this.logger.debug('clientId', clientIdService.clientId)
   }

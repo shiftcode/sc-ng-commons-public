@@ -1,12 +1,13 @@
-import { Inject, Injectable } from '@angular/core'
+import { Injectable, inject } from '@angular/core'
 import { Logger, BaseLoggerService, LogTransport } from '@shiftcode/logger'
 
 @Injectable({ providedIn: 'root' })
 export class LoggerService {
   private baseService: BaseLoggerService
 
-  constructor(@Inject(LogTransport) private logTransports: LogTransport[]) {
-    if (!Array.isArray(this.logTransports)) {
+  constructor() {
+    const logTransports = inject(LogTransport)
+    if (!Array.isArray(logTransports)) {
       throw new Error('LOG_TRANSPORTS needs to be provided with multi:true')
     }
     this.baseService = new BaseLoggerService(logTransports)

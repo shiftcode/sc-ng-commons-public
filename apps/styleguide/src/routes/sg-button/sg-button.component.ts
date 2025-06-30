@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, OnDestroy, Optional, DOCUMENT } from '@angular/core'
+import { ChangeDetectionStrategy, Component, OnDestroy, DOCUMENT, inject } from '@angular/core'
 import { ButtonComponent } from '@shiftcode/ngx-components'
 
 @Component({
@@ -17,11 +17,10 @@ export class SgButtonComponent implements OnDestroy {
 
   isToggled = false
 
-  private document?: Document
+  private readonly document = inject(DOCUMENT, { optional: true })
   private intervalId: any
 
-  constructor(@Optional() @Inject(DOCUMENT) document?: any) {
-    this.document = document
+  constructor() {
     this.intervalId = setInterval(this.updateActiveEl, 100)
   }
 
@@ -31,9 +30,7 @@ export class SgButtonComponent implements OnDestroy {
 
   private updateActiveEl = (): string | null => {
     return (this.activeEl =
-      (this.document &&
-        this.document.activeElement &&
-        `${this.document.activeElement.tagName}#${this.document.activeElement.id}`) ||
+      (this.document?.activeElement && `${this.document.activeElement.tagName}#${this.document.activeElement.id}`) ||
       null)
   }
 }

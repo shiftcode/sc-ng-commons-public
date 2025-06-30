@@ -1,4 +1,4 @@
-import { ErrorHandler, Injectable } from '@angular/core'
+import { ErrorHandler, Injectable, inject } from '@angular/core'
 import { LogLevel } from '@shiftcode/logger'
 import { RemoteLogService } from './remote-log.service'
 
@@ -7,9 +7,7 @@ import { RemoteLogService } from './remote-log.service'
  */
 @Injectable({ providedIn: 'root' })
 export class RemoteLogErrorHandler extends ErrorHandler {
-  constructor(private remoteLogService: RemoteLogService) {
-    super()
-  }
+  private readonly remoteLogService = inject(RemoteLogService)
 
   override handleError(error: any) {
     // submit error to backend

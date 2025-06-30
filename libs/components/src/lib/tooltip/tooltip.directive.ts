@@ -20,14 +20,13 @@ import {
   Directive,
   ElementRef,
   HostListener,
-  Inject,
   Input,
   NgZone,
   OnDestroy,
   OnInit,
-  Optional,
   ViewContainerRef,
   DOCUMENT,
+  inject,
 } from '@angular/core'
 import { Subject } from 'rxjs'
 import { take, takeUntil } from 'rxjs/operators'
@@ -47,6 +46,37 @@ import { TooltipComponent } from './tooltip.component'
   standalone: true,
 })
 export class TooltipDirective implements OnDestroy, OnInit {
+  /** The default delay in ms before showing the tooltip after show is called */
+  @Input('scTooltipShowDelay')
+  showDelay: number
+
+  /** The default delay in ms before hiding the tooltip after hide is called */
+  @Input('scTooltipHideDelay')
+  hideDelay: number
+
+  private readonly overlay = inject(Overlay)
+  private readonly viewportRuler = inject(ViewportRuler)
+  private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef)
+  private readonly scrollDispatcher = inject(ScrollDispatcher)
+  private readonly viewContainerRef = inject(ViewContainerRef)
+  private readonly ngZone = inject(NgZone)
+  private readonly ariaDescriber = inject(AriaDescriber)
+  private readonly focusMonitor = inject(FocusMonitor)
+  private readonly platform = inject(Platform)
+  private readonly overlayContainer = inject(OverlayContainer)
+  private readonly document = inject(DOCUMENT)
+
+  private _position?: TooltipPosition
+  private _disabled = false
+  private _tooltipClass: string | string[] | Set<string> | { [key: string]: any }
+  private _message = ''
+  private overlayRef: OverlayRef | null
+  private tooltipInstance: TooltipComponent | null
+  private portal: ComponentPortal<TooltipComponent>
+  private readonly manualHostElementListeners = new Map<string, EventListenerOrEventListenerObject>()
+  private readonly onDestroy = new Subject<void>()
+  private readonly opts: TooltipOptions
+
   /** Allows the user to define the position of the tooltip relative to the parent element */
   @Input('scTooltipPosition')
   get position(): TooltipPosition {
@@ -119,40 +149,8 @@ export class TooltipDirective implements OnDestroy, OnInit {
     }
   }
 
-  /** The default delay in ms before showing the tooltip after show is called */
-  @Input('scTooltipShowDelay')
-  showDelay: number
-
-  /** The default delay in ms before hiding the tooltip after hide is called */
-  @Input('scTooltipHideDelay')
-  hideDelay: number
-
-  private _position?: TooltipPosition
-  private _disabled = false
-  private _tooltipClass: string | string[] | Set<string> | { [key: string]: any }
-  private _message = ''
-  private overlayRef: OverlayRef | null
-  private tooltipInstance: TooltipComponent | null
-  private portal: ComponentPortal<TooltipComponent>
-  private readonly manualHostElementListeners = new Map<string, EventListenerOrEventListenerObject>()
-  private readonly onDestroy = new Subject<void>()
-  private readonly opts: TooltipOptions
-
-  constructor(
-    private overlay: Overlay,
-    private viewportRuler: ViewportRuler,
-    private elementRef: ElementRef<HTMLElement>,
-    private scrollDispatcher: ScrollDispatcher,
-    private viewContainerRef: ViewContainerRef,
-    private ngZone: NgZone,
-    private ariaDescriber: AriaDescriber,
-    private focusMonitor: FocusMonitor,
-    private platform: Platform,
-    private overlayContainer: OverlayContainer,
-    @Inject(DOCUMENT) private document: Document,
-    @Optional() @Inject(TOOLTIP_DEFAULT_OPTIONS) opts: TooltipOptions | null,
-  ) {
-    this.opts = { ...defaultTooltipOptions, ...opts }
+  constructor() {
+    this.opts = { ...defaultTooltipOptions, ...inject(TOOLTIP_DEFAULT_OPTIONS, { optional: true }) }
 
     this.manualHostElementListeners
       .set('touchstart', () => this.show())
@@ -160,24 +158,24 @@ export class TooltipDirective implements OnDestroy, OnInit {
 
     // The mouse events shouldn't be bound on mobile devices, because they can prevent the
     // first tap from firing its click event or can cause the tooltip to open for clicks.
-    if (!platform.IOS && !platform.ANDROID) {
+    if (!this.platform.IOS && !this.platform.ANDROID) {
       this.manualHostElementListeners.set('mouseenter', () => this.show()).set('mouseleave', () => this.hide())
     }
     // we register them all as passive, as we will never call `preventDefault` on them
     //  basically `passive` would only be needed for `touch*` events
     this.manualHostElementListeners.forEach((listener, event) => {
-      elementRef.nativeElement.addEventListener(event, listener, { passive: true })
+      this.elementRef.nativeElement.addEventListener(event, listener, { passive: true })
     })
 
-    focusMonitor
-      .monitor(elementRef)
+    this.focusMonitor
+      .monitor(this.elementRef)
       .pipe(takeUntil(this.onDestroy))
       .subscribe((origin) => {
         // Note that the focus monitor runs outside the Angular zone.
         if (!origin) {
-          ngZone.run(() => this.hide(0))
+          this.ngZone.run(() => this.hide(0))
         } else if (origin === 'keyboard') {
-          ngZone.run(() => this.show())
+          this.ngZone.run(() => this.show())
         }
       })
   }

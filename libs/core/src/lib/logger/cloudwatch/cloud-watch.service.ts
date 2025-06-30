@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { Inject, Injectable, Optional } from '@angular/core'
+import { Injectable, inject } from '@angular/core'
 import { createJsonLogObjectData, LogLevel } from '@shiftcode/logger'
 import { jsonMapSetStringifyReplacer } from '@shiftcode/utilities'
 import { BehaviorSubject, concatMap, Observable, of, retry, Subject, throwError } from 'rxjs'
@@ -24,20 +24,21 @@ interface CloudWatchLogEvent {
  */
 @Injectable({ providedIn: 'root' })
 export class CloudWatchService {
+  private readonly httpClient = inject(HttpClient)
+  private readonly config = inject<CloudWatchLogTransportConfig>(CLOUD_WATCH_LOG_TRANSPORT_CONFIG)
+  private readonly logRequestInfoProvider = inject<Record<string, string>>(LOG_REQUEST_INFO, { optional: true })
+
   private readonly retrying$ = new BehaviorSubject<boolean>(false)
   private readonly logStream$ = new Observable<void>()
   private readonly logsSubject = new Subject<CloudWatchLogEvent>()
   private readonly clientId: string
   private readonly jsonStringifyReplacer: (key: string, value: any) => any
 
-  constructor(
-    private httpClient: HttpClient,
-    clientIdService: ClientIdService,
-    @Inject(CLOUD_WATCH_LOG_TRANSPORT_CONFIG) private readonly config: CloudWatchLogTransportConfig,
-    @Optional() @Inject(LOG_REQUEST_INFO) private logRequestInfoProvider?: Record<string, string>,
-  ) {
+  constructor() {
+    const clientIdService = inject(ClientIdService)
+
     this.clientId = clientIdService.clientId
-    this.jsonStringifyReplacer = config.jsonStringifyReplacer || jsonMapSetStringifyReplacer
+    this.jsonStringifyReplacer = this.config.jsonStringifyReplacer || jsonMapSetStringifyReplacer
     // no instantiation if LogLevel === OFF
     if (this.config.logLevel === LogLevel.OFF) {
       return

@@ -1,4 +1,4 @@
-import { ErrorHandler, Injectable, Injector } from '@angular/core'
+import { ErrorHandler, Injectable, Injector, inject } from '@angular/core'
 import { LogLevel } from '@shiftcode/logger'
 import { CloudWatchService } from './cloud-watch.service'
 
@@ -8,9 +8,7 @@ import { CloudWatchService } from './cloud-watch.service'
  */
 @Injectable({ providedIn: 'root' })
 export class CloudWatchErrorHandler extends ErrorHandler {
-  constructor(private readonly injector: Injector) {
-    super()
-  }
+  private readonly injector = inject(Injector)
 
   override handleError(error: any): void {
     // prevent cyclic dependencies (eg. when CLOUD_WATCH_LOG_TRANSPORT_CONFIG needs config from httpClient request)

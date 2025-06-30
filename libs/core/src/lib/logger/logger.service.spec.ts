@@ -1,4 +1,4 @@
-import { Component, Directive, inject, Inject, Injectable, InjectionToken, PLATFORM_ID } from '@angular/core'
+import { Component, Directive, inject, Injectable, InjectionToken, PLATFORM_ID } from '@angular/core'
 import { LoggerService } from '@shiftcode/ngx-core'
 import { Logger, LogLevel, LogTransport } from '@shiftcode/logger'
 import { TestBed } from '@angular/core/testing'
@@ -12,8 +12,8 @@ const MOCK_LOG_TRANSPORT_CONFIG = new InjectionToken<MockLogTransportConfig>('mo
 
 @Injectable()
 class MockLogTransport1 extends LogTransport {
-  constructor(@Inject(MOCK_LOG_TRANSPORT_CONFIG) config: MockLogTransportConfig) {
-    super(config.logLevel)
+  constructor() {
+    super(inject(MOCK_LOG_TRANSPORT_CONFIG).logLevel)
   }
 
   log(_level: LogLevel, _clazzName: string, _hexColor: string, _timestamp: Date, _args: any[]) {}
@@ -21,8 +21,8 @@ class MockLogTransport1 extends LogTransport {
 
 @Injectable()
 class MockLogTransport2 extends LogTransport {
-  constructor(@Inject(MOCK_LOG_TRANSPORT_CONFIG) config: MockLogTransportConfig) {
-    super(config.logLevel)
+  constructor() {
+    super(inject(MOCK_LOG_TRANSPORT_CONFIG).logLevel)
   }
 
   log(_level: LogLevel, _clazzName: string, _hexColor: string, _timestamp: Date, _args: any[]) {}

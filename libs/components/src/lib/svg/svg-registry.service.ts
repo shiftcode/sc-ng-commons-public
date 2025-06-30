@@ -9,6 +9,7 @@ import { firstValueFrom } from 'rxjs'
 export class SvgRegistry {
   private readonly cache = new Map<string, Promise<SVGElement>>()
   private readonly document = inject(DOCUMENT)
+  private readonly httpClient = inject(HttpClient)
 
   /**
    * Creates a DOM element from the given SVG string, and adds default attributes.
@@ -38,8 +39,6 @@ export class SvgRegistry {
 
     return svg
   }
-
-  constructor(private httpClient: HttpClient) {}
 
   /**
    * Returns a Promise that produces the icon (as an <svg> DOM element) from the given URL.

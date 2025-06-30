@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core'
+import { Injectable, OnDestroy, inject } from '@angular/core'
 import { Subscription } from 'rxjs'
 import { LocalStorage } from '../local-storage/local-storage.service'
 import { createRandomClientId } from './create-random-client-id.function'
@@ -6,6 +6,7 @@ import { createRandomClientId } from './create-random-client-id.function'
 @Injectable({ providedIn: 'root' })
 export class ClientIdService implements OnDestroy {
   private static UNIQUE_ID_KEY = 'CLIENT_ID'
+  private readonly localStorage = inject(LocalStorage)
 
   get clientId(): string {
     return this._clientId
@@ -20,7 +21,7 @@ export class ClientIdService implements OnDestroy {
   private readonly _createdInThisSession: boolean
   private readonly subs: Subscription
 
-  constructor(private readonly localStorage: LocalStorage) {
+  constructor() {
     const clientId = this._getClientId()
     // if no clientID is present inside ls generate a new one
     if (typeof clientId === 'string') {
@@ -31,7 +32,9 @@ export class ClientIdService implements OnDestroy {
       this._createdInThisSession = true
     }
 
-    this.subs = localStorage.observe(ClientIdService.UNIQUE_ID_KEY).subscribe(() => this._setClientId(this.clientId))
+    this.subs = this.localStorage
+      .observe(ClientIdService.UNIQUE_ID_KEY)
+      .subscribe(() => this._setClientId(this.clientId))
   }
 
   ngOnDestroy() {

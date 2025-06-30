@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { Inject, Injectable, Optional } from '@angular/core'
+import { Injectable, inject } from '@angular/core'
 import { createJsonLogObjectData, LogLevel } from '@shiftcode/logger'
 import { REMOTE_LOG_CONFIG } from './remote-log-config.injection-token'
 import { RemoteLogConfig } from './remote-log-config.model'
@@ -9,11 +9,9 @@ import { LOG_REQUEST_INFO } from '../log-request-info.token'
 
 @Injectable({ providedIn: 'root' })
 export class RemoteLogService {
-  protected constructor(
-    private httpClient: HttpClient,
-    @Inject(REMOTE_LOG_CONFIG) private config: RemoteLogConfig,
-    @Optional() @Inject(LOG_REQUEST_INFO) private logRequestInfoProvider?: Record<string, string>,
-  ) {}
+  private readonly httpClient = inject(HttpClient)
+  private readonly config = inject<RemoteLogConfig>(REMOTE_LOG_CONFIG)
+  private readonly logRequestInfoProvider = inject(LOG_REQUEST_INFO, { optional: true })
 
   sendMessage(level: LogLevel, context: string, timestamp: Date, args: any[]) {
     const remoteLogData: RemoteLogData = {
