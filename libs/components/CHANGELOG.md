@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-components@9.0.0...@shiftcode/ngx-components@10.0.0) (2025-06-30)
+
+### Build System
+
+- **components:** update peer dependency version ([1bdcbac](https://github.com/shiftcode/sc-ng-commons-public/commit/1bdcbacbb83b270daf35026134961afc2bc6d59c))
+
+### BREAKING CHANGES
+
+- **components:** requires @shiftcode/ngx-core ^10.0.0
+
 # [9.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-components@8.0.0...@shiftcode/ngx-components@9.0.0) (2025-05-22)
 
 ### Build System

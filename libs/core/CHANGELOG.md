@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-core@9.0.0...@shiftcode/ngx-core@10.0.0) (2025-06-30)
+
+### Bug Fixes
+
+- **core:** also allow undefined for log request info values ([5f6e51d](https://github.com/shiftcode/sc-ng-commons-public/commit/5f6e51dbabeefbe3438d047a05b2223962cad293))
+- **core:** remove self reference in import ([bc7a1af](https://github.com/shiftcode/sc-ng-commons-public/commit/bc7a1af281dd3438d6cdeb56cde58dabcd3ce6d8))
+
+### Features
+
+- **core:** replace abstract class LogRequestInfoProvider with provider function for better DX ([7ce3626](https://github.com/shiftcode/sc-ng-commons-public/commit/7ce362631b1b6358cc7e774def042a2ebefbeb6a))
+
+### BREAKING CHANGES
+
+- **core:** The abstract class LogRequestInfoProvider is no longer available please provide the value using
+
 # [9.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-core@8.0.0...@shiftcode/ngx-core@9.0.0) (2025-05-22)
 
 ### Build System
