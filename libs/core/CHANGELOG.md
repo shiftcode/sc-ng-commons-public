@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [11.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-core@10.0.0...@shiftcode/ngx-core@11.0.0) (2025-06-30)
+
+### Bug Fixes
+
+- remove our ng-dev-mode type, since this is no part of @angular/core ([ba7a44f](https://github.com/shiftcode/sc-ng-commons-public/commit/ba7a44f2ed02efcf2eb203a21d9b2a4ce3d737ca))
+
+### Features
+
+- **core:** update to angular 20 ([31fadb7](https://github.com/shiftcode/sc-ng-commons-public/commit/31fadb7cf557d7cce0df5e399b81df76129ffb65))
+- run @angular/core:inject migration ([dafceb0](https://github.com/shiftcode/sc-ng-commons-public/commit/dafceb0c74a8559c7cd3c3e3d267c0b57393e383))
+- update to angular 20 ([0ff5267](https://github.com/shiftcode/sc-ng-commons-public/commit/0ff5267a5e666153a4714bd80978a0a944f486a0))
+
+### BREAKING CHANGES
+
+- **core:** Requires Angular ^20
+- Requires Angular ^20
+
 # [10.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-core@9.0.0...@shiftcode/ngx-core@10.0.0) (2025-06-30)
 
 ### Bug Fixes
