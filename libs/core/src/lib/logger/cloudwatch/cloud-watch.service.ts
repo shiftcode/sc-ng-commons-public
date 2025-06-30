@@ -9,8 +9,8 @@ import { CloudWatchLogTransportConfig } from './cloud-watch-log-transport-config
 import { HttpClient } from '@angular/common/http'
 import { isLogStreamNotFoundError } from './is-error.function'
 import { ClientIdService } from '../../client-id/client-id.service'
-import { LogRequestInfoProvider } from '../log-request-info-provider'
 import { RemoteLogData } from '../remote/remote-log-data.model'
+import { LOG_REQUEST_INFO } from '../log-request-info.token'
 
 interface CloudWatchLogEvent {
   logStreamName: string
@@ -34,7 +34,7 @@ export class CloudWatchService {
     private httpClient: HttpClient,
     clientIdService: ClientIdService,
     @Inject(CLOUD_WATCH_LOG_TRANSPORT_CONFIG) private readonly config: CloudWatchLogTransportConfig,
-    @Optional() private logRequestInfoProvider?: LogRequestInfoProvider,
+    @Optional() @Inject(LOG_REQUEST_INFO) private logRequestInfoProvider?: Record<string, string>,
   ) {
     this.clientId = clientIdService.clientId
     this.jsonStringifyReplacer = config.jsonStringifyReplacer || jsonMapSetStringifyReplacer
@@ -61,7 +61,7 @@ export class CloudWatchService {
 
     const logDataObject: RemoteLogData = {
       ...createJsonLogObjectData(level, context, dTimestamp, args),
-      requestInfo: this.logRequestInfoProvider?.getRequestInfo() ?? {},
+      requestInfo: this.logRequestInfoProvider ?? {},
     }
 
     this.logsSubject.next({

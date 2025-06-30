@@ -11,19 +11,23 @@ Public Angular libraries used in various shiftcode projects.
 > ![@shiftcode/ngx-ssr](https://img.shields.io/badge/@shiftcode/ngx--ssr-deprecated-f48700)\
 > Not used anymore starting with Angular 17. See necessary changes in [ssr.md](./ssr.md)
 
+> ![@shiftcode/ngx-aws](https://img.shields.io/badge/@shiftcode/ngx--aws-deprecated-f48700)\
+> Not used anymore since we refactored how the logging to AWS CloudWatch works. See [Changlog](https://github.com/shiftcode/sc-ng-commons-public/blob/%40shiftcode/ngx-aws%407.0.0/libs/aws/CHANGELOG.md)
+> for previous versions.
+
 ## Angular to Lib Version Mapping
 Shows the mapping between the angular version and our lib versions.
 
-| Angular Version | Lib Version |
-|-----------------|-------------|
-| `^20`            | `^11`       | 
-| `^19`           | `^7`        | 
-| `^18`           | `^6`        | 
-| `^17`           | `^5`        |
-| `^16`           | `^4`        |
-| `^15`           | `^3`        |
-| `^14`           | `^2`        |
-| `^13`           | `^1`        |
+| Angular Version | Lib Version                   |
+|-----------------|-------------------------------|
+| `^20`           | `^11`                         |
+| `^19`           | `^7 \|\| ^8 \|\| ^9 \|\| ^10` | 
+| `^18`           | `^6`                          | 
+| `^17`           | `^5`                          |
+| `^16`           | `^4`                          |
+| `^15`           | `^3`                          |
+| `^14`           | `^2`                          |
+| `^13`           | `^1`                          |
 
 
 ## Anatomy of this workspace
