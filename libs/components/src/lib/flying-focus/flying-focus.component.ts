@@ -1,4 +1,4 @@
-import { DOCUMENT, isPlatformServer } from '@angular/common'
+import { isPlatformServer } from '@angular/common'
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -7,6 +7,7 @@ import {
   inject,
   OnInit,
   PLATFORM_ID,
+  DOCUMENT,
 } from '@angular/core'
 import { WindowRef } from '@shiftcode/ngx-core'
 import { fromEvent } from 'rxjs'

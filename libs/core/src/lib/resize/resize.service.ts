@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common'
-import { Inject, Injectable, OnDestroy, Optional, PLATFORM_ID, Type } from '@angular/core'
+import { Injectable, OnDestroy, PLATFORM_ID, inject } from '@angular/core'
 import { setup } from '../static-utils/rxjs/setup.operator'
 import { NEVER, Observable, Subject } from 'rxjs'
 import { filter, finalize } from 'rxjs/operators'
@@ -10,11 +10,10 @@ export class ResizeService implements OnDestroy {
   private readonly observer: ResizeObserver | null
   private readonly eventSubject = new Subject<ResizeObserverEntry>()
 
-  constructor(
-    @Inject(PLATFORM_ID) platformId: any,
-    @Optional() @Inject(RESIZE_OBSERVER_IMPL) impl?: Type<ResizeObserver>,
-  ) {
-    if (isPlatformBrowser(platformId)) {
+  constructor() {
+    const impl = inject(RESIZE_OBSERVER_IMPL, { optional: true })
+
+    if (isPlatformBrowser(inject(PLATFORM_ID))) {
       this.observer = impl ? new impl(this.onResize) : new ResizeObserver(this.onResize)
     } else {
       this.observer = null

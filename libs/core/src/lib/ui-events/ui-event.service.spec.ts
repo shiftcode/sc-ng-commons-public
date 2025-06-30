@@ -1,7 +1,7 @@
-import { DOCUMENT } from '@angular/common'
 import { TestBed } from '@angular/core/testing'
 import { firstValueFrom, Observable } from 'rxjs'
 import { UIEventService } from './ui-event.service'
+import { DOCUMENT } from '@angular/core'
 
 class CustomEvent extends Event {
   static readonly TYPE = 'custom'

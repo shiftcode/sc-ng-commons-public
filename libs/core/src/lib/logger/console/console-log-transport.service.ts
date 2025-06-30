@@ -1,19 +1,15 @@
 /* eslint-disable no-console */
 import { isPlatformServer } from '@angular/common'
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core'
+import { Injectable, PLATFORM_ID, inject } from '@angular/core'
 import { leadingZero } from '../helper/leading-zero.function'
 import { LogLevel, LogTransport } from '@shiftcode/logger'
-import { ConsoleLogTransportConfig } from './console-log-transport-config'
 import { CONSOLE_LOG_TRANSPORT_CONFIG } from './console-log-transport-config.injection-token'
 
 @Injectable({ providedIn: 'root' })
 export class ConsoleLogTransport extends LogTransport {
-  constructor(
-    @Inject(CONSOLE_LOG_TRANSPORT_CONFIG) consoleLoggerConfig: ConsoleLogTransportConfig,
-    @Inject(PLATFORM_ID) platformId: any,
-  ) {
-    super(consoleLoggerConfig.logLevel)
-    if (isPlatformServer(platformId)) {
+  constructor() {
+    super(inject(CONSOLE_LOG_TRANSPORT_CONFIG).logLevel)
+    if (isPlatformServer(inject(PLATFORM_ID))) {
       throw new Error('This log transport is only for client side use - consider using "NodeConsoleLogTransport"')
     }
   }

@@ -1,5 +1,4 @@
-import { DOCUMENT } from '@angular/common'
-import { Inject, Injectable } from '@angular/core'
+import { Injectable, DOCUMENT, inject } from '@angular/core'
 
 export type JsonLdProp = string | number | boolean
 
@@ -13,7 +12,7 @@ export interface ListItemLd extends JsonLd {
 
 @Injectable({ providedIn: 'root' })
 export class JsonLdService {
-  private readonly doc: Document
+  private readonly doc = inject(DOCUMENT)
 
   get currentData(): JsonLd[] {
     return this.jsonLd
@@ -38,10 +37,6 @@ export class JsonLdService {
       }
     }
     return object
-  }
-
-  constructor(@Inject(DOCUMENT) doc: any) {
-    this.doc = doc
   }
 
   setData(data: JsonLd | JsonLd[]) {

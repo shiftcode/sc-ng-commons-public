@@ -1,5 +1,4 @@
-import { DOCUMENT } from '@angular/common'
-import { EnvironmentProviders, makeEnvironmentProviders, inject, provideAppInitializer } from '@angular/core'
+import { EnvironmentProviders, makeEnvironmentProviders, inject, provideAppInitializer, DOCUMENT } from '@angular/core'
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router'
 import { delay, filter, switchMap, take, tap } from 'rxjs'
 

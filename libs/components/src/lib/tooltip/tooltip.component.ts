@@ -1,7 +1,15 @@
 import { AnimationEvent, trigger } from '@angular/animations'
 import { ConnectedOverlayPositionChange } from '@angular/cdk/overlay'
 import { NgClass } from '@angular/common'
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core'
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnDestroy,
+  ViewChild,
+  inject,
+} from '@angular/core'
 import { Observable, Subject } from 'rxjs'
 import { TooltipNotchPosition, TooltipPosition, TooltipPositionSimple } from './tooltip-position.type'
 import { TooltipVisibility } from './tooltip-visibility.type'
@@ -75,7 +83,7 @@ export class TooltipComponent implements OnDestroy {
   /** Subject for notifying that the tooltip has been hidden from the view */
   private readonly onHide = new Subject<void>()
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {}
+  private readonly changeDetectorRef = inject(ChangeDetectorRef)
 
   /**
    * Shows the tooltip with an animation originating from the provided origin

@@ -20,6 +20,7 @@ Shows the mapping between the angular version and our lib versions.
 
 | Angular Version | Lib Version                   |
 |-----------------|-------------------------------|
+| `^20`           | `^11`                         |
 | `^19`           | `^7 \|\| ^8 \|\| ^9 \|\| ^10` | 
 | `^18`           | `^6`                          | 
 | `^17`           | `^5`                          |

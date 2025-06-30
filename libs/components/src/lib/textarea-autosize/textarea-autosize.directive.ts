@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, ElementRef, HostBinding, inject, Inject, Input, OnDestroy } from '@angular/core'
+import { AfterViewInit, Directive, ElementRef, HostBinding, inject, Input, OnDestroy } from '@angular/core'
 import { FormControlDirective } from '@angular/forms'
 import { LoggerService, ResizeService } from '@shiftcode/ngx-core'
 import { Logger } from '@shiftcode/logger'
@@ -24,14 +24,12 @@ export class TextareaAutosizeDirective implements AfterViewInit, OnDestroy {
 
   readonly element: HTMLTextAreaElement = inject(ElementRef).nativeElement
 
+  private readonly formControlDir = inject(FormControlDirective)
   private readonly logger: Logger = inject(LoggerService).getInstance('TextareaAutosizeDirective')
   private readonly onDestroy = new Subject<void>()
 
-  constructor(
-    resizeService: ResizeService,
-    @Inject(FormControlDirective) private readonly formControlDir: FormControlDirective,
-  ) {
-    resizeService.observe(this.element).pipe(takeUntil(this.onDestroy)).subscribe(this.resize.bind(this))
+  constructor() {
+    inject(ResizeService).observe(this.element).pipe(takeUntil(this.onDestroy)).subscribe(this.resize.bind(this))
   }
 
   ngAfterViewInit() {

@@ -13,8 +13,7 @@ export class ClickOutsideDirective implements OnDestroy, OnChanges {
 
   private subscription?: Subscription
   private readonly element: HTMLElement = inject(ElementRef).nativeElement
-
-  constructor(private uiEventService: UIEventService) {}
+  private readonly uiEventService = inject(UIEventService)
 
   ngOnChanges(): void {
     // as there is only one input, ngOnChanges is only called when `isActive` changes

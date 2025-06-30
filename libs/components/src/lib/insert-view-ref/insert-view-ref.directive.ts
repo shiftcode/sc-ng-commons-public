@@ -1,4 +1,4 @@
-import { Directive, Input, ViewContainerRef, ViewRef } from '@angular/core'
+import { Directive, Input, ViewContainerRef, ViewRef, inject } from '@angular/core'
 
 /**
  * Directive to insert a viewRef to the template.
@@ -15,6 +15,8 @@ import { Directive, Input, ViewContainerRef, ViewRef } from '@angular/core'
  */
 @Directive({ selector: '[scInsertViewRef]', standalone: true })
 export class InsertViewRefDirective {
+  private readonly container = inject(ViewContainerRef)
+
   @Input()
   set scInsertViewRef(val: ViewRef | null | undefined) {
     this.container.clear()
@@ -26,8 +28,6 @@ export class InsertViewRefDirective {
   get hasAttachedView(): boolean {
     return this.container.length > 0
   }
-
-  constructor(private container: ViewContainerRef) {}
 
   /**
    * Inserts a view into the container.

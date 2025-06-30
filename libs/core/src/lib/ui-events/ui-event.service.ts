@@ -1,21 +1,16 @@
-import { DOCUMENT } from '@angular/common'
-import { Inject, Injectable } from '@angular/core'
+import { Injectable, DOCUMENT, inject } from '@angular/core'
 import { fromEvent, merge, Observable } from 'rxjs'
 import { filter, finalize } from 'rxjs/operators'
 import { WindowRef } from '../window/window-ref.service'
 
 @Injectable({ providedIn: 'root' })
 export class UIEventService {
+  private readonly document = inject(DOCUMENT)
+  private readonly window = inject(WindowRef).nativeWindow
+
   // Map<string, Map<FromEventTarget, Observable<UIEvent>>> -> FromEventTarget is internal source of rxjs
   private observables: Map<string, Map<any, Observable<UIEvent>>> = new Map<string, Map<any, Observable<UIEvent>>>()
-  private window: Window | null
 
-  constructor(
-    windowRef: WindowRef,
-    @Inject(DOCUMENT) private readonly document: Document,
-  ) {
-    this.window = windowRef.nativeWindow
-  }
   // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   forEvent(types: string | string[], target: 'document' | 'window' | 'body' | any = 'document'): Observable<UIEvent> {
     if (Array.isArray(types)) {

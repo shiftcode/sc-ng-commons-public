@@ -1,5 +1,5 @@
-import { CommonModule, DOCUMENT } from '@angular/common'
-import { PLATFORM_ID } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { PLATFORM_ID, DOCUMENT } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { LogLevel } from '@shiftcode/logger'
 import { LoggerService } from '../logger/logger.service'
