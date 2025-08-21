@@ -32,6 +32,7 @@ describe('ScriptLoaderService', () => {
   })
 
   describe('when in browser', () => {
+    let loggerService: MockLoggerService
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [CommonModule],
@@ -41,6 +42,7 @@ describe('ScriptLoaderService', () => {
         ],
       })
       service = TestBed.inject(ScriptLoaderService)
+      loggerService = <any>TestBed.inject(LoggerService)
       doc = TestBed.inject(DOCUMENT)
       doc.head.appendChild(doc.createElement('script'))
     })
@@ -72,6 +74,45 @@ describe('ScriptLoaderService', () => {
       const req1 = service.addScriptToHead('/assets/script-2.js')
       const req2 = service.addScriptToHead('/assets/script-2.js')
       expect(req1 === req2).toBe(true)
+    })
+
+    test('logs with warn level when script fails to load', async () => {
+      const scriptSrc = '/assets/script-error.js'
+      let req1Rejected = false
+      let rejectedError: any = null
+      
+      service
+        .addScriptToHead(scriptSrc)
+        .then(() => {
+          // Should not reach here
+        })
+        .catch((error) => {
+          req1Rejected = true
+          rejectedError = error
+        })
+      
+      expect(req1Rejected).toBe(false)
+
+      const scriptTags = doc.getElementsByTagName('script')
+      expect(scriptTags.length).toBe(2)
+
+      expect(scriptTags[0].src?.replace(/^(https?:\/\/)([^./]+)/, '')).toBe(scriptSrc)
+      const scriptEl: HTMLScriptElement = <any>scriptTags[0]
+      expect(scriptEl).toBeDefined()
+      
+      // Trigger error event
+      scriptEl.onerror?.(new Event('error'))
+
+      await new Promise((res) => setTimeout(res, 0))
+      
+      expect(req1Rejected).toBe(true)
+      expect(rejectedError).toBeDefined()
+      expect(rejectedError.scriptUrl).toBe(scriptSrc)
+      
+      // Verify that the error was logged with WARN level, not ERROR level
+      const logger = loggerService.loggers.get('ScriptLoaderService')?.[0]
+      expect(logger?.statements[LogLevel.WARN].length).toBe(1)
+      expect(logger?.statements[LogLevel.ERROR].length).toBe(0)
     })
   })
 })
