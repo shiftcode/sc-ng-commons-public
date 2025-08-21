@@ -43,7 +43,7 @@ export class ScriptLoaderService {
             // on load error
             (cause) => {
               const err = new ScriptLoaderError(`there was an error loading the script for url ${url}`, url, cause)
-              this.logger.error(err)
+              this.logger.warn(err)
               reject(err)
             },
             async,
