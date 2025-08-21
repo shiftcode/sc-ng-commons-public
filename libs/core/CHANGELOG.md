@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [11.1.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-core@11.0.0...@shiftcode/ngx-core@11.1.0) (2025-08-21)
+
+### Features
+
+- **script-loader-service:** degrade the log level for script loading issues ([9438afa](https://github.com/shiftcode/sc-ng-commons-public/commit/9438afa1cc4ce2a60d165a1c5536511941f8108e))
+
 # [11.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-core@10.0.0...@shiftcode/ngx-core@11.0.0) (2025-06-30)
 
 ### Bug Fixes
