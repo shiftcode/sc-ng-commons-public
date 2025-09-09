@@ -1,14 +1,6 @@
-import { EnvironmentProviders, makeEnvironmentProviders, Provider } from '@angular/core'
+import { EnvironmentProviders, makeEnvironmentProviders } from '@angular/core'
 
-/** @internal */
-export enum LoggerFeatureKind {
-  TRANSPORT,
-}
-
-export interface LoggerFeature {
-  kind: LoggerFeatureKind
-  providers: Provider[]
-}
+import { LoggerFeature } from './logger-feature.type'
 
 export function provideLogger(...features: LoggerFeature[]): EnvironmentProviders {
   return makeEnvironmentProviders([features.map((feature) => feature.providers)])
