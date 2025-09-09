@@ -10,7 +10,8 @@ import { HttpClient } from '@angular/common/http'
 import { isLogStreamNotFoundError } from './is-error.function'
 import { ClientIdService } from '../../client-id/client-id.service'
 import { RemoteLogData } from '../remote/remote-log-data.model'
-import { LOG_REQUEST_INFO } from '../log-request-info.token'
+import { LOG_REQUEST_INFO_FN } from '../log-request-info-fn.token'
+import { LogRequestInfoFn } from '../log-request-info-fn.type'
 
 interface CloudWatchLogEvent {
   logStreamName: string
@@ -26,7 +27,7 @@ interface CloudWatchLogEvent {
 export class CloudWatchService {
   private readonly httpClient = inject(HttpClient)
   private readonly config = inject<CloudWatchLogTransportConfig>(CLOUD_WATCH_LOG_TRANSPORT_CONFIG)
-  private readonly logRequestInfoProvider = inject<Record<string, string>>(LOG_REQUEST_INFO, { optional: true })
+  private readonly logRequestInfoFn: LogRequestInfoFn = inject(LOG_REQUEST_INFO_FN, { optional: true }) ?? (() => ({}))
 
   private readonly retrying$ = new BehaviorSubject<boolean>(false)
   private readonly logStream$ = new Observable<void>()
@@ -62,7 +63,7 @@ export class CloudWatchService {
 
     const logDataObject: RemoteLogData = {
       ...createJsonLogObjectData(level, context, dTimestamp, args),
-      requestInfo: this.logRequestInfoProvider ?? {},
+      requestInfo: this.logRequestInfoFn(),
     }
 
     this.logsSubject.next({

@@ -60,3 +60,27 @@ class MyDirective {
 - Node Console: `withNodeConsoleTransport(...)`
 - Remote: `withRemoteTransport(...)`
 - AWS CloudWatch: see `withCloudwatchTransport(...)`
+
+### LogRequestInfo Integration
+You can enrich your log requests for `Remote` and `CloudWatch` Transports with custom information like user/session/device metadata using the `withRequestInfoFn` feature.
+
+#### Usage Example
+Use the feature `withRequestInfoFn` function to provide a factory for a `LogRequestInfoFn`.
+The `LogRequestInfoFn` is a function itself that is called prior every log request. Its return value needs to be an object with the information to be included.
+
+```ts
+import { LogLevel, provideLogger, withRemoteTransport, withRequestInfoFn, LogRequestInfo } from '@shiftcode/ngx-core'
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideLogger(
+      withRemoteTransport({ logLevel: LogLevel.INFO, /* ...other config... */ }),
+      withRequestInfoFn(() => {
+        const authService = inject(AuthService)
+        const router = inject(Router)
+        return (): LogRequestInfo => ({ userId: authService.currentUser?.id, url: this.router.url })
+      })
+    ),
+  ],
+})
+```
