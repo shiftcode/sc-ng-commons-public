@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [12.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-core@11.1.0...@shiftcode/ngx-core@12.0.0) (2025-09-09)
+
+### Bug Fixes
+
+- **logger:** ensure `requestInfo` is optional in log data and improve injection syntax ([91f9bb9](https://github.com/shiftcode/sc-ng-commons-public/commit/91f9bb9abffbb4f69b39d586cf02955e820b8cfc))
+- **logger:** make the `LogRequestInfo` feature working again ([0e3d49d](https://github.com/shiftcode/sc-ng-commons-public/commit/0e3d49d6df80a866cc67c7c3973b75182c93d65f))
+
+### Code Refactoring
+
+- **logger:** do not expose internals ([8601529](https://github.com/shiftcode/sc-ng-commons-public/commit/86015291dee8f0eb528845c96c1bca28894bef79))
+
+### BREAKING CHANGES
+
+- **logger:** - the LOG_REQUEST_INFO token does no longer exist
+
+* `provideLogRequestInfo` no longer exists. use `withRequestInfoFn` instead
+
+- **logger:** - the LoggerFeature type and LoggerFeatureKind enum are no longer exported
+
 # [11.1.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-core@11.0.0...@shiftcode/ngx-core@11.1.0) (2025-08-21)
 
 ### Features
