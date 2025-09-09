@@ -1,8 +1,9 @@
-import { LoggerFeature, LoggerFeatureKind } from '../provide-logger'
 import { LogTransport } from '@shiftcode/logger'
 import { CLOUD_WATCH_LOG_TRANSPORT_CONFIG } from './cloud-watch-log-transport-config.injection-token'
 import { CloudWatchLogTransportConfig } from './cloud-watch-log-transport-config.model'
 import { CloudWatchLogTransport } from './cloud-watch-log-transport.service'
+import { LoggerFeatureKind } from '../logger-feature-kind.enum'
+import { LoggerFeature } from '../logger-feature.type'
 
 export function withCloudwatchTransport(
   cloudWatchLogTransportConfigOrFactory: CloudWatchLogTransportConfig | (() => CloudWatchLogTransportConfig),

@@ -1,8 +1,9 @@
-import { LoggerFeature, LoggerFeatureKind } from '../provide-logger'
 import { REMOTE_LOG_CONFIG } from './remote-log-config.injection-token'
 import { RemoteLogConfig } from './remote-log-config.model'
 import { RemoteLogTransport } from './remote-log-transport.service'
 import { LogTransport } from '@shiftcode/logger'
+import { LoggerFeatureKind } from '../logger-feature-kind.enum'
+import { LoggerFeature } from '../logger-feature.type'
 
 export function withRemoteTransport(
   remoteLogConfigOrFactory: RemoteLogConfig | (() => RemoteLogConfig),
