@@ -1,17 +1,15 @@
 /* eslint-disable no-console */
-import { Injectable, inject } from '@angular/core'
+import { inject, Injectable } from '@angular/core'
 import { createJsonLogObjectData, LogLevel } from '@shiftcode/logger'
 import { jsonMapSetStringifyReplacer } from '@shiftcode/utilities'
 import { BehaviorSubject, concatMap, Observable, of, retry, Subject, throwError } from 'rxjs'
 import { catchError, filter, map, mergeMap, shareReplay, take } from 'rxjs/operators'
 import { CLOUD_WATCH_LOG_TRANSPORT_CONFIG } from './cloud-watch-log-transport-config.injection-token'
-import { CloudWatchLogTransportConfig } from './cloud-watch-log-transport-config.model'
 import { HttpClient } from '@angular/common/http'
 import { isLogStreamNotFoundError } from './is-error.function'
 import { ClientIdService } from '../../client-id/client-id.service'
 import { RemoteLogData } from '../remote/remote-log-data.model'
 import { LOG_REQUEST_INFO_FN } from '../log-request-info-fn.token'
-import { LogRequestInfoFn } from '../log-request-info-fn.type'
 
 interface CloudWatchLogEvent {
   logStreamName: string
@@ -26,8 +24,8 @@ interface CloudWatchLogEvent {
 @Injectable({ providedIn: 'root' })
 export class CloudWatchService {
   private readonly httpClient = inject(HttpClient)
-  private readonly config = inject<CloudWatchLogTransportConfig>(CLOUD_WATCH_LOG_TRANSPORT_CONFIG)
-  private readonly logRequestInfoFn: LogRequestInfoFn = inject(LOG_REQUEST_INFO_FN, { optional: true }) ?? (() => ({}))
+  private readonly config = inject(CLOUD_WATCH_LOG_TRANSPORT_CONFIG)
+  private readonly logRequestInfoFn = inject(LOG_REQUEST_INFO_FN, { optional: true })
 
   private readonly retrying$ = new BehaviorSubject<boolean>(false)
   private readonly logStream$ = new Observable<void>()
@@ -63,7 +61,9 @@ export class CloudWatchService {
 
     const logDataObject: RemoteLogData = {
       ...createJsonLogObjectData(level, context, dTimestamp, args),
-      requestInfo: this.logRequestInfoFn(),
+    }
+    if (this.logRequestInfoFn) {
+      logDataObject.requestInfo = this.logRequestInfoFn()
     }
 
     this.logsSubject.next({
