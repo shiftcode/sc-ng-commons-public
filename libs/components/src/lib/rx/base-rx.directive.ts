@@ -2,7 +2,7 @@ import { DestroyRef, EmbeddedViewRef, inject, TemplateRef, Type, ViewContainerRe
 import { from, isObservable, ObservableInput, Subscription } from 'rxjs'
 import { ERROR_INPUT_NAME, RX_DEFAULT_ERROR_COMPONENT } from './internals'
 
-export abstract class BaseRxDirective<T, Ctx> {
+export abstract class BaseRxDirective<T, Ctx extends object> {
   protected _input: ObservableInput<T> | null
   protected _subscription: Subscription | null = null
   protected _dataViewRef: EmbeddedViewRef<Ctx> | null = null
@@ -46,7 +46,10 @@ export abstract class BaseRxDirective<T, Ctx> {
    */
   protected renderDataView(context: Ctx) {
     if (this._dataViewRef && this.containerRef.indexOf(this._dataViewRef) === 0) {
-      this._dataViewRef.context = context
+      const ctxKeys: Array<keyof Ctx> = Object.keys(context) as any
+      for (const key of ctxKeys) {
+        this._dataViewRef.context[key] = context[key]
+      }
     } else {
       this.clear()
       this._dataViewRef = this.containerRef.createEmbeddedView(this.templateRef, context)
