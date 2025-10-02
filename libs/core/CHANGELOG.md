@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [12.1.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-core@12.0.0...@shiftcode/ngx-core@12.1.0) (2025-10-02)
+
+### Features
+
+- **ensure-origin.interceptor:** introduce interceptor to prepend the origin on requests ([453b6e1](https://github.com/shiftcode/sc-ng-commons-public/commit/453b6e13be325447f8d6bb46afa9f2c4deb616a4))
+- **provide-origin-from-env:** introduce origin provider function for ssr ([03d10c2](https://github.com/shiftcode/sc-ng-commons-public/commit/03d10c2004b48c532f6183a517e9a67054a5a35b))
+
 # [12.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-core@11.1.0...@shiftcode/ngx-core@12.0.0) (2025-09-09)
 
 ### Bug Fixes

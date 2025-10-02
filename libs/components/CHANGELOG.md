@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.0.1](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-components@12.0.0...@shiftcode/ngx-components@12.0.1) (2025-10-02)
+
+**Note:** Version bump only for package @shiftcode/ngx-components
+
 # [12.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-components@11.0.0...@shiftcode/ngx-components@12.0.0) (2025-09-09)
 
 ### Features
