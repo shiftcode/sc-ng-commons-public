@@ -47,6 +47,7 @@ export * from './lib/logger/remote/with-remote-transport.function'
 
 // origin
 export * from './lib/origin/origin.token'
+export * from './lib/origin/ensure-origin.interceptor'
 
 // resize
 export * from './lib/resize/resize.service'
