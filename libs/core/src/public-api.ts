@@ -13,10 +13,11 @@ export * from './lib/local-storage/local-storage-options'
 export * from './lib/local-storage/provide-local-storage'
 
 // logger
-export * from './lib/logger/log-request-info.token'
-export * from './lib/logger/provide-log-request-info'
+export * from './lib/logger/log-request-info-fn.token'
+export * from './lib/logger/log-request-info-fn.type'
 export * from './lib/logger/logger.service'
 export * from './lib/logger/provide-logger'
+export * from './lib/logger/with-request-info-fn.function'
 
 //cloudwatch logger
 export * from './lib/logger/cloudwatch/cloud-watch.service'
@@ -46,6 +47,8 @@ export * from './lib/logger/remote/with-remote-transport.function'
 
 // origin
 export * from './lib/origin/origin.token'
+export * from './lib/origin/ensure-origin.interceptor'
+export * from './lib/origin/provide-origin-from-env.function'
 
 // resize
 export * from './lib/resize/resize.service'

@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.0.1](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-components@12.0.0...@shiftcode/ngx-components@12.0.1) (2025-10-02)
+
+**Note:** Version bump only for package @shiftcode/ngx-components
+
+# [12.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-components@11.0.0...@shiftcode/ngx-components@12.0.0) (2025-09-09)
+
+### Features
+
+- **dependencies:** require @shiftcode/ngx-core@^12.0.0 ([5c93d4b](https://github.com/shiftcode/sc-ng-commons-public/commit/5c93d4bdfd9cada0c76f9eecbb4d4e358f163199))
+- **dependencies:** use @shiftcode/ngx-core@^12.0.0 ([8a75739](https://github.com/shiftcode/sc-ng-commons-public/commit/8a75739de97439247307d4e99a7cb640d0212c10))
+
+### BREAKING CHANGES
+
+- **dependencies:** require @shiftcode/ngx-core@^12.0.0
+
 # [11.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/@shiftcode/ngx-components@10.0.0...@shiftcode/ngx-components@11.0.0) (2025-06-30)
 
 ### Bug Fixes
