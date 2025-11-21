@@ -4,7 +4,7 @@
     "libs/*",
     "apps/*"
   ],
-  "version": "independent",
+  "version": "12.1.0",
   "command": {
     "version": {
       "allowBranch": "*",

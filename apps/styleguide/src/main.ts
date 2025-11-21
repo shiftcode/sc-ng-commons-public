@@ -1,3 +1,4 @@
+import { provideZoneChangeDetection } from '@angular/core'
 import { provideHttpClient } from '@angular/common/http'
 import { bootstrapApplication } from '@angular/platform-browser'
 import { provideAnimations } from '@angular/platform-browser/animations'
@@ -11,6 +12,7 @@ import { ROUTES } from './routes/routes.const'
 
 bootstrapApplication(AppComponent, {
   providers: [
+    provideZoneChangeDetection(),
     provideHttpClient(),
     provideAnimations(),
     provideRouter(ROUTES),

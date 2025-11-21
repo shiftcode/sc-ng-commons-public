@@ -29,10 +29,6 @@
     "importHelpers": true,
     "emitDecoratorMetadata": true,
     "resolveJsonModule": true,
-    "lib": [
-      "es2022",
-      "dom"
-    ],
     "esModuleInterop": true,
     "useDefineForClassFields": false
   },
