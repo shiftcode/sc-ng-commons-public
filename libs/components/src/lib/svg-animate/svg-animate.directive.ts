@@ -1,5 +1,5 @@
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion'
-import { AfterViewInit, Directive, ElementRef, Input, OnChanges, OnInit, inject } from '@angular/core'
+import { AfterViewInit, Directive, ElementRef, Input, OnChanges, OnInit, inject, input } from '@angular/core'
 
 /**
  * Standalone Directive to animate SVG parts by calling beginElement method
@@ -22,8 +22,7 @@ export class SvgAnimateDirective implements OnChanges, AfterViewInit, OnInit {
   /**
    * state input in form {selector:state} - will be animated when state === true
    */
-  @Input('scSvgAnimate')
-  states: Record<string, boolean> | null
+  readonly states = input<Record<string, boolean> | null>(undefined, { alias: 'scSvgAnimate' })
 
   @Input()
   set withInitAnimation(value: BooleanInput) {
@@ -63,7 +62,7 @@ export class SvgAnimateDirective implements OnChanges, AfterViewInit, OnInit {
   }
 
   private getElementsToActivate(): SVGAnimateElement[] {
-    return Object.entries(this.states || {})
+    return Object.entries(this.states() || {})
       .filter(([, state]) => !!state)
       .map(([selector]) => this.element.querySelector(selector))
       .filter((el): el is SVGAnimateElement & { beginElement: () => void } => !!el && 'beginElement' in el)

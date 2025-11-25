@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, ElementRef, HostBinding, inject, Input, OnDestroy } from '@angular/core'
+import { AfterViewInit, Directive, ElementRef, HostBinding, inject, OnDestroy, input } from '@angular/core'
 import { FormControlDirective } from '@angular/forms'
 import { LoggerService, ResizeService } from '@shiftcode/ngx-core'
 import { Logger } from '@shiftcode/logger'
@@ -18,9 +18,8 @@ import { takeUntil } from 'rxjs/operators'
   },
 })
 export class TextareaAutosizeDirective implements AfterViewInit, OnDestroy {
-  @Input()
   @HostBinding('rows')
-  rows: number | string = 1
+  readonly rows = input<number | string>(1)
 
   readonly element: HTMLTextAreaElement = inject(ElementRef).nativeElement
 

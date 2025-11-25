@@ -1,4 +1,4 @@
-import { Directive, ElementRef, EventEmitter, inject, Input, OnChanges, OnDestroy, Output } from '@angular/core'
+import { Directive, ElementRef, inject, OnChanges, OnDestroy, input, output } from '@angular/core'
 import { UIEventService } from '@shiftcode/ngx-core'
 import { Subscription } from 'rxjs'
 
@@ -7,9 +7,9 @@ import { Subscription } from 'rxjs'
  */
 @Directive({ selector: '[scClickOutside]', standalone: true })
 export class ClickOutsideDirective implements OnDestroy, OnChanges {
-  @Input('scClickOutsideDisabled') disabled = false
+  readonly disabled = input(false, { alias: 'scClickOutsideDisabled' })
 
-  @Output() readonly scClickOutside = new EventEmitter<Event>()
+  readonly scClickOutside = output<Event>()
 
   private subscription?: Subscription
   private readonly element: HTMLElement = inject(ElementRef).nativeElement
@@ -18,7 +18,7 @@ export class ClickOutsideDirective implements OnDestroy, OnChanges {
   ngOnChanges(): void {
     // as there is only one input, ngOnChanges is only called when `isActive` changes
     this.subscription?.unsubscribe()
-    if (!this.disabled) {
+    if (!this.disabled()) {
       this.subscription = this.uiEventService.forEvent(['click', 'touchstart']).subscribe(this.handleDocumentClick)
     }
   }

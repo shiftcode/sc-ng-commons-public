@@ -27,6 +27,7 @@ import {
   ViewContainerRef,
   DOCUMENT,
   inject,
+  input,
 } from '@angular/core'
 import { Subject } from 'rxjs'
 import { take, takeUntil } from 'rxjs/operators'
@@ -47,12 +48,11 @@ import { TooltipComponent } from './tooltip.component'
 })
 export class TooltipDirective implements OnDestroy, OnInit {
   /** The default delay in ms before showing the tooltip after show is called */
-  @Input('scTooltipShowDelay')
-  showDelay: number
+  readonly showDelay = input<number>(undefined, { alias: 'scTooltipShowDelay' })
+  /** The default delay in ms before hiding the tooltip after hide is called */
 
   /** The default delay in ms before hiding the tooltip after hide is called */
-  @Input('scTooltipHideDelay')
-  hideDelay: number
+  readonly hideDelay = input<number>(undefined, { alias: 'scTooltipHideDelay' })
 
   private readonly overlay = inject(Overlay)
   private readonly viewportRuler = inject(ViewportRuler)
@@ -228,7 +228,7 @@ export class TooltipDirective implements OnDestroy, OnInit {
 
   /** Shows the tooltip after the delay in ms, defaults to tooltip-delay-show or 0ms if no input */
   show(delay?: number): void {
-    delay = delay ?? this.showDelay ?? this.opts.showDelay
+    delay = delay ?? this.showDelay() ?? this.opts.showDelay
     if (
       this.disabled ||
       !this.message ||
@@ -258,7 +258,7 @@ export class TooltipDirective implements OnDestroy, OnInit {
 
   /** Hides the tooltip after the delay in ms, defaults to tooltip-delay-hide or 0ms if no input */
   hide(delay?: number): void {
-    delay = delay ?? this.hideDelay ?? this.opts.hideDelay
+    delay = delay ?? this.hideDelay() ?? this.opts.hideDelay
     if (this.tooltipInstance) {
       this.tooltipInstance.hide(delay)
     }
