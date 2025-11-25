@@ -49,7 +49,6 @@ import { TooltipComponent } from './tooltip.component'
 export class TooltipDirective implements OnDestroy, OnInit {
   /** The default delay in ms before showing the tooltip after show is called */
   readonly showDelay = input<number>(undefined, { alias: 'scTooltipShowDelay' })
-  /** The default delay in ms before hiding the tooltip after hide is called */
 
   /** The default delay in ms before hiding the tooltip after hide is called */
   readonly hideDelay = input<number>(undefined, { alias: 'scTooltipHideDelay' })

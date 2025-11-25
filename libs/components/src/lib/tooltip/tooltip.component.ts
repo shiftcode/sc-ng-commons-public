@@ -74,7 +74,6 @@ export class TooltipComponent implements OnDestroy {
 
   readonly notchElRef = viewChild<ElementRef>('notch')
   // if there is not enough space in the UI to display the desired position, a fallback position is displayed
-  // if there is not enough space in the UI to display the desired position, a fallback position is displayed
   private _rendererPosition: TooltipPosition
 
   /** Whether interactions on the page should close the tooltip */
