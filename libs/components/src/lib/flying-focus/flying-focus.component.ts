@@ -1,13 +1,13 @@
 import { isPlatformServer } from '@angular/common'
 import {
+  afterNextRender,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DOCUMENT,
   ElementRef,
   inject,
-  OnInit,
   PLATFORM_ID,
-  DOCUMENT,
 } from '@angular/core'
 import { WindowRef } from '@shiftcode/ngx-core'
 import { fromEvent } from 'rxjs'
@@ -35,7 +35,7 @@ const CRUCIAL_KEYS = ['Tab', 'Enter', 'Space', 'Escape', 'ArrowUp', 'ArrowRight'
   styleUrls: ['./flying-focus.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FlyingFocusComponent implements OnInit {
+export class FlyingFocusComponent {
   readonly element: HTMLElement = inject(ElementRef).nativeElement
 
   private keyDownTime: number
@@ -46,16 +46,7 @@ export class FlyingFocusComponent implements OnInit {
   private readonly win: Window | null = inject(WindowRef).nativeWindow
 
   constructor() {
-    // no need for cd cycles here.
-    inject(ChangeDetectorRef).detach()
-
-    const doc = inject(DOCUMENT)
-    this.docEl = doc.documentElement
-    this.bodyEl = doc.body
-  }
-
-  ngOnInit() {
-    if (this.isBrowser && this.win) {
+    afterNextRender(() => {
       const opts: EventListenerOptions = { capture: true }
 
       fromEvent<KeyboardEvent>(this.docEl, 'keydown', opts).subscribe(this.onKeydown)
@@ -64,8 +55,15 @@ export class FlyingFocusComponent implements OnInit {
 
       fromEvent(this.docEl, 'mousedown', opts).subscribe(this.onMouseDown)
 
-      fromEvent(this.win, 'blur').subscribe(this.onWindowBlur)
-    }
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      fromEvent(this.win!, 'blur').subscribe(this.onWindowBlur)
+    })
+    // no need for cd cycles here.
+    inject(ChangeDetectorRef).detach()
+
+    const doc = inject(DOCUMENT)
+    this.docEl = doc.documentElement
+    this.bodyEl = doc.body
   }
 
   private readonly onKeydown = (event: KeyboardEvent) => {

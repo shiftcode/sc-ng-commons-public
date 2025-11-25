@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations'
-import { Component, ElementRef, HostBinding, OnChanges, inject, input } from '@angular/core'
+import { Component, ElementRef, HostBinding, inject, input, afterNextRender } from '@angular/core'
 
 /**
  * Standalone Component to smoothly animate height changes.
@@ -20,7 +20,7 @@ import { Component, ElementRef, HostBinding, OnChanges, inject, input } from '@a
     ]),
   ],
 })
-export class SmoothHeightComponent implements OnChanges {
+export class SmoothHeightComponent {
   readonly trigger = input<any>()
 
   private startHeight: number
@@ -31,8 +31,8 @@ export class SmoothHeightComponent implements OnChanges {
     return { value: this.trigger(), params: { startHeight: this.startHeight } }
   }
 
-  ngOnChanges() {
-    this.setStartHeight()
+  constructor() {
+    afterNextRender(() => this.setStartHeight())
   }
 
   private setStartHeight() {

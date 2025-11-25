@@ -24,6 +24,7 @@ export interface RxLetContext<T> {
  * - renders the suspense template/component (if specified or a default was set) as long as there is no value resolved or emitted
  * - renders the error template/component (if specified or a default was set) in case of an error
  * -> use `scRxLet` instead of `ngIf` + `async` pipe -> does not trigger CD on outer component when new value emitted
+ * @Deprecated use Signals instead
  * @hint to disable the suspense template null can be provided
  * @hint: as it does not trigger a CD on the outer component, potential View/Content Queries won't be updated
  *
