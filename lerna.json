@@ -1,14 +1,12 @@
 {
   "useNx": false,
   "packages": ["libs/*", "apps/*"],
-  "version": "13.0.0-pr63.7",
+  "version": "13.0.0-pr63.8",
   "command": {
     "version": {
       "allowBranch": "*",
       "message": "build(release): next version [skip_build]",
-      "ignoreChanges": [
-        "**/package-lock.json"
-      ]
+      "ignoreChanges": ["**/package-lock.json"]
     },
     "publish": {
       "contents": "./dist"
