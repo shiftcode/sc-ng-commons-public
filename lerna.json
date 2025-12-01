@@ -5,7 +5,10 @@
   "command": {
     "version": {
       "allowBranch": "*",
-      "message": "build(release): next version [skip_build]"
+      "message": "build(release): next version [skip_build]",
+      "ignoreChanges": [
+        "**/package-lock.json"
+      ]
     },
     "publish": {
       "contents": "./dist"
