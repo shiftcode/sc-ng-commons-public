@@ -9,7 +9,7 @@ import { SmoothHeightComponent } from '@shiftcode/ngx-components'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SgSmoothHeightComponent {
-  content = ''
+  protected content = ''
 
   private loremIpsum = [
     'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
@@ -19,16 +19,21 @@ export class SgSmoothHeightComponent {
     'Consequatur hic inventore iure, officia perferendis placeat repudiandae totam voluptatem voluptatum!',
     'Dolorem nesciunt repellat ullam vel. Aliquam dicta laborum qui!',
     'Corporis dignissimos impedit natus nihil nostrum.',
-    'Accusantium asperiores consequatur corporis cum cupiditate delectus dolorem dolores ' +
-      'eos fugiat harum hic libero neque nisi quibusdam, ' +
-      'quidem recusandae reiciendis repudiandae sapiente similique sunt!',
+    'Accusantium asperiores consequatur corporis cum cupiditate delectus dolorem dolores',
+    'eos fugiat harum hic libero neque nisi quibusdam,',
+    'quidem recusandae reiciendis repudiandae sapiente similique sunt!',
   ]
 
   constructor() {
     this.changeContent()
   }
 
-  changeContent() {
-    this.content = this.loremIpsum.slice(0, Math.ceil(Math.random() * this.loremIpsum.length)).join('\n')
+  protected changeContent() {
+    let newContent: string
+    do {
+      newContent = this.loremIpsum.slice(0, Math.ceil(Math.random() * this.loremIpsum.length)).join('\n')
+    } while (newContent === this.content)
+
+    this.content = newContent
   }
 }
