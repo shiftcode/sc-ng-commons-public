@@ -45,6 +45,6 @@ describe('onDestroy', () => {
   })
 
   it('throws when not used in injection context', () => {
-    expect(onDestroy).toThrowError()
+    expect(onDestroy).toThrow()
   })
 })

@@ -1,5 +1,4 @@
 import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y'
-import { coerceBooleanProperty } from '@angular/cdk/coercion'
 import { ESCAPE } from '@angular/cdk/keycodes'
 import {
   FlexibleConnectedPositionStrategy,
@@ -17,24 +16,29 @@ import { Platform } from '@angular/cdk/platform'
 import { ComponentPortal } from '@angular/cdk/portal'
 
 import {
+  booleanAttribute,
   Directive,
+  DOCUMENT,
+  effect,
   ElementRef,
   HostListener,
-  Input,
+  inject,
+  input,
   NgZone,
   OnDestroy,
-  OnInit,
   ViewContainerRef,
-  DOCUMENT,
-  inject,
 } from '@angular/core'
 import { Subject } from 'rxjs'
 import { take, takeUntil } from 'rxjs/operators'
 import { FlexibleConnectedPositionStrategy2 } from './flexible-connected-position-strategy-2'
 import { TOOLTIP_DEFAULT_OPTIONS } from './tooltip-default-options.token'
 import { defaultTooltipOptions, TooltipOptions } from './tooltip-options.model'
-import { TooltipNotchPosition, TooltipPosition, TooltipPositionSimple } from './tooltip-position.type'
+import { TooltipNotchPosition, TooltipPositionSimple } from './tooltip-position.type'
 import { TooltipComponent } from './tooltip.component'
+
+function transformMessage(value: string | number | null | undefined): string {
+  return value !== null ? `${value}`.trim() : ''
+}
 
 /**
  * Tooltip directive which will trigger the tooltip.
@@ -45,14 +49,29 @@ import { TooltipComponent } from './tooltip.component'
   exportAs: 'scTooltip',
   standalone: true,
 })
-export class TooltipDirective implements OnDestroy, OnInit {
+export class TooltipDirective implements OnDestroy {
+  readonly #opts: TooltipOptions = { ...defaultTooltipOptions, ...inject(TOOLTIP_DEFAULT_OPTIONS, { optional: true }) }
+
+  /** Disables the display of the tooltip. */
+  readonly disabled = input(false, { transform: booleanAttribute })
+
+  /** The message to be displayed in the tooltip */
+  readonly message = input('', { alias: 'scTooltip', transform: transformMessage })
+
+  /** Classes to be passed to the tooltip. Supports the same syntax as `ngClass`. */
+  /* eslint-disable @angular-eslint/no-input-rename */
+  readonly tooltipClass = input<string | string[] | Set<string> | { [key: string]: any }>('', {
+    alias: 'scTooltipClass',
+  })
+
+  /** Allows the user to define the position of the tooltip relative to the parent element */
+  readonly position = input(this.#opts.position, { alias: 'scTooltipPosition' })
+
   /** The default delay in ms before showing the tooltip after show is called */
-  @Input('scTooltipShowDelay')
-  showDelay: number
+  readonly showDelay = input<number>(undefined, { alias: 'scTooltipShowDelay' })
 
   /** The default delay in ms before hiding the tooltip after hide is called */
-  @Input('scTooltipHideDelay')
-  hideDelay: number
+  readonly hideDelay = input<number>(undefined, { alias: 'scTooltipHideDelay' })
 
   private readonly overlay = inject(Overlay)
   private readonly viewportRuler = inject(ViewportRuler)
@@ -66,95 +85,18 @@ export class TooltipDirective implements OnDestroy, OnInit {
   private readonly overlayContainer = inject(OverlayContainer)
   private readonly document = inject(DOCUMENT)
 
-  private _position?: TooltipPosition
-  private _disabled = false
-  private _tooltipClass: string | string[] | Set<string> | { [key: string]: any }
-  private _message = ''
   private overlayRef: OverlayRef | null
   private tooltipInstance: TooltipComponent | null
   private portal: ComponentPortal<TooltipComponent>
   private readonly manualHostElementListeners = new Map<string, EventListenerOrEventListenerObject>()
   private readonly onDestroy = new Subject<void>()
-  private readonly opts: TooltipOptions
 
-  /** Allows the user to define the position of the tooltip relative to the parent element */
-  @Input('scTooltipPosition')
-  get position(): TooltipPosition {
-    return this._position ?? this.opts.position
-  }
-
-  set position(value: TooltipPosition) {
-    if (value !== this._position) {
-      this._position = value
-
-      if (this.tooltipInstance) {
-        this.tooltipInstance.position = this._position
-      }
-
-      if (this.overlayRef) {
-        this.updatePosition()
-        if (this.tooltipInstance) {
-          this.tooltipInstance.show(0)
-        }
-        this.overlayRef.updatePosition()
-      }
-    }
-  }
-
-  /** Disables the display of the tooltip. */
-  @Input('scTooltipDisabled')
-  get disabled(): boolean {
-    return this._disabled
-  }
-
-  set disabled(value: boolean | string) {
-    this._disabled = coerceBooleanProperty(value)
-    if (this._disabled) {
-      // If tooltip is disabled, hide immediately.
-      this.hide(0)
-    }
-  }
-
-  /** The message to be displayed in the tooltip */
-  @Input('scTooltip')
-  get message() {
-    return this._message
-  }
-
-  set message(value: string) {
-    this.ariaDescriber.removeDescription(this.elementRef.nativeElement, this._message)
-
-    // If the message is not a string (e.g. number), convert it to a string and trim it.
-    // eslint-disable-next-line eqeqeq
-    this._message = value != null ? `${value}`.trim() : ''
-
-    if (!this._message && this.isTooltipVisible()) {
-      this.hide(0)
-    } else {
-      this.updateTooltipMessage()
-      this.ariaDescriber.describe(this.elementRef.nativeElement, this.message)
-    }
-  }
-
-  /** Classes to be passed to the tooltip. Supports the same syntax as `ngClass`. */
-  @Input('scTooltipClass')
-  get tooltipClass() {
-    return this._tooltipClass
-  }
-
-  set tooltipClass(value: string | string[] | Set<string> | { [key: string]: any }) {
-    this._tooltipClass = value
-    if (this.tooltipInstance) {
-      this.setTooltipClass(this._tooltipClass)
-    }
-  }
+  private previousMessage = ''
 
   constructor() {
-    this.opts = { ...defaultTooltipOptions, ...inject(TOOLTIP_DEFAULT_OPTIONS, { optional: true }) }
-
     this.manualHostElementListeners
       .set('touchstart', () => this.show())
-      .set('touchend', () => this.hide(this.opts.touchendHideDelay))
+      .set('touchend', () => this.hide(this.#opts.touchendHideDelay))
 
     // The mouse events shouldn't be bound on mobile devices, because they can prevent the
     // first tap from firing its click event or can cause the tooltip to open for clicks.
@@ -178,30 +120,52 @@ export class TooltipDirective implements OnDestroy, OnInit {
           this.ngZone.run(() => this.show())
         }
       })
-  }
 
-  /**
-   * Setup styling-specific things
-   */
-  ngOnInit() {
-    const element = this.elementRef.nativeElement
-    const elementStyle: CSSStyleDeclaration & { webkitUserDrag: string; msUserSelect: string } = <any>element.style
+    effect(() => {
+      if (this.disabled()) {
+        // If tooltip is disabled, hide immediately.
+        this.hide(0)
+      }
+    })
 
-    if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
-      // When we bind a gesture event on an element (in this case `longpress`), HammerJS
-      // will add some inline styles by default, including `user-select: none`. This is
-      // problematic on iOS and in Safari, because it will prevent users from typing in inputs.
-      // Since `user-select: none` is not needed for the `longpress` event and can cause unexpected
-      // behavior for text fields, we always clear the `user-select` to avoid such issues.
-      elementStyle.webkitUserSelect = elementStyle.userSelect = elementStyle.msUserSelect = ''
-    }
+    effect(() => {
+      const currentMessage = this.message()
 
-    // Hammer applies `-webkit-user-drag: none` on all elements by default,
-    // which breaks the native drag&drop. If the consumer explicitly made
-    // the element draggable, clear the `-webkit-user-drag`.
-    if (element.draggable && elementStyle.webkitUserDrag === 'none') {
-      elementStyle.webkitUserDrag = ''
-    }
+      // Remove old aria description
+      this.ariaDescriber.removeDescription(this.elementRef.nativeElement, this.previousMessage)
+
+      if (!currentMessage && this.isTooltipVisible()) {
+        this.hide(0)
+      } else {
+        this.updateTooltipMessage()
+        this.ariaDescriber.describe(this.elementRef.nativeElement, currentMessage)
+      }
+
+      // Update previous message
+      this.previousMessage = currentMessage
+    })
+
+    effect(() => {
+      if (this.tooltipInstance) {
+        this.setTooltipClass(this.tooltipClass())
+      }
+    })
+
+    effect(() => {
+      const currentPosition = this.position()
+
+      if (this.tooltipInstance) {
+        this.tooltipInstance.position = currentPosition
+      }
+
+      if (this.overlayRef) {
+        this.updatePosition()
+        if (this.tooltipInstance) {
+          this.tooltipInstance.show(0)
+        }
+        this.overlayRef.updatePosition()
+      }
+    })
   }
 
   /**
@@ -222,16 +186,16 @@ export class TooltipDirective implements OnDestroy, OnInit {
     this.onDestroy.next()
     this.onDestroy.complete()
 
-    this.ariaDescriber.removeDescription(this.elementRef.nativeElement, this.message)
+    this.ariaDescriber.removeDescription(this.elementRef.nativeElement, this.message())
     this.focusMonitor.stopMonitoring(this.elementRef)
   }
 
   /** Shows the tooltip after the delay in ms, defaults to tooltip-delay-show or 0ms if no input */
   show(delay?: number): void {
-    delay = delay ?? this.showDelay ?? this.opts.showDelay
+    delay = delay ?? this.showDelay() ?? this.#opts.showDelay
     if (
-      this.disabled ||
-      !this.message ||
+      this.disabled() ||
+      !this.message() ||
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       (this.isTooltipVisible() && !this.tooltipInstance!.showTimeoutId && !this.tooltipInstance!.hideTimeoutId)
     ) {
@@ -243,13 +207,13 @@ export class TooltipDirective implements OnDestroy, OnInit {
     this.detach()
     this.portal = this.portal || new ComponentPortal(TooltipComponent, this.viewContainerRef)
     this.tooltipInstance = overlayRef.attach(this.portal).instance
-    this.tooltipInstance.position = this.position
+    this.tooltipInstance.position = this.position()
     this.tooltipInstance
       .afterHidden()
       .pipe(takeUntil(this.onDestroy))
       .subscribe(() => this.detach())
 
-    this.setTooltipClass(this._tooltipClass)
+    this.setTooltipClass(this.tooltipClass())
 
     this.updateTooltipMessage()
 
@@ -258,7 +222,7 @@ export class TooltipDirective implements OnDestroy, OnInit {
 
   /** Hides the tooltip after the delay in ms, defaults to tooltip-delay-hide or 0ms if no input */
   hide(delay?: number): void {
-    delay = delay ?? this.hideDelay ?? this.opts.hideDelay
+    delay = delay ?? this.hideDelay() ?? this.#opts.hideDelay
     if (this.tooltipInstance) {
       this.tooltipInstance.hide(delay)
     }
@@ -289,7 +253,7 @@ export class TooltipDirective implements OnDestroy, OnInit {
    * The fallback position is the inverse of the origin (e.g. `'below' -> 'above'`).
    */
   private getOrigin(): { main: OriginConnectionPosition; fallback: OriginConnectionPosition } {
-    const position = this.position
+    const position = this.position()
     let originPosition: OriginConnectionPosition = { originX: 'center', originY: 'center' }
 
     const positions = position.split('-')
@@ -325,7 +289,7 @@ export class TooltipDirective implements OnDestroy, OnInit {
    * Returns the overlay position and a fallback position based on the user's preference
    */
   private getOverlayPosition(): { main: OverlayConnectionPosition; fallback: OverlayConnectionPosition } {
-    const position = this.position
+    const position = this.position()
     let overlayPosition: OverlayConnectionPosition
 
     const positions = position.split('-')
@@ -380,7 +344,7 @@ export class TooltipDirective implements OnDestroy, OnInit {
 
     strategy.positionChanges.pipe(takeUntil(this.onDestroy)).subscribe((change) => {
       if (this.tooltipInstance) {
-        this.tooltipInstance.updatePosition(change, this.position)
+        this.tooltipInstance.updatePosition(change, this.position())
         if (change.scrollableViewProperties.isOverlayClipped && this.tooltipInstance.isVisible()) {
           // After position changes occur and the overlay is clipped by
           // a parent scrollable then close the tooltip.
@@ -391,8 +355,8 @@ export class TooltipDirective implements OnDestroy, OnInit {
 
     this.overlayRef = this.overlay.create({
       positionStrategy: strategy,
-      panelClass: this.opts.panelClass,
-      scrollStrategy: this.overlay.scrollStrategies.reposition({ scrollThrottle: this.opts.scrollThrottle }),
+      panelClass: this.#opts.panelClass,
+      scrollStrategy: this.overlay.scrollStrategies.reposition({ scrollThrottle: this.#opts.scrollThrottle }),
     })
 
     this.updatePosition()
@@ -430,7 +394,7 @@ export class TooltipDirective implements OnDestroy, OnInit {
     // Must wait for the message to be painted to the tooltip so that the overlay can properly
     // calculate the correct positioning based on the size of the text.
     if (this.tooltipInstance) {
-      this.tooltipInstance.message = this.message
+      this.tooltipInstance.message = this.message()
       this.tooltipInstance.markForCheck()
 
       this.ngZone.onMicrotaskEmpty
@@ -454,7 +418,7 @@ export class TooltipDirective implements OnDestroy, OnInit {
 
   /** Inverts an overlay position. */
   private invertPosition(x: HorizontalConnectionPos, y: VerticalConnectionPos) {
-    if (this.position === 'above' || this.position === 'below') {
+    if (this.position() === 'above' || this.position() === 'below') {
       if (y === 'top') {
         y = 'bottom'
       } else if (y === 'bottom') {

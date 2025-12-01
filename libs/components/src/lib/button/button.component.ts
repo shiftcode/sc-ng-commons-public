@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Output } from '@angular/core'
+import { Component, HostListener, output } from '@angular/core'
 
 /**
  * Standalone Button Component.
@@ -17,8 +17,7 @@ import { Component, EventEmitter, HostListener, Output } from '@angular/core'
   },
 })
 export class ButtonComponent {
-  @Output()
-  readonly action = new EventEmitter<MouseEvent | KeyboardEvent>()
+  readonly action = output<MouseEvent | KeyboardEvent>()
 
   @HostListener('keypress', ['$event'])
   onKeypress(event: KeyboardEvent) {

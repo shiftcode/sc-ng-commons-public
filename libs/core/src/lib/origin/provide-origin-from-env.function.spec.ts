@@ -37,18 +37,18 @@ describe('provideOriginFromEnv', () => {
 
     process.env[ENV_KEY] = 'https://example.valid.com'
 
-    expect(() => TestBed.inject(ORIGIN)).toThrowError(`provideOriginFromEnv can only be used on the server`)
+    expect(() => TestBed.inject(ORIGIN)).toThrow(`provideOriginFromEnv can only be used on the server`)
   })
 
   it('should throw if env var is not defined', () => {
     setup('server')
     delete process.env[ENV_KEY]
-    expect(() => TestBed.inject(ORIGIN)).toThrowError(`Env var ${ENV_KEY} needs to be defined`)
+    expect(() => TestBed.inject(ORIGIN)).toThrow(`Env var ${ENV_KEY} needs to be defined`)
   })
 
   it('should throw if env var is not a valid origin', () => {
     setup('server')
     process.env[ENV_KEY] = 'invalid-origin'
-    expect(() => TestBed.inject(ORIGIN)).toThrowError(`Env var ${ENV_KEY} is not a valid origin: invalid-origin`)
+    expect(() => TestBed.inject(ORIGIN)).toThrow(`Env var ${ENV_KEY} is not a valid origin: invalid-origin`)
   })
 })

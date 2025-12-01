@@ -1,13 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  inject,
-  Input,
-  OnChanges,
-  Renderer2,
-  SimpleChange,
-} from '@angular/core'
+import { ChangeDetectionStrategy, Component, effect, ElementRef, inject, input, Renderer2 } from '@angular/core'
 import { LoggerService } from '@shiftcode/ngx-core'
 import { Logger } from '@shiftcode/logger'
 import { SvgRegistry } from './svg-registry.service'
@@ -32,10 +23,10 @@ import { HttpErrorResponse } from '@angular/common/http'
   styleUrls: ['./svg.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SvgComponent implements OnChanges {
-  @Input({ required: true }) url: string
+export class SvgComponent {
+  readonly url = input.required<string>()
 
-  @Input() attrs?: Record<string, string>
+  readonly attrs = input<Record<string, string>>({})
 
   protected readonly elRef: ElementRef<HTMLElement> = inject(ElementRef)
   protected readonly renderer = inject(Renderer2)
@@ -43,31 +34,35 @@ export class SvgComponent implements OnChanges {
 
   private readonly logger: Logger = inject(LoggerService).getInstance('SvgComponent')
 
-  ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
-    // Only update the inline SVG icon if the inputs changed, to avoid unnecessary DOM operations.
-    if ('attrs' in changes || 'url' in changes) {
-      if (!this.url.endsWith('.svg')) {
-        this.logger.warn('svg url does not end with *.svg')
-      }
-      this.svgRegistry
-        .getFromUrl(this.url)
-        .then(this.modifySvgElement)
-        .then(this.setSvgElement)
-        .catch((err: any) => {
-          if (err instanceof HttpErrorResponse && err.status === 0) {
-            // in case of no internet or a timeout log a warning, we can not do anything about that
-            this.logger.warn(`Error retrieving icon for path ${this.url}, due to no network`, err)
-          } else {
-            this.logger.error(`Error retrieving icon for path ${this.url}`, err)
-          }
-        })
-    }
+  constructor() {
+    effect(() => {
+      this.loadAndSetSvg(this.url(), this.attrs())
+    })
   }
 
-  private modifySvgElement = (svg: SVGElement): SVGElement => {
-    const attrs = this.attrs || {}
-    Object.keys(attrs).forEach((key) => svg.setAttribute(key, attrs[key]))
-    return svg
+  private loadAndSetSvg(url: string, attrs: Record<string, string>) {
+    if (!url.endsWith('.svg')) {
+      this.logger.warn('svg url does not end with *.svg')
+    }
+    this.svgRegistry
+      .getFromUrl(url)
+      .then(this.modifySvgElement(attrs))
+      .then(this.setSvgElement)
+      .catch((err: any) => {
+        if (err instanceof HttpErrorResponse && err.status === 0) {
+          // in case of no internet or a timeout log a warning, we can not do anything about that
+          this.logger.warn(`Error retrieving icon for path ${this.url()}, due to no network`, err)
+        } else {
+          this.logger.error(`Error retrieving icon for path ${this.url()}`, err)
+        }
+      })
+  }
+
+  private modifySvgElement(attrs: Record<string, string>) {
+    return (svg: SVGElement): SVGElement => {
+      Object.keys(attrs).forEach((key) => svg.setAttribute(key, attrs[key]))
+      return svg
+    }
   }
 
   private setSvgElement = (svg: SVGElement | null) => {

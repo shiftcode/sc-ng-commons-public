@@ -7,8 +7,8 @@ import {
   Component,
   ElementRef,
   OnDestroy,
-  ViewChild,
   inject,
+  viewChild,
 } from '@angular/core'
 import { Observable, Subject } from 'rxjs'
 import { TooltipNotchPosition, TooltipPosition, TooltipPositionSimple } from './tooltip-position.type'
@@ -72,8 +72,7 @@ export class TooltipComponent implements OnDestroy {
 
   position: TooltipPosition
 
-  @ViewChild('notch', { static: true })
-  notchElRef: ElementRef
+  readonly notchElRef = viewChild<ElementRef>('notch')
   // if there is not enough space in the UI to display the desired position, a fallback position is displayed
   private _rendererPosition: TooltipPosition
 

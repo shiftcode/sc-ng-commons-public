@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, ElementRef, inject, DOCUMENT } from '@angular/core'
+import { afterNextRender, Directive, DOCUMENT, ElementRef, inject } from '@angular/core'
 import { isInputElement, LoggerService } from '@shiftcode/ngx-core'
 import { Logger } from '@shiftcode/logger'
 
@@ -12,13 +12,13 @@ import { Logger } from '@shiftcode/logger'
   selector: '[scAutoFocus]',
   standalone: true,
 })
-export class AutoFocusDirective implements AfterViewInit {
+export class AutoFocusDirective {
   readonly element: HTMLElement = inject(ElementRef).nativeElement
   private readonly document: Document = inject(DOCUMENT)
   private readonly logger: Logger = inject(LoggerService).getInstance('AutoFocusDirective')
 
-  ngAfterViewInit(): void {
-    this.focus()
+  constructor() {
+    afterNextRender(() => this.focus())
   }
 
   focus(): boolean {

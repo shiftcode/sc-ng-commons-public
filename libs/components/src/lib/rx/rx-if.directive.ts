@@ -13,6 +13,7 @@ export interface RxIfContext<T> {
  * - renders the view in case of a truthy emitted value
  * - renders the else template (if specified) as long as there is no value resolved or emitted, when a falsy value was emitted, or when not an observable/promise but null was provided
  * - renders the error template/component (if specified or a default was set) in case of an error
+ * @Deprecated use Signals instead
  * It's basically an alternative to the angular *ngIf Directive + the async pipe BUT does not trigger change detection cycles on every emission in the whole component but only inside the ViewRef Container of the directive itself.
  * @example ```html
  * <ng-template #noItemsTpl>No Items</ng-template>

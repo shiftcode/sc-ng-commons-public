@@ -1,6 +1,6 @@
-import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion'
-import { AfterViewInit, Directive, ElementRef, Input, OnChanges, OnInit, inject } from '@angular/core'
+import { afterNextRender, booleanAttribute, Directive, effect, ElementRef, inject, input } from '@angular/core'
 
+type SvgAnimationStates = Record<string, boolean>
 /**
  * Standalone Directive to animate SVG parts by calling beginElement method
  * by default the initially active states are applied without animation (disable behaviour with `withInitAnimation`)
@@ -18,52 +18,44 @@ import { AfterViewInit, Directive, ElementRef, Input, OnChanges, OnInit, inject 
  *  ```
  */
 @Directive({ selector: '[scSvgAnimate]', standalone: true })
-export class SvgAnimateDirective implements OnChanges, AfterViewInit, OnInit {
+export class SvgAnimateDirective {
   /**
    * state input in form {selector:state} - will be animated when state === true
    */
-  @Input('scSvgAnimate')
-  states: Record<string, boolean> | null
+  readonly states = input(
+    {},
+    { alias: 'scSvgAnimate', transform: (states: SvgAnimationStates | null | undefined) => states ?? {} },
+  )
 
-  @Input()
-  set withInitAnimation(value: BooleanInput) {
-    this._withInitAnimation = coerceBooleanProperty(value)
+  readonly withInitAnimation = input(false, { transform: booleanAttribute })
+
+  readonly element: HTMLElement = inject(ElementRef).nativeElement
+
+  constructor() {
+    effect(() => {
+      this.apply(this.states())
+    })
+
+    afterNextRender(() => {
+      if (!this.withInitAnimation()) {
+        // set initial state without animation
+        this.getElementsToActivate(this.states()).forEach((el) => {
+          const attr = el.getAttribute('attributeName')
+          const value = el.getAttribute('to')
+          if (attr && value !== null && el.parentElement) {
+            el.parentElement.setAttribute(attr, value)
+          }
+        })
+      }
+    })
   }
 
-  get withInitAnimation(): boolean {
-    return this._withInitAnimation
+  private apply(states: SvgAnimationStates) {
+    this.getElementsToActivate(states).forEach((el) => el.beginElement())
   }
 
-  readonly element = inject(ElementRef).nativeElement
-  private _withInitAnimation = false
-
-  ngOnInit() {
-    if (!this.withInitAnimation) {
-      // set initial state without animation
-      this.getElementsToActivate().forEach((el) => {
-        const attr = el.getAttribute('attributeName')
-        const value = el.getAttribute('to')
-        if (attr && value !== null && el.parentElement) {
-          el.parentElement.setAttribute(attr, value)
-        }
-      })
-    }
-  }
-
-  ngOnChanges() {
-    this.apply()
-  }
-
-  ngAfterViewInit() {
-    this.apply()
-  }
-
-  private apply() {
-    this.getElementsToActivate().forEach((el) => el.beginElement())
-  }
-
-  private getElementsToActivate(): SVGAnimateElement[] {
-    return Object.entries(this.states || {})
+  private getElementsToActivate(states: SvgAnimationStates): SVGAnimateElement[] {
+    return Object.entries(states || {})
       .filter(([, state]) => !!state)
       .map(([selector]) => this.element.querySelector(selector))
       .filter((el): el is SVGAnimateElement & { beginElement: () => void } => !!el && 'beginElement' in el)
