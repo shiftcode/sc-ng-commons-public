@@ -16,6 +16,7 @@
     "start": "ng serve",
     "test": "ng test",
     "test:ci": "ng test",
+    "preversion": "git reset HEAD package-lock.json 2> /dev/null || true",
     "postversion": "npm install && git add package-lock.json && git commit --amend --no-edit",
     "watch": "ng build --watch --configuration development"
   },
