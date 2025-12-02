@@ -83,20 +83,3 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
           GH_TOKEN: ${{ secrets.GH_TOKEN_PUBLIC_REPO }} # necessary for publish-libs script
-      - name: Fix package-lock.json after version bump
-        if: github.event_name == 'pull_request'
-        run: |
-          # Prüfen ob ein Version Bump stattgefunden hat
-          if git diff HEAD~1 HEAD --name-only | grep -E "lerna.json|packages/.*/package.json"; then
-            echo "Version bump detected, fixing package-lock.json..."
-
-            # Lockfile neu generieren
-            rm -f package-lock.json
-            npm install --package-lock-only
-
-            # Pushen
-            git add package-lock.json
-            git commit -m "chore: update package-lock.json [skip_build]"
-            git push
-          fi
-
