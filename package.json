@@ -16,6 +16,7 @@
     "start": "ng serve",
     "test": "ng test",
     "test:ci": "ng test",
+    "postversion": "npm install --package-lock-only && git add package-lock.json",
     "watch": "ng build --watch --configuration development"
   },
   "dependencies": {
