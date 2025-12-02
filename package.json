@@ -13,6 +13,7 @@
     "prepare": "husky",
     "prepublishOnly": "lerna exec --ignore @shiftcode/styleguide --stream -- ts-node --project \\$LERNA_ROOT_PATH/scripts/ts/tsconfig.json \\$LERNA_ROOT_PATH/scripts/ts/copy-version.ts",
     "prettier:all": "lerna run prettier --stream",
+    "postpublish": "npm install --package-lock-only && git add package-lock.json && git commit --amend --no-edit || true",
     "start": "ng serve",
     "test": "ng test",
     "test:ci": "ng test",
