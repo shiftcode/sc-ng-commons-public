@@ -1,7 +1,7 @@
 {
   "useNx": false,
   "packages": ["libs/*", "apps/*"],
-  "version": "13.0.0-pr63.7",
+  "version": "13.0.0-pr63.18",
   "command": {
     "version": {
       "allowBranch": "*",
