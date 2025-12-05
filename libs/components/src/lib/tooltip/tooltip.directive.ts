@@ -14,27 +14,25 @@ import {
 } from '@angular/cdk/overlay'
 import { Platform } from '@angular/cdk/platform'
 import { ComponentPortal } from '@angular/cdk/portal'
-
 import {
   booleanAttribute,
   Directive,
   DOCUMENT,
   effect,
   ElementRef,
-  HostListener,
   inject,
   input,
   NgZone,
   OnDestroy,
   ViewContainerRef,
 } from '@angular/core'
-import { Subject } from 'rxjs'
-import { take, takeUntil } from 'rxjs/operators'
+import { Subject, take, takeUntil } from 'rxjs'
+
 import { FlexibleConnectedPositionStrategy2 } from './flexible-connected-position-strategy-2'
+import { TooltipComponent } from './tooltip.component'
 import { TOOLTIP_DEFAULT_OPTIONS } from './tooltip-default-options.token'
 import { defaultTooltipOptions, TooltipOptions } from './tooltip-options.model'
 import { TooltipNotchPosition, TooltipPositionSimple } from './tooltip-position.type'
-import { TooltipComponent } from './tooltip.component'
 
 function transformMessage(value: string | number | null | undefined): string {
   return value !== null ? `${value}`.trim() : ''
@@ -48,6 +46,9 @@ function transformMessage(value: string | number | null | undefined): string {
   selector: '[scTooltip]',
   exportAs: 'scTooltip',
   standalone: true,
+  host: {
+    '(keydown)': 'handleKeydown($event)',
+  },
 })
 export class TooltipDirective implements OnDestroy {
   readonly #opts: TooltipOptions = { ...defaultTooltipOptions, ...inject(TOOLTIP_DEFAULT_OPTIONS, { optional: true }) }
@@ -240,7 +241,6 @@ export class TooltipDirective implements OnDestroy {
   }
 
   /** Handles the keydown events on the host element. */
-  @HostListener('keydown', ['$event'])
   handleKeydown(e: KeyboardEvent) {
     if (this.isTooltipVisible() && (e.keyCode === ESCAPE || e.key === 'Escape')) {
       e.stopPropagation()

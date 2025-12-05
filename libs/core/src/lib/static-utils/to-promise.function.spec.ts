@@ -1,4 +1,5 @@
 import { from } from 'rxjs'
+
 import { toPromise } from './to-promise.function'
 
 describe('toPromise', () => {

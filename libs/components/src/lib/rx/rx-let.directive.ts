@@ -1,3 +1,5 @@
+/* eslint-disable @angular-eslint/prefer-signals */
+/* we won't migrate this directive to signals, since with signals we don't need such a directive anymore */
 import {
   ComponentRef,
   Directive,
@@ -10,6 +12,7 @@ import {
   Type,
 } from '@angular/core'
 import { asapScheduler, ObservableInput, Subscription } from 'rxjs'
+
 import { BaseRxDirective } from './base-rx.directive'
 import { assertAngularInput, ERROR_INPUT_NAME, RX_DEFAULT_SUSPENSE_COMPONENT } from './internals'
 

@@ -6,14 +6,15 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  OnDestroy,
   inject,
+  OnDestroy,
   viewChild,
 } from '@angular/core'
 import { Observable, Subject } from 'rxjs'
+
+import { tooltipAnimation } from './tooltip.animation'
 import { TooltipNotchPosition, TooltipPosition, TooltipPositionSimple } from './tooltip-position.type'
 import { TooltipVisibility } from './tooltip-visibility.type'
-import { tooltipAnimation } from './tooltip.animation'
 
 /**
  * Tooltip component

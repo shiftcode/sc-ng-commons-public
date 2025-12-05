@@ -1,5 +1,4 @@
-import { OperatorFunction } from 'rxjs'
-import { filter } from 'rxjs/operators'
+import { filter, OperatorFunction } from 'rxjs'
 
 export type Newable<T> = new (...args: any[]) => T
 

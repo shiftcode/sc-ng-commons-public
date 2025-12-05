@@ -1,6 +1,6 @@
-import { Injectable, DOCUMENT, inject } from '@angular/core'
-import { fromEvent, merge, Observable } from 'rxjs'
-import { filter, finalize } from 'rxjs/operators'
+import { DOCUMENT, inject, Injectable } from '@angular/core'
+import { filter, finalize, fromEvent, merge, Observable } from 'rxjs'
+
 import { WindowRef } from '../window/window-ref.service'
 
 @Injectable({ providedIn: 'root' })

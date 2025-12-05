@@ -1,4 +1,5 @@
 import { StaticProvider, Type } from '@angular/core'
+
 import {
   assertAngularComponent,
   assertAngularInput,

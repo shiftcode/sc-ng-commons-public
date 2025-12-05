@@ -1,5 +1,6 @@
-import { Injectable, OnDestroy, inject } from '@angular/core'
+import { inject, Injectable, OnDestroy } from '@angular/core'
 import { Subscription } from 'rxjs'
+
 import { LocalStorage } from '../local-storage/local-storage.service'
 import { createRandomClientId } from './create-random-client-id.function'
 

@@ -1,4 +1,5 @@
 import { Subject } from 'rxjs'
+
 import { filterIfFalsy } from './filter-if-falsy.operator'
 
 describe('select operator', () => {

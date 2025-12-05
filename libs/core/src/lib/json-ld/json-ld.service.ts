@@ -1,4 +1,4 @@
-import { Injectable, DOCUMENT, inject } from '@angular/core'
+import { DOCUMENT, inject, Injectable } from '@angular/core'
 
 export type JsonLdProp = string | number | boolean
 

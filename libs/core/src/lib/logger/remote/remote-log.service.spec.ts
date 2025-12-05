@@ -1,13 +1,14 @@
-import { TestBed } from '@angular/core/testing'
+import { HttpHeaders, provideHttpClient } from '@angular/common/http'
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing'
+import { FactoryProvider, ValueProvider } from '@angular/core'
+import { TestBed } from '@angular/core/testing'
+import { createJsonLogObjectData, LogLevel } from '@shiftcode/logger'
+
+import { LOG_REQUEST_INFO_FN } from '../log-request-info-fn.token'
+import { LogRequestInfoFn } from '../log-request-info-fn.type'
 import { RemoteLogService } from './remote-log.service'
 import { REMOTE_LOG_CONFIG } from './remote-log-config.injection-token'
 import { RemoteLogConfig } from './remote-log-config.model'
-import { createJsonLogObjectData, LogLevel } from '@shiftcode/logger'
-import { LOG_REQUEST_INFO_FN } from '../log-request-info-fn.token'
-import { LogRequestInfoFn } from '../log-request-info-fn.type'
-import { HttpHeaders, provideHttpClient } from '@angular/common/http'
-import { FactoryProvider, ValueProvider } from '@angular/core'
 
 describe('RemoteLogService', () => {
   const mockConfig: RemoteLogConfig = {
