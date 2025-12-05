@@ -6,10 +6,5 @@
     "@typescript-eslint/no-unsafe-member-access": {
       "count": 17
     }
-  },
-  "src/lib/tooltip/tooltip.component.ts": {
-    "@typescript-eslint/no-unsafe-member-access": {
-      "count": 1
-    }
   }
 }

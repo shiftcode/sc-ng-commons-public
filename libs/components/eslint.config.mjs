@@ -5,7 +5,7 @@ export default defineScAngularConfig(
   {
     languageOptions: {
       parserOptions: {
-        project: ['./tsconfig.lib.json', './tsconfig.spec.json'],
+        project: ['./tsconfig.lint.json'],
       },
     },
   },

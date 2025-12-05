@@ -148,7 +148,7 @@ export class TooltipComponent implements OnDestroy {
   }
 
   animationDone(event: AnimationEvent): void {
-    const toState: TooltipVisibility = (<any>event).toState
+    const toState = event.toState as TooltipVisibility
 
     if (toState === 'hidden' && !this.isVisible()) {
       this.onHide.next()

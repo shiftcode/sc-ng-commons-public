@@ -1,9 +1,10 @@
 {
   "extends": "./tsconfig.app.json",
   "compilerOptions": {
+    "baseUrl": "./",
     "paths": {
-      "@shiftcode/ngx-core": ["../libs/core/src/public-api.ts"],
-      "@shiftcode/ngx-components": ["../libs/components/src/public-api.ts"]
+      "@shiftcode/ngx-core": ["../../libs/core/src/public-api.ts"],
+      "@shiftcode/ngx-components": ["../../libs/components/src/public-api.ts"]
     }
   },
   "include": ["**/*.ts"],

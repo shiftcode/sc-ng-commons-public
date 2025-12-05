@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core'
 import { FormControl, ReactiveFormsModule } from '@angular/forms'
 import { TextareaAutosizeDirective } from '@shiftcode/ngx-components'
-import { Subject } from 'rxjs'
-import { takeUntil } from 'rxjs/operators'
+import { Subject, takeUntil } from 'rxjs'
 
 @Component({
   selector: 'sg-text-area-autosize',
