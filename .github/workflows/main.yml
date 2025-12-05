@@ -32,7 +32,7 @@ jobs:
         name: Check for execution
         uses: shiftcode/github-action-skip@v4.0.0
         with:
-          skipOnCommitMsg: "[skip_build]"
+          skipOnCommitMsg: '[skip_build]'
           githubToken: ${{ secrets.GITHUB_TOKEN }}
   build:
     runs-on: ubuntu-latest
@@ -63,6 +63,9 @@ jobs:
       # install dependencies
       - name: Install
         run: HUSKY=0 npm ci  --include=optional
+      # check formatting
+      - name: Check Formatting
+        run: npm run format:ci
       # lint
       - name: Lint
         run: npm run lint:ci
