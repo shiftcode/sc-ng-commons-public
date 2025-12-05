@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
+
 import { isInputElement } from './is-input-element.function'
 
 describe('isInputElement', () => {

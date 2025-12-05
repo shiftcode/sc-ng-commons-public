@@ -1,19 +1,14 @@
 {
   "name": "@shiftcode/ngx-core",
-  "version": "13.0.0-pr63.7",
+  "version": "13.0.0-pr63.20",
   "repository": "https://github.com/shiftcode/sc-ng-commons-public",
   "license": "MIT",
   "author": "shiftcode GmbH <team@shiftcode.ch>",
   "sideEffects": false,
   "scripts": {
-    "lint": "npm run lint:src -- --fix && npm run lint:test -- --fix",
-    "lint:ci": "npm run lint:src && npm run lint:test",
-    "lint:src": "eslint ./src",
-    "lint:src:print-config": "eslint --print-config ./src/public-api.ts > ____eslint-config.json",
-    "lint:staged": "eslint --fix",
-    "lint:test": "eslint ./test --no-error-on-unmatched-pattern",
-    "prettier": "prettier --write --config ../../.prettierrc.yml 'src/**/*.ts'",
-    "prettier:staged": "prettier --write --config ../../.prettierrc.yml"
+    "lint": "eslint --fix --cache ./src",
+    "lint:ci": "eslint ./src",
+    "lint:staged": "eslint --fix --cache"
   },
   "dependencies": {
     "tslib": "^2.5.0"

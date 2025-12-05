@@ -1,4 +1,5 @@
 import { CanActivateFn, createUrlTreeFromSnapshot, ResolveFn } from '@angular/router'
+
 import { toPromise } from './to-promise.function'
 
 /**

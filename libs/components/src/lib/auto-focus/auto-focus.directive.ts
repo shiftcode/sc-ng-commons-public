@@ -1,6 +1,6 @@
 import { afterNextRender, Directive, DOCUMENT, ElementRef, inject } from '@angular/core'
-import { isInputElement, LoggerService } from '@shiftcode/ngx-core'
 import { Logger } from '@shiftcode/logger'
+import { isInputElement, LoggerService } from '@shiftcode/ngx-core'
 
 /**
  * Standalone Autofocus Directive

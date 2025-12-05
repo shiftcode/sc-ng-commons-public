@@ -1,5 +1,6 @@
-import { wrapIntoObservable } from './wrap-into-observable'
 import { isObservable, Observable, of } from 'rxjs'
+
+import { wrapIntoObservable } from './wrap-into-observable'
 
 describe('wrapIntoObservable', () => {
   test('returns observable from promise', (done) => {

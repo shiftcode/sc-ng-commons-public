@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
 import { isPlatformServer } from '@angular/common'
-import { Injectable, PLATFORM_ID, inject } from '@angular/core'
-import { leadingZero } from '../helper/leading-zero.function'
+import { inject, Injectable, PLATFORM_ID } from '@angular/core'
 import { LogLevel, LogTransport } from '@shiftcode/logger'
+
+import { leadingZero } from '../helper/leading-zero.function'
 import { CONSOLE_LOG_TRANSPORT_CONFIG } from './console-log-transport-config.injection-token'
 
 @Injectable({ providedIn: 'root' })
@@ -44,8 +45,7 @@ export class ConsoleLogTransport extends LogTransport {
         case LogLevel.WARN:
           console.warn(...args)
           break
-        default:
-          console.log(...args)
+        case LogLevel.OFF:
           break
       }
     }

@@ -3,11 +3,11 @@
   directive with output emitter when there was a click outside of the applied element. Uses a listener on `document` and
   tests the event.target against the elementRef
 </p>
-<button (click)="toggleDisabled()">{{ disabled ? 'enable' : 'disable' }}</button>
-<button (scClickOutside)="onOutsideClick($event)" [scClickOutsideDisabled]="disabled">
+<button type="button" (click)="toggleDisabled()">{{ disabled ? 'enable' : 'disable' }}</button>
+<button type="button" (scClickOutside)="onOutsideClick($event)" [scClickOutsideDisabled]="disabled">
   <span>TEST-EL</span>
   <sc-svg url="/icon/settings.svg" />
 </button>
-<button>just another button</button>
+<button type="button">just another button</button>
 
 <span>outside clicks: {{ outsideClickCounter }}</span>

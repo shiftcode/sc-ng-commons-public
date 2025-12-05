@@ -1,4 +1,5 @@
 import { from, of, scan, tap } from 'rxjs'
+
 import { filterIfTruthy } from './filter-if-truthy.operator'
 
 describe('filterIfTruthy operator', () => {

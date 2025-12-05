@@ -1,4 +1,5 @@
 import { Subject } from 'rxjs'
+
 import { setup } from './setup.operator'
 
 describe('setup operator', () => {

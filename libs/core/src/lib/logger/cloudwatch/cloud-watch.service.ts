@@ -1,15 +1,29 @@
 /* eslint-disable no-console */
+import { HttpClient } from '@angular/common/http'
 import { inject, Injectable } from '@angular/core'
 import { createJsonLogObjectData, LogLevel } from '@shiftcode/logger'
 import { jsonMapSetStringifyReplacer } from '@shiftcode/utilities'
-import { BehaviorSubject, concatMap, Observable, of, retry, Subject, throwError } from 'rxjs'
-import { catchError, filter, map, mergeMap, shareReplay, take } from 'rxjs/operators'
-import { CLOUD_WATCH_LOG_TRANSPORT_CONFIG } from './cloud-watch-log-transport-config.injection-token'
-import { HttpClient } from '@angular/common/http'
-import { isLogStreamNotFoundError } from './is-error.function'
+import {
+  BehaviorSubject,
+  catchError,
+  concatMap,
+  filter,
+  map,
+  mergeMap,
+  Observable,
+  of,
+  retry,
+  shareReplay,
+  Subject,
+  take,
+  throwError,
+} from 'rxjs'
+
 import { ClientIdService } from '../../client-id/client-id.service'
-import { RemoteLogData } from '../remote/remote-log-data.model'
 import { LOG_REQUEST_INFO_FN } from '../log-request-info-fn.token'
+import { RemoteLogData } from '../remote/remote-log-data.model'
+import { CLOUD_WATCH_LOG_TRANSPORT_CONFIG } from './cloud-watch-log-transport-config.injection-token'
+import { isLogStreamNotFoundError } from './is-error.function'
 
 interface CloudWatchLogEvent {
   logStreamName: string

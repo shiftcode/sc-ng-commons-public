@@ -2,9 +2,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { inject, Injectable } from '@angular/core'
 import { createJsonLogObjectData, LogLevel } from '@shiftcode/logger'
+
+import { LOG_REQUEST_INFO_FN } from '../log-request-info-fn.token'
 import { REMOTE_LOG_CONFIG } from './remote-log-config.injection-token'
 import { RemoteLogData } from './remote-log-data.model'
-import { LOG_REQUEST_INFO_FN } from '../log-request-info-fn.token'
 
 @Injectable({ providedIn: 'root' })
 export class RemoteLogService {

@@ -1,7 +1,12 @@
 import { readFileSync, writeFileSync } from 'fs'
 
 class CausedError extends Error {
-  constructor(message: string, readonly cause: unknown) { super(message) }
+  constructor(
+    message: string,
+    readonly cause: unknown,
+  ) {
+    super(message)
+  }
 }
 
 interface Package {
@@ -18,9 +23,7 @@ interface NgPackage {
 
 const ENCODING_UTF8 = 'utf8'
 
-
 async function bumbVersion() {
-
   let packageJson: Package
   let ngPackage: NgPackage
   let distPackageJson: Package
@@ -37,7 +40,6 @@ async function bumbVersion() {
     throw new CausedError(`could not read ng-package.json`, err)
   }
 
-
   if (!ngPackage.dest) {
     throw new Error('output `dest` not defined in ng-package.json')
   }
@@ -50,9 +52,7 @@ async function bumbVersion() {
     throw new CausedError(`could not read ${distPackageFile}`, err)
   }
 
-
   console.info(`${packageJson.name}: version ${packageJson.version} / dist version ${distPackageJson.version}`)
-
 
   // write new dist package.json - if necessary
   // update version
@@ -60,7 +60,9 @@ async function bumbVersion() {
   try {
     const prettyPackage = JSON.stringify(distPackageJson, null, 2)
     writeFileSync(distPackageFile, prettyPackage, { encoding: ENCODING_UTF8 })
-    console.info(`successfully updated version for package ${packageJson.name} in ${distPackageFile} to ${packageJson.version}`)
+    console.info(
+      `successfully updated version for package ${packageJson.name} in ${distPackageFile} to ${packageJson.version}`,
+    )
   } catch (err) {
     throw new CausedError(`could update version in ${distPackageFile}`, err)
   }

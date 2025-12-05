@@ -8,8 +8,8 @@
     }
   </select>
 
-  <button (click)="tooltipDirective.show()">show</button>
-  <button (click)="tooltipDirective.hide()">hide</button>
+  <button type="button" (click)="tooltipDirective.show()">show</button>
+  <button type="button" (click)="tooltipDirective.hide()">hide</button>
 </div>
 
 <span
@@ -23,7 +23,7 @@
 
 <div
   class="sg-tooltip__trigger"
-  [scTooltip]="'a differently styled tooltip'"
+  scTooltip="a differently styled tooltip"
   [scTooltipPosition]="positionCtrl.value"
   scTooltipClass="sg-tooltip-custom-style"
 >

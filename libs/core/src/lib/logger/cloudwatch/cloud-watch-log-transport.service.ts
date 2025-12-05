@@ -1,7 +1,8 @@
-import { Injectable, inject } from '@angular/core'
+import { inject, Injectable } from '@angular/core'
 import { LogLevel, LogTransport } from '@shiftcode/logger'
-import { CLOUD_WATCH_LOG_TRANSPORT_CONFIG } from './cloud-watch-log-transport-config.injection-token'
+
 import { CloudWatchService } from './cloud-watch.service'
+import { CLOUD_WATCH_LOG_TRANSPORT_CONFIG } from './cloud-watch-log-transport-config.injection-token'
 
 /**
  * The LogTransport implementation using {@link CloudWatchService}

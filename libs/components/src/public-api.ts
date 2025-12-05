@@ -1,6 +1,6 @@
 // svg
-export * from './lib/svg/svg-registry.service'
 export * from './lib/svg/svg.component'
+export * from './lib/svg/svg-registry.service'
 
 // svg-animate
 export * from './lib/svg-animate/svg-animate.directive'
@@ -24,11 +24,11 @@ export * from './lib/click-outside/click-outside.directive'
 export * from './lib/auto-focus/auto-focus.directive'
 
 // tooltip
-export * from './lib/tooltip/tooltip-options.model'
-export * from './lib/tooltip/tooltip-visibility.type'
-export * from './lib/tooltip/tooltip-position.type'
 export * from './lib/tooltip/tooltip.directive'
 export * from './lib/tooltip/tooltip-default-options.token'
+export * from './lib/tooltip/tooltip-options.model'
+export * from './lib/tooltip/tooltip-position.type'
+export * from './lib/tooltip/tooltip-visibility.type'
 
 // insert-view-ref
 export * from './lib/insert-view-ref/insert-view-ref.directive'
@@ -37,6 +37,6 @@ export * from './lib/insert-view-ref/insert-view-ref.directive'
 export * from './lib/navigation-class-handler/navigation-class-handler'
 
 // rx
+export * from './lib/rx/provide-defaults'
 export * from './lib/rx/rx-if.directive'
 export * from './lib/rx/rx-let.directive'
-export * from './lib/rx/provide-defaults'

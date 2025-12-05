@@ -1,6 +1,6 @@
+import { of, Subject, tap } from 'rxjs'
+
 import { filterIfInstanceOf } from './filter-if-instance-of.operator'
-import { of, Subject } from 'rxjs'
-import { tap } from 'rxjs/operators'
 
 abstract class Base {
   abstract type: 'A' | 'B'

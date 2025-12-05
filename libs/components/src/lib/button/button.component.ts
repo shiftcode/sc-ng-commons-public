@@ -1,4 +1,4 @@
-import { Component, HostListener, output } from '@angular/core'
+import { Component, output } from '@angular/core'
 
 /**
  * Standalone Button Component.
@@ -14,13 +14,14 @@ import { Component, HostListener, output } from '@angular/core'
   host: {
     role: 'button',
     tabindex: '0',
+    '(keyup)': 'onKeyUp($event)',
+    '(click)': 'onClick($event)',
   },
 })
 export class ButtonComponent {
   readonly action = output<MouseEvent | KeyboardEvent>()
 
-  @HostListener('keypress', ['$event'])
-  onKeypress(event: KeyboardEvent) {
+  onKeyUp(event: KeyboardEvent) {
     switch (event.code) {
       case 'Enter':
       case 'Space':
@@ -28,7 +29,6 @@ export class ButtonComponent {
     }
   }
 
-  @HostListener('click', ['$event'])
   onClick(event: MouseEvent) {
     this.action.emit(event)
   }

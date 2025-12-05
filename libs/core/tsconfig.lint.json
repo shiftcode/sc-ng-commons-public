@@ -1,6 +1,7 @@
 {
-  "extends": "../../tsconfig.spec.json",
+  "extends": "./tsconfig.lib.json",
   "compilerOptions": {
+    "baseUrl": "./",
     "types": ["jest", "node"]
   }
 }

@@ -1,7 +1,8 @@
 import { HttpClient, HttpRequest, provideHttpClient, withInterceptors } from '@angular/common/http'
-import { ensureOriginInterceptor } from './ensure-origin.interceptor'
-import { TestBed } from '@angular/core/testing'
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing'
+import { TestBed } from '@angular/core/testing'
+
+import { ensureOriginInterceptor } from './ensure-origin.interceptor'
 import { ORIGIN } from './origin.token'
 
 describe('ensureOriginInterceptor', () => {

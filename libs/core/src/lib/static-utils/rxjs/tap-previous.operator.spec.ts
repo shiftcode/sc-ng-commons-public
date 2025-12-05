@@ -1,4 +1,5 @@
 import { Subject } from 'rxjs'
+
 import { tapPrevious } from './tap-previous.operator'
 
 describe('tapPrevious operator', () => {

@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
 import { isPlatformBrowser } from '@angular/common'
-import { colorizeForConsole } from '@shiftcode/utilities'
 import { inject, Injectable, PLATFORM_ID } from '@angular/core'
-import { leadingZero } from '../helper/leading-zero.function'
 import { LogLevel, LogTransport } from '@shiftcode/logger'
+import { colorizeForConsole } from '@shiftcode/utilities'
+
+import { leadingZero } from '../helper/leading-zero.function'
 import { CONSOLE_LOG_TRANSPORT_CONFIG } from './console-log-transport-config.injection-token'
 
 @Injectable({ providedIn: 'root' })
@@ -45,8 +46,7 @@ export class NodeConsoleLogTransport extends LogTransport {
         case LogLevel.WARN:
           console.warn(...args)
           break
-        default:
-          console.log(...args)
+        case LogLevel.OFF:
           break
       }
     }

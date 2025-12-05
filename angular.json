@@ -23,7 +23,7 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder":"@angular-devkit/build-angular:jest",
+          "builder": "@angular-devkit/build-angular:jest",
           "options": {
             "tsConfig": "tsconfig.spec.json",
             "polyfills": ["zone.js", "zone.js/testing"]
@@ -74,16 +74,9 @@
             "index": "apps/styleguide/src/index.html",
             "tsConfig": "apps/styleguide/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "polyfills": [
-              "zone.js"
-            ],
-            "assets": [
-              "apps/styleguide/src/favicon.ico",
-              "apps/styleguide/src/assets"
-            ],
-            "styles": [
-              "apps/styleguide/src/styles.scss"
-            ],
+            "polyfills": ["zone.js"],
+            "assets": ["apps/styleguide/src/favicon.ico", "apps/styleguide/src/assets"],
+            "styles": ["apps/styleguide/src/styles.scss"],
             "scripts": [],
             "browser": "apps/styleguide/src/main.ts"
           },

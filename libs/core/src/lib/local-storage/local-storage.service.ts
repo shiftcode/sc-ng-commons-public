@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs'
+
 import { StorageItemChangeEvent } from './storage-item-change-event.type'
 
 export abstract class LocalStorage {

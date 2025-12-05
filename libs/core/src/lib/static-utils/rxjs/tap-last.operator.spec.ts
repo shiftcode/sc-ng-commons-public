@@ -1,4 +1,5 @@
 import { Subject } from 'rxjs'
+
 import { tapLast } from './tap-last.operator'
 
 describe('tapLast operator', () => {

@@ -1,12 +1,12 @@
 <h2 scAutoFocus>rx-let</h2>
 
 <div class="buttons">
-  <button (click)="rxLetObs.setNull()">set null</button>
-  <button (click)="rxLetObs.setNewEmpty()">set empty</button>
-  <button (click)="rxLetObs.nextAsync()">next (timeout 1000)</button>
-  <button (click)="rxLetObs.next()">next (sync)</button>
-  <button (click)="rxLetObs.errorAsync()">error (timeout 1000)</button>
-  <button (click)="rxLetObs.error()">error (sync)</button>
+  <button type="button" (click)="rxLetObs.setNull()">set null</button>
+  <button type="button" (click)="rxLetObs.setNewEmpty()">set empty</button>
+  <button type="button" (click)="rxLetObs.nextAsync()">next (timeout 1000)</button>
+  <button type="button" (click)="rxLetObs.next()">next (sync)</button>
+  <button type="button" (click)="rxLetObs.errorAsync()">error (timeout 1000)</button>
+  <button type="button" (click)="rxLetObs.error()">error (sync)</button>
 </div>
 <div>{{ randomNum() }} (changes whenever cd runs on component level)</div>
 
@@ -25,12 +25,12 @@
 
 <h2>rx-if</h2>
 <div class="buttons">
-  <button (click)="rxIfObs.setNull()">set null</button>
-  <button (click)="rxIfObs.setNewEmpty()">set empty</button>
-  <button (click)="rxIfObs.nextAsync()">next (timeout 1000)</button>
-  <button (click)="rxIfObs.next()">next (sync)</button>
-  <button (click)="rxIfObs.errorAsync()">error (timeout 1000)</button>
-  <button (click)="rxIfObs.error()">error (sync)</button>
+  <button type="button" (click)="rxIfObs.setNull()">set null</button>
+  <button type="button" (click)="rxIfObs.setNewEmpty()">set empty</button>
+  <button type="button" (click)="rxIfObs.nextAsync()">next (timeout 1000)</button>
+  <button type="button" (click)="rxIfObs.next()">next (sync)</button>
+  <button type="button" (click)="rxIfObs.errorAsync()">error (timeout 1000)</button>
+  <button type="button" (click)="rxIfObs.error()">error (sync)</button>
 </div>
 <div>{{ randomNum() }} (changes whenever cd runs on component level)</div>
 

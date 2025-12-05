@@ -1,7 +1,8 @@
 import { inject, Injectable } from '@angular/core'
 import { LogLevel, LogTransport } from '@shiftcode/logger'
-import { REMOTE_LOG_CONFIG } from './remote-log-config.injection-token'
+
 import { RemoteLogService } from './remote-log.service'
+import { REMOTE_LOG_CONFIG } from './remote-log-config.injection-token'
 
 @Injectable({ providedIn: 'root' })
 export class RemoteLogTransport extends LogTransport {

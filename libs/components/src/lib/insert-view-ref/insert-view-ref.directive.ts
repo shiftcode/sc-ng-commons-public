@@ -1,4 +1,4 @@
-import { Directive, ViewContainerRef, ViewRef, inject, input, effect } from '@angular/core'
+import { Directive, effect, inject, input, ViewContainerRef, ViewRef } from '@angular/core'
 
 /**
  * Directive to insert a viewRef to the template.

@@ -1,11 +1,12 @@
 import { ClassProvider, ValueProvider } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { firstValueFrom, scan, shareReplay } from 'rxjs'
+
 import { MockStorage } from '../../../test'
 import { WindowRef } from '../window/window-ref.service'
+import { LocalStorage } from './local-storage.service'
 import { LocalStorageImpl } from './local-storage-impl.service'
 import { LOCAL_STORAGE_OPTIONS, LocalStorageOptions } from './local-storage-options'
-import { LocalStorage } from './local-storage.service'
 
 const prefix: LocalStorageOptions['prefix'] = 'TEST_'
 

@@ -1,5 +1,5 @@
-import { of, Subject } from 'rxjs'
-import { tap } from 'rxjs/operators'
+import { of, Subject, tap } from 'rxjs'
+
 import { select } from './select.operator'
 
 interface MyObject {

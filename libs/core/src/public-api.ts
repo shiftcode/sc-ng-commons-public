@@ -29,10 +29,10 @@ export * from './lib/logger/cloudwatch/is-error.function'
 export * from './lib/logger/cloudwatch/with-cloudwatch-transport.function'
 
 // console logger
-export * from './lib/logger/console/console-log-transport-config.injection-token'
-export * from './lib/logger/console/console-log-transport-config'
-export * from './lib/logger/console/node-console-log-transport.service'
 export * from './lib/logger/console/console-log-transport.service'
+export * from './lib/logger/console/console-log-transport-config'
+export * from './lib/logger/console/console-log-transport-config.injection-token'
+export * from './lib/logger/console/node-console-log-transport.service'
 export * from './lib/logger/console/with-browser-console-transport.function'
 export * from './lib/logger/console/with-node-console-transport.function'
 
@@ -46,8 +46,8 @@ export * from './lib/logger/remote/remote-log-transport.service'
 export * from './lib/logger/remote/with-remote-transport.function'
 
 // origin
-export * from './lib/origin/origin.token'
 export * from './lib/origin/ensure-origin.interceptor'
+export * from './lib/origin/origin.token'
 export * from './lib/origin/provide-origin-from-env.function'
 
 // resize
@@ -62,6 +62,10 @@ export * from './lib/script-loader/script-loader-error.model'
 export * from './lib/scroll-to/scroll-to.service'
 
 // static utils
+export * from './lib/static-utils/is-input-element.function'
+export * from './lib/static-utils/jwt-helper'
+export * from './lib/static-utils/key-names.const'
+export * from './lib/static-utils/regex'
 export * from './lib/static-utils/rxjs/filter-if-falsy.operator'
 export * from './lib/static-utils/rxjs/filter-if-instance-of.operator'
 export * from './lib/static-utils/rxjs/filter-if-truthy.operator'
@@ -71,11 +75,6 @@ export * from './lib/static-utils/rxjs/setup.operator'
 export * from './lib/static-utils/rxjs/tap-last.operator'
 export * from './lib/static-utils/rxjs/tap-previous.operator'
 export * from './lib/static-utils/rxjs/wrap-into-observable'
-
-export * from './lib/static-utils/jwt-helper'
-export * from './lib/static-utils/regex'
-export * from './lib/static-utils/key-names.const'
-export * from './lib/static-utils/is-input-element.function'
 export * from './lib/static-utils/to-promise.function'
 
 // ui event

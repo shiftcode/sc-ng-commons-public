@@ -1,6 +1,7 @@
-import { inject, PLATFORM_ID, Provider } from '@angular/core'
-import { ORIGIN } from './origin.token'
 import { isPlatformServer } from '@angular/common'
+import { inject, PLATFORM_ID, Provider } from '@angular/core'
+
+import { ORIGIN } from './origin.token'
 
 declare const process: { env: Record<string, undefined | string> }
 

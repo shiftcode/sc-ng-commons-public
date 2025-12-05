@@ -1,8 +1,8 @@
 import { Component, Directive, inject, Injectable, InjectionToken, PLATFORM_ID } from '@angular/core'
-import { LoggerService } from '@shiftcode/ngx-core'
-import { Logger, LogLevel, LogTransport } from '@shiftcode/logger'
 import { TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser'
+import { Logger, LogLevel, LogTransport } from '@shiftcode/logger'
+import { LoggerService } from '@shiftcode/ngx-core'
 
 interface MockLogTransportConfig {
   logLevel: LogLevel

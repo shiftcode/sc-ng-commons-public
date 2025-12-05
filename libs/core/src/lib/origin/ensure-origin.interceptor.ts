@@ -1,5 +1,6 @@
 import { HttpInterceptorFn } from '@angular/common/http'
 import { inject } from '@angular/core'
+
 import { ORIGIN } from './origin.token'
 
 /**

@@ -1,10 +1,7 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "./dist",
-  "assets": [
-    "CHANGELOG.md",
-    "LICENSE"
-  ],
+  "assets": ["CHANGELOG.md", "LICENSE"],
   "lib": {
     "entryFile": "src/public-api.ts"
   }

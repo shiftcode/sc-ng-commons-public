@@ -1,8 +1,8 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { mapValuesDeep } from '@shiftcode/utilities'
-import { Observable } from 'rxjs'
-import { map } from 'rxjs/operators'
+import { map, Observable } from 'rxjs'
+
 import { REGEX_DATE_STRING, REGEX_DATE_STRING_WITH_MS } from '../static-utils/regex'
 
 @Injectable({ providedIn: 'root' })

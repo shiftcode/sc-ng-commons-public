@@ -1,5 +1,5 @@
-import { Injectable, inject } from '@angular/core'
-import { Logger, BaseLoggerService, LogTransport } from '@shiftcode/logger'
+import { inject, Injectable } from '@angular/core'
+import { BaseLoggerService, Logger, LogTransport } from '@shiftcode/logger'
 
 @Injectable({ providedIn: 'root' })
 export class LoggerService {
