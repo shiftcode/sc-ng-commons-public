@@ -1,5 +1,6 @@
-import { ErrorHandler, Injectable, inject } from '@angular/core'
+import { ErrorHandler, inject, Injectable } from '@angular/core'
 import { LogLevel } from '@shiftcode/logger'
+
 import { RemoteLogService } from './remote-log.service'
 
 /**

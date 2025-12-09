@@ -1,5 +1,4 @@
-import { defer, MonoTypeOperatorFunction } from 'rxjs'
-import { tap } from 'rxjs/operators'
+import { defer, MonoTypeOperatorFunction, tap } from 'rxjs'
 
 const NOOP = Symbol.for('NOOP')
 

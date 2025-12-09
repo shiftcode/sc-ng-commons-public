@@ -1,4 +1,5 @@
 import { CanActivateFn, Routes } from '@angular/router'
+
 import { SgTestPageSub1Component } from './sg-test-page-sub-1/sg-test-page-sub-1.component'
 import { SgTestPageSub2Component } from './sg-test-page-sub-2/sg-test-page-sub-2.component'
 import { SgTestRouteQueryParams } from './sg-test-route-query-params.enum'

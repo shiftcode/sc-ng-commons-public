@@ -1,8 +1,8 @@
 import { isPlatformBrowser } from '@angular/common'
-import { Injectable, OnDestroy, PLATFORM_ID, inject } from '@angular/core'
+import { inject, Injectable, OnDestroy, PLATFORM_ID } from '@angular/core'
+import { filter, finalize, NEVER, Observable, Subject } from 'rxjs'
+
 import { setup } from '../static-utils/rxjs/setup.operator'
-import { NEVER, Observable, Subject } from 'rxjs'
-import { filter, finalize } from 'rxjs/operators'
 import { RESIZE_OBSERVER_IMPL } from './resize-observer-impl.token'
 
 @Injectable({ providedIn: 'root' })

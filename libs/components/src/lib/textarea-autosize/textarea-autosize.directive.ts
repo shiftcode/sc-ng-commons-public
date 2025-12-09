@@ -1,8 +1,8 @@
-import { afterNextRender, Directive, ElementRef, HostBinding, inject, input } from '@angular/core'
+import { afterNextRender, Directive, ElementRef, inject, input } from '@angular/core'
 import { FormControlDirective } from '@angular/forms'
-import { LoggerService, onDestroy, ResizeService } from '@shiftcode/ngx-core'
 import { Logger } from '@shiftcode/logger'
-import { takeUntil } from 'rxjs/operators'
+import { LoggerService, onDestroy, ResizeService } from '@shiftcode/ngx-core'
+import { takeUntil } from 'rxjs'
 
 /**
  * Standalone AutosizeDirective for TextArea
@@ -14,10 +14,10 @@ import { takeUntil } from 'rxjs/operators'
   host: {
     '[style.resize]': '"none"',
     '[style.overflow]': '"hidden"',
+    '[rows]': 'rows()',
   },
 })
 export class TextareaAutosizeDirective {
-  @HostBinding('rows')
   readonly rows = input<number | string>(1)
 
   readonly element: HTMLTextAreaElement = inject(ElementRef).nativeElement

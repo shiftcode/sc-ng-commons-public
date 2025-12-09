@@ -1,4 +1,5 @@
 import { ResolveFn } from '@angular/router'
+
 import { resolveFnToCanActivateFn } from './resolve-fn-to-can-activate-fn.function'
 
 describe('resolveFnToCanActivateFn', () => {

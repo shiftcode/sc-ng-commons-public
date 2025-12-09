@@ -14,14 +14,8 @@
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "paths": {
-      "@shiftcode/ngx-core": [
-        "libs/core/dist",
-        "libs/core/src/public-api.ts"
-      ],
-      "@shiftcode/ngx-components": [
-        "libs/components/dist",
-        "libs/components/src/public-api.ts"
-      ]
+      "@shiftcode/ngx-core": ["libs/core/dist", "libs/core/src/public-api.ts"],
+      "@shiftcode/ngx-components": ["libs/components/dist", "libs/components/src/public-api.ts"]
     },
     "declaration": false,
     "experimentalDecorators": true,

@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, effect, ElementRef, inject, input, Renderer2 } from '@angular/core'
-import { LoggerService } from '@shiftcode/ngx-core'
-import { Logger } from '@shiftcode/logger'
-import { SvgRegistry } from './svg-registry.service'
 import { HttpErrorResponse } from '@angular/common/http'
+import { ChangeDetectionStrategy, Component, effect, ElementRef, inject, input, Renderer2 } from '@angular/core'
+import { Logger } from '@shiftcode/logger'
+import { LoggerService } from '@shiftcode/ngx-core'
+
+import { SvgRegistry } from './svg-registry.service'
 
 /**
  * Standalone SvgComponent to display svg inline.
@@ -18,7 +19,7 @@ import { HttpErrorResponse } from '@angular/common/http'
  */
 @Component({
   selector: 'sc-svg',
-  template: '<ng-content></ng-content>',
+  template: '<ng-content />',
   standalone: true,
   styleUrls: ['./svg.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

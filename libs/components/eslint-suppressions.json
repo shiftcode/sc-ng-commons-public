@@ -1,0 +1,10 @@
+{
+  "src/lib/tooltip/flexible-connected-position-strategy-2.ts": {
+    "@typescript-eslint/no-unsafe-call": {
+      "count": 9
+    },
+    "@typescript-eslint/no-unsafe-member-access": {
+      "count": 17
+    }
+  }
+}

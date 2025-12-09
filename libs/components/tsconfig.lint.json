@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.lib.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@shiftcode/ngx-core": ["../core/src/public-api.ts"]
+    },
+    "types": ["jest", "node"]
+  }
+}

@@ -1,4 +1,5 @@
-# !! no source on root !!
-# sort package.json keys
 ./package.json:
-  - sort-package-json
+  - npx sort-package-json
+
+'*':
+  - npm run format:staged

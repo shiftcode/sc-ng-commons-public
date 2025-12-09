@@ -1,7 +1,8 @@
 import { PLATFORM_ID } from '@angular/core'
-import { provideOriginFromEnv } from './provide-origin-from-env.function'
-import { ORIGIN } from './origin.token'
 import { TestBed } from '@angular/core/testing'
+
+import { ORIGIN } from './origin.token'
+import { provideOriginFromEnv } from './provide-origin-from-env.function'
 
 describe('provideOriginFromEnv', () => {
   const ENV_KEY = 'TEST_ORIGIN'

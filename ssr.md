@@ -10,6 +10,7 @@ Instead take the following actions when migrating to Angular ^17:
   see below:
 
 ### `/src/app/app.config.ts`
+
 ```ts
 import { provideHttpClient, withFetch } from '@angular/common/http'
 import { APP_ID, ApplicationConfig } from '@angular/core'
@@ -18,21 +19,22 @@ import { provideClientHydration } from '@angular/platform-browser'
 export const appConfig: ApplicationConfig = {
   providers: [
     { provide: APP_ID, useValue: 'sc' },
-    
+
     /** this new provider from @angular/ssr can be used to rehydrate the app. might introduce problems. */
-    provideClientHydration(), 
-    
+    provideClientHydration(),
+
     /** we can make use of the modern fetch api which is available in the browser and node */
     provideHttpClient(withFetch()),
-    
+
     /* other providers used in the app */
-  ]
+  ],
 }
 ```
 
-
 ### `/src/main.server.ts`
-export a bootstrap function which provides the `provideServerRendering` providers 
+
+export a bootstrap function which provides the `provideServerRendering` providers
+
 ```ts
 import { bootstrapApplication, provideServerRendering } from '@angular/platform-browser'
 import { AppComponent } from './app/app.component'
@@ -42,18 +44,20 @@ const serverConfig: ApplicationConfig = {
   providers: [
     provideServerRendering(),
     /* other special providers like LogTransport etc. for ssr usage only */
-  ]
+  ],
 }
 
-const bootstrap = () => bootstrapApplication(
-  AppComponent,
-  mergeApplicationConfig(appConfig, serverConfig), // merge config with the appConfig
-)
+const bootstrap = () =>
+  bootstrapApplication(
+    AppComponent,
+    mergeApplicationConfig(appConfig, serverConfig), // merge config with the appConfig
+  )
 
 export default bootstrap
 ```
 
 ### `/server.ts`
+
 ```ts
 import { fileURLToPath } from 'node:url'
 import { dirname, join, resolve } from 'node:path'
@@ -104,6 +108,7 @@ export function createSsrApp(localExecution: boolean = false): express.Express {
 ```
 
 ### `/ssr-fn.ts`
+
 ```ts
 import { createServer, proxy } from 'aws-serverless-express'
 import { createSsrApp } from './server'
@@ -130,5 +135,4 @@ const BIN_MIME_TYPES = [
 const app = createSsrApp(false)
 const server = createServer(app, () => {}, BIN_MIME_TYPES)
 export const handler = (event: any, context: any) => proxy(server, event, context)
-
 ```

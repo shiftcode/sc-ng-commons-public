@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core'
-import { fromEvent, NEVER, Observable, share } from 'rxjs'
-import { filter, map } from 'rxjs/operators'
+import { filter, fromEvent, map, NEVER, Observable, share } from 'rxjs'
+
 import { WindowRef } from '../window/window-ref.service'
-import { LOCAL_STORAGE_OPTIONS } from './local-storage-options'
 import { LocalStorage } from './local-storage.service'
+import { LOCAL_STORAGE_OPTIONS } from './local-storage-options'
 import { StorageItemChangeEvent } from './storage-item-change-event.type'
 
 const STORAGE_EVENT_NAME = 'storage'

@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common'
-import { PLATFORM_ID, DOCUMENT } from '@angular/core'
+import { DOCUMENT, PLATFORM_ID } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { LogLevel } from '@shiftcode/logger'
+
 import { LoggerService } from '../logger/logger.service'
 import { MockLoggerService } from '../logger/mock-logger.service'
 import { ScriptLoaderService } from './script-loader.service'
