@@ -7,7 +7,7 @@ import { CLOUD_WATCH_LOG_TRANSPORT_CONFIG_V2 } from './cloud-watch-log-transport
 /**
  * The LogTransport implementation using {@link CloudWatchServiceV2}.
  * Delegates all logging logic to the CloudWatchLogger.
- * Requires the {@link CLOUD_WATCH_LOG_TRANSPORT_CONFIG} to be provided.
+ * Requires the {@link CLOUD_WATCH_LOG_TRANSPORT_CONFIG_V2} to be provided.
  */
 @Injectable({ providedIn: 'root' })
 export class CloudWatchLogTransportServiceV2 extends LogTransport {
