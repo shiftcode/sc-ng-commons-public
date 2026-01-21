@@ -9,6 +9,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { ClassProvider } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { firstValueFrom } from 'rxjs'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 
 import { HttpDateInterceptor } from './http-date.interceptor'
 
@@ -21,7 +22,7 @@ describe('HttpDateInterceptor', () => {
   let interceptor: HttpDateInterceptor
   let httpClient: HttpClient
   let httpController: HttpTestingController
-  let mapResponseSpy: jest.SpyInstance
+  let mapResponseSpy: ReturnType<typeof vi.spyOn>
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -38,10 +39,10 @@ describe('HttpDateInterceptor', () => {
 
     httpClient = TestBed.inject(HttpClient)
     httpController = TestBed.inject(HttpTestingController)
-    mapResponseSpy = jest.spyOn(interceptor, 'mapResponse')
+    mapResponseSpy = vi.spyOn(interceptor, 'mapResponse')
   })
 
-  test('maps dates on response 200', async () => {
+  it('maps dates on response 200', async () => {
     const expected: any = {
       createdAt: new Date(0),
       nested: {
@@ -60,7 +61,7 @@ describe('HttpDateInterceptor', () => {
     expect(response).toEqual(expected)
   })
 
-  test('does not map when not json requested', async () => {
+  it('does not map when not json requested', async () => {
     const request = firstValueFrom(httpClient.get('/test', { responseType: 'text' }))
     httpController.expectOne('/test').flush('just text content', { headers: { 'Content-Type': 'text/plain' } })
     await request

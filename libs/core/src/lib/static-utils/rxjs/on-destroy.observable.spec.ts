@@ -1,5 +1,6 @@
 import { DestroyRef, EnvironmentInjector, Injector, runInInjectionContext } from '@angular/core'
 import { BehaviorSubject, takeUntil } from 'rxjs'
+import { describe, it, expect, vi } from 'vitest'
 
 import { onDestroy } from './on-destroy.observable'
 
@@ -34,8 +35,8 @@ describe('onDestroy', () => {
     const injector = Injector.create({ providers: [] }) as EnvironmentInjector
     const destroyRef = injector.get(DestroyRef)
 
-    const unregisterFn = jest.fn()
-    jest.spyOn(destroyRef, 'onDestroy').mockReturnValue(unregisterFn)
+    const unregisterFn = vi.fn()
+    vi.spyOn(destroyRef, 'onDestroy').mockReturnValue(unregisterFn)
 
     const onDestroy$ = runInInjectionContext(injector, onDestroy)
     const subscription = new BehaviorSubject(0).pipe(takeUntil(onDestroy$)).subscribe()

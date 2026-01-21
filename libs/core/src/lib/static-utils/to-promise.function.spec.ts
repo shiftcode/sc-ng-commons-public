@@ -1,9 +1,10 @@
 import { from } from 'rxjs'
+import { describe, it, expect } from 'vitest'
 
 import { toPromise } from './to-promise.function'
 
 describe('toPromise', () => {
-  test('returns a promise if a promise is passed', async () => {
+  it('returns a promise if a promise is passed', async () => {
     const aValue = { str: 'Hello Promise' } as const
     const promise = Promise.resolve(aValue)
     const res = toPromise(promise)
@@ -21,7 +22,7 @@ describe('toPromise', () => {
   //   expect(toPromise(promise)).toBe(promise)
   // })
 
-  test('returns a resolved promise with the first value emission if the value is an observable', async () => {
+  it('returns a resolved promise with the first value emission if the value is an observable', async () => {
     const firstValue = 'Hello World'
     const obs = from([firstValue, 'second value'])
     const res = toPromise(obs)
@@ -30,7 +31,7 @@ describe('toPromise', () => {
     await expect(res).resolves.toBe(firstValue)
   })
 
-  test('returns a resolved promise if the value is neither observable nor a promise', async () => {
+  it('returns a resolved promise if the value is neither observable nor a promise', async () => {
     const value = { foo: 'bar' } as const
     const res = toPromise(value)
 

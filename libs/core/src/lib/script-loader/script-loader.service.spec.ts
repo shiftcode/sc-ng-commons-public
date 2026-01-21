@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common'
 import { DOCUMENT, PLATFORM_ID } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { LogLevel } from '@shiftcode/logger'
+import { describe, it, expect, beforeEach } from 'vitest'
 
 import { LoggerService } from '../logger/logger.service'
 import { MockLoggerService } from '../logger/mock-logger.service'
@@ -26,7 +27,7 @@ describe('ScriptLoaderService', () => {
       })
       loggerService = <any>TestBed.inject(LoggerService)
     })
-    test('warns when instantiated', () => {
+    it('warns when instantiated', () => {
       TestBed.inject(ScriptLoaderService)
       expect(loggerService.loggers.get('ScriptLoaderService')?.[0]?.statements[LogLevel.WARN].length).toBe(1)
     })
@@ -46,7 +47,7 @@ describe('ScriptLoaderService', () => {
       doc.head.appendChild(doc.createElement('script'))
     })
 
-    test('resolves when script onLoad was called', async () => {
+    it('resolves when script onLoad was called', async () => {
       const scriptSrc = '/assets/script-1.js'
       let req1Resolved = false
       service
@@ -69,7 +70,7 @@ describe('ScriptLoaderService', () => {
       expect(req1Resolved).toBe(true)
     })
 
-    test('request the same script only once', () => {
+    it('request the same script only once', () => {
       const req1 = service.addScriptToHead('/assets/script-2.js')
       const req2 = service.addScriptToHead('/assets/script-2.js')
       expect(req1 === req2).toBe(true)

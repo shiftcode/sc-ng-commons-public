@@ -1,9 +1,10 @@
 import { isObservable, Observable, of } from 'rxjs'
+import { describe, it, expect } from 'vitest'
 
 import { wrapIntoObservable } from './wrap-into-observable'
 
 describe('wrapIntoObservable', () => {
-  test('returns observable from promise', (done) => {
+  it('returns observable from promise', (done) => {
     expect.assertions(2)
     const p = Promise.resolve('ok')
     const x: Observable<string> = wrapIntoObservable(p)
@@ -14,7 +15,7 @@ describe('wrapIntoObservable', () => {
     })
   })
 
-  test('returns observable from plain value', (done) => {
+  it('returns observable from plain value', (done) => {
     expect.assertions(2)
 
     const val = 'ok'
@@ -27,7 +28,7 @@ describe('wrapIntoObservable', () => {
     })
   })
 
-  test('returns provided value when already an observable', () => {
+  it('returns provided value when already an observable', () => {
     const val = of('ok')
     const x: Observable<string> = wrapIntoObservable(val)
     expect(isObservable(x)).toBeTruthy()

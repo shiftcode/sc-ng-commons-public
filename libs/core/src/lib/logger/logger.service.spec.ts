@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser'
 import { Logger, LogLevel, LogTransport } from '@shiftcode/logger'
 import { LoggerService } from '@shiftcode/ngx-core'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 
 interface MockLogTransportConfig {
   logLevel: LogLevel
@@ -108,7 +109,7 @@ describe('MyDirective', () => {
   })
 
   it('should log a debug message when doSomething is called', () => {
-    const loggerSpy = jest.spyOn(directiveInstance['logger'], 'debug')
+    const loggerSpy = vi.spyOn(directiveInstance['logger'], 'debug')
     directiveInstance.doSomething()
 
     expect(loggerSpy).toHaveBeenCalledWith('doing something')

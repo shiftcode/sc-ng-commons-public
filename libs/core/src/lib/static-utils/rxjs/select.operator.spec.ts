@@ -1,4 +1,5 @@
 import { of, Subject, tap } from 'rxjs'
+import { describe, it, expect, vi } from 'vitest'
 
 import { select } from './select.operator'
 
@@ -7,10 +8,10 @@ interface MyObject {
 }
 
 describe('select operator', () => {
-  test('maps the to the provided property value', () => {
+  it('maps the to the provided property value', () => {
     const subject = new Subject<MyObject>()
 
-    const onNext = jest.fn()
+    const onNext = vi.fn()
     subject.pipe(select('a')).subscribe(onNext)
 
     subject.next({ a: 'ok' })
@@ -20,7 +21,7 @@ describe('select operator', () => {
     subject.complete()
   })
 
-  test('restricts types', () => {
+  it('restricts types', () => {
     of({ val: 'ok' }).pipe(
       select('val'),
       tap((val) => val.toUpperCase()),

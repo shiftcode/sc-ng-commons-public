@@ -1,10 +1,11 @@
 import { Subject } from 'rxjs'
+import { describe, it, expect, vi } from 'vitest'
 
 import { setup } from './setup.operator'
 
 describe('setup operator', () => {
-  test('setup is called when someone subscribes', () => {
-    const onSetup = jest.fn()
+  it('setup is called when someone subscribes', () => {
+    const onSetup = vi.fn()
     const subject = new Subject<string>()
     const obs = subject.pipe(setup(onSetup))
     expect(onSetup).not.toHaveBeenCalled()

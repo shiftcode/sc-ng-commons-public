@@ -1,10 +1,8 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "./out-tsc/spec"
+    "outDir": "./out-tsc/spec",
+    "types": []
   },
-  "include": ["**/*.spec.ts", "**/*.d.ts", "test/**/*.ts"],
-  "ts-jest": {
-    "allowSyntheticDefaultImports": true
-  }
+  "include": ["**/*.spec.ts", "**/*.d.ts", "test/**/*.ts"]
 }

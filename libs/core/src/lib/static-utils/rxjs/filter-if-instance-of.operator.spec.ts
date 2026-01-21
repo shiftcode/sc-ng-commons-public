@@ -1,4 +1,5 @@
 import { of, Subject, tap } from 'rxjs'
+import { describe, it, expect, vi } from 'vitest'
 
 import { filterIfInstanceOf } from './filter-if-instance-of.operator'
 
@@ -23,10 +24,10 @@ class B extends Base {
 }
 
 describe('filterIfInstanceOf', () => {
-  test('filters to instance', () => {
+  it('filters to instance', () => {
     const subject = new Subject<Base>()
 
-    const onNext = jest.fn()
+    const onNext = vi.fn()
 
     subject.pipe(filterIfInstanceOf(B)).subscribe(onNext)
 
@@ -36,7 +37,7 @@ describe('filterIfInstanceOf', () => {
     expect(onNext).toHaveBeenCalledTimes(1)
     expect(onNext.mock.calls[0][0]).toBeInstanceOf(B)
   })
-  test('restricts types', () => {
+  it('restricts types', () => {
     of<Base>(new A()).pipe(
       filterIfInstanceOf(B),
       tap((b) => b.b.toUpperCase()),

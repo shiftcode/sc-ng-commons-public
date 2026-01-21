@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
+import { describe, it, expect, beforeEach } from 'vitest'
 
 import { isInputElement } from './is-input-element.function'
 
@@ -8,11 +9,11 @@ describe('isInputElement', () => {
   beforeEach(() => {
     doc = TestBed.inject(DOCUMENT)
   })
-  test('returns true when input element', () => {
+  it('returns true when input element', () => {
     const el = doc.createElement('input')
     expect(isInputElement(el)).toBe(true)
   })
-  test('returns false when div element', () => {
+  it('returns false when div element', () => {
     const el = doc.createElement('div')
     expect(isInputElement(el)).toBe(false)
   })

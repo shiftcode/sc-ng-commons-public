@@ -1,7 +1,8 @@
+import { describe, it, expect } from 'vitest'
 import { leadingZero } from './leading-zero.function'
 
 describe('leadingZero', () => {
-  test('works', () => {
+  it('works', () => {
     expect(leadingZero(2, 1)).toEqual('01')
     expect(leadingZero(2, 22)).toEqual('22')
     expect(leadingZero(2, 333)).toEqual('33')
@@ -17,7 +18,7 @@ describe('leadingZero', () => {
     expect(leadingZero(4, 4444)).toEqual('4444')
     expect(leadingZero(4, 55555)).toEqual('5555')
   })
-  test('rounds decimal values', () => {
+  it('rounds decimal values', () => {
     expect(leadingZero(2, 1.3)).toEqual('01')
     expect(leadingZero(2, 5.8)).toEqual('06')
   })

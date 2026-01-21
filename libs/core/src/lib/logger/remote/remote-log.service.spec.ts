@@ -3,6 +3,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { FactoryProvider, ValueProvider } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { createJsonLogObjectData, LogLevel } from '@shiftcode/logger'
+import { describe, it, expect, vi } from 'vitest'
 
 import { LOG_REQUEST_INFO_FN } from '../log-request-info-fn.token'
 import { LogRequestInfoFn } from '../log-request-info-fn.type'
@@ -80,7 +81,7 @@ describe('RemoteLogService', () => {
   })
 
   it('calls logRequestInfoFn and includes its result in the log data', () => {
-    const logRequestInfoFn = jest.fn().mockReturnValue({ userId: '12345' })
+    const logRequestInfoFn = vi.fn().mockReturnValue({ userId: '12345' })
 
     const [service, httpMock] = setup(mockConfig, () => logRequestInfoFn)
 
