@@ -1,15 +1,22 @@
-/* eslint-disable no-console */
 import { isPlatformServer } from '@angular/common'
-import { inject, Injectable, PLATFORM_ID } from '@angular/core'
+import { inject, Injectable, InjectionToken, PLATFORM_ID } from '@angular/core'
 import { LogLevel, LogTransport } from '@shiftcode/logger'
 
-import { leadingZero } from '../helper/leading-zero.function'
-import { CONSOLE_LOG_TRANSPORT_CONFIG } from './console-log-transport-config.injection-token'
+import { loggingTimeFormat } from '../helper/logging-time-format.const'
+
+export interface BrowserConsoleLogTransportConfig {
+  logLevel: LogLevel
+}
+
+export const BROWSER_CONSOLE_LOG_TRANSPORT_CONFIG = new InjectionToken<BrowserConsoleLogTransportConfig>(
+  'BROWSER_CONSOLE_LOG_TRANSPORT_CONFIG',
+  { factory: () => ({ logLevel: LogLevel.DEBUG }) },
+)
 
 @Injectable({ providedIn: 'root' })
-export class ConsoleLogTransport extends LogTransport {
+export class BrowserConsoleLogTransportService extends LogTransport {
   constructor() {
-    super(inject(CONSOLE_LOG_TRANSPORT_CONFIG).logLevel)
+    super(inject(BROWSER_CONSOLE_LOG_TRANSPORT_CONFIG).logLevel)
     if (isPlatformServer(inject(PLATFORM_ID))) {
       throw new Error('This log transport is only for client side use - consider using "NodeConsoleLogTransport"')
     }
@@ -17,12 +24,8 @@ export class ConsoleLogTransport extends LogTransport {
 
   log(level: LogLevel, clazzName: string, color: string, timestamp: Date, args: any[]) {
     if (this.isLevelEnabled(level)) {
-      const now = [
-        leadingZero(2, timestamp.getHours()),
-        leadingZero(2, timestamp.getMinutes()),
-        leadingZero(2, timestamp.getSeconds()),
-        leadingZero(3, timestamp.getMilliseconds()),
-      ].join(':') // 'HH:mm:ss:SSS'
+      const now = loggingTimeFormat.format(timestamp)
+
       const firstArgument = args.splice(0, 1)[0]
 
       if (typeof firstArgument === 'string') {
@@ -32,6 +35,7 @@ export class ConsoleLogTransport extends LogTransport {
         args.splice(0, 0, `%c${now} - ${clazzName} ::`, `color:${color}`, firstArgument)
       }
 
+      /* eslint-disable no-console */
       switch (level) {
         case LogLevel.DEBUG:
           console.debug(...args)
@@ -47,7 +51,10 @@ export class ConsoleLogTransport extends LogTransport {
           break
         case LogLevel.OFF:
           break
+        default:
+          return level // exhaustive check
       }
+      /* eslint-enable no-console */
     }
   }
 }

@@ -29,12 +29,12 @@ export * from './lib/logger/cloudwatch/is-error.function'
 export * from './lib/logger/cloudwatch/with-cloudwatch-transport.function'
 
 // console logger
-export * from './lib/logger/console/console-log-transport.service'
-export * from './lib/logger/console/console-log-transport-config'
-export * from './lib/logger/console/console-log-transport-config.injection-token'
-export * from './lib/logger/console/node-console-log-transport.service'
-export * from './lib/logger/console/with-browser-console-transport.function'
-export * from './lib/logger/console/with-node-console-transport.function'
+export * from './lib/logger/browser-console/browser-console-log-transport.service'
+export * from './lib/logger/browser-console/with-browser-console-transport.function'
+export * from './lib/logger/console-json/console-json-log-transport.service'
+export * from './lib/logger/console-json/with-console-json-log-transport.function'
+export * from './lib/logger/node-console/node-console-log-transport.service'
+export * from './lib/logger/node-console/with-node-console-transport.function'
 
 // remote logger
 export * from './lib/logger/remote/remote-log.service'
