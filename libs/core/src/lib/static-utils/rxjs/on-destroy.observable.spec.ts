@@ -1,6 +1,6 @@
 import { DestroyRef, EnvironmentInjector, Injector, runInInjectionContext } from '@angular/core'
 import { BehaviorSubject, takeUntil } from 'rxjs'
-import { describe, it, expect, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 import { onDestroy } from './on-destroy.observable'
 

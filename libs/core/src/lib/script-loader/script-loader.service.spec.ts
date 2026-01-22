@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common'
 import { DOCUMENT, PLATFORM_ID } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { LogLevel } from '@shiftcode/logger'
-import { describe, it, expect, beforeEach } from 'vitest'
+import { beforeEach,describe, expect, it } from 'vitest'
 
 import { LoggerService } from '../logger/logger.service'
 import { MockLoggerService } from '../logger/mock-logger.service'

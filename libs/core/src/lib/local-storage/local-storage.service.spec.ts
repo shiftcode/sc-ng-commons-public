@@ -1,7 +1,7 @@
 import { ClassProvider, ValueProvider } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { firstValueFrom, scan, shareReplay } from 'rxjs'
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { MockStorage } from '../../../test'
 import { WindowRef } from '../window/window-ref.service'

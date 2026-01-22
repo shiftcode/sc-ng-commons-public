@@ -1,5 +1,5 @@
 import { ResolveFn } from '@angular/router'
-import { describe, it, expect } from 'vitest'
+import { describe, expect,it } from 'vitest'
 
 import { resolveFnToCanActivateFn } from './resolve-fn-to-can-activate-fn.function'
 

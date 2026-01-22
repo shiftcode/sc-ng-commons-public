@@ -1,5 +1,5 @@
 import { of, Subject, tap } from 'rxjs'
-import { describe, it, expect, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 import { select } from './select.operator'
 

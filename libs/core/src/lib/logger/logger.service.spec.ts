@@ -2,8 +2,9 @@ import { Component, Directive, inject, Injectable, InjectionToken, PLATFORM_ID }
 import { TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser'
 import { Logger, LogLevel, LogTransport } from '@shiftcode/logger'
-import { LoggerService } from '@shiftcode/ngx-core'
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+
+import { LoggerService } from './logger.service'
 
 interface MockLogTransportConfig {
   logLevel: LogLevel
@@ -115,3 +116,4 @@ describe('MyDirective', () => {
     expect(loggerSpy).toHaveBeenCalledWith('doing something')
   })
 })
+

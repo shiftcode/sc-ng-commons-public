@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs'
-import { describe, it, expect, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 import { filterIfFalsy } from './filter-if-falsy.operator'
 

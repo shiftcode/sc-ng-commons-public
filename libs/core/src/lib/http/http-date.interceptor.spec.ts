@@ -9,7 +9,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { ClassProvider } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { firstValueFrom } from 'rxjs'
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { HttpDateInterceptor } from './http-date.interceptor'
 

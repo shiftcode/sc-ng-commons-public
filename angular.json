@@ -12,12 +12,14 @@
         "build": {
           "builder": "@angular/build:ng-packagr",
           "options": {
-            "tsConfig": "libs/core/tsconfig.lib.json",
             "project": "libs/core/ng-package.json"
           },
           "configurations": {
             "production": {
               "tsConfig": "libs/core/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/core/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -26,7 +28,7 @@
           "builder": "@angular/build:unit-test",
           "options": {
             "tsConfig": "tsconfig.spec.json",
-            "polyfills": ["zone.js", "zone.js/testing"]
+            "runner": "vitest"
           }
         }
       }
@@ -40,12 +42,14 @@
         "build": {
           "builder": "@angular/build:ng-packagr",
           "options": {
-            "project": "libs/components/ng-package.json",
-            "tsConfig": "libs/components/tsconfig.lib.json"
+            "project": "libs/components/ng-package.json"
           },
           "configurations": {
             "production": {
               "tsConfig": "libs/components/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/components/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -54,7 +58,7 @@
           "builder": "@angular/build:unit-test",
           "options": {
             "tsConfig": "tsconfig.spec.json",
-            "polyfills": ["zone.js", "zone.js/testing"]
+            "runner": "vitest"
           }
         }
       }
