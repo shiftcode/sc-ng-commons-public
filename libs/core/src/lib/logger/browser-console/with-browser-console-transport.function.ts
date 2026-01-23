@@ -20,9 +20,6 @@ export function withBrowserConsoleTransport(
 
   return {
     kind: LoggerFeatureKind.TRANSPORT,
-    providers: [
-      configProvider,
-      { provide: LogTransport, useClass: BrowserConsoleLogTransportService, multi: true }
-    ],
+    providers: [configProvider, { provide: LogTransport, useClass: BrowserConsoleLogTransportService, multi: true }],
   }
 }

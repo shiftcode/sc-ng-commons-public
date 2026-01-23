@@ -1,6 +1,12 @@
 /* eslint-disable */
 import { inject, Injectable } from '@angular/core'
-import { createJsonLogObjectData, getJsonStringifyReplacer, JsonLogObjectData, LogLevel, pushToRingBuffer } from '@shiftcode/logger'
+import {
+  createJsonLogObjectData,
+  getJsonStringifyReplacer,
+  JsonLogObjectData,
+  LogLevel,
+  pushToRingBuffer,
+} from '@shiftcode/logger'
 import { jsonMapSetStringifyReplacer } from '@shiftcode/utilities'
 import { buffer, catchError, defer, filter, first, mergeMap, Observable, of, Subject, timer } from 'rxjs'
 

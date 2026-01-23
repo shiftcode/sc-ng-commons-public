@@ -13,6 +13,4 @@ export interface CloudWatchLogV2Config {
   bufferSize?: number
 }
 
-export const CLOUD_WATCH_LOG_V2_CONFIG = new InjectionToken<CloudWatchLogV2Config>(
-  'CLOUD_WATCH_LOG_V2_CONFIG',
-)
+export const CLOUD_WATCH_LOG_V2_CONFIG = new InjectionToken<CloudWatchLogV2Config>('CLOUD_WATCH_LOG_V2_CONFIG')
