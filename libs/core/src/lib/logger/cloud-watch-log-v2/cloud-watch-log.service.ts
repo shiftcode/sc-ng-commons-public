@@ -1,12 +1,11 @@
 /* eslint-disable */
 import { inject, Injectable } from '@angular/core'
-import { createJsonLogObjectData, getJsonStringifyReplacer, JsonLogObjectData, LogLevel } from '@shiftcode/logger'
+import { createJsonLogObjectData, getJsonStringifyReplacer, JsonLogObjectData, LogLevel, pushToRingBuffer } from '@shiftcode/logger'
 import { jsonMapSetStringifyReplacer } from '@shiftcode/utilities'
 import { buffer, catchError, defer, filter, first, mergeMap, Observable, of, Subject, timer } from 'rxjs'
 
 import { CloudWatchLogV2ApiService, HttpApiError, LogEvent } from './cloud-watch-log-api.service'
 import { CLOUD_WATCH_LOG_V2_CONFIG } from './cloud-watch-log-config.injection-token'
-import { pushToRingBuffer } from './cloud-watch-log-utils'
 import { LOG_REQUEST_INFO_FN } from '../log-request-info-fn.token'
 import { ClientIdService } from '../../client-id/client-id.service'
 
