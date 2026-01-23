@@ -8,7 +8,7 @@ import { CloudWatchServiceV2 } from './cloud-watch.service'
  * requires the {@link CloudWatchServiceV2}
  */
 @Injectable({ providedIn: 'root' })
-export class CloudWatchErrorHandlerV2 extends ErrorHandler {
+export class CloudWatchLogErrorHandlerV2 extends ErrorHandler {
   private readonly injector = inject(Injector)
 
   override handleError(error: any): void {

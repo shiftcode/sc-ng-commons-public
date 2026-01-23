@@ -43,15 +43,17 @@ export class HttpApiError extends HttpError {
   }
 }
 
+enum ApiPath {
+  STREAMS = 'streams',
+  STREAM_LOGS = 'logs',
+}
+
 @Injectable({ providedIn: 'root' })
 export class CloudWatchLogApiService {
-  static readonly LOG_STREAMS_PATH = '/streams'
-  static readonly LOG_STREAMS_LOGS_PATH = '/streams/{logStreamName}/logs'
-
   private readonly apiUrl = inject(CLOUD_WATCH_LOG_TRANSPORT_CONFIG_V2).apiUrl
 
   async createLogStream(logStreamName: string): Promise<void> {
-    const resp = await fetch(new URL(CloudWatchLogApiService.LOG_STREAMS_PATH, this.apiUrl), {
+    const resp = await fetch(new URL(ApiPath.STREAMS, this.apiUrl), {
       method: 'POST',
       headers: { [CommonHttpHeader.CONTENT_TYPE]: ContentType.JSON },
       body: JSON.stringify({ logStreamName }),
@@ -60,7 +62,7 @@ export class CloudWatchLogApiService {
   }
 
   async describeLogStream(logStreamName: string): Promise<LogStream> {
-    const result = await fetch(`${CloudWatchLogApiService.LOG_STREAMS_PATH}/${logStreamName}`, {
+    const result = await fetch(new URL(`${ApiPath.STREAMS}/${logStreamName}`, this.apiUrl), {
       method: 'GET',
       headers: { [CommonHttpHeader.CONTENT_TYPE]: ContentType.JSON },
     })
@@ -70,7 +72,7 @@ export class CloudWatchLogApiService {
 
   async writeLogs(logStreamName: string, logs: LogEvent[]): Promise<void> {
     // todo: use beaconApi ?
-    const resp = await fetch(`${CloudWatchLogApiService.LOG_STREAMS_PATH}/${logStreamName}/logs`, {
+    const resp = await fetch(new URL(`${ApiPath.STREAMS}/${logStreamName}/${ApiPath.STREAM_LOGS}`, this.apiUrl), {
       method: 'POST',
       headers: { [CommonHttpHeader.CONTENT_TYPE]: ContentType.JSON },
       body: JSON.stringify({ logEvents: logs } satisfies WriteLogEvents),

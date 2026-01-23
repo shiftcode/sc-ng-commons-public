@@ -30,7 +30,7 @@ export * from './lib/logger/cloudwatch/with-cloudwatch-transport.function'
 
 // cloudwatch v2 logger
 export * from './lib/logger/cloud-watch-v2/cloud-watch.service'
-export * from './lib/logger/cloud-watch-v2/cloud-watch-error-handler.service'
+export * from './lib/logger/cloud-watch-v2/cloud-watch-log-error-handler.service'
 export * from './lib/logger/cloud-watch-v2/cloud-watch-log-transport.service'
 export * from './lib/logger/cloud-watch-v2/cloud-watch-log-transport-config.injection-token'
 export * from './lib/logger/cloud-watch-v2/with-cloud-watch-transport.function'
