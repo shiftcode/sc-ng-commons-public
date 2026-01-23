@@ -6,16 +6,16 @@ import { buffer, catchError, defer, filter, first, mergeMap, Observable, of, Sub
 
 import { CloudWatchLogApiService, HttpApiError, LogEvent } from './cloud-watch-log-api.service'
 import { CLOUD_WATCH_LOG_TRANSPORT_CONFIG_V2 } from './cloud-watch-log-transport-config.injection-token'
-import { pushToRingBuffer } from './log-utils'
+import { pushToRingBuffer } from './cloud-watch-log-utils'
 import { LOG_REQUEST_INFO_FN } from '../log-request-info-fn.token'
 import { ClientIdService } from '../../client-id/client-id.service'
 
 /**
  * Service to send messages to the integration api for CloudWatch Logs
- * requires the {@link CLOUD_WATCH_LOG_TRANSPORT_CONFIG} to be provided
+ * requires the {@link CLOUD_WATCH_LOG_TRANSPORT_CONFIG_V2} to be provided
  */
 @Injectable({ providedIn: 'root' })
-export class CloudWatchServiceV2 {
+export class CloudWatchLogServiceV2 {
   // max request per second per log stream
   private static readonly CLOUD_WATCH_RATE_LIMIT = 1000 / 5
 
@@ -39,9 +39,9 @@ export class CloudWatchServiceV2 {
     // no instantiation if LogLevel === OFF
     if (this.config.logLevel !== LogLevel.OFF) {
       // validation
-      if (this.config.flushInterval <= CloudWatchServiceV2.CLOUD_WATCH_RATE_LIMIT) {
+      if (this.config.flushInterval <= CloudWatchLogServiceV2.CLOUD_WATCH_RATE_LIMIT) {
         throw new Error(
-          `Flush interval must be greater than ${CloudWatchServiceV2.CLOUD_WATCH_RATE_LIMIT}ms --> CloudWatch Rate Limit`,
+          `Flush interval must be greater than ${CloudWatchLogServiceV2.CLOUD_WATCH_RATE_LIMIT}ms --> CloudWatch Rate Limit`,
         )
       }
 
@@ -62,7 +62,8 @@ export class CloudWatchServiceV2 {
 
     // if level is below threshold, buffer the event
     if (level < this.config.logLevel) {
-      pushToRingBuffer(this.pendingBuffer, logEvent, this.bufferSize)
+      // we use `structuredClone` to prevent potential mutations of the logEvent before it is actually sent
+      pushToRingBuffer(this.pendingBuffer, structuredClone(logEvent), this.bufferSize)
       return
     }
 

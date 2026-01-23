@@ -9,7 +9,7 @@ import {
   CloudWatchLogTransportConfigV2,
 } from './cloud-watch-log-transport-config.injection-token'
 
-export function withCloudWatchTransportV2(config: ValueOrFactory<CloudWatchLogTransportConfigV2>): LoggerFeature {
+export function withCloudWatchLogTransportV2(config: ValueOrFactory<CloudWatchLogTransportConfigV2>): LoggerFeature {
   return {
     kind: LoggerFeatureKind.TRANSPORT,
     providers: [

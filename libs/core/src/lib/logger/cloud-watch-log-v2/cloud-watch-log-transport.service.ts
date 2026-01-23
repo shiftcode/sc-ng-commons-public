@@ -1,17 +1,17 @@
 import { inject, Injectable } from '@angular/core'
 import { LogLevel, LogTransport } from '@shiftcode/logger'
 
-import { CloudWatchServiceV2 } from './cloud-watch.service'
+import { CloudWatchLogServiceV2 } from './cloud-watch-log.service'
 import { CLOUD_WATCH_LOG_TRANSPORT_CONFIG_V2 } from './cloud-watch-log-transport-config.injection-token'
 
 /**
- * The LogTransport implementation using {@link CloudWatchServiceV2}.
+ * The LogTransport implementation using {@link CloudWatchLogServiceV2}.
  * Delegates all logging logic to the CloudWatchLogger.
  * Requires the {@link CLOUD_WATCH_LOG_TRANSPORT_CONFIG_V2} to be provided.
  */
 @Injectable({ providedIn: 'root' })
 export class CloudWatchLogTransportServiceV2 extends LogTransport {
-  private readonly cloudWatchLogger = inject(CloudWatchServiceV2)
+  private readonly cloudWatchLogger = inject(CloudWatchLogServiceV2)
 
   constructor() {
     super(inject(CLOUD_WATCH_LOG_TRANSPORT_CONFIG_V2).logLevel)
