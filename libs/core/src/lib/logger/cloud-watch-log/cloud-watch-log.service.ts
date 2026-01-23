@@ -63,12 +63,12 @@ export class CloudWatchLogV2Service {
     if (this.config.logLevel === LogLevel.OFF) {
       return
     }
-    const logEvent = this.buildLogEvent(level, context, timestamp, args)
+    // we use `structuredClone` to prevent potential mutations of the logEvent by reference
+    const logEvent = structuredClone(this.buildLogEvent(level, context, timestamp, args))
 
     // if level is below threshold, buffer the event
     if (level < this.config.logLevel) {
-      // we use `structuredClone` to prevent potential mutations of the logEvent before it is actually sent
-      pushToRingBuffer(this.pendingBuffer, structuredClone(logEvent), this.bufferSize)
+      pushToRingBuffer(this.pendingBuffer, logEvent, this.bufferSize)
       return
     }
 
