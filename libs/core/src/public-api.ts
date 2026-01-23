@@ -28,6 +28,13 @@ export * from './lib/logger/cloudwatch/cloud-watch-log-transport-config.model'
 export * from './lib/logger/cloudwatch/is-error.function'
 export * from './lib/logger/cloudwatch/with-cloudwatch-transport.function'
 
+// CloudWatchLog (V2)
+export * from './lib/logger/cloud-watch-log-v2/cloud-watch-log.service'
+export * from './lib/logger/cloud-watch-log-v2/cloud-watch-log-config.injection-token'
+export * from './lib/logger/cloud-watch-log-v2/cloud-watch-log-error-handler.service'
+export * from './lib/logger/cloud-watch-log-v2/cloud-watch-log-transport.service'
+export * from './lib/logger/cloud-watch-log-v2/with-cloud-watch-log-transport.function'
+
 // console logger
 export * from './lib/logger/browser-console/browser-console-log-transport.service'
 export * from './lib/logger/browser-console/with-browser-console-transport.function'
