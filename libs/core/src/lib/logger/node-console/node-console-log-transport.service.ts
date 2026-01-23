@@ -40,44 +40,46 @@ export class NodeConsoleLogTransportService extends LogTransport {
 
   log(level: LogLevel, clazzName: string, hexColor: string, timestamp: Date, args: any[]) {
     if (this.isLevelEnabled(level)) {
-      const now = loggingTimeFormat.format(timestamp)
-      // make sure to not alter the input args array
-      if (typeof args[0] === 'string') {
-        // if first arg is string, also colorize it
-        args = [
-          logLevelEmoji[level],
-          colorizeForConsole(`${now} - ${clazzName} :: ${args[0]}`, hexColor),
-          ...args.slice(1).map(this.stringifyJson),
-        ]
-      } else {
-        args = [
-          logLevelEmoji[level],
-          colorizeForConsole(`${now} - ${clazzName} ::`, hexColor),
-          ...args.map(this.stringifyJson),
-        ]
-      }
-
-      /* eslint-disable no-console */
-      switch (level) {
-        case LogLevel.DEBUG:
-          console.debug(...args)
-          break
-        case LogLevel.ERROR:
-          console.error(...args)
-          break
-        case LogLevel.INFO:
-          console.info(...args)
-          break
-        case LogLevel.WARN:
-          console.warn(...args)
-          break
-        case LogLevel.OFF:
-          break
-        default:
-          return level // exhaustive check
-      }
-      /* eslint-enable no-console */
+      return
     }
+
+    const now = loggingTimeFormat.format(timestamp)
+    // make sure to not alter the input args array
+    if (typeof args[0] === 'string') {
+      // if first arg is string, also colorize it
+      args = [
+        logLevelEmoji[level],
+        colorizeForConsole(`${now} - ${clazzName} :: ${args[0]}`, hexColor),
+        ...args.slice(1).map(this.stringifyJson),
+      ]
+    } else {
+      args = [
+        logLevelEmoji[level],
+        colorizeForConsole(`${now} - ${clazzName} ::`, hexColor),
+        ...args.map(this.stringifyJson),
+      ]
+    }
+
+    /* eslint-disable no-console */
+    switch (level) {
+      case LogLevel.DEBUG:
+        console.debug(...args)
+        break
+      case LogLevel.ERROR:
+        console.error(...args)
+        break
+      case LogLevel.INFO:
+        console.info(...args)
+        break
+      case LogLevel.WARN:
+        console.warn(...args)
+        break
+      case LogLevel.OFF:
+        break
+      default:
+        return level // exhaustive check
+    }
+    /* eslint-enable no-console */
   }
 
   private readonly stringifyJson = (data: unknown) => {

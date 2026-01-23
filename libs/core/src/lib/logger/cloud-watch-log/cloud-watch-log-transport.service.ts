@@ -18,7 +18,9 @@ export class CloudWatchLogV2TransportService extends LogTransport {
   }
 
   log(level: LogLevel, clazzName: string, _color: string, timestamp: Date, args: unknown[]): void {
-    // checking the log level is done in the cloudWatchLogger. important.
+    /**
+     * checking the log level is done in the {@link CloudWatchLogV2Service} in order to do the buffering of below-level logs.
+     */
     this.cloudWatchLogger.addMessage(level, clazzName, timestamp, args)
   }
 }

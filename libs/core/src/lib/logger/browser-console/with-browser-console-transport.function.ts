@@ -1,5 +1,6 @@
 import { LogTransport } from '@shiftcode/logger'
 
+import { ValueOrFactory } from '../helper/value-or-factory.type'
 import { LoggerFeature } from '../logger-feature.type'
 import { LoggerFeatureKind } from '../logger-feature-kind.enum'
 import {
@@ -8,18 +9,15 @@ import {
   BrowserConsoleLogTransportService,
 } from './browser-console-log-transport.service'
 
-export function withBrowserConsoleTransport(
-  browserConsoleLogTransportConfigOrFactory:
-    | BrowserConsoleLogTransportConfig
-    | (() => BrowserConsoleLogTransportConfig),
-): LoggerFeature {
-  const configProvider =
-    typeof browserConsoleLogTransportConfigOrFactory === 'function'
-      ? { provide: BROWSER_CONSOLE_LOG_TRANSPORT_CONFIG, useFactory: browserConsoleLogTransportConfigOrFactory }
-      : { provide: BROWSER_CONSOLE_LOG_TRANSPORT_CONFIG, useValue: browserConsoleLogTransportConfigOrFactory }
-
+export function withBrowserConsoleTransport(config: ValueOrFactory<BrowserConsoleLogTransportConfig>): LoggerFeature {
   return {
     kind: LoggerFeatureKind.TRANSPORT,
-    providers: [configProvider, { provide: LogTransport, useClass: BrowserConsoleLogTransportService, multi: true }],
+    providers: [
+      {
+        provide: BROWSER_CONSOLE_LOG_TRANSPORT_CONFIG,
+        ...(typeof config === 'function' ? { useFactory: config } : { useValue: config }),
+      },
+      { provide: LogTransport, useClass: BrowserConsoleLogTransportService, multi: true },
+    ],
   }
 }

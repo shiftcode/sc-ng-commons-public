@@ -9,17 +9,13 @@ import {
   ConsoleJsonLogTransportService,
 } from './console-json-log-transport.service'
 
-export function withConsoleJsonLogTransport(
-  consoleJsonLogTransportConfig: ValueOrFactory<ConsoleJsonLogTransportConfig>,
-): LoggerFeature {
+export function withConsoleJsonLogTransport(config: ValueOrFactory<ConsoleJsonLogTransportConfig>): LoggerFeature {
   return {
     kind: LoggerFeatureKind.TRANSPORT,
     providers: [
       {
         provide: CONSOLE_JSON_LOG_TRANSPORT_CONFIG,
-        ...(typeof consoleJsonLogTransportConfig === 'function'
-          ? { useFactory: consoleJsonLogTransportConfig }
-          : { useValue: consoleJsonLogTransportConfig }),
+        ...(typeof config === 'function' ? { useFactory: config } : { useValue: config }),
       },
       { provide: LogTransport, useClass: ConsoleJsonLogTransportService, multi: true },
     ],
