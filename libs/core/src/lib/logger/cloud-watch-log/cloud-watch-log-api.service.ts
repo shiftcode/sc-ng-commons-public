@@ -1,7 +1,6 @@
 // eslint-disable-next-line max-classes-per-file
 import { inject, Injectable } from '@angular/core'
-import { ContentType } from '@shiftcode/utilities'
-import { CommonHttpHeader } from '@shiftcode/utilities'
+import { CommonHttpHeader, ContentType } from '@shiftcode/utilities'
 
 import { CLOUD_WATCH_LOG_V2_CONFIG } from './cloud-watch-log-config.injection-token'
 
@@ -70,14 +69,17 @@ export class CloudWatchLogV2ApiService {
     return (await result.json()) as LogStream
   }
 
-  async writeLogs(logStreamName: string, logs: LogEvent[]): Promise<void> {
-    // todo: use beaconApi ?
-    const resp = await fetch(new URL(`${ApiPath.STREAMS}/${logStreamName}/${ApiPath.STREAM_LOGS}`, this.apiUrl), {
-      method: 'POST',
-      headers: { [CommonHttpHeader.CONTENT_TYPE]: ContentType.JSON },
-      body: JSON.stringify({ logEvents: logs } satisfies WriteLogEvents),
-    })
-    await this.handleError(resp)
+  writeLogs(logStreamName: string, logs: LogEvent[]): Promise<void> {
+    const url = new URL(`${ApiPath.STREAMS}/${logStreamName}/${ApiPath.STREAM_LOGS}`, this.apiUrl)
+
+    // since the sendBeacon does not support providing headers directly,
+    //   we use a blob, to achieve the same effect (content-type application/json)
+    const data = new Blob([JSON.stringify({ logEvents: logs } satisfies WriteLogEvents)], { type: 'application/json' })
+
+    // we use the beacon api to ensure log sending requests are not cancelled on page unload
+    const ok = navigator.sendBeacon(url, data)
+
+    return ok ? Promise.resolve() : Promise.reject(new Error('Failed to send logs via sendBeacon'))
   }
 
   private async handleError(resp: Response): Promise<void> {
