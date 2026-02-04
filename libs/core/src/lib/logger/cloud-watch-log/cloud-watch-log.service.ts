@@ -30,8 +30,8 @@ export class CloudWatchLogV2Service {
 
   private readonly logRequestInfoFn = inject(LOG_REQUEST_INFO_FN, { optional: true })
   private readonly config = inject(CLOUD_WATCH_LOG_V2_CONFIG)
-  private readonly jsonStringifyReplacer = this.config.jsonStringifyReplacer ?? jsonMapSetStringifyReplacer
-  private readonly bufferSize = this.config.bufferSize ?? 100
+  private readonly jsonStringifyReplacer = this.config.jsonStringifyReplacer || jsonMapSetStringifyReplacer
+  private readonly bufferSize = this.config.bufferSize || 100
 
   /** Ring buffer for log events below the configured level, flushed on ERROR */
   private pendingBuffer: LogEvent[] = []
@@ -145,7 +145,7 @@ export class CloudWatchLogV2Service {
     // outer observable only for retry logic -- see below
     return defer(() => this.api.writeLogs(this.clientId, events)).pipe(
       catchError((err) => {
-        console.error('unable to put logs to CloudWatch --> we try again with the next batch', err)
+        console.warn('unable to put logs to CloudWatch --> we try again with the next batch', err)
         return of(void 0)
       }),
     )
