@@ -71,11 +71,12 @@ export class CloudWatchLogV2ApiService {
   }
 
   async writeLogs(logStreamName: string, logs: LogEvent[]): Promise<void> {
-    // todo: use beaconApi ?
+    // we do not use the sendBeacon API since it will fail with cors preflight and would require ugly workarounds
     const resp = await fetch(new URL(`${ApiPath.STREAMS}/${logStreamName}/${ApiPath.STREAM_LOGS}`, this.apiUrl), {
       method: 'POST',
       headers: { [CommonHttpHeader.CONTENT_TYPE]: ContentType.JSON },
       body: JSON.stringify({ logEvents: logs } satisfies WriteLogEvents),
+      keepalive: true, // do not abort request on page unload
     })
     await this.handleError(resp)
   }
