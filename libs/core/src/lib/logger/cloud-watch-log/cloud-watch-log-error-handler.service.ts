@@ -1,19 +1,19 @@
 import { ErrorHandler, inject, Injectable, Injector } from '@angular/core'
 import { LogLevel } from '@shiftcode/logger'
 
-import { CloudWatchService } from './cloud-watch.service'
+import { CloudWatchLogV2Service } from './cloud-watch-log.service'
 
 /**
  * Angular ErrorHandler to send uncaught Errors to AWS CloudWatch Logs
- * requires the {@link CloudWatchService}
+ * requires the {@link CloudWatchLogV2Service}
  */
 @Injectable({ providedIn: 'root' })
-export class CloudWatchErrorHandler extends ErrorHandler {
+export class CloudWatchLogV2ErrorHandler extends ErrorHandler {
   private readonly injector = inject(Injector)
 
   override handleError(error: any): void {
     // prevent cyclic dependencies (eg. when CLOUD_WATCH_LOG_TRANSPORT_CONFIG needs config from httpClient request)
-    const cws = this.injector.get(CloudWatchService)
+    const cws = this.injector.get(CloudWatchLogV2Service)
     cws.addMessage(LogLevel.ERROR, 'BrowserJsException', new Date(), [error])
 
     // call super.handleError to print error the angular way to the console

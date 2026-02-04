@@ -21,27 +21,28 @@
     "watch": "ng build --watch --configuration development"
   },
   "dependencies": {
-    "@angular/animations": "~21.0.3",
-    "@angular/cdk": "~21.0.0",
-    "@angular/common": "~21.0.3",
-    "@angular/core": "~21.0.3",
-    "@angular/forms": "~21.0.3",
-    "@angular/platform-browser": "~21.0.3",
-    "@angular/router": "~21.0.3",
-    "@angular/ssr": "~21.0.2",
-    "@shiftcode/logger": "^3.0.0",
+    "@angular/animations": "~21.0.9",
+    "@angular/cdk": "~21.0.6",
+    "@angular/common": "~21.0.9",
+    "@angular/core": "~21.0.9",
+    "@angular/forms": "~21.0.9",
+    "@angular/platform-browser": "~21.0.9",
+    "@angular/router": "~21.0.9",
+    "@angular/ssr": "~21.0.6",
+    "@shiftcode/logger": "^4.0.0-pr250.9",
     "@shiftcode/utilities": "^4.0.0",
     "rxjs": "^6.5.3 || ^7.4.0",
-    "tslib": "^2.5.0"
+    "tslib": "^2.5.0",
+    "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~21.0.2",
-    "@angular/build": "~21.0.2",
-    "@angular/cli": "~21.0.2",
-    "@angular/compiler": "~21.0.3",
-    "@angular/compiler-cli": "~21.0.3",
-    "@angular/platform-browser-dynamic": "~21.0.3",
-    "@angular/platform-server": "~21.0.3",
+    "@angular-devkit/build-angular": "~21.0.6",
+    "@angular/build": "~21.0.6",
+    "@angular/cli": "~21.0.6",
+    "@angular/compiler": "~21.0.9",
+    "@angular/compiler-cli": "~21.0.9",
+    "@angular/platform-browser-dynamic": "~21.0.9",
+    "@angular/platform-server": "~21.0.9",
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-angular": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
@@ -65,14 +66,13 @@
     "ts-jest": "^29.4.5",
     "ts-node": "^10.9.2",
     "tslib": "^2.5.0",
-    "typescript": "5.9.3",
-    "zone.js": "~0.15.0"
+    "typescript": "5.9.3"
   },
   "optionalDependencies": {
     "@nx/nx-linux-x64-gnu": "^19.4.2",
     "@rollup/rollup-linux-x64-gnu": "^4.20.0"
   },
   "engines": {
-    "node": "^20.19.0 || ^22.12.0 || ^24.0.0"
+    "node": "^22.12.0 || ^24.0.0"
   }
 }

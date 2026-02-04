@@ -19,22 +19,20 @@ export * from './lib/logger/logger.service'
 export * from './lib/logger/provide-logger'
 export * from './lib/logger/with-request-info-fn.function'
 
-//cloudwatch logger
-export * from './lib/logger/cloudwatch/cloud-watch.service'
-export * from './lib/logger/cloudwatch/cloud-watch-error-handler.service'
-export * from './lib/logger/cloudwatch/cloud-watch-log-transport.service'
-export * from './lib/logger/cloudwatch/cloud-watch-log-transport-config.injection-token'
-export * from './lib/logger/cloudwatch/cloud-watch-log-transport-config.model'
-export * from './lib/logger/cloudwatch/is-error.function'
-export * from './lib/logger/cloudwatch/with-cloudwatch-transport.function'
+// CloudWatchLog (V2)
+export * from './lib/logger/cloud-watch-log/cloud-watch-log.service'
+export * from './lib/logger/cloud-watch-log/cloud-watch-log-config.injection-token'
+export * from './lib/logger/cloud-watch-log/cloud-watch-log-error-handler.service'
+export * from './lib/logger/cloud-watch-log/cloud-watch-log-transport.service'
+export * from './lib/logger/cloud-watch-log/with-cloud-watch-log-transport.function'
 
 // console logger
-export * from './lib/logger/console/console-log-transport.service'
-export * from './lib/logger/console/console-log-transport-config'
-export * from './lib/logger/console/console-log-transport-config.injection-token'
-export * from './lib/logger/console/node-console-log-transport.service'
-export * from './lib/logger/console/with-browser-console-transport.function'
-export * from './lib/logger/console/with-node-console-transport.function'
+export * from './lib/logger/browser-console/browser-console-log-transport.service'
+export * from './lib/logger/browser-console/with-browser-console-transport.function'
+export * from './lib/logger/console-json/console-json-log-transport.service'
+export * from './lib/logger/console-json/with-console-json-log-transport.function'
+export * from './lib/logger/node-console/node-console-log-transport.service'
+export * from './lib/logger/node-console/with-node-console-transport.function'
 
 // remote logger
 export * from './lib/logger/remote/remote-log.service'

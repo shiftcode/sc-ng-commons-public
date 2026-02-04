@@ -1,6 +1,6 @@
 {
   "name": "@shiftcode/ngx-core",
-  "version": "13.0.0",
+  "version": "14.0.0-pr76.14",
   "repository": "https://github.com/shiftcode/sc-ng-commons-public",
   "license": "MIT",
   "author": "shiftcode GmbH <team@shiftcode.ch>",
@@ -14,11 +14,11 @@
     "tslib": "^2.5.0"
   },
   "peerDependencies": {
-    "@angular/common": "^21.0.3",
-    "@angular/core": "^21.0.3",
-    "@angular/platform-browser": "^21.0.3",
-    "@angular/router": "^21.0.3",
-    "@shiftcode/logger": "^3.0.0",
+    "@angular/common": "^21.0.0",
+    "@angular/core": "^21.0.0",
+    "@angular/platform-browser": "^21.0.0",
+    "@angular/router": "^21.0.0",
+    "@shiftcode/logger": "^4.0.0 || ^4.0.0-pr250",
     "@shiftcode/utilities": "^4.0.0",
     "rxjs": "^6.5.3 || ^7.4.0"
   }
