@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [14.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/v13.0.0...v14.0.0) (2026-02-04)
+
+### Features
+
+- **logger:** added ConsoleJsonLogTransportService ([5170141](https://github.com/shiftcode/sc-ng-commons-public/commit/51701415e10d23b8d73a10254cd1f86a4ac7f274))
+
+### BREAKING CHANGES
+
+- **logger:** - requires `@shiftcode/logger@^4.0.0`
+
+* ConsoleLogTransport renamed to BrowserConsoleLogTransportService and using its own config `BROWSER_CONSOLE_LOG_TRANSPORT_CONFIG`
+* NodeConsoleLogTransport renamed to NodeConsoleLogTransportService and using its own config `NODE_CONSOLE_LOG_TRANSPORT_CONFIG`
+
 # 13.0.0 (2025-12-09)
 
 ### Bug Fixes

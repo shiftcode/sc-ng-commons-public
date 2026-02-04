@@ -6,5 +6,5 @@
     "lint:ci": "eslint ./src",
     "lint:staged": "eslint --fix --cache"
   },
-  "version": "13.0.0"
+  "version": "14.0.0"
 }

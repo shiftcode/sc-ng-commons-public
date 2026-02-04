@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [14.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/v13.0.0...v14.0.0) (2026-02-04)
+
+### Code Refactoring
+
+- **logger:** removal of old cloudwatch logger construct ([c071a6e](https://github.com/shiftcode/sc-ng-commons-public/commit/c071a6e30c92fe31d099b2a1ce78e76b077a6c7b))
+
+### Features
+
+- **cloud-watch-logger:** use keepalive option when writing logs ([d765e87](https://github.com/shiftcode/sc-ng-commons-public/commit/d765e87ffc370deb96706226ee7f22443a14c149))
+- **logger:** added ConsoleJsonLogTransportService ([5170141](https://github.com/shiftcode/sc-ng-commons-public/commit/51701415e10d23b8d73a10254cd1f86a4ac7f274))
+- **logger:** added V2 of CloudWatchLog\* to be used with new CloudWatchApi construct ([95c1eed](https://github.com/shiftcode/sc-ng-commons-public/commit/95c1eed5808dac6d01a560ff184b249bac914c75))
+
+### BREAKING CHANGES
+
+- **logger:** - use the new CloudWatchLogV2\* classes and functions. requires the new cdk construct CloudWatchApi from @shiftcode/cdk-utils
+- **logger:** - requires `@shiftcode/logger@^4.0.0`
+
+* ConsoleLogTransport renamed to BrowserConsoleLogTransportService and using its own config `BROWSER_CONSOLE_LOG_TRANSPORT_CONFIG`
+* NodeConsoleLogTransport renamed to NodeConsoleLogTransportService and using its own config `NODE_CONSOLE_LOG_TRANSPORT_CONFIG`
+
 # 13.0.0 (2025-12-09)
 
 ### Bug Fixes
