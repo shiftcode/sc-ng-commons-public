@@ -5,11 +5,7 @@
   "license": "MIT",
   "author": "shiftcode GmbH <team@shiftcode.ch>",
   "sideEffects": false,
-  "scripts": {
-    "lint": "eslint --fix --cache ./src",
-    "lint:ci": "eslint ./src",
-    "lint:staged": "eslint --fix --cache"
-  },
+  "type": "module",
   "dependencies": {
     "tslib": "^2.5.0"
   },

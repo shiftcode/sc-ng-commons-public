@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return,@typescript-eslint/no-unsafe-member-access */
 export class MockStorage {
   clear(): void {
     Object.keys(this).forEach((key) => {
