@@ -6,20 +6,10 @@
   },
   "src/lib/local-storage/local-storage.service.spec.ts": {
     "@typescript-eslint/no-unsafe-member-access": {
-      "count": 2
+      "count": 1
     },
     "@typescript-eslint/no-unsafe-return": {
       "count": 1
-    }
-  },
-  "src/lib/logger/cloudwatch/cloud-watch.service.ts": {
-    "@typescript-eslint/no-unsafe-return": {
-      "count": 2
-    }
-  },
-  "src/lib/logger/cloudwatch/is-error.function.ts": {
-    "@typescript-eslint/no-unsafe-member-access": {
-      "count": 4
     }
   },
   "src/lib/logger/logger.service.spec.ts": {
@@ -36,11 +26,6 @@
     },
     "@typescript-eslint/no-unsafe-return": {
       "count": 2
-    }
-  },
-  "src/lib/static-utils/rxjs/filter-if-instance-of.operator.spec.ts": {
-    "@typescript-eslint/no-unsafe-member-access": {
-      "count": 1
     }
   },
   "src/lib/static-utils/rxjs/filter-if-instance-of.operator.ts": {

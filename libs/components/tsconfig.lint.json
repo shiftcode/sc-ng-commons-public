@@ -5,6 +5,6 @@
     "paths": {
       "@shiftcode/ngx-core": ["../core/src/public-api.ts"]
     },
-    "types": ["jest", "node"]
+    "types": ["node"]
   }
 }

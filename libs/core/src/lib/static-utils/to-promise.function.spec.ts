@@ -1,4 +1,5 @@
 import { from } from 'rxjs'
+import { describe, expect, test } from 'vitest'
 
 import { toPromise } from './to-promise.function'
 

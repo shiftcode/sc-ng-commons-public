@@ -1,4 +1,5 @@
 import { of, Subject, tap } from 'rxjs'
+import { describe, expect, test, vi } from 'vitest'
 
 import { select } from './select.operator'
 
@@ -10,7 +11,7 @@ describe('select operator', () => {
   test('maps the to the provided property value', () => {
     const subject = new Subject<MyObject>()
 
-    const onNext = jest.fn()
+    const onNext = vi.fn()
     subject.pipe(select('a')).subscribe(onNext)
 
     subject.next({ a: 'ok' })

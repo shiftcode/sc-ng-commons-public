@@ -9,6 +9,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { ClassProvider } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { firstValueFrom } from 'rxjs'
+import { beforeEach, describe, expect, type MockInstance, test, vi } from 'vitest'
 
 import { HttpDateInterceptor } from './http-date.interceptor'
 
@@ -21,7 +22,7 @@ describe('HttpDateInterceptor', () => {
   let interceptor: HttpDateInterceptor
   let httpClient: HttpClient
   let httpController: HttpTestingController
-  let mapResponseSpy: jest.SpyInstance
+  let mapResponseSpy: MockInstance
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -38,7 +39,7 @@ describe('HttpDateInterceptor', () => {
 
     httpClient = TestBed.inject(HttpClient)
     httpController = TestBed.inject(HttpTestingController)
-    mapResponseSpy = jest.spyOn(interceptor, 'mapResponse')
+    mapResponseSpy = vi.spyOn(interceptor, 'mapResponse')
   })
 
   test('maps dates on response 200', async () => {

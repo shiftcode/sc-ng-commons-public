@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { firstValueFrom, Observable } from 'rxjs'
+import { beforeEach, describe, expect, test } from 'vitest'
 
 import { UIEventService } from './ui-event.service'
 
@@ -22,17 +23,17 @@ describe('UIEventService', () => {
     service = TestBed.inject(UIEventService)
   })
 
-  it('should be created', () => {
+  test('should be created', () => {
     expect(service).toBeTruthy()
   })
 
-  it('should return same observable for multiple identical requests', () => {
+  test('should return same observable for multiple identical requests', () => {
     const obs1 = service.forEvent('click', 'document')
     const obs2 = service.forEvent('click', 'document')
     expect(obs1).toBe(obs2)
   })
 
-  it('returned observable should emit on events from element', async () => {
+  test('returned observable should emit on events from element', async () => {
     const el = doc.createElement('button')
     const elClick$: Observable<CustomEvent> = <any>service.forEvent(CustomEvent.TYPE, el)
     const firstClick = firstValueFrom(elClick$)
@@ -43,7 +44,7 @@ describe('UIEventService', () => {
     expect(receivedEvent.value).toBe('abc')
   })
 
-  it('works with document', async () => {
+  test('works with document', async () => {
     const elClick$: Observable<CustomEvent> = <any>service.forEvent(CustomEvent.TYPE, 'document')
     const firstClick = firstValueFrom(elClick$)
     doc.dispatchEvent(new CustomEvent('def'))

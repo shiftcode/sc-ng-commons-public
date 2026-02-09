@@ -1,4 +1,5 @@
 import { of, Subject, tap } from 'rxjs'
+import { describe, expect, test, vi } from 'vitest'
 
 import { filterIfInstanceOf } from './filter-if-instance-of.operator'
 
@@ -26,7 +27,7 @@ describe('filterIfInstanceOf', () => {
   test('filters to instance', () => {
     const subject = new Subject<Base>()
 
-    const onNext = jest.fn()
+    const onNext = vi.fn()
 
     subject.pipe(filterIfInstanceOf(B)).subscribe(onNext)
 

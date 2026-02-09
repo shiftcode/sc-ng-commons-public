@@ -1,5 +1,6 @@
 import { PLATFORM_ID } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
+import { afterEach, beforeEach, describe, expect, test } from 'vitest'
 
 import { ORIGIN } from './origin.token'
 import { provideOriginFromEnv } from './provide-origin-from-env.function'
@@ -23,7 +24,7 @@ describe('provideOriginFromEnv', () => {
     })
   }
 
-  it('should provide the ORIGIN token with a valid origin from env', () => {
+  test('should provide the ORIGIN token with a valid origin from env', () => {
     setup('server')
 
     const validOrigin = 'https://example.valid.com'
@@ -33,7 +34,7 @@ describe('provideOriginFromEnv', () => {
     expect(TestBed.inject(ORIGIN)).toBe(validOrigin)
   })
 
-  it('should throw if not running on the server', () => {
+  test('should throw if not running on the server', () => {
     setup('browser')
 
     process.env[ENV_KEY] = 'https://example.valid.com'
@@ -41,13 +42,13 @@ describe('provideOriginFromEnv', () => {
     expect(() => TestBed.inject(ORIGIN)).toThrow(`provideOriginFromEnv can only be used on the server`)
   })
 
-  it('should throw if env var is not defined', () => {
+  test('should throw if env var is not defined', () => {
     setup('server')
     delete process.env[ENV_KEY]
     expect(() => TestBed.inject(ORIGIN)).toThrow(`Env var ${ENV_KEY} needs to be defined`)
   })
 
-  it('should throw if env var is not a valid origin', () => {
+  test('should throw if env var is not a valid origin', () => {
     setup('server')
     process.env[ENV_KEY] = 'invalid-origin'
     expect(() => TestBed.inject(ORIGIN)).toThrow(`Env var ${ENV_KEY} is not a valid origin: invalid-origin`)

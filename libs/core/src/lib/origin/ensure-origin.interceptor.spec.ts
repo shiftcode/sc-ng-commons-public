@@ -1,6 +1,7 @@
 import { HttpClient, HttpRequest, provideHttpClient, withInterceptors } from '@angular/common/http'
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing'
 import { TestBed } from '@angular/core/testing'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 
 import { ensureOriginInterceptor } from './ensure-origin.interceptor'
 import { ORIGIN } from './origin.token'
@@ -18,23 +19,23 @@ describe('ensureOriginInterceptor', () => {
     })
   })
 
-  it('should prepend origin to relative URLs', () => {
+  test('should prepend origin to relative URLs', () => {
     const req = new HttpRequest('GET', '/api/data')
 
-    const nextSpy = jest.fn()
+    const nextSpy = vi.fn()
     TestBed.runInInjectionContext(() => ensureOriginInterceptor(req, nextSpy))
     expect(nextSpy).toHaveBeenCalledWith(expect.objectContaining({ url: `${origin}/api/data` }))
   })
 
-  it('should not modify absolute URLs', () => {
+  test('should not modify absolute URLs', () => {
     const req = new HttpRequest('GET', 'https://other.com/api/data')
 
-    const nextSpy = jest.fn()
+    const nextSpy = vi.fn()
     TestBed.runInInjectionContext(() => ensureOriginInterceptor(req, nextSpy))
     expect(nextSpy).toHaveBeenCalledWith(req)
   })
 
-  it('should work integrated with HttpClient', () => {
+  test('should work integrated with HttpClient', () => {
     const controller = TestBed.inject(HttpTestingController)
     const httpClient = TestBed.inject(HttpClient)
 

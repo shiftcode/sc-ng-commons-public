@@ -1,4 +1,5 @@
 import { Subject } from 'rxjs'
+import { describe, expect, test, vi } from 'vitest'
 
 import { filterIfFalsy } from './filter-if-falsy.operator'
 
@@ -10,7 +11,7 @@ describe('select operator', () => {
   test('maps the to the provided property value', () => {
     const subject = new Subject<any>()
 
-    const onNext = jest.fn()
+    const onNext = vi.fn()
     subject.pipe(filterIfFalsy()).subscribe(onNext)
 
     subject.next(null)
