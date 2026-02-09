@@ -1,1 +1,1 @@
-npx lerna exec --concurrency 1 --stream lint-staged && npx lint-staged
+npx lint-staged
