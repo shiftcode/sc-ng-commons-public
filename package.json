@@ -8,13 +8,13 @@
   "scripts": {
     "build:ci": "ng build core && ng build components",
     "build:styleguide": "ng build styleguide",
-    "copy-version": "lerna exec --ignore @shiftcode/styleguide --stream -- ts-node --project \\$LERNA_ROOT_PATH/scripts/ts/tsconfig.json \\$LERNA_ROOT_PATH/scripts/ts/copy-version.ts",
+    "copy-version": "lerna exec --ignore @shiftcode/styleguide --stream -- node \\$LERNA_ROOT_PATH/scripts/copy-version.ts",
     "format": "prettier --write .",
     "format:ci": "prettier --check .",
     "lint": "lerna exec --stream -- npx eslint --fix --cache .",
     "lint:ci": "lerna exec --stream -- npx eslint --cache .",
     "prepare": "husky",
-    "prepublishOnly": "lerna exec --ignore @shiftcode/styleguide --stream -- ts-node --project \\$LERNA_ROOT_PATH/scripts/ts/tsconfig.json \\$LERNA_ROOT_PATH/scripts/ts/copy-version.ts",
+    "prepublishOnly": "lerna exec --ignore @shiftcode/styleguide --stream -- node \\$LERNA_ROOT_PATH/scripts/copy-version.ts",
     "start": "ng serve",
     "test": "ng test",
     "test:ci": "ng test",
@@ -64,7 +64,6 @@
     "reset-css": "^5.0.2",
     "sort-package-json": "^2.10.0",
     "ts-jest": "^29.4.5",
-    "ts-node": "^10.9.2",
     "tslib": "^2.5.0",
     "typescript": "5.9.3"
   },
