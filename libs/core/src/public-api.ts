@@ -17,6 +17,7 @@ export * from './lib/logger/log-request-info-fn.token'
 export * from './lib/logger/log-request-info-fn.type'
 export * from './lib/logger/logger.service'
 export * from './lib/logger/provide-logger'
+export * from './lib/logger/with-custom-log-transport.function'
 export * from './lib/logger/with-error-handler.function'
 export * from './lib/logger/with-request-info-fn.function'
 
