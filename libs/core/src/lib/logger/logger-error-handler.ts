@@ -1,6 +1,7 @@
 import { ErrorHandler, inject, Injectable, Injector } from '@angular/core'
 import { Logger } from '@shiftcode/logger'
-import { LoggerService } from '@shiftcode/ngx-core'
+
+import { LoggerService } from './logger.service'
 
 @Injectable()
 export class LoggerErrorHandler implements ErrorHandler {

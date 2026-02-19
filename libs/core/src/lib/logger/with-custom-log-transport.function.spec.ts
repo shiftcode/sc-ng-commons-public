@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { LogLevel, LogTransport } from '@shiftcode/logger'
-import { LoggerService } from '@shiftcode/ngx-core'
 import { describe, expect, test, vi } from 'vitest'
 
+import { LoggerService } from './logger.service'
 import { provideLogger } from './provide-logger'
 import { withCustomLogTransport } from './with-custom-log-transport.function'
 
