@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [15.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/v14.0.0...v15.0.0) (2026-03-18)
+
+### Bug Fixes
+
+- **components:** change to correct peer dep ([24a8b81](https://github.com/shiftcode/sc-ng-commons-public/commit/24a8b81002c6dbd9cf3368277e1ec234e803b742))
+- **tooltip:** add missing input alias for disabled property ([48d10dc](https://github.com/shiftcode/sc-ng-commons-public/commit/48d10dc1df61004da8a8ddd502f8d51bc226d225))
+
+### Features
+
+- use latest [@shiftcode](https://github.com/shiftcode) dependencies ([da5881f](https://github.com/shiftcode/sc-ng-commons-public/commit/da5881f161d34a2751c3874936b50cd950387fa7))
+- use node.js v24 ([a5bac7c](https://github.com/shiftcode/sc-ng-commons-public/commit/a5bac7c36b5866f12670a40faa30298edd69f531))
+
+### BREAKING CHANGES
+
+- - requires @shiftcode/logger@^5.0.0
+
+* requires @shiftcode/ngx-core@^15.0.0
+
+- Requires Node >=24
+
 # [14.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/v13.0.0...v14.0.0) (2026-02-04)
 
 ### Features

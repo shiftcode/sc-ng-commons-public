@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [15.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/v14.0.0...v15.0.0) (2026-03-18)
+
+### Bug Fixes
+
+- **components:** change to correct peer dep ([24a8b81](https://github.com/shiftcode/sc-ng-commons-public/commit/24a8b81002c6dbd9cf3368277e1ec234e803b742))
+- **tooltip:** add missing input alias for disabled property ([48d10dc](https://github.com/shiftcode/sc-ng-commons-public/commit/48d10dc1df61004da8a8ddd502f8d51bc226d225))
+
+### Features
+
+- **logger:** `withCustomLogTransport` feature function ([be26d31](https://github.com/shiftcode/sc-ng-commons-public/commit/be26d31f4226543e08010162ee7dbc545c2e1013))
+- **logger:** expose `withErrorHandlerFn` to add global error handler ([0fa209f](https://github.com/shiftcode/sc-ng-commons-public/commit/0fa209fccef384c6b7d82badd1d77a6239fa5ea5))
+- use latest [@shiftcode](https://github.com/shiftcode) dependencies ([047517a](https://github.com/shiftcode/sc-ng-commons-public/commit/047517a4ae6e6c604437096e0148d4ccae421e1b))
+- use latest [@shiftcode](https://github.com/shiftcode) dependencies ([da5881f](https://github.com/shiftcode/sc-ng-commons-public/commit/da5881f161d34a2751c3874936b50cd950387fa7))
+- use latest [@shiftcode](https://github.com/shiftcode) dependencies ([7f70af9](https://github.com/shiftcode/sc-ng-commons-public/commit/7f70af968f4880cb3a0112f90c5b78ba3c927a9e))
+- use node.js v24 ([a5bac7c](https://github.com/shiftcode/sc-ng-commons-public/commit/a5bac7c36b5866f12670a40faa30298edd69f531))
+
+### BREAKING CHANGES
+
+- - requires @shiftcode/logger@^5.0.0
+
+* requires @shiftcode/ngx-core@^15.0.0
+
+- - requires @shiftcode/logger@^5.0.0
+
+* requires @shiftcode/utilities@^5.0.0
+
+- Requires Node >=24
+
 # [14.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/v13.0.0...v14.0.0) (2026-02-04)
 
 ### Code Refactoring
