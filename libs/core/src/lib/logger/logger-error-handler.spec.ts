@@ -5,7 +5,7 @@ import { describe, expect, test, vi } from 'vitest'
 
 import { LoggerErrorHandler } from './logger-error-handler'
 import { provideLogger } from './provide-logger'
-import { withErrorHandlerFn } from './with-error-handler.function'
+import { withErrorHandler } from './with-error-handler.function'
 
 @Injectable()
 class SpyLogTransport extends LogTransport {
@@ -20,7 +20,7 @@ function setup() {
   const spyTransport = new SpyLogTransport()
 
   TestBed.configureTestingModule({
-    providers: [{ provide: LogTransport, useValue: spyTransport, multi: true }, provideLogger(withErrorHandlerFn())],
+    providers: [{ provide: LogTransport, useValue: spyTransport, multi: true }, provideLogger(withErrorHandler())],
   })
 
   return {
@@ -30,7 +30,7 @@ function setup() {
 }
 
 describe('LoggerErrorHandler integration', () => {
-  test('withErrorHandlerFn registers LoggerErrorHandler as ErrorHandler', () => {
+  test('withErrorHandler registers LoggerErrorHandler as ErrorHandler', () => {
     const { errorHandler } = setup()
     expect(errorHandler).toBeInstanceOf(LoggerErrorHandler)
   })
