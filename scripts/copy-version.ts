@@ -43,7 +43,7 @@ async function readPackageJson<T>(filePath: string): Promise<T> {
  * Syncs the version from root package.json to the distribution package.json.
  * @throws {Error} If any required file cannot be read or written.
  */
-async function bumbVersion() {
+async function copyVersion() {
   const packageJsonPath = join(process.cwd(), 'package.json')
   const ngPackagePath = join(process.cwd(), 'ng-package.json')
 
@@ -69,15 +69,15 @@ async function bumbVersion() {
       `successfully updated version for package ${packageJson.name} in ${distPackageFile} to ${packageJson.version}`,
     )
   } catch (err) {
-    throw new Error(`could update version in ${distPackageFile}`, { cause: err })
+    throw new Error(`could not update version in ${distPackageFile}`, { cause: err })
   }
 }
 
 try {
-  console.info('bumbVersion() :: start')
-  await bumbVersion()
+  console.info('copyVersion() :: start')
+  await copyVersion()
 } catch (err) {
   console.error(err)
 } finally {
-  console.info('bumbVersion() :: end')
+  console.info('copyVersion() :: end')
 }
