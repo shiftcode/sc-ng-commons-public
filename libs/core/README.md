@@ -1,5 +1,9 @@
 # Core
 
+> 🎯\
+> Target runtime: [Node >=24](https://node.green/#ES2023)) and [modern Browsers](https://caniuse.com/?search=es2023) + Firefox ESR\
+> Target lib: es2022 + ES2023.Array
+
 Contains some general purpose services
 
 ## LocalStorage
