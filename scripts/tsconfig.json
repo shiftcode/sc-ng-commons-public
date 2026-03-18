@@ -5,8 +5,8 @@
     "target": "es2022",
     "module": "NodeNext",
     "strict": true,
-    "noEmit": false,
+    "noEmit": true,
     "allowImportingTsExtensions": true,
-    "outDir": "./dist"
+    "include": ["**/*.ts"]
   }
 }
