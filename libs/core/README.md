@@ -97,3 +97,25 @@ bootstrapApplication(AppComponent, {
   ],
 })
 ```
+
+### Global Error Handler Integration
+
+You can integrate the logger with Angular's global `ErrorHandler` to automatically log all uncaught errors in your application using the `withErrorHandler` feature.
+
+#### Usage Example
+
+Use the `withErrorHandler` function to register a custom error handler that logs uncaught errors through the LoggerService.
+
+```ts
+import { provideBrowserGlobalErrorListeners } from '@angular/core'
+import { LogLevel, provideLogger, withBrowserConsoleTransport, withErrorHandler } from '@shiftcode/ngx-core'
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideLogger(withBrowserConsoleTransport({ logLevel: LogLevel.DEBUG }), withErrorHandler()),
+
+    /** To also capture global uncaught errors from the browser (e.g., script errors, unhandled promise rejections), use provideBrowserGlobalErrorListeners: */
+    provideBrowserGlobalErrorListeners(),
+  ],
+})
+```
