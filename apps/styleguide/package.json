@@ -1,10 +1,11 @@
 {
   "name": "@shiftcode/styleguide",
+  "version": "15.0.0-pr7.1",
   "private": true,
+  "type": "module",
   "scripts": {
     "lint": "eslint --fix --cache ./src",
     "lint:ci": "eslint ./src",
     "lint:staged": "eslint --fix --cache"
-  },
-  "version": "14.0.0"
+  }
 }

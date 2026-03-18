@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/no-input-rename */
 import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y'
 import { ESCAPE } from '@angular/cdk/keycodes'
 import {
@@ -53,14 +54,13 @@ function transformMessage(value: string | number | null | undefined): string {
 export class TooltipDirective implements OnDestroy {
   readonly #opts: TooltipOptions = { ...defaultTooltipOptions, ...inject(TOOLTIP_DEFAULT_OPTIONS, { optional: true }) }
 
-  /** Disables the display of the tooltip. */
-  readonly disabled = input(false, { transform: booleanAttribute })
-
   /** The message to be displayed in the tooltip */
   readonly message = input('', { alias: 'scTooltip', transform: transformMessage })
 
+  /** Disables the display of the tooltip. */
+  readonly disabled = input(false, { alias: 'scTooltipDisabled', transform: booleanAttribute })
+
   /** Classes to be passed to the tooltip. Supports the same syntax as `ngClass`. */
-  /* eslint-disable @angular-eslint/no-input-rename */
   readonly tooltipClass = input<string | string[] | Set<string> | { [key: string]: any }>('', {
     alias: 'scTooltipClass',
   })

@@ -1,5 +1,9 @@
 # sc-ng-commons-public
 
+> 🎯\
+> Target runtime: [Node >=24](https://node.green/#ES2023) and [modern Browsers](https://caniuse.com/?search=es2023) + Firefox ESR\
+> Target lib: es2022 + ES2023.Array
+
 Public Angular libraries used in various shiftcode projects.
 
 > [![@shiftcode/ngx-core](https://img.shields.io/github/package-json/v/shiftcode/sc-ng-commons-public?filename=%2Flibs%2Fcore%2Fpackage.json&label=%40shiftcode%2Fngx-core)](libs/core)\
@@ -21,7 +25,7 @@ Shows the mapping between the angular version and our lib versions.
 
 | Angular Version | Lib Version                   |
 | --------------- | ----------------------------- |
-| `^21`           | `^13`                         |
+| `^21`           | `^13 \|\| ^14 \|\| ^15`       |
 | `^20`           | `^11 \|\| ^12`                |
 | `^19`           | `^7 \|\| ^8 \|\| ^9 \|\| ^10` |
 | `^18`           | `^6`                          |

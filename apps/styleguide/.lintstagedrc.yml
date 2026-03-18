@@ -1,4 +1,0 @@
-'{src,test}/**/*.{ts,html}':
-  - npm run lint:staged
-./package.json:
-  - sort-package-json

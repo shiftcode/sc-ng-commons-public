@@ -1,10 +1,11 @@
 import { DestroyRef, EnvironmentInjector, Injector, runInInjectionContext } from '@angular/core'
 import { BehaviorSubject, takeUntil } from 'rxjs'
+import { describe, expect, test, vi } from 'vitest'
 
 import { onDestroy } from './on-destroy.observable'
 
 describe('onDestroy', () => {
-  it('should emit and complete when DestroyRef#onDestroy emits', () => {
+  test('should emit and complete when DestroyRef#onDestroy emits', () => {
     const injector = Injector.create({ providers: [] }) as EnvironmentInjector
     const source$ = new BehaviorSubject(0)
     const tied$ = runInInjectionContext(injector, () => source$.pipe(takeUntil(onDestroy())))
@@ -30,12 +31,12 @@ describe('onDestroy', () => {
     expect(last).toBe(1)
   })
 
-  it('should unregister listener if observable is unsubscribed', () => {
+  test('should unregister listener if observable is unsubscribed', () => {
     const injector = Injector.create({ providers: [] }) as EnvironmentInjector
     const destroyRef = injector.get(DestroyRef)
 
-    const unregisterFn = jest.fn()
-    jest.spyOn(destroyRef, 'onDestroy').mockReturnValue(unregisterFn)
+    const unregisterFn = vi.fn()
+    vi.spyOn(destroyRef, 'onDestroy').mockReturnValue(unregisterFn)
 
     const onDestroy$ = runInInjectionContext(injector, onDestroy)
     const subscription = new BehaviorSubject(0).pipe(takeUntil(onDestroy$)).subscribe()
@@ -45,7 +46,7 @@ describe('onDestroy', () => {
     expect(unregisterFn).toHaveBeenCalled()
   })
 
-  it('throws when not used in injection context', () => {
+  test('throws when not used in injection context', () => {
     expect(onDestroy).toThrow()
   })
 })

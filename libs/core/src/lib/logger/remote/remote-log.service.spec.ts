@@ -3,6 +3,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { FactoryProvider, ValueProvider } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { createJsonLogObjectData, LogLevel } from '@shiftcode/logger'
+import { describe, expect, test, vi } from 'vitest'
 
 import { LOG_REQUEST_INFO_FN } from '../log-request-info-fn.token'
 import { LogRequestInfoFn } from '../log-request-info-fn.type'
@@ -30,12 +31,12 @@ describe('RemoteLogService', () => {
     return [TestBed.inject(RemoteLogService), TestBed.inject(HttpTestingController)] as const
   }
 
-  it('should be created', () => {
+  test('should be created', () => {
     const [service] = setup(mockConfig)
     expect(service).toBeTruthy()
   })
 
-  it('should send log data to backend with correct payload and headers', () => {
+  test('should send log data to backend with correct payload and headers', () => {
     const [service, httpMock] = setup(mockConfig)
 
     const context = 'TestContext'
@@ -56,7 +57,7 @@ describe('RemoteLogService', () => {
     httpMock.verify()
   })
 
-  it('uses httpHeaders from the custom config', () => {
+  test('uses httpHeaders from the custom config', () => {
     const headers = {
       xCustomHeader: 'customValue',
     } as const
@@ -79,8 +80,8 @@ describe('RemoteLogService', () => {
     expect(req.request.headers.get('xCustomHeader' satisfies keyof typeof headers)).toBe(headers.xCustomHeader)
   })
 
-  it('calls logRequestInfoFn and includes its result in the log data', () => {
-    const logRequestInfoFn = jest.fn().mockReturnValue({ userId: '12345' })
+  test('calls logRequestInfoFn and includes its result in the log data', () => {
+    const logRequestInfoFn = vi.fn().mockReturnValue({ userId: '12345' })
 
     const [service, httpMock] = setup(mockConfig, () => logRequestInfoFn)
 

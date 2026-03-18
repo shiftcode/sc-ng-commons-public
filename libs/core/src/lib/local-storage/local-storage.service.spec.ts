@@ -1,6 +1,7 @@
 import { ClassProvider, ValueProvider } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { firstValueFrom, scan, shareReplay } from 'rxjs'
+import { beforeEach, describe, expect, type MockInstance, test, vi } from 'vitest'
 
 import { MockStorage } from '../../../test'
 import { WindowRef } from '../window/window-ref.service'
@@ -13,8 +14,8 @@ const prefix: LocalStorageOptions['prefix'] = 'TEST_'
 function configureTestBed(options: LocalStorageOptions = { prefix }) {
   class MockWindowRef {
     readonly nativeWindow = {
-      addEventListener: jest.fn(),
-      removeEventListener: jest.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
       localStorage: new MockStorage(),
     }
   }
@@ -34,16 +35,16 @@ function configureTestBed(options: LocalStorageOptions = { prefix }) {
 
 describe('LocalStorage', () => {
   let storage: MockStorage
-  let lsFnSpy: jest.SpyInstance<any, any>
+  let lsFnSpy: MockInstance
   let service: LocalStorage
 
   describe('observe', () => {
     let win: WindowRef
-    let winSpy: jest.SpyInstance<any, any>
+    let winSpy: MockInstance
     beforeEach(() => {
       configureTestBed()
       win = TestBed.inject(WindowRef)
-      winSpy = jest.spyOn(win.nativeWindow!, 'addEventListener')
+      winSpy = vi.spyOn(win.nativeWindow!, 'addEventListener')
       storage = win.nativeWindow!.localStorage
       service = TestBed.inject(LocalStorage)
     })
@@ -72,7 +73,7 @@ describe('LocalStorage', () => {
     beforeEach(() => {
       configureTestBed()
       storage = TestBed.inject(WindowRef).nativeWindow!.localStorage
-      lsFnSpy = jest.spyOn(storage, 'setItem')
+      lsFnSpy = vi.spyOn(storage, 'setItem')
       service = TestBed.inject(LocalStorage)
     })
 
@@ -101,7 +102,7 @@ describe('LocalStorage', () => {
     beforeEach(() => {
       configureTestBed()
       storage = TestBed.inject(WindowRef).nativeWindow!.localStorage
-      lsFnSpy = jest.spyOn(storage, 'getItem')
+      lsFnSpy = vi.spyOn(storage, 'getItem')
       service = TestBed.inject(LocalStorage)
     })
 
@@ -125,7 +126,7 @@ describe('LocalStorage', () => {
     beforeEach(() => {
       configureTestBed()
       storage = TestBed.inject(WindowRef).nativeWindow!.localStorage
-      lsFnSpy = jest.spyOn(storage, 'removeItem')
+      lsFnSpy = vi.spyOn(storage, 'removeItem')
       service = TestBed.inject(LocalStorage)
     })
     test('removes item by key with configured prefix', () => {
@@ -143,12 +144,12 @@ describe('LocalStorage', () => {
   })
 
   describe('clear', () => {
-    let lsClearSpy: jest.SpyInstance<any, any>
+    let lsClearSpy: MockInstance
     beforeEach(() => {
       configureTestBed()
       storage = TestBed.inject(WindowRef).nativeWindow!.localStorage
-      lsFnSpy = jest.spyOn(storage, 'removeItem')
-      lsClearSpy = jest.spyOn(storage, 'clear')
+      lsFnSpy = vi.spyOn(storage, 'removeItem')
+      lsClearSpy = vi.spyOn(storage, 'clear')
       service = TestBed.inject(LocalStorage)
     })
     test('does not use clear', () => {

@@ -1,10 +1,12 @@
 {
   "extends": "./tsconfig.lib.json",
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
       "@shiftcode/ngx-core": ["../core/src/public-api.ts"]
     },
-    "types": ["jest", "node"]
-  }
+    "types": ["node"]
+  },
+  "include": ["**/*.ts"],
+  "exclude": []
 }

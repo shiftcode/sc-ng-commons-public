@@ -1,6 +1,9 @@
 {
   "extends": "../../tsconfig.spec.json",
   "compilerOptions": {
-    "types": ["jest", "node"]
+    "paths": {
+      "@shiftcode/ngx-core": ["../core/src/public-api.ts"]
+    },
+    "types": ["node"]
   }
 }

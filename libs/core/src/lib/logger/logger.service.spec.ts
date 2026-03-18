@@ -2,6 +2,7 @@ import { Component, Directive, inject, Injectable, InjectionToken, PLATFORM_ID }
 import { TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser'
 import { Logger, LogLevel, LogTransport } from '@shiftcode/logger'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 
 import { LoggerService } from './logger.service'
 
@@ -30,7 +31,7 @@ class MockLogTransport2 extends LogTransport {
 }
 
 describe('when providing LogTransport', () => {
-  it('throws when LogTransport was not provided with multi=true', () => {
+  test('throws when LogTransport was not provided with multi=true', () => {
     TestBed.configureTestingModule({
       providers: [{ provide: LogTransport, useClass: MockLogTransport1 }],
     })
@@ -56,12 +57,12 @@ describe('LoggerService with multiple providers', () => {
     logger = loggerService.getInstance('Test')
   })
 
-  it('creates Logger instance with the provided name', () => {
+  test('creates Logger instance with the provided name', () => {
     expect(logger).toBeInstanceOf(Logger)
     expect(logger['name']).toBe('Test')
   })
 
-  it('uses multiple log transports', () => {
+  test('uses multiple log transports', () => {
     expect(logger['loggerTransports'][0] instanceof MockLogTransport1).toBeTruthy()
     expect(logger['loggerTransports'][0].logLevel).toEqual(LogLevel.DEBUG)
     expect(logger['loggerTransports'][1] instanceof MockLogTransport2).toBeTruthy()
@@ -103,13 +104,13 @@ describe('MyDirective', () => {
     directiveInstance = fixture.debugElement.query(By.directive(MyDirective)).injector.get(MyDirective)
   })
 
-  it('creates Logger instance with the provided name', () => {
+  test('creates Logger instance with the provided name', () => {
     expect(directiveInstance['logger']).toBeInstanceOf(Logger)
     expect(directiveInstance['logger']['name']).toBe('MyDirective')
   })
 
-  it('should log a debug message when doSomething is called', () => {
-    const loggerSpy = jest.spyOn(directiveInstance['logger'], 'debug')
+  test('should log a debug message when doSomething is called', () => {
+    const loggerSpy = vi.spyOn(directiveInstance['logger'], 'debug')
     directiveInstance.doSomething()
 
     expect(loggerSpy).toHaveBeenCalledWith('doing something')

@@ -1,4 +1,5 @@
 import { Subject } from 'rxjs'
+import { describe, expect, test, vi } from 'vitest'
 
 import { tapPrevious } from './tap-previous.operator'
 
@@ -6,7 +7,7 @@ describe('tapPrevious operator', () => {
   test('executes given function on emit with the previous value', () => {
     const subject = new Subject<string>()
 
-    const onTapPrevious = jest.fn()
+    const onTapPrevious = vi.fn()
     subject.pipe(tapPrevious(onTapPrevious)).subscribe()
 
     subject.next('a')

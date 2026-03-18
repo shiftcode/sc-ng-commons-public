@@ -1,15 +1,11 @@
 {
   "name": "@shiftcode/ngx-components",
-  "version": "14.0.0",
+  "version": "15.0.0-pr7.1",
   "repository": "https://github.com/shiftcode/sc-ng-commons-public",
   "license": "MIT",
   "author": "shiftcode GmbH <team@shiftcode.ch>",
   "sideEffects": false,
-  "scripts": {
-    "lint": "eslint --fix --cache ./src",
-    "lint:ci": "eslint ./src",
-    "lint:staged": "eslint --fix --cache"
-  },
+  "type": "module",
   "dependencies": {
     "tslib": "^2.5.0"
   },
@@ -20,8 +16,11 @@
     "@angular/core": "^21.0.0",
     "@angular/forms": "^21.0.0",
     "@angular/router": "^21.0.0",
-    "@shiftcode/logger": "^4.0.0 || ^4.0.0-pr250",
-    "@shiftcode/ngx-core": "^14.0.0 || ^14.0.0-pr76",
+    "@shiftcode/logger": "^5.0.0",
+    "@shiftcode/ngx-core": "^15.0.0 || ^15.0.0-pr7",
     "rxjs": "^6.5.3 || ^7.4.0"
+  },
+  "engines": {
+    "node": "^24.0.0"
   }
 }

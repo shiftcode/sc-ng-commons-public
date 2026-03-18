@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest'
+
 import { leadingZero } from './leading-zero.function'
 
 describe('leadingZero', () => {

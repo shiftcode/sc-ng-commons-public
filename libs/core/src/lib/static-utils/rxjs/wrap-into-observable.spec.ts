@@ -1,31 +1,34 @@
 import { isObservable, Observable, of } from 'rxjs'
+import { describe, expect, test } from 'vitest'
 
 import { wrapIntoObservable } from './wrap-into-observable'
 
 describe('wrapIntoObservable', () => {
-  test('returns observable from promise', (done) => {
-    expect.assertions(2)
-    const p = Promise.resolve('ok')
-    const x: Observable<string> = wrapIntoObservable(p)
-    expect(isObservable(x)).toBeTruthy()
-    x.subscribe((v) => {
-      expect(v).toBe('ok')
-      done()
-    })
-  })
+  test('returns observable from promise', () =>
+    new Promise<void>((done) => {
+      expect.assertions(2)
+      const p = Promise.resolve('ok')
+      const x: Observable<string> = wrapIntoObservable(p)
+      expect(isObservable(x)).toBeTruthy()
+      x.subscribe((v) => {
+        expect(v).toBe('ok')
+        done()
+      })
+    }))
 
-  test('returns observable from plain value', (done) => {
-    expect.assertions(2)
+  test('returns observable from plain value', () =>
+    new Promise<void>((done) => {
+      expect.assertions(2)
 
-    const val = 'ok'
-    const x: Observable<string> = wrapIntoObservable(val)
+      const val = 'ok'
+      const x: Observable<string> = wrapIntoObservable(val)
 
-    expect(isObservable(x)).toBeTruthy()
-    x.subscribe((v) => {
-      expect(v).toBe('ok')
-      done()
-    })
-  })
+      expect(isObservable(x)).toBeTruthy()
+      x.subscribe((v) => {
+        expect(v).toBe('ok')
+        done()
+      })
+    }))
 
   test('returns provided value when already an observable', () => {
     const val = of('ok')

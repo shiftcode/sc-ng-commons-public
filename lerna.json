@@ -1,11 +1,13 @@
 {
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
   "useNx": false,
   "packages": ["libs/*", "apps/*"],
-  "version": "14.0.0",
+  "version": "15.0.0-pr7.1",
   "command": {
     "version": {
       "allowBranch": "*",
-      "message": "build(release): next version [skip_build]"
+      "message": "build(release): next version [skip_build]",
+      "forcePublish": true
     },
     "publish": {
       "contents": "./dist"

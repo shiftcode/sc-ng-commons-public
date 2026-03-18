@@ -1,5 +1,9 @@
 # Core
 
+> 🎯\
+> Target runtime: [Node >=24](https://node.green/#ES2023) and [modern Browsers](https://caniuse.com/?search=es2023) + Firefox ESR\
+> Target lib: es2022 + ES2023.Array
+
 Contains some general purpose services
 
 ## LocalStorage
@@ -90,6 +94,28 @@ bootstrapApplication(AppComponent, {
         return (): LogRequestInfo => ({ userId: authService.currentUser?.id, url: this.router.url })
       }),
     ),
+  ],
+})
+```
+
+### Global Error Handler Integration
+
+You can integrate the logger with Angular's global `ErrorHandler` to automatically log all uncaught errors in your application using the `withErrorHandler` feature.
+
+#### Usage Example
+
+Use the `withErrorHandler` function to register a custom error handler that logs uncaught errors through the LoggerService.
+
+```ts
+import { provideBrowserGlobalErrorListeners } from '@angular/core'
+import { LogLevel, provideLogger, withBrowserConsoleTransport, withErrorHandler } from '@shiftcode/ngx-core'
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideLogger(withBrowserConsoleTransport({ logLevel: LogLevel.DEBUG }), withErrorHandler()),
+
+    /** To also capture global uncaught errors from the browser (e.g., script errors, unhandled promise rejections), use provideBrowserGlobalErrorListeners: */
+    provideBrowserGlobalErrorListeners(),
   ],
 })
 ```

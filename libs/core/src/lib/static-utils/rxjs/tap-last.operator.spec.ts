@@ -1,4 +1,5 @@
 import { Subject } from 'rxjs'
+import { describe, expect, test, vi } from 'vitest'
 
 import { tapLast } from './tap-last.operator'
 
@@ -8,9 +9,9 @@ describe('tapLast operator', () => {
 
     let callCounter = 0
 
-    const onNext = jest.fn(() => callCounter++)
-    const onTapLast = jest.fn(() => callCounter++)
-    const onComplete = jest.fn(() => callCounter++)
+    const onNext = vi.fn(() => callCounter++)
+    const onTapLast = vi.fn(() => callCounter++)
+    const onComplete = vi.fn(() => callCounter++)
 
     subject.pipe(tapLast(onTapLast)).subscribe({ next: onNext, complete: onComplete })
 
