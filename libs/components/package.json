@@ -19,5 +19,8 @@
     "@shiftcode/logger": "^4.0.0 || ^5.0.0-pr254",
     "@shiftcode/ngx-core": "^14.0.0 || ^14.1.0-pr7",
     "rxjs": "^6.5.3 || ^7.4.0"
+  },
+  "engines": {
+    "node": "^24.0.0"
   }
 }

@@ -48,7 +48,7 @@
     "@shiftcode/branch-utilities": "^6.0.0-pr254",
     "@shiftcode/eslint-config-recommended": "^7.0.0-pr254",
     "@shiftcode/publish-helper": "^6.0.0-pr254",
-    "@types/node": "^22.12.0",
+    "@types/node": "^24.12.0",
     "angular-eslint": "^21.0.1",
     "eslint": "^9.39.1",
     "husky": "^9.0.11",
@@ -68,6 +68,6 @@
     "@rollup/rollup-linux-x64-gnu": "^4.20.0"
   },
   "engines": {
-    "node": "^22.12.0 || ^24.0.0"
+    "node": "^24.0.0"
   }
 }
