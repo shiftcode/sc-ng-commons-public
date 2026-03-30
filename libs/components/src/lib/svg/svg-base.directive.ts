@@ -15,31 +15,35 @@ export abstract class SvgBaseDirective {
   protected readonly svgRegistry = inject(SvgRegistry)
 
   protected abstract readonly logger: Logger
-  protected abstract data: Signal<{ url: string; attrs?: Record<string, string> }>
+  protected abstract readonly data: Signal<{ url: string; attrs?: Record<string, string> }>
 
   constructor() {
-    effect(() => {
+    effect((onCleanup) => {
       const { url, attrs } = this.data()
-      this.getAndSet(url, attrs)
+      const abortController = new AbortController()
+      this.getAndSet(url, attrs, abortController.signal)
+      onCleanup(() => abortController.abort())
     })
   }
 
-  private getAndSet(url: string, attrs?: Record<string, string>) {
+  private getAndSet(url: string, attrs: Record<string, string> | undefined, abortSignal: AbortSignal) {
+    // due to the caching in SvgRegistry we cannot simply abort the fetching of the svg.
+    // but we ensure that we do not set the svg element if the abort signal has been triggered in the meantime.
     this.svgRegistry
       .getFromUrl(url)
-      .then(this.getSvgModifyFn(attrs))
-      .then(this.setSvgElement)
+      .then(this.getSvgModifierFn(attrs))
+      .then(this.getSvgSetterFn(abortSignal))
       .catch((err: any) => {
         if (err instanceof HttpErrorResponse && err.status === 0) {
           // in case of no internet or a timeout log a warning, we can not do anything about that
-          this.logger.warn(`Error retrieving icon for path ${url}, due to no network`, err)
+          this.logger.debug(`Error retrieving icon for path ${url}, due to no network`, err)
         } else {
           this.logger.error(`Error retrieving icon for path ${url}`, err)
         }
       })
   }
 
-  private readonly getSvgModifyFn = (attrs?: Record<string, string>) => {
+  private getSvgModifierFn(attrs?: Record<string, string>) {
     const attrsEntries = attrs ? Object.entries(attrs) : []
     if (attrsEntries.length === 0) {
       return (svg: SVGElement): SVGElement => svg
@@ -53,9 +57,15 @@ export abstract class SvgBaseDirective {
     }
   }
 
-  private readonly setSvgElement = (svg: SVGElement | null) => {
-    // Remove existing child nodes and add the new SVG element.
-    this.elRef.nativeElement.innerHTML = ''
-    this.renderer.appendChild(this.elRef.nativeElement, svg)
+  private getSvgSetterFn = (abortSignal: AbortSignal) => {
+    return (svg: SVGElement) => {
+      if (abortSignal.aborted) {
+        this.logger.debug('Aborting setSvgElement due to abort signal')
+        return
+      }
+      // Remove existing child nodes and add the new SVG element.
+      this.elRef.nativeElement.innerHTML = ''
+      this.renderer.appendChild(this.elRef.nativeElement, svg)
+    }
   }
 }
