@@ -1,5 +1,6 @@
 // svg
 export * from './lib/svg/svg.component'
+export * from './lib/svg/svg-base.directive'
 export * from './lib/svg/svg-registry.service'
 
 // svg-animate
