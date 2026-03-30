@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [15.1.0](https://github.com/shiftcode/sc-ng-commons-public/compare/v15.0.0...v15.1.0) (2026-03-30)
+
+### Features
+
+- **svg:** enhance `SvgBaseDirective` to prevent race conditions ([aa0032b](https://github.com/shiftcode/sc-ng-commons-public/commit/aa0032bca7c13d7e1fc9f95c35b0af97ffae1570))
+- **svg:** expose `SvgBaseDirective` to allow custom icon component implementations ([14cbbb1](https://github.com/shiftcode/sc-ng-commons-public/commit/14cbbb1d747bcb0d85886a945bdac0f20acd20e1))
+
 # [15.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/v14.0.0...v15.0.0) (2026-03-18)
 
 ### Bug Fixes

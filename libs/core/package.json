@@ -1,6 +1,6 @@
 {
   "name": "@shiftcode/ngx-core",
-  "version": "15.1.0-pr80.1",
+  "version": "15.1.0",
   "repository": "https://github.com/shiftcode/sc-ng-commons-public",
   "license": "MIT",
   "author": "shiftcode GmbH <team@shiftcode.ch>",
