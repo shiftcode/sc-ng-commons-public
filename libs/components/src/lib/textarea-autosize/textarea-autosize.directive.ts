@@ -39,7 +39,7 @@ export class TextareaAutosizeDirective {
     inject(ResizeService).observe(this.element).pipe(takeUntil(this.onDestroy$)).subscribe(this.resize.bind(this))
   }
 
-  private resize() {
+  resize(): void {
     // Calculate border height which is not included in scrollHeight
     const borderHeight = this.element.offsetHeight - this.element.clientHeight
 
