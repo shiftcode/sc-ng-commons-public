@@ -62,6 +62,7 @@ export * from './lib/script-loader/script-loader-error.model'
 export * from './lib/scroll-to/scroll-to.service'
 
 // static utils
+export * from './lib/static-utils/inputs-of.type'
 export * from './lib/static-utils/is-input-element.function'
 export * from './lib/static-utils/jwt-helper'
 export * from './lib/static-utils/key-names.const'
