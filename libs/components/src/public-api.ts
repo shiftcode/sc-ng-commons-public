@@ -1,3 +1,6 @@
+// apply
+export * from './lib/apply/apply.pipe'
+
 // svg
 export * from './lib/svg/svg.component'
 export * from './lib/svg/svg-base.directive'

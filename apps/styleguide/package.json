@@ -1,6 +1,6 @@
 {
   "name": "@shiftcode/styleguide",
-  "version": "15.1.1",
+  "version": "15.2.0-pr83.1",
   "private": true,
   "type": "module",
   "scripts": {
