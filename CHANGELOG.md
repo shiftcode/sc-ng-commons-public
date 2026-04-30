@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [15.2.0](https://github.com/shiftcode/sc-ng-commons-public/compare/v15.1.1...v15.2.0) (2026-04-30)
+
+### Features
+
+- add `ApplyPipe` ([899bdca](https://github.com/shiftcode/sc-ng-commons-public/commit/899bdca5b1a9e58d04de3c29317bc1ba6226cac4))
+- add `InputsOf` utility type to extract component inputs ([aae401f](https://github.com/shiftcode/sc-ng-commons-public/commit/aae401f6b4f4cffb686f037829b14b9c7221a1b4))
+- **logger:** enhance `withCustomLogTransport` to support `useExisting` option ([c661200](https://github.com/shiftcode/sc-ng-commons-public/commit/c661200017385859753afa9a9e815124b206997e))
+- new utility `onInit` function to replace ngOnInit ([81dc82b](https://github.com/shiftcode/sc-ng-commons-public/commit/81dc82b757caf89cc55d2d9b4c4096eea03f9b9b))
+
 ## [15.1.1](https://github.com/shiftcode/sc-ng-commons-public/compare/v15.1.0...v15.1.1) (2026-04-13)
 
 ### Bug Fixes
