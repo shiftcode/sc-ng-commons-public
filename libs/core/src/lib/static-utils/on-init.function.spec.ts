@@ -5,6 +5,12 @@ import { describe, expect, it, vi } from 'vitest'
 import { onInit } from './on-init.function'
 
 describe('onInit', () => {
+  it('throws when used outside an injection context', () => {
+    const initFn = vi.fn()
+
+    expect(() => onInit(initFn)).toThrow()
+  })
+
   it('does not call initFn before effects are flushed', () => {
     const initFn = vi.fn()
 
@@ -75,7 +81,7 @@ describe('onInit', () => {
     const fix = TestBed.createComponent(TestComponent)
     TestBed.tick()
     expect(initFn).toHaveBeenCalledTimes(1)
-    expect(cleanUpFn).not.toHaveBeenCalledTimes(1)
+    expect(cleanUpFn).not.toHaveBeenCalled()
 
     fix.destroy()
     expect(cleanUpFn).toHaveBeenCalledTimes(1)

@@ -52,4 +52,21 @@ describe('withCustomLogTransport', () => {
       ['test message'],
     )
   })
+
+  test('useExisting reuses the provided singleton instance', () => {
+    TestBed.configureTestingModule({
+      providers: [CustomLogTransport, provideLogger(withCustomLogTransport(CustomLogTransport, true))],
+    })
+
+    // Ensure services get instantiated
+    void TestBed.inject(LoggerService)
+
+    const customTransportSingleton = TestBed.inject(CustomLogTransport)
+
+    // log transport is provided with `multi` - thus it is an array.
+    const customTransportFromLogger = TestBed.inject(LogTransport) as unknown as LogTransport[]
+
+    expect(customTransportFromLogger[0]).toBeInstanceOf(CustomLogTransport)
+    expect(customTransportFromLogger[0]).toBe(customTransportSingleton)
+  })
 })
