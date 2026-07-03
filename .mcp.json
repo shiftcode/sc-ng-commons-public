@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "angular": {
+      "tools": ["*"],
+      "command": "npx",
+      "args": ["@angular/cli", "mcp"]
+    },
+
+    "mdn": {
+      "tools": ["*"],
+      "type": "http",
+      "url": "https://mcp.mdn.mozilla.net",
+      "headers": {}
+    }
+  }
+}

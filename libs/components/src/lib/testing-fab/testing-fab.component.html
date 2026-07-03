@@ -1,0 +1,46 @@
+@let panelId = 'sc-testing-fab-panel';
+<button
+  type="button"
+  class="sc-testing-fab__trigger"
+  aria-label="Toggle testing controls"
+  [attr.popovertarget]="panelId"
+  (pointerdown)="onTriggerPointerDown($event)"
+  (pointermove)="onTriggerPointerMove($event)"
+  (pointerup)="onTriggerPointerUp($event)"
+  (pointercancel)="onTriggerPointerCancel($event)"
+  (click)="onTriggerClick($event)"
+></button>
+
+<section [id]="panelId" popover="auto" class="sc-testing-fab__panel">
+  @for (widget of widgets; track widget.id) {
+    @let widgetId = 'sc-testing-fab-' + widget.id;
+    <div class="sc-testing-fab__widget">
+      <label [attr.for]="widgetId" class="sc-testing-fab__widget-label">{{ widget.label }}</label>
+
+      @switch (widget.type) {
+        @case ('action') {
+          <button type="button" [id]="widgetId" class="sc-testing-fab__action" (click)="widget.action()">
+            {{ widget.buttonLabel ?? widget.label }}
+          </button>
+        }
+        @case ('select-query-param') {
+          @let currentValue = qpWidgetValues()[widget.id];
+          <select
+            [id]="widgetId"
+            class="sc-testing-fab__select"
+            [value]="currentValue"
+            (change)="setQueryParam(widget, $event)"
+          >
+            <option value="">–</option>
+            @for (option of widget.options; track option.value) {
+              <option [value]="option.value" [selected]="option.value === currentValue">{{ option.label }}</option>
+            }
+          </select>
+        }
+        @case ('custom-component') {
+          <ng-container [ngComponentOutlet]="widget.component" />
+        }
+      }
+    </div>
+  }
+</section>

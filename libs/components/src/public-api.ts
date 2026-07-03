@@ -40,6 +40,12 @@ export * from './lib/insert-view-ref/insert-view-ref.directive'
 // navigation-class-handler
 export * from './lib/navigation-class-handler/navigation-class-handler'
 
+// testing fab
+export * from './lib/testing-fab/provide-testing-fab'
+export * from './lib/testing-fab/testing-fab.component'
+export * from './lib/testing-fab/testing-fab-config.token'
+export * from './lib/testing-fab/testing-fab-widget.type'
+
 // rx
 export * from './lib/rx/provide-defaults'
 export * from './lib/rx/rx-if.directive'
