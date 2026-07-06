@@ -31,7 +31,9 @@
             [value]="currentValue"
             (change)="setQueryParam(widget, $event)"
           >
-            <option value="">–</option>
+            @if (!widget.skipEmptyOption) {
+              <option value="">–</option>
+            }
             @for (option of widget.options; track option.value) {
               <option [value]="option.value" [selected]="option.value === currentValue">{{ option.label }}</option>
             }

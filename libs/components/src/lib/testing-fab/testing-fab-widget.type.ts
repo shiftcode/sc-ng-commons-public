@@ -21,6 +21,7 @@ export interface TestingFabSelectQueryParamWidget extends TestingFabWidgetBase {
   queryParam: string
   options: readonly TestingFabSelectOption[]
   hardReload?: boolean
+  skipEmptyOption?: boolean
 }
 
 export interface TestingFabSelectOption {
