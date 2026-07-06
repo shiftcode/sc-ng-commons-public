@@ -3,11 +3,16 @@ import { TestBed } from '@angular/core/testing'
 import { DefaultUrlSerializer, Router } from '@angular/router'
 import { LocalStorage } from '@shiftcode/ngx-core'
 import { NEVER } from 'rxjs'
-import { describe, expect, test, vi } from 'vitest'
+import { beforeEach, describe, expect, Mock, test, vi } from 'vitest'
 
 import { provideTestingFab } from './provide-testing-fab'
 import { TESTING_FAB_WIDGETS } from './testing-fab-config.token'
 import { TestingFabWidget } from './testing-fab-widget.type'
+
+let initFn: Mock
+beforeEach(async () => {
+  initFn = vi.spyOn(await import('./initialize-testing-fab'), 'default')
+})
 
 function setup(testingFabProviders: EnvironmentProviders) {
   const serializer = new DefaultUrlSerializer()
@@ -43,15 +48,17 @@ function setup(testingFabProviders: EnvironmentProviders) {
 }
 
 describe('provideTestingFab', () => {
-  test('supports static widgets config and renders the testing fab', () => {
+  test('supports static widgets config and renders the testing fab', async () => {
     const widgets: readonly TestingFabWidget[] = [{ id: 'a1', label: 'Action', type: 'action', action: vi.fn() }]
 
     setup(provideTestingFab(widgets))
 
     expect(TestBed.inject(TESTING_FAB_WIDGETS)).toEqual(widgets)
+
+    await expect.poll(() => initFn).toHaveBeenCalledTimes(1)
   })
 
-  test('supports factory widgets config', () => {
+  test('supports factory widgets config', async () => {
     const widgets: readonly TestingFabWidget[] = [{ id: 'a1', label: 'Action', type: 'action', action: vi.fn() }]
     const factory = vi.fn(() => widgets)
 
@@ -59,5 +66,7 @@ describe('provideTestingFab', () => {
 
     expect(TestBed.inject(TESTING_FAB_WIDGETS)).toEqual(widgets)
     expect(factory).toHaveBeenCalled()
+
+    await expect.poll(() => initFn).toHaveBeenCalledTimes(1)
   })
 })

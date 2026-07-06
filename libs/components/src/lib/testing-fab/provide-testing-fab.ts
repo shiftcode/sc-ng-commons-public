@@ -35,7 +35,11 @@ export function provideTestingFab(
       if (isPlatformBrowser(platform) && isEnabled) {
         void import('./initialize-testing-fab')
           .then((module) => module.default)
-          .then((initFn) => runInInjectionContext(envInjector, initFn))
+          .then((initFn) => {
+            if (!envInjector.destroyed) {
+              runInInjectionContext(envInjector, initFn)
+            }
+          })
       }
     }),
   ])
