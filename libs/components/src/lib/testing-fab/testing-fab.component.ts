@@ -59,7 +59,13 @@ export class TestingFabComponent {
       filterIfInstanceOf(NavigationEnd),
       map((ev) => ev.urlAfterRedirects),
       startWith(this.router.url),
-      map((path) => URL.parse(path, this.origin)?.searchParams ?? new URLSearchParams()),
+      map((path) => {
+        try {
+          return new URL(path, this.origin).searchParams
+        } catch {
+          return new URLSearchParams()
+        }
+      }),
     ),
     { initialValue: new URLSearchParams() },
   )

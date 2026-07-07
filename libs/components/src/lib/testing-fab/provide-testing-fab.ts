@@ -15,8 +15,8 @@ type ValueOrFactory<T> = T | (() => T)
 
 /**
  * Provides the testing FAB with the given widgets and enables it based on the provided flag.
- * if not flag is provided, the FAB will be enabled by default.
- * Will only initialize the FAB in the browser platform.
+ * If no `enabled` flag is provided, the FAB will be enabled by default.
+ * Will only initialize the FAB on the browser platform.
  */
 export function provideTestingFab(
   widgets: ValueOrFactory<readonly TestingFabWidget[]>,

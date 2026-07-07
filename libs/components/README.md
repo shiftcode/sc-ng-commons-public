@@ -80,7 +80,7 @@ Can be customized with css custom properties:
 Floating action button for non-production testing controls.
 
 ```ts
-import { provideTestingFab, TestingFabComponent } from '@shiftcode/ngx-components'
+import { provideTestingFab } from '@shiftcode/ngx-components'
 
 bootstrapApplication(AppComponent, {
   providers: [
