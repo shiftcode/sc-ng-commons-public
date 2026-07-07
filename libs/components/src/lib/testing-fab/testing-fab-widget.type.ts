@@ -22,6 +22,7 @@ export interface TestingFabSelectQueryParamWidget extends TestingFabWidgetBase {
 export interface TestingFabToggleQueryParamWidget extends TestingFabWidgetBase {
   type: 'toggle-query-param'
   queryParam: string
+  title?: string
   hardReload?: boolean
 }
 

@@ -62,7 +62,8 @@ bootstrapApplication(AppComponent, {
       {
         id: 'body-bg-light',
         type: 'toggle-query-param',
-        label: 'Use Light background',
+        label: 'Lighten Color',
+        title: 'Background',
         queryParam: 'body-bg-light',
       },
     ]),

@@ -34,8 +34,9 @@
           </select>
         }
         @case ('toggle-query-param') {
-          <span class="sc-testing-fab__widget-label">{{ widget.label }}</span>
-
+          @if (widget.title) {
+            <span class="sc-testing-fab__widget-label">{{ widget.title }}</span>
+          }
           <label [attr.for]="widgetId" class="sc-testing-fab__checkbox">
             <input
               type="checkbox"
@@ -43,7 +44,7 @@
               [checked]="currentValue"
               (change)="setToggleQueryParam(widget, $event)"
             />
-            <span [innerText]="currentValue ? 'Enabled' : 'Disabled'"></span>
+            <span>{{ widget.label }}</span>
           </label>
         }
         @case ('custom-component') {
