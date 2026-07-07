@@ -117,6 +117,77 @@ describe('TestingFabComponent', () => {
     })
   })
 
+  test.each([
+    ['true', true],
+    ['1', true],
+    ['', true],
+    ['false', false],
+  ])('renders toggle widget from URL query parameter (%s)', (toggleValue, expectedChecked) => {
+    const widgets: readonly TestingFabWidget[] = [
+      {
+        id: 'feature-flag',
+        label: 'Feature Flag',
+        type: 'toggle-query-param',
+        queryParam: 'feature',
+      },
+    ]
+
+    const encodedValue = encodeURIComponent(toggleValue)
+    const { fixture, routerEvents } = setup(widgets, `/?feature=${encodedValue}`)
+    routerEvents.next(new NavigationEnd(1, `/?feature=${encodedValue}`, `/?feature=${encodedValue}`))
+    fixture.detectChanges()
+
+    const checkbox = queryRequired<HTMLInputElement>(fixture, 'input[type="checkbox"]')
+    expect(checkbox.checked).toBe(expectedChecked)
+  })
+
+  test('updates query parameters when toggle widget value changes', () => {
+    const widgets: readonly TestingFabWidget[] = [
+      {
+        id: 'feature-flag',
+        label: 'Feature Flag',
+        type: 'toggle-query-param',
+        queryParam: 'feature',
+      },
+    ]
+
+    const { fixture, routerMock } = setup(widgets, '/?feature=true')
+    const checkbox = queryRequired<HTMLInputElement>(fixture, 'input[type="checkbox"]')
+
+    checkbox.checked = false
+    checkbox.dispatchEvent(new Event('change'))
+    expect(routerMock.navigate).toHaveBeenCalledWith([], {
+      queryParams: { feature: null },
+      queryParamsHandling: 'merge',
+    })
+
+    checkbox.checked = true
+    checkbox.dispatchEvent(new Event('change'))
+    expect(routerMock.navigate).toHaveBeenNthCalledWith(2, [], {
+      queryParams: { feature: 'true' },
+      queryParamsHandling: 'merge',
+    })
+  })
+
+  test('forces hard reload when configured on toggle widget', () => {
+    const widgets: readonly TestingFabWidget[] = [
+      {
+        id: 'feature-flag',
+        label: 'Feature Flag',
+        type: 'toggle-query-param',
+        queryParam: 'feature',
+        hardReload: true,
+      },
+    ]
+
+    const { fixture, routerMock } = setup(widgets, '/?feature=true')
+    const checkbox = queryRequired<HTMLInputElement>(fixture, 'input[type="checkbox"]')
+    checkbox.checked = false
+    expect(() => checkbox.dispatchEvent(new Event('change'))).not.toThrow()
+
+    expect(routerMock.navigate).not.toHaveBeenCalled()
+  })
+
   test('forces hard reload when configured on select widget', () => {
     const widgets: readonly TestingFabWidget[] = [
       {
@@ -153,24 +224,6 @@ describe('TestingFabComponent', () => {
     const { fixture } = setup(widgets)
     const customWidget = queryRequired<HTMLElement>(fixture, '[data-test-id="custom-widget"]')
     expect(customWidget).not.toBeNull()
-  })
-
-  test('runs action widgets when clicked', () => {
-    const action = vi.fn()
-    const widgets: readonly TestingFabWidget[] = [
-      {
-        id: 'toggle-i18n',
-        label: 'Show i18n Keys',
-        type: 'action',
-        action,
-      },
-    ]
-
-    const { fixture } = setup(widgets)
-    const button = queryRequired<HTMLButtonElement>(fixture, '.sc-testing-fab__action')
-    button.click()
-
-    expect(action).toHaveBeenCalledTimes(1)
   })
 
   test('loads saved FAB position from local storage', () => {

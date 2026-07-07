@@ -15,16 +15,10 @@
   @for (widget of widgets; track widget.id) {
     @let widgetId = 'sc-testing-fab-' + widget.id;
     <div class="sc-testing-fab__widget">
-      <label [attr.for]="widgetId" class="sc-testing-fab__widget-label">{{ widget.label }}</label>
-
+      @let currentValue = qpWidgetValues()[widget.id];
       @switch (widget.type) {
-        @case ('action') {
-          <button type="button" [id]="widgetId" class="sc-testing-fab__action" (click)="widget.action()">
-            {{ widget.buttonLabel ?? widget.label }}
-          </button>
-        }
         @case ('select-query-param') {
-          @let currentValue = qpWidgetValues()[widget.id];
+          <label [attr.for]="widgetId" class="sc-testing-fab__widget-label">{{ widget.label }}</label>
           <select
             [id]="widgetId"
             class="sc-testing-fab__select"
@@ -39,7 +33,21 @@
             }
           </select>
         }
+        @case ('toggle-query-param') {
+          <span class="sc-testing-fab__widget-label">{{ widget.label }}</span>
+
+          <label [attr.for]="widgetId" class="sc-testing-fab__checkbox">
+            <input
+              type="checkbox"
+              [id]="widgetId"
+              [checked]="currentValue"
+              (change)="setToggleQueryParam(widget, $event)"
+            />
+            <span [innerText]="currentValue ? 'Enabled' : 'Disabled'"></span>
+          </label>
+        }
         @case ('custom-component') {
+          <span class="sc-testing-fab__widget-label">{{ widget.label }}</span>
           <ng-container [ngComponentOutlet]="widget.component" />
         }
       }

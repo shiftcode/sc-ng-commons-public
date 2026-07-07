@@ -95,6 +95,12 @@ bootstrapApplication(AppComponent, {
           { label: 'Preview', value: 'preview' },
         ],
       },
+      {
+        id: 'enable-feature-x',
+        label: 'Enable Feature X',
+        type: 'toggle-query-param',
+        queryParam: 'feature-x',
+      },
     ]),
   ],
 })

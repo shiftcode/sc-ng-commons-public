@@ -13,7 +13,7 @@ import {
   provideLogger,
   withBrowserConsoleTransport,
 } from '@shiftcode/ngx-core'
-import { filter, map, startWith } from 'rxjs'
+import { map, startWith } from 'rxjs'
 
 import { AppComponent } from './app/app.component'
 import { provideSgConfig } from './provide-sg-config'
@@ -33,8 +33,8 @@ bootstrapApplication(AppComponent, {
     provideTestingFab([
       {
         id: 'body-bg-color',
-        label: 'Body Background',
         type: 'select-query-param',
+        label: 'Body Background',
         queryParam: 'body-bg',
         options: [
           { value: '#e0202b', label: 'red' },
@@ -59,6 +59,12 @@ bootstrapApplication(AppComponent, {
           { value: '#35978a', label: 'turquoise' },
         ],
       },
+      {
+        id: 'body-bg-light',
+        type: 'toggle-query-param',
+        label: 'Use Light background',
+        queryParam: 'body-bg-light',
+      },
     ]),
     provideEnvironmentInitializer(() => {
       const origin = inject(ORIGIN)
@@ -69,11 +75,15 @@ bootstrapApplication(AppComponent, {
           filterIfInstanceOf(NavigationEnd),
           map((ev) => ev.urlAfterRedirects),
           startWith(inject(Router).url),
-          map((path) => URL.parse(path, origin)?.searchParams?.get('body-bg') || null),
-          filter((bgColor) => bgColor === null || /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(bgColor)),
+          map((path) => {
+            const qp = URL.parse(path, origin)?.searchParams
+            const bgColor = qp?.get('body-bg') || '#fff'
+            const lightFlag = qp?.get('body-bg-light') === 'true'
+            return [/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(bgColor) ? bgColor : '#fff', lightFlag] as const
+          }),
         )
-        .subscribe((bgColor) => {
-          doc.body.style.backgroundColor = bgColor || 'unset'
+        .subscribe(([bgColor, useLightBg]) => {
+          doc.body.style.backgroundColor = useLightBg ? `color-mix(in oklab, ${bgColor}, white 50%)` : bgColor
         })
     }),
   ],

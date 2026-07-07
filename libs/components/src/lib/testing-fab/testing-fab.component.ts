@@ -3,10 +3,11 @@ import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } 
 import { toSignal } from '@angular/core/rxjs-interop'
 import { NavigationEnd, Router } from '@angular/router'
 import { filterIfInstanceOf, LocalStorage, ORIGIN } from '@shiftcode/ngx-core'
+import { isDefined } from '@shiftcode/utilities'
 import { map, startWith } from 'rxjs'
 
 import { TESTING_FAB_WIDGETS } from './testing-fab-config.token'
-import { TestingFabSelectQueryParamWidget } from './testing-fab-widget.type'
+import { TestingFabSelectQueryParamWidget, TestingFabToggleQueryParamWidget } from './testing-fab-widget.type'
 
 const FAB_POSITIONS = ['top-left', 'top-right', 'bottom-left', 'bottom-right'] as const
 type TestingFabPosition = (typeof FAB_POSITIONS)[number]
@@ -21,6 +22,10 @@ function parsePosition(value: unknown): TestingFabPosition | null {
   }
 
   return null
+}
+
+function isToggleQueryParamValueTruthy(value: string): boolean {
+  return value === 'true' || value === '1' || value === ''
 }
 
 @Component({
@@ -59,13 +64,23 @@ export class TestingFabComponent {
     { initialValue: new URLSearchParams() },
   )
 
-  protected readonly qpWidgetValues = computed((): Record<string, string> => {
+  protected readonly qpWidgetValues = computed((): Record<string, string | boolean> => {
     const qp = this.queryParams()
-    return Object.fromEntries(
-      this.widgets
-        .filter((w) => w.type === 'select-query-param')
-        .map((w) => [w.id, qp.get(w.queryParam) ?? ''] as const),
-    )
+    const valueEntries = this.widgets
+      .map((w): readonly [string, string | boolean] | null => {
+        switch (w.type) {
+          case 'select-query-param':
+            return [w.id, qp.get(w.queryParam) ?? '']
+          case 'toggle-query-param':
+            return [w.id, qp.has(w.queryParam) ? isToggleQueryParamValueTruthy(qp.get(w.queryParam) ?? '') : false]
+          case 'custom-component':
+            return null
+          default:
+            return w
+        }
+      })
+      .filter(isDefined)
+    return Object.fromEntries(valueEntries)
   })
 
   constructor() {
@@ -152,6 +167,29 @@ export class TestingFabComponent {
     void this.router.navigate([], {
       queryParams: {
         [widget.queryParam]: nextValue || null,
+      },
+      queryParamsHandling: 'merge',
+    })
+  }
+
+  protected setToggleQueryParam(widget: TestingFabToggleQueryParamWidget, event: Event): void {
+    const nextEnabled = (event.target as HTMLInputElement).checked
+    const nextValue = nextEnabled ? 'true' : null
+
+    if (widget.hardReload) {
+      const url = new URL(window.location.href)
+      if (nextValue) {
+        url.searchParams.set(widget.queryParam, nextValue)
+      } else {
+        url.searchParams.delete(widget.queryParam)
+      }
+      window.location.assign(url.toString())
+      return
+    }
+
+    void this.router.navigate([], {
+      queryParams: {
+        [widget.queryParam]: nextValue,
       },
       queryParamsHandling: 'merge',
     })

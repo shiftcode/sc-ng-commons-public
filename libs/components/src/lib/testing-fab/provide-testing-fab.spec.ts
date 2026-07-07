@@ -49,7 +49,9 @@ function setup(testingFabProviders: EnvironmentProviders) {
 
 describe('provideTestingFab', () => {
   test('supports static widgets config and renders the testing fab', async () => {
-    const widgets: readonly TestingFabWidget[] = [{ id: 'a1', label: 'Action', type: 'action', action: vi.fn() }]
+    const widgets: readonly TestingFabWidget[] = [
+      { id: 'a1', label: 'Action', type: 'toggle-query-param', queryParam: 'flag' },
+    ]
 
     setup(provideTestingFab(widgets))
 
@@ -59,7 +61,9 @@ describe('provideTestingFab', () => {
   })
 
   test('supports factory widgets config', async () => {
-    const widgets: readonly TestingFabWidget[] = [{ id: 'a1', label: 'Action', type: 'action', action: vi.fn() }]
+    const widgets: readonly TestingFabWidget[] = [
+      { id: 'a1', label: 'Action', type: 'toggle-query-param', queryParam: 'flag' },
+    ]
     const factory = vi.fn(() => widgets)
 
     setup(provideTestingFab(factory))

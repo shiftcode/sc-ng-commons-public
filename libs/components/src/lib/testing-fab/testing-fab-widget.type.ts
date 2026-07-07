@@ -1,19 +1,14 @@
 import { Type } from '@angular/core'
 
 export type TestingFabWidget =
-  | TestingFabActionWidget
   | TestingFabSelectQueryParamWidget
+  | TestingFabToggleQueryParamWidget
   | TestingFabCustomComponentWidget
 
 interface TestingFabWidgetBase {
+  type: 'select-query-param' | 'toggle-query-param' | 'custom-component'
   id: string
   label: string
-}
-
-export interface TestingFabActionWidget extends TestingFabWidgetBase {
-  type: 'action'
-  buttonLabel?: string
-  action: () => void
 }
 
 export interface TestingFabSelectQueryParamWidget extends TestingFabWidgetBase {
@@ -22,6 +17,12 @@ export interface TestingFabSelectQueryParamWidget extends TestingFabWidgetBase {
   options: readonly TestingFabSelectOption[]
   hardReload?: boolean
   skipEmptyOption?: boolean
+}
+
+export interface TestingFabToggleQueryParamWidget extends TestingFabWidgetBase {
+  type: 'toggle-query-param'
+  queryParam: string
+  hardReload?: boolean
 }
 
 export interface TestingFabSelectOption {
