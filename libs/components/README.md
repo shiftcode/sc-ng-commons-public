@@ -106,4 +106,4 @@ bootstrapApplication(AppComponent, {
 })
 ```
 
-Add `<sc-testing-fab />` once in a root-level template where it should be available.
+`provideTestingFab(...)` mounts `<sc-testing-fab>` automatically as sibling of `app-root` (when enabled).

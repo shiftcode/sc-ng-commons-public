@@ -42,8 +42,6 @@ export * from './lib/navigation-class-handler/navigation-class-handler'
 
 // testing fab
 export * from './lib/testing-fab/provide-testing-fab'
-export * from './lib/testing-fab/testing-fab.component'
-export * from './lib/testing-fab/testing-fab-config.token'
 export * from './lib/testing-fab/testing-fab-widget.type'
 
 // rx
