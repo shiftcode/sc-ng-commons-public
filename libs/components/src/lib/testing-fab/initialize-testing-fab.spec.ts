@@ -25,6 +25,8 @@ describe('initializeTestingFab', () => {
 
     TestBed.runInInjectionContext(initializeTestingFab)
 
-    expect(TestBed.inject(DOCUMENT).querySelector('sc-testing-fab')).not.toBeNull()
+    const host = TestBed.inject(DOCUMENT).querySelector('sc-testing-fab')
+    expect(host).not.toBeNull()
+    expect(host!.firstChild).toBeDefined()
   })
 })

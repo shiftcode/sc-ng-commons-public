@@ -14,7 +14,7 @@ import { TestingFabWidget } from './testing-fab-widget.type'
 type ValueOrFactory<T> = T | (() => T)
 
 /**
- * Provides the testing FAB with the given widgets and enables it based on the provided flag.
+ * Provides the testing FAB asynchronously with the given widgets and enables it based on the provided flag.
  * If no `enabled` flag is provided, the FAB will be enabled by default.
  * Will only initialize the FAB on the browser platform.
  */
@@ -33,13 +33,11 @@ export function provideTestingFab(
       const isEnabled = typeof enabled === 'function' ? enabled() : enabled
 
       if (isPlatformBrowser(platform) && isEnabled) {
-        void import('./initialize-testing-fab')
-          .then((module) => module.default)
-          .then((initFn) => {
-            if (!envInjector.destroyed) {
-              runInInjectionContext(envInjector, initFn)
-            }
-          })
+        void import('./initialize-testing-fab').then((module) => {
+          if (!envInjector.destroyed) {
+            runInInjectionContext(envInjector, module.default)
+          }
+        })
       }
     }),
   ])
