@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [15.3.0](https://github.com/shiftcode/sc-ng-commons-public/compare/v15.2.0...v15.3.0) (2026-07-09)
+
+### Features
+
+- **testing-fab:** add toggle widget type ([a6b7ee4](https://github.com/shiftcode/sc-ng-commons-public/commit/a6b7ee40600d9125eaaa69e7268f02266ba5fc21))
+- **testing-fab:** add toggle widget type ([8d0b3c8](https://github.com/shiftcode/sc-ng-commons-public/commit/8d0b3c8d206c460d794e94afe89126667b05b8a5))
+
 # [15.2.0](https://github.com/shiftcode/sc-ng-commons-public/compare/v15.1.1...v15.2.0) (2026-04-30)
 
 **Note:** Version bump only for package @shiftcode/styleguide

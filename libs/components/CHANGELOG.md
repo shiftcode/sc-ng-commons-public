@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [15.3.0](https://github.com/shiftcode/sc-ng-commons-public/compare/v15.2.0...v15.3.0) (2026-07-09)
+
+### Bug Fixes
+
+- **testing-fab:** address remaining review comments ([8c79c05](https://github.com/shiftcode/sc-ng-commons-public/commit/8c79c0514b00f4b7b97c864caae347377c122561))
+
+### Features
+
+- **components:** implement configurable testing fab ([eb7cad5](https://github.com/shiftcode/sc-ng-commons-public/commit/eb7cad592535fc116903d31dd9aab16dd3581924))
+- **testing-fab:** add option to skip empty selection and enhance styles ([a600a94](https://github.com/shiftcode/sc-ng-commons-public/commit/a600a94fbbc139667710852f95c498dc0678c00e))
+- **testing-fab:** add toggle widget type ([a6b7ee4](https://github.com/shiftcode/sc-ng-commons-public/commit/a6b7ee40600d9125eaaa69e7268f02266ba5fc21))
+- **testing-fab:** add toggle widget type ([8d0b3c8](https://github.com/shiftcode/sc-ng-commons-public/commit/8d0b3c8d206c460d794e94afe89126667b05b8a5))
+
 # [15.2.0](https://github.com/shiftcode/sc-ng-commons-public/compare/v15.1.1...v15.2.0) (2026-04-30)
 
 ### Features
