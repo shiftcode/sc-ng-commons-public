@@ -74,3 +74,36 @@ Can be customized with css custom properties:
   --sc-tooltip-padding: 4px 8px;
 }
 ```
+
+## [testing-fab](./src/lib/testing-fab/testing-fab.component.ts)
+
+Floating action button for non-production testing controls.
+
+```ts
+import { provideTestingFab } from '@shiftcode/ngx-components'
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideTestingFab([
+      {
+        id: 'backend-env',
+        label: 'Backend Environment',
+        type: 'select-query-param',
+        queryParam: 'env',
+        options: [
+          { label: 'QA', value: 'qa' },
+          { label: 'Preview', value: 'preview' },
+        ],
+      },
+      {
+        id: 'enable-feature-x',
+        label: 'Enable Feature X',
+        type: 'toggle-query-param',
+        queryParam: 'feature-x',
+      },
+    ]),
+  ],
+})
+```
+
+`provideTestingFab(...)` mounts `<sc-testing-fab>` automatically as sibling of `app-root` (when enabled).

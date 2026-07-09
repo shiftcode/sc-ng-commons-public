@@ -1,6 +1,6 @@
 {
   "name": "@shiftcode/ngx-components",
-  "version": "15.2.0",
+  "version": "15.3.0-pr87.8",
   "repository": "https://github.com/shiftcode/sc-ng-commons-public",
   "license": "MIT",
   "author": "shiftcode GmbH <team@shiftcode.ch>",
@@ -17,7 +17,8 @@
     "@angular/forms": "^21.0.0",
     "@angular/router": "^21.0.0",
     "@shiftcode/logger": "^5.0.0",
-    "@shiftcode/ngx-core": "^15.0.0 || ^15.0.0-pr7",
+    "@shiftcode/ngx-core": "^15.0.0 || ^15.3.0-pr87",
+    "@shiftcode/utilities": "^5.0.0",
     "rxjs": "^6.5.3 || ^7.4.0"
   },
   "engines": {

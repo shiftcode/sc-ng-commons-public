@@ -1,0 +1,57 @@
+@let panelId = 'sc-testing-fab-panel';
+<button
+  type="button"
+  class="sc-testing-fab__trigger"
+  aria-label="Toggle testing controls"
+  [attr.popovertarget]="panelId"
+  (pointerdown)="onTriggerPointerDown($event)"
+  (pointermove)="onTriggerPointerMove($event)"
+  (pointerup)="onTriggerPointerUp($event)"
+  (pointercancel)="onTriggerPointerCancel($event)"
+  (click)="onTriggerClick($event)"
+></button>
+
+<section [id]="panelId" popover="auto" class="sc-testing-fab__panel">
+  @for (widget of widgets; track widget.id) {
+    @let widgetId = 'sc-testing-fab-' + widget.id;
+    <div class="sc-testing-fab__widget">
+      @let currentValue = qpWidgetValues()[widget.id];
+      @switch (widget.type) {
+        @case ('select-query-param') {
+          <label [attr.for]="widgetId" class="sc-testing-fab__widget-label">{{ widget.label }}</label>
+          <select
+            [id]="widgetId"
+            class="sc-testing-fab__select"
+            [value]="currentValue"
+            (change)="setQueryParam(widget, $event)"
+          >
+            @if (!widget.skipEmptyOption) {
+              <option value="">–</option>
+            }
+            @for (option of widget.options; track option.value) {
+              <option [value]="option.value" [selected]="option.value === currentValue">{{ option.label }}</option>
+            }
+          </select>
+        }
+        @case ('toggle-query-param') {
+          @if (widget.title) {
+            <span class="sc-testing-fab__widget-label">{{ widget.title }}</span>
+          }
+          <label [attr.for]="widgetId" class="sc-testing-fab__checkbox">
+            <input
+              type="checkbox"
+              [id]="widgetId"
+              [checked]="currentValue"
+              (change)="setToggleQueryParam(widget, $event)"
+            />
+            <span>{{ widget.label }}</span>
+          </label>
+        }
+        @case ('custom-component') {
+          <span class="sc-testing-fab__widget-label">{{ widget.label }}</span>
+          <ng-container [ngComponentOutlet]="widget.component" />
+        }
+      }
+    </div>
+  }
+</section>
