@@ -107,12 +107,15 @@ $defaultFabShadowHover: 0 0 32px rgb(0 0 0 / 40%);
   transform-origin: var(--sc-testing-fab-panel-transform-origin);
   transition:
     opacity 140ms ease,
-    scale 140ms ease;
+    scale 140ms ease,
+    visibility 140ms ease allow-discrete;
 
+  visibility: hidden;
   opacity: 0;
   scale: 1 0.9;
 
   &:popover-open {
+    visibility: visible;
     opacity: 1;
     scale: 1 1;
 
