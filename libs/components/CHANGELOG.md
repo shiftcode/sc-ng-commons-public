@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [15.3.1](https://github.com/shiftcode/sc-ng-commons-public/compare/v15.3.0...v15.3.1) (2026-08-10)
+
+### Bug Fixes
+
+- **testing-fab:** visibility hidden when not open ([b585aa2](https://github.com/shiftcode/sc-ng-commons-public/commit/b585aa25ad61401c95fb4d334c80a50926773070))
+
 # [15.3.0](https://github.com/shiftcode/sc-ng-commons-public/compare/v15.2.0...v15.3.0) (2026-07-09)
 
 ### Bug Fixes
