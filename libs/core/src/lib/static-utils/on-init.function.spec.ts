@@ -58,7 +58,7 @@ describe('onInit', () => {
 
   it('does not register a cleanup when initFn returns a non-function value', () => {
     // returning a truthy non-function should not cause errors
-    const initFn = vi.fn().mockReturnValue(42 as unknown as void)
+    const initFn = vi.fn().mockReturnValue(42)
 
     TestBed.runInInjectionContext(() => onInit(initFn))
 
