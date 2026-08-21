@@ -1,7 +1,7 @@
-import { inject, Injectable } from '@angular/core'
+import { inject, Service } from '@angular/core'
 import { BaseLoggerService, Logger, LogTransport } from '@shiftcode/logger'
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class LoggerService {
   private baseService: BaseLoggerService
 

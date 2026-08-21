@@ -1,9 +1,9 @@
-import { DOCUMENT, inject, Injectable } from '@angular/core'
+import { DOCUMENT, inject, Service } from '@angular/core'
 import { filter, finalize, fromEvent, merge, Observable } from 'rxjs'
 
 import { WindowRef } from '../window/window-ref.service'
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class UIEventService {
   private readonly document = inject(DOCUMENT)
   private readonly window = inject(WindowRef).nativeWindow

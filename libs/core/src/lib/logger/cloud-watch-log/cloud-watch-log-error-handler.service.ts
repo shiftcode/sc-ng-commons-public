@@ -1,4 +1,4 @@
-import { ErrorHandler, inject, Injectable, Injector } from '@angular/core'
+import { ErrorHandler, inject, Injector, Service } from '@angular/core'
 import { LogLevel } from '@shiftcode/logger'
 
 import { CloudWatchLogV2Service } from './cloud-watch-log.service'
@@ -7,7 +7,7 @@ import { CloudWatchLogV2Service } from './cloud-watch-log.service'
  * Angular ErrorHandler to send uncaught Errors to AWS CloudWatch Logs
  * requires the {@link CloudWatchLogV2Service}
  */
-@Injectable({ providedIn: 'root' })
+@Service()
 export class CloudWatchLogV2ErrorHandler extends ErrorHandler {
   private readonly injector = inject(Injector)
 

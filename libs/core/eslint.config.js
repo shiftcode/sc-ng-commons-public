@@ -28,6 +28,7 @@ export default defineScAngularConfig(
           },
         },
       ],
+      '@angular-eslint/prefer-service-decorator': 'error',
     },
   },
   {

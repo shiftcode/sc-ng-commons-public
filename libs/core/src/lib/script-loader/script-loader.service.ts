@@ -1,11 +1,11 @@
 import { isPlatformServer } from '@angular/common'
-import { DOCUMENT, inject, Injectable, PLATFORM_ID } from '@angular/core'
+import { DOCUMENT, inject, PLATFORM_ID, Service } from '@angular/core'
 import { Logger } from '@shiftcode/logger'
 
 import { LoggerService } from '../logger/logger.service'
 import { ScriptLoaderError } from './script-loader-error.model'
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class ScriptLoaderService {
   private static ELEMENT = 'script'
 
