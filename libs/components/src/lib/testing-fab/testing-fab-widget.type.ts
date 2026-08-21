@@ -1,9 +1,7 @@
 import { Type } from '@angular/core'
 
 export type TestingFabWidget =
-  | TestingFabSelectQueryParamWidget
-  | TestingFabToggleQueryParamWidget
-  | TestingFabCustomComponentWidget
+  TestingFabSelectQueryParamWidget | TestingFabToggleQueryParamWidget | TestingFabCustomComponentWidget
 
 interface TestingFabWidgetBase {
   type: 'select-query-param' | 'toggle-query-param' | 'custom-component'
