@@ -10,10 +10,9 @@
   $default-padding: 4px 8px;
   $default-filter: drop-shadow(0 0 0 rgba(1, 1, 1, 0));
 
-  // otherwise we'll have flickering
-  pointer-events: none !important;
-
   .sc-tooltip {
+    opacity: 0;
+    scale: 0;
     position: relative;
     background: var(--sc-tooltip-background, #{$default-background});
     border-radius: var(--sc-tooltip-border-radius, #{$default-border-radius});
@@ -23,6 +22,27 @@
     --neg-notch-size: calc(var(--sc-tooltip-notch-size, #{$default-notch-size}) * -1);
     // the space from notch to the boundary of the tooltip
     --notch-spacer: calc(var(--sc-tooltip-notch-size, #{$default-notch-size}) * 0.5);
+
+    &.sc-tooltip--visible {
+      opacity: 1;
+      scale: 1;
+      transition:
+        opacity 250ms cubic-bezier(0, 0, 0.2, 1),
+        scale 125ms cubic-bezier(0, 0, 0.2, 1);
+    }
+
+    &.sc-tooltip--hidden {
+      scale: 1;
+      transition: opacity 150ms cubic-bezier(0, 0, 0.2, 1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      &.sc-tooltip--visible,
+      &.sc-tooltip--hidden {
+        // Keep completion events so the overlay can be detached.
+        transition-duration: 1ms;
+      }
+    }
   }
 
   .sc-tooltip {
@@ -134,5 +154,12 @@
 :host-context(.cdk-high-contrast-active) {
   .sc-tooltip {
     outline: solid 1px;
+  }
+}
+
+::ng-deep {
+  .sc-tooltip-panel {
+    // otherwise we'll have flickering
+    pointer-events: none !important;
   }
 }
