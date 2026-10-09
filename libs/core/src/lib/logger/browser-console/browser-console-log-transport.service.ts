@@ -1,5 +1,5 @@
 import { isPlatformServer } from '@angular/common'
-import { inject, Injectable, InjectionToken, PLATFORM_ID } from '@angular/core'
+import { inject, InjectionToken, PLATFORM_ID, Service } from '@angular/core'
 import { LogLevel, LogTransport } from '@shiftcode/logger'
 
 import { loggingTimeFormat } from '../helper/logging-time-format.const'
@@ -13,7 +13,7 @@ export const BROWSER_CONSOLE_LOG_TRANSPORT_CONFIG = new InjectionToken<BrowserCo
   { factory: () => ({ logLevel: LogLevel.DEBUG }) },
 )
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class BrowserConsoleLogTransportService extends LogTransport {
   constructor() {
     super(inject(BROWSER_CONSOLE_LOG_TRANSPORT_CONFIG).logLevel)

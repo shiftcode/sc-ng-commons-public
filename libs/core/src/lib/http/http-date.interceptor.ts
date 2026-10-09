@@ -1,11 +1,11 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http'
-import { Injectable } from '@angular/core'
+import { Service } from '@angular/core'
 import { mapValuesDeep } from '@shiftcode/utilities'
 import { map, Observable } from 'rxjs'
 
 import { REGEX_DATE_STRING, REGEX_DATE_STRING_WITH_MS } from '../static-utils/regex'
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class HttpDateInterceptor implements HttpInterceptor {
   // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   static convertDates(value: string | any): Date | any {

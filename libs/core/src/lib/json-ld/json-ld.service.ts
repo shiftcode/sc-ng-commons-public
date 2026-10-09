@@ -1,4 +1,4 @@
-import { DOCUMENT, inject, Injectable } from '@angular/core'
+import { DOCUMENT, inject, Service } from '@angular/core'
 
 export type JsonLdProp = string | number | boolean
 
@@ -10,7 +10,7 @@ export interface ListItemLd extends JsonLd {
   item: JsonLd
 }
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class JsonLdService {
   private readonly doc = inject(DOCUMENT)
 

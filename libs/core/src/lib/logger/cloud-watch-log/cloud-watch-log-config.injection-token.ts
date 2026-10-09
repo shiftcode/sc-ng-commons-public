@@ -5,7 +5,7 @@ export interface CloudWatchLogV2Config {
   logLevel: LogLevel
 
   /**
-   * the url of the CloudWatchApi Construct from @shiftcode/cdk-utils
+   * the url of the CloudWatchApi Construct from @shiftcode/cdk-utilities
    */
   apiUrl: string
 

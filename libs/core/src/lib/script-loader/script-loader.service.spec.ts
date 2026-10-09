@@ -62,7 +62,7 @@ describe('ScriptLoaderService', () => {
       expect(scriptTags.length).toBe(2)
 
       expect(scriptTags[0].src?.replace(/^(https?:\/\/)([^./]+)/, '')).toBe(scriptSrc)
-      const scriptEl: HTMLScriptElement = <any>scriptTags[0]
+      const scriptEl: HTMLScriptElement = scriptTags[0]
       expect(scriptEl).toBeDefined()
       scriptEl.onload?.(new Event('loaded'))
 

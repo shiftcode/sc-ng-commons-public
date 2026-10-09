@@ -2,7 +2,6 @@ import { provideHttpClient } from '@angular/common/http'
 import { DOCUMENT, inject, provideEnvironmentInitializer, provideZoneChangeDetection } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { bootstrapApplication } from '@angular/platform-browser'
-import { provideAnimations } from '@angular/platform-browser/animations'
 import { NavigationEnd, provideRouter, Router } from '@angular/router'
 import { LogLevel } from '@shiftcode/logger'
 import { provideNavigationClassHandler, provideTestingFab } from '@shiftcode/ngx-components'
@@ -23,7 +22,6 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideZoneChangeDetection(),
     provideHttpClient(),
-    provideAnimations(),
     provideRouter(ROUTES),
 
     provideLocalStorage({ prefix: 'sg.' }),

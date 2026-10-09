@@ -35,7 +35,7 @@ function setup(testingFabProviders: EnvironmentProviders) {
       delete: vi.fn(),
       clear: vi.fn(),
       keys: vi.fn().mockReturnValue([]),
-    } as unknown as LocalStorage
+    }
   }
 
   TestBed.configureTestingModule({

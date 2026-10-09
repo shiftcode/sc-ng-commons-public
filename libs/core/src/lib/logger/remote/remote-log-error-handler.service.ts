@@ -1,4 +1,4 @@
-import { ErrorHandler, inject, Injectable } from '@angular/core'
+import { ErrorHandler, inject, Service } from '@angular/core'
 import { LogLevel } from '@shiftcode/logger'
 
 import { RemoteLogService } from './remote-log.service'
@@ -6,7 +6,7 @@ import { RemoteLogService } from './remote-log.service'
 /**
  * Extends the angular core ErrorHandler and sends js errors to the remote logger.
  */
-@Injectable({ providedIn: 'root' })
+@Service()
 export class RemoteLogErrorHandler extends ErrorHandler {
   private readonly remoteLogService = inject(RemoteLogService)
 

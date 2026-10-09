@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core'
+import { Service } from '@angular/core'
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export abstract class WindowRef {
   get nativeWindow(): null | Window {
     return (typeof window !== 'undefined' && window) || null
