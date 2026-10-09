@@ -2,7 +2,7 @@
   "$schema": "node_modules/lerna/schemas/lerna-schema.json",
   "useNx": false,
   "packages": ["libs/*", "apps/*"],
-  "version": "16.0.0-pr85.2",
+  "version": "16.0.0-pr85.3",
   "command": {
     "version": {
       "allowBranch": "*",
