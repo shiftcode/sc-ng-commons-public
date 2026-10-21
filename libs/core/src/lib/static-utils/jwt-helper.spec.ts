@@ -1,5 +1,6 @@
-import { describe, expect, test } from 'vitest'
+import { describe, expect } from 'vitest'
 
+import { test } from '../../../test'
 import { JwtHelper } from './jwt-helper'
 
 describe('JwtHelper', () => {
@@ -19,9 +20,10 @@ describe('JwtHelper', () => {
     test('returns false when not decodable', () => {
       expect(JwtHelper.isToken('abc:def:ghi')).toBe(false)
     })
-    test('returns false when decoded & parsed part not object', () => {
+    test('returns false when decoded & parsed part not object', ({ consoleErrorSpy }) => {
       const tokenString = `part1.${JwtHelper.b64EncodeUnicode('just a string')}.part3`
       expect(JwtHelper.isToken(tokenString)).toBe(false)
+      expect(consoleErrorSpy).toHaveBeenCalled()
     })
     test('returns false when decoded & parsed part is null', () => {
       const tokenString = `part1.${JwtHelper.b64EncodeUnicode(JSON.stringify(null))}.part3`
@@ -50,9 +52,10 @@ describe('JwtHelper', () => {
     test('throws when not decodable', () => {
       expect(() => JwtHelper.decodeToken('abc:def:ghi')).toThrow(Error)
     })
-    test('throws when decoded & parsed part not an object', () => {
+    test('throws when decoded & parsed part not an object', ({ consoleErrorSpy }) => {
       const tokenString = `part1.${JwtHelper.b64EncodeUnicode('just a string')}.part3`
       expect(() => JwtHelper.decodeToken(tokenString)).toThrow(Error)
+      expect(consoleErrorSpy).toHaveBeenCalled()
     })
     test('throws when decoded & parsed part is null', () => {
       const tokenString = `part1.${JwtHelper.b64EncodeUnicode(JSON.stringify(null))}.part3`

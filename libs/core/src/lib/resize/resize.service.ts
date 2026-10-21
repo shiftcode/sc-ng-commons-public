@@ -1,11 +1,11 @@
 import { isPlatformBrowser } from '@angular/common'
-import { inject, Injectable, OnDestroy, PLATFORM_ID } from '@angular/core'
+import { inject, OnDestroy, PLATFORM_ID, Service } from '@angular/core'
 import { filter, finalize, NEVER, Observable, Subject } from 'rxjs'
 
 import { setup } from '../static-utils/rxjs/setup.operator'
 import { RESIZE_OBSERVER_IMPL } from './resize-observer-impl.token'
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class ResizeService implements OnDestroy {
   private readonly observer: ResizeObserver | null
   private readonly eventSubject = new Subject<ResizeObserverEntry>()

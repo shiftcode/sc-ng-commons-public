@@ -1,11 +1,11 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
-import { DOCUMENT, inject, Injectable } from '@angular/core'
+import { DOCUMENT, inject, Service } from '@angular/core'
 import { firstValueFrom } from 'rxjs'
 
 /**
  * Service to load, cache and create svg elements
  */
-@Injectable({ providedIn: 'root' })
+@Service()
 export class SvgRegistry {
   private readonly cache = new Map<string, Promise<SVGElement>>()
   private readonly document = inject(DOCUMENT)

@@ -4,7 +4,6 @@
     "module": "es2022",
     "target": "es2022",
     "lib": ["es2022", "es2023.array", "dom"],
-    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -15,8 +14,8 @@
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "paths": {
-      "@shiftcode/ngx-core": ["libs/core/dist", "libs/core/src/public-api.ts"],
-      "@shiftcode/ngx-components": ["libs/components/dist", "libs/components/src/public-api.ts"]
+      "@shiftcode/ngx-core": ["./libs/core/dist", "./libs/core/src/public-api.ts"],
+      "@shiftcode/ngx-components": ["./libs/components/dist", "./libs/components/src/public-api.ts"]
     },
     "declaration": false,
     "experimentalDecorators": true,
