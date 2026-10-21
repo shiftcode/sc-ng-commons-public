@@ -5,13 +5,5 @@
     "lib": ["es2022", "es2023.array", "dom", "esnext.disposable"],
     "types": ["node"]
   },
-  "include": ["**/*.spec.ts", "**/*.d.ts", "test/**/*.ts"],
-  "angularCompilerOptions": {
-    "extendedDiagnostics": {
-      "checks": {
-        "nullishCoalescingNotNullable": "suppress",
-        "optionalChainNotNullable": "suppress"
-      }
-    }
-  }
+  "include": ["**/*.spec.ts", "**/*.d.ts", "test/**/*.ts"]
 }

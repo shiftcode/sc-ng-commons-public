@@ -6,12 +6,6 @@
   "files": ["src/main.ts"],
   "include": ["src/**/*.d.ts"],
   "angularCompilerOptions": {
-    "compilationMode": "full",
-    "extendedDiagnostics": {
-      "checks": {
-        "nullishCoalescingNotNullable": "suppress",
-        "optionalChainNotNullable": "suppress"
-      }
-    }
+    "compilationMode": "full"
   }
 }
