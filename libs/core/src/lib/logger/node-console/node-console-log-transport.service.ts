@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common'
-import { inject, Injectable, InjectionToken, PLATFORM_ID } from '@angular/core'
+import { inject, InjectionToken, PLATFORM_ID, Service } from '@angular/core'
 import { getJsonStringifyReplacer, LogLevel, LogTransport } from '@shiftcode/logger'
 import { colorizeForConsole, jsonMapSetStringifyReplacer } from '@shiftcode/utilities'
 
@@ -24,7 +24,7 @@ export const NODE_CONSOLE_LOG_TRANSPORT_CONFIG = new InjectionToken<NodeConsoleL
 )
 
 // we do not extend the NodeConsoleLogTransport from @shiftcode/logger since it uses `node:utils` which would break ts here without further changes
-@Injectable({ providedIn: 'root' })
+@Service()
 export class NodeConsoleLogTransportService extends LogTransport {
   private readonly config: NodeConsoleLogTransportConfig
 

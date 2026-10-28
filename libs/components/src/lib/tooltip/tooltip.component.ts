@@ -1,18 +1,18 @@
-import { AnimationEvent, trigger } from '@angular/animations'
 import { ConnectedOverlayPositionChange } from '@angular/cdk/overlay'
 import { NgClass } from '@angular/common'
 import {
+  afterNextRender,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
   inject,
+  Injector,
   OnDestroy,
   viewChild,
 } from '@angular/core'
 import { Observable, Subject } from 'rxjs'
 
-import { tooltipAnimation } from './tooltip.animation'
 import { TooltipNotchPosition, TooltipPosition, TooltipPositionSimple } from './tooltip-position.type'
 import { TooltipVisibility } from './tooltip-visibility.type'
 
@@ -35,11 +35,7 @@ import { TooltipVisibility } from './tooltip-visibility.type'
   templateUrl: './tooltip.component.html',
   styleUrls: ['./tooltip.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [trigger('state', tooltipAnimation)],
   host: {
-    // Forces the element to have a layout in IE and Edge. This fixes issues where the element
-    // won't be rendered if the animations are disabled or there is no web animations polyfill.
-    '[style.zoom]': 'visibility === "visible" ? 1 : null',
     '(body:click)': 'this.handleBodyInteraction()',
     'aria-hidden': 'true',
   },
@@ -68,12 +64,13 @@ export class TooltipComponent implements OnDestroy {
   //eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   hideTimeoutId: any | null
 
-  /** Property watched by the animation framework to show or hide the tooltip */
+  /** Visibility state controlling the tooltip's CSS transition classes */
   visibility: TooltipVisibility = 'initial'
 
   position: TooltipPosition
 
   readonly notchElRef = viewChild<ElementRef>('notch')
+  private readonly tooltipElRef = viewChild.required<ElementRef<HTMLElement>>('tooltip')
   // if there is not enough space in the UI to display the desired position, a fallback position is displayed
   private _rendererPosition: TooltipPosition
 
@@ -84,6 +81,7 @@ export class TooltipComponent implements OnDestroy {
   private readonly onHide = new Subject<void>()
 
   private readonly changeDetectorRef = inject(ChangeDetectorRef)
+  private readonly injector = inject(Injector)
 
   /**
    * Shows the tooltip with an animation originating from the provided origin
@@ -120,8 +118,31 @@ export class TooltipComponent implements OnDestroy {
     }
 
     this.hideTimeoutId = setTimeout(() => {
+      const wasInitial = this.visibility === 'initial'
       this.visibility = 'hidden'
       this.hideTimeoutId = null
+
+      // A tooltip hidden before it is shown has nothing to animate.
+      if (wasInitial) {
+        this.onHide.next()
+        return
+      }
+
+      afterNextRender(
+        {
+          read: () => {
+            const element = this.tooltipElRef().nativeElement
+            // No transition fires if the tooltip was never painted or transitions are disabled.
+            if (
+              this.visibility === 'hidden' &&
+              element.ownerDocument.defaultView?.getComputedStyle(element).opacity === '0'
+            ) {
+              this.onHide.next()
+            }
+          },
+        },
+        { injector: this.injector },
+      )
 
       // Mark for check so if any parent component has set the
       // ChangeDetectionStrategy to OnPush it will be checked anyways
@@ -140,23 +161,30 @@ export class TooltipComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
+    clearTimeout(this.showTimeoutId)
+    clearTimeout(this.hideTimeoutId)
     this.onHide.complete()
   }
 
-  animationStart() {
-    this.closeOnInteraction = false
+  protected transitionStart(event: TransitionEvent): void {
+    if (this.isTooltipTransition(event)) {
+      this.closeOnInteraction = false
+    }
   }
 
-  animationDone(event: AnimationEvent): void {
-    const toState = event.toState as TooltipVisibility
+  protected transitionDone(event: TransitionEvent): void {
+    if (!this.isTooltipTransition(event)) {
+      return
+    }
 
-    if (toState === 'hidden' && !this.isVisible()) {
+    this.closeOnInteraction = true
+    if (this.visibility === 'hidden') {
       this.onHide.next()
     }
+  }
 
-    if (toState === 'visible' || toState === 'hidden') {
-      this.closeOnInteraction = true
-    }
+  private isTooltipTransition(event: TransitionEvent): boolean {
+    return event.target === event.currentTarget && event.propertyName === 'opacity' && !event.pseudoElement
   }
 
   /**

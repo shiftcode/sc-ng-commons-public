@@ -1,5 +1,5 @@
 // eslint-disable-next-line max-classes-per-file
-import { inject, Injectable } from '@angular/core'
+import { inject, Service } from '@angular/core'
 import { ContentType } from '@shiftcode/utilities'
 import { CommonHttpHeader } from '@shiftcode/utilities'
 
@@ -48,7 +48,7 @@ enum ApiPath {
   STREAM_LOGS = 'logs',
 }
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class CloudWatchLogV2ApiService {
   private readonly apiUrl = inject(CLOUD_WATCH_LOG_V2_CONFIG).apiUrl
 

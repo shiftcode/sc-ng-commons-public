@@ -1,10 +1,10 @@
-import { inject, Injectable, OnDestroy } from '@angular/core'
+import { inject, OnDestroy, Service } from '@angular/core'
 import { Subscription } from 'rxjs'
 
 import { LocalStorage } from '../local-storage/local-storage.service'
 import { createRandomClientId } from './create-random-client-id.function'
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class ClientIdService implements OnDestroy {
   private static UNIQUE_ID_KEY = 'CLIENT_ID'
   private readonly localStorage = inject(LocalStorage)

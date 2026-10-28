@@ -20,6 +20,7 @@ export default defineScAngularConfig(
       '@angular-eslint/prefer-signals': 'error',
       '@angular-eslint/prefer-output-emitter-ref': 'error',
       '@angular-eslint/use-component-selector': 'error',
+      '@angular-eslint/prefer-service-decorator': 'error',
     },
   },
   {

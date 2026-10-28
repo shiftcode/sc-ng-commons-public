@@ -1,10 +1,25 @@
 {
+  "src/lib/rx/rx-if.directive.ts": {
+    "unused-imports/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/lib/rx/rx-let.directive.ts": {
+    "unused-imports/no-unused-vars": {
+      "count": 1
+    }
+  },
   "src/lib/tooltip/flexible-connected-position-strategy-2.ts": {
     "@typescript-eslint/no-unsafe-call": {
       "count": 9
     },
     "@typescript-eslint/no-unsafe-member-access": {
       "count": 17
+    }
+  },
+  "src/lib/tooltip/tooltip.component.html": {
+    "@angular-eslint/template/prefer-class-binding": {
+      "count": 1
     }
   }
 }

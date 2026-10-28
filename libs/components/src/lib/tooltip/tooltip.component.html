@@ -1,13 +1,15 @@
 <div
+  #tooltip
   class="sc-tooltip"
   [ngClass]="tooltipClass"
   [class.sc-tooltip--above]="tooltipPosition === 'above'"
   [class.sc-tooltip--below]="tooltipPosition === 'below'"
   [class.sc-tooltip--before]="tooltipPosition === 'before'"
   [class.sc-tooltip--after]="tooltipPosition === 'after'"
-  [@state]="visibility"
-  (@state.start)="animationStart()"
-  (@state.done)="animationDone($event)"
+  [class.sc-tooltip--visible]="visibility === 'visible'"
+  [class.sc-tooltip--hidden]="visibility === 'hidden'"
+  (transitionstart)="transitionStart($event)"
+  (transitionend)="transitionDone($event)"
 >
   <div class="sc-tooltip__label" [innerHTML]="message"></div>
   <div

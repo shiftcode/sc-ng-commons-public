@@ -1,4 +1,4 @@
-import { DOCUMENT, inject, Injectable } from '@angular/core'
+import { DOCUMENT, inject, Service } from '@angular/core'
 import { Logger } from '@shiftcode/logger'
 
 import { LoggerService } from '../logger/logger.service'
@@ -7,7 +7,7 @@ import { WindowRef } from '../window/window-ref.service'
 const DURATION_MIN = 0.1
 const DURATION_MAX = 0.8
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class ScrollToService {
   private readonly logger: Logger = inject(LoggerService).getInstance('ScrollToService')
   private readonly window: Window | null = inject(WindowRef).nativeWindow
