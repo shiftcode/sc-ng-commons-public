@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [16.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/v15.3.1...v16.0.0) (2026-10-28)
+
+### Features
+
+- angular 22 ([5a5cd46](https://github.com/shiftcode/sc-ng-commons-public/commit/5a5cd467aa424dc63c0e09a839023f738f98402a))
+- **tooltip:** use native css animations ([9217589](https://github.com/shiftcode/sc-ng-commons-public/commit/921758948b8ee443575011867fcc59f9c1964e0a))
+
+### BREAKING CHANGES
+
+- requires @angular/*@^22 and typescript@^6
+
 ## [15.3.1](https://github.com/shiftcode/sc-ng-commons-public/compare/v15.3.0...v15.3.1) (2026-08-10)
 
 **Note:** Version bump only for package @shiftcode/styleguide
