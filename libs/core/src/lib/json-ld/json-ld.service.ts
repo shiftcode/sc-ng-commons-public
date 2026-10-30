@@ -20,7 +20,7 @@ export class JsonLdService {
 
   private jsonLd: JsonLd[] = []
 
-  static createObject(type: string, rawData?: JsonLd, context = 'http://schema.org'): JsonLd {
+  static createObject(type: string, rawData?: JsonLd, context = 'https://schema.org'): JsonLd {
     let object: JsonLd = {
       '@type': type,
     }
