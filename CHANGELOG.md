@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [16.0.1](https://github.com/shiftcode/sc-ng-commons-public/compare/v16.0.0...v16.0.1) (2026-11-04)
+
+### Bug Fixes
+
+- **json-ld:** use https://schema.org as default [@context](https://github.com/context) ([e5ce9a2](https://github.com/shiftcode/sc-ng-commons-public/commit/e5ce9a220b4dcda442714f5d0d57fed79b25c9ea)), closes [#93](https://github.com/shiftcode/sc-ng-commons-public/issues/93)
+
 # [16.0.0](https://github.com/shiftcode/sc-ng-commons-public/compare/v15.3.1...v16.0.0) (2026-10-28)
 
 ### Features
