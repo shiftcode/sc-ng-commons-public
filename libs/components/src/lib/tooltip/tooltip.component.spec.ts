@@ -1,7 +1,9 @@
+import { Component } from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, onTestFinished, test, vi } from 'vitest'
 
 import { TooltipComponent } from './tooltip.component'
+import { TooltipDirective } from './tooltip.directive'
 
 describe('TooltipComponent CSS transitions', () => {
   let fixture: ComponentFixture<TooltipComponent>
@@ -161,6 +163,19 @@ describe('TooltipComponent CSS transitions', () => {
     expect(onHidden).toHaveBeenCalledTimes(1)
   })
 
+  test('notifies only once when hidden repeatedly', () => {
+    const onHidden = vi.fn()
+    component.afterHidden().subscribe(onHidden)
+    component.show(0)
+    advanceTime()
+    computedStyle.opacity = '0'
+    component.hide(0)
+    advanceTime()
+    component.hide(0)
+    advanceTime()
+    expect(onHidden).toHaveBeenCalledTimes(1)
+  })
+
   test('cancels a delayed hide when shown again', () => {
     component.show(0)
     advanceTime()
@@ -179,4 +194,56 @@ describe('TooltipComponent CSS transitions', () => {
     expect(component.visibility).toBe('initial')
     expect(onComplete).toHaveBeenCalledTimes(1)
   })
+})
+
+@Component({
+  selector: 'sc-test-host',
+  template: `<button type="button" scTooltip="Tooltip message">Trigger</button>`,
+  imports: [TooltipDirective],
+})
+class HostComponent {}
+
+test('TooltipDirective hides the tooltip when the trigger is clicked', () => {
+  vi.useFakeTimers()
+  onTestFinished(() => {
+    vi.useRealTimers()
+    vi.restoreAllMocks()
+  })
+  vi.spyOn(window, 'getComputedStyle').mockReturnValue({ opacity: '1' } as CSSStyleDeclaration)
+  const fixture = TestBed.createComponent(HostComponent)
+  fixture.detectChanges()
+  const trigger = (fixture.nativeElement as HTMLElement).querySelector('button')!
+
+  trigger.dispatchEvent(new MouseEvent('mouseenter'))
+  vi.runAllTimers()
+  fixture.detectChanges()
+  expect(document.querySelector('.sc-tooltip--visible')).not.toBeNull()
+
+  // clicking the trigger fires a mouseleave followed by a click
+  trigger.dispatchEvent(new MouseEvent('mouseleave'))
+  trigger.click()
+  vi.advanceTimersByTime(0)
+  fixture.detectChanges()
+  const transitionEnd = Object.assign(new Event('transitionend'), { propertyName: 'opacity', pseudoElement: '' })
+  document.querySelector('.sc-tooltip--hidden')!.dispatchEvent(transitionEnd)
+  expect(document.querySelector('.sc-tooltip')).toBeNull()
+
+  // the hide delay scheduled by mouseleave elapses
+  expect(() => vi.runAllTimers()).not.toThrow()
+})
+
+test('TooltipDirective detaches the tooltip when the trigger is clicked before it is visible', () => {
+  vi.useFakeTimers()
+  onTestFinished(() => {
+    vi.useRealTimers()
+  })
+  const fixture = TestBed.createComponent(HostComponent)
+  fixture.detectChanges()
+  const trigger = (fixture.nativeElement as HTMLElement).querySelector('button')!
+
+  trigger.dispatchEvent(new MouseEvent('mouseenter'))
+  trigger.dispatchEvent(new MouseEvent('mouseleave'))
+  trigger.click()
+  expect(() => vi.runAllTimers()).not.toThrow()
+  expect(document.querySelector('.sc-tooltip')).toBeNull()
 })
