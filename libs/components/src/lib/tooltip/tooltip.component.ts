@@ -117,10 +117,22 @@ export class TooltipComponent implements OnDestroy {
       this.showTimeoutId = null
     }
 
+    if (this.hideTimeoutId) {
+      // The pending hide fires at least as early, unless this one hides immediately.
+      if (delay > 0) {
+        return
+      }
+      clearTimeout(this.hideTimeoutId)
+    }
+
     this.hideTimeoutId = setTimeout(() => {
+      this.hideTimeoutId = null
+      // Already hidden (and notified) - nothing to do.
+      if (this.visibility === 'hidden') {
+        return
+      }
       const wasInitial = this.visibility === 'initial'
       this.visibility = 'hidden'
-      this.hideTimeoutId = null
 
       // A tooltip hidden before it is shown has nothing to animate.
       if (wasInitial) {
