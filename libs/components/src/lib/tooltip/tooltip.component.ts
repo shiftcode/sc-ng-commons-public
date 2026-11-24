@@ -118,10 +118,6 @@ export class TooltipComponent implements OnDestroy {
     }
 
     if (this.hideTimeoutId) {
-      // The pending hide fires at least as early, unless this one hides immediately.
-      if (delay > 0) {
-        return
-      }
       clearTimeout(this.hideTimeoutId)
     }
 
