@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [16.0.2](https://github.com/shiftcode/sc-ng-commons-public/compare/v16.0.1...v16.0.2) (2026-11-24)
+
+### Bug Fixes
+
+- **tooltip:** do not throw errors on hide ([f542425](https://github.com/shiftcode/sc-ng-commons-public/commit/f5424254229ac19cd672dc78f774b865d5c7a990))
+- **tooltip:** do not throw errors on hide ([5c32ea4](https://github.com/shiftcode/sc-ng-commons-public/commit/5c32ea4867565a29344414600723ffb4ae837bb3))
+
 ## [16.0.1](https://github.com/shiftcode/sc-ng-commons-public/compare/v16.0.0...v16.0.1) (2026-11-04)
 
 ### Bug Fixes
