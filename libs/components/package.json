@@ -1,22 +1,22 @@
 {
   "name": "@shiftcode/ngx-components",
-  "version": "16.0.4",
+  "version": "17.0.0-pr97.1",
   "repository": "https://github.com/shiftcode/sc-ng-commons-public",
   "license": "MIT",
   "author": "shiftcode GmbH <team@shiftcode.ch>",
   "sideEffects": false,
   "type": "module",
-  "dependencies": {
-    "tslib": "^2.5.0"
+  "exports": {
+    ".": "./src/public-api.ts"
   },
   "peerDependencies": {
-    "@angular/cdk": "^22.2.0",
-    "@angular/common": "^22.2.0",
-    "@angular/core": "^22.2.0",
-    "@angular/forms": "^22.2.0",
-    "@angular/router": "^22.2.0",
+    "@angular/cdk": "^22.3.0",
+    "@angular/common": "^22.3.0",
+    "@angular/core": "^22.3.0",
+    "@angular/forms": "^22.3.0",
+    "@angular/router": "^22.3.0",
     "@shiftcode/logger": "^5.0.0",
-    "@shiftcode/ngx-core": "^16.0.0 || ^16.0.0-pr85",
+    "@shiftcode/ngx-core": "^17.0.0 || ^17.0.0-pr97",
     "@shiftcode/utilities": "^5.0.0",
     "rxjs": "^6.5.3 || ^7.4.0"
   },

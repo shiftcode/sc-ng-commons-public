@@ -1,12 +1,12 @@
 /**
  * Syncs the version from root package.json to the dist/package.json.
  *
- * Reads the root package.json, ng-package.json (to find the dist output directory),
- * and the built dist package.json, then updates the dist version to match the root version.
+ * Reads the library's package.json, the workspace angular.json (to find the library's output directory),
+ * and the built dist package.json, then updates the dist version to match the library version.
  * This ensures published packages have the correct version before release.
  */
 import { readFile, writeFile } from 'node:fs/promises'
-import { join } from 'node:path'
+import { join, relative, resolve } from 'node:path'
 
 /** Minimal package.json structure */
 interface Package {
@@ -14,12 +14,9 @@ interface Package {
   version: string
 }
 
-/** Minimal ng-package.json structure */
-interface NgPackage {
-  dest: string
-  lib: {
-    entryFile: string
-  }
+/** Minimal angular.json structure */
+interface AngularWorkspace {
+  projects: Record<string, { root: string; architect?: { build?: { options?: { outputPath?: string } } } }>
 }
 
 const ENCODING_UTF8 = 'utf8'
@@ -45,16 +42,22 @@ async function readPackageJson<T>(filePath: string): Promise<T> {
  */
 async function copyVersion() {
   const packageJsonPath = join(process.cwd(), 'package.json')
-  const ngPackagePath = join(process.cwd(), 'ng-package.json')
+  // script is executed via lerna in the library folder, angular.json lives in the workspace root
+  const workspaceRoot = resolve(import.meta.dirname, '..')
+  const angularJsonPath = join(workspaceRoot, 'angular.json')
 
   const packageJson = await readPackageJson<Package>(packageJsonPath)
-  const ngPackage = await readPackageJson<NgPackage>(ngPackagePath)
+  const angularJson = await readPackageJson<AngularWorkspace>(angularJsonPath)
 
-  if (!ngPackage.dest) {
-    throw new Error(`output \`dest\` not defined in ${ngPackagePath}`)
+  const projectRoot = relative(workspaceRoot, process.cwd())
+  const project = Object.values(angularJson.projects).find((p) => p.root === projectRoot)
+  const outputPath = project?.architect?.build?.options?.outputPath
+
+  if (!outputPath) {
+    throw new Error(`build \`outputPath\` not defined for project with root ${projectRoot} in ${angularJsonPath}`)
   }
 
-  const distPackageFile = join(ngPackage.dest, 'package.json')
+  const distPackageFile = join(workspaceRoot, outputPath, 'package.json')
   const distPackageJson = await readPackageJson<Package>(distPackageFile)
 
   console.info(`${packageJson.name}: version ${packageJson.version} / dist version ${distPackageJson.version}`)

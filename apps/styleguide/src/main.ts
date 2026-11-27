@@ -1,5 +1,5 @@
 import { provideHttpClient } from '@angular/common/http'
-import { DOCUMENT, inject, provideEnvironmentInitializer, provideZoneChangeDetection } from '@angular/core'
+import { APP_ID, DOCUMENT, inject, provideEnvironmentInitializer, provideZoneChangeDetection } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { bootstrapApplication } from '@angular/platform-browser'
 import { NavigationEnd, provideRouter, Router } from '@angular/router'
@@ -8,7 +8,7 @@ import { provideNavigationClassHandler, provideTestingFab } from '@shiftcode/ngx
 import {
   filterIfInstanceOf,
   ORIGIN,
-  provideLocalStorage,
+  provideLocalStorageOptions,
   provideLogger,
   withBrowserConsoleTransport,
 } from '@shiftcode/ngx-core'
@@ -20,11 +20,13 @@ import { ROUTES } from './routes/routes.const'
 
 bootstrapApplication(AppComponent, {
   providers: [
+    { provide: APP_ID, useValue: 'sg' },
+
     provideZoneChangeDetection(),
     provideHttpClient(),
     provideRouter(ROUTES),
 
-    provideLocalStorage({ prefix: 'sg.' }),
+    provideLocalStorageOptions({ prefix: 'sg.' }),
     provideLogger(withBrowserConsoleTransport(() => ({ logLevel: LogLevel.DEBUG }))),
     provideNavigationClassHandler('sg-navigating'),
     provideSgConfig(),

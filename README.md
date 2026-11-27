@@ -25,6 +25,8 @@ Shows the mapping between the angular version and our lib versions.
 
 | Angular Version | Lib Version                   |
 | --------------- | ----------------------------- |
+| `^22.3`         | `^17`                         |
+| `~22.2`         | `^16`                         |
 | `^21`           | `^13 \|\| ^14 \|\| ^15`       |
 | `^20`           | `^11 \|\| ^12`                |
 | `^19`           | `^7 \|\| ^8 \|\| ^9 \|\| ^10` |
@@ -68,8 +70,9 @@ If it happens that you already have another commit locally, before updating the 
 
 1. run `ng generate library my-lib`
 2. change `libs/my-lib/package.json#name` to `@shiftcode/ngx-my-lib`
-3. alter `libs/my-lib/ng-package.json#dest` to `./dist`
-4. add `"assets": [ "LICENSE", "CHANGELOG.md" ],` to `libs/my-lib/ng-package.json`
+3. in `angular.json` set `projects.my-lib.architect.build.options.outputPath` to `libs/my-lib/dist`
+   (the lib must use the `@angular/build:library` builder)
+4. add `"assets": ["libs/my-lib/CHANGELOG.md", "libs/my-lib/LICENSE"]` to the same build options
 5. alter `tsconfig.json#compilerOptions.paths` `my-lib` entry to `@shifcode/ng-my-lib` and edit paths according to #3
 6. update tsconfig files like other libs
 7. change from karma config to jest:
