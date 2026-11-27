@@ -1,4 +1,4 @@
-import { ClassProvider, ValueProvider } from '@angular/core'
+import { APP_ID, ClassProvider, inject, ValueProvider } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { firstValueFrom, scan, shareReplay } from 'rxjs'
 import { beforeEach, describe, expect, type MockInstance, test, vi } from 'vitest'
@@ -6,8 +6,10 @@ import { beforeEach, describe, expect, type MockInstance, test, vi } from 'vites
 import { MockStorage } from '../../../test'
 import { WindowRef } from '../window/window-ref.service'
 import { LocalStorage } from './local-storage.service'
+import { LocalStorageFallback } from './local-storage-fallback.service'
 import { LocalStorageImpl } from './local-storage-impl.service'
-import { LOCAL_STORAGE_OPTIONS, LocalStorageOptions } from './local-storage-options'
+import { LocalStorageOptions, provideLocalStorageOptions } from './local-storage-options'
+import { LOCAL_STORAGE_OPTIONS } from './local-storage-options.token'
 
 const prefix: LocalStorageOptions['prefix'] = 'TEST_'
 
@@ -186,5 +188,41 @@ describe('LocalStorage', () => {
 
       expect(service.keys()).toEqual(keys)
     })
+  })
+})
+
+describe('LocalStorage factory', () => {
+  test('is injectable without any providers', () => {
+    TestBed.configureTestingModule({})
+    expect(TestBed.inject(LocalStorage)).toBeInstanceOf(LocalStorageImpl)
+  })
+
+  test('uses the fallback when the LocalStorage is not usable', () => {
+    vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
+      throw new Error('SecurityError')
+    })
+    TestBed.configureTestingModule({})
+    expect(TestBed.inject(LocalStorage)).toBeInstanceOf(LocalStorageFallback)
+    vi.restoreAllMocks()
+  })
+
+  test('uses the APP_ID as default prefix', () => {
+    TestBed.configureTestingModule({ providers: [{ provide: APP_ID, useValue: 'my-app' }] })
+    expect(TestBed.inject(LOCAL_STORAGE_OPTIONS)).toEqual({ prefix: 'my-app.' })
+  })
+
+  test('uses the options provided via provideLocalStorageOptions', () => {
+    TestBed.configureTestingModule({ providers: [provideLocalStorageOptions({ prefix: 'custom.' })] })
+    expect(TestBed.inject(LOCAL_STORAGE_OPTIONS)).toEqual({ prefix: 'custom.' })
+  })
+
+  test('uses the options from a factory provided via provideLocalStorageOptions', () => {
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: APP_ID, useValue: 'my-app' },
+        provideLocalStorageOptions(() => ({ prefix: `${inject(APP_ID)}-custom.` })),
+      ],
+    })
+    expect(TestBed.inject(LOCAL_STORAGE_OPTIONS)).toEqual({ prefix: 'my-app-custom.' })
   })
 })

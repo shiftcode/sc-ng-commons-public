@@ -13,15 +13,32 @@ to check whether the LocalStorage is actually available, you can read the `Local
 
 ### Setup
 
-To use the LocalStorage Service, you need to provide it in your `bootstrapApplication` call or your AppModule.
+`LocalStorage` is provided in root, no setup is required.
+A factory decides on first injection whether the real LocalStorage or the in-memory fallback is used.
+
+#### Key prefix
+
+All keys are prefixed. By default, the prefix is derived from Angular's `APP_ID`: `` `${APP_ID}.` ``.
+Since Angular's default `APP_ID` is `'ng'`, this results in `'ng.'` unless you provide your own `APP_ID`.
+
+To use a custom prefix, either provide an `APP_ID` or use `provideLocalStorageOptions`:
 
 ```ts
-import { provideLocalStorage } from '@shiftcode/ngx-core'
+import { provideLocalStorageOptions } from '@shiftcode/ngx-core'
 
 bootstrapApplication(AppComponent, {
-  providers: [provideLocalStorage({ prefix: 'APP.' })],
+  providers: [provideLocalStorageOptions({ prefix: 'APP.' })],
 })
 ```
+
+Alternatively, pass a factory function. It runs in an injection context, so `inject()` can be used:
+
+```ts
+provideLocalStorageOptions(() => ({ prefix: `${inject(APP_CONFIG).name}.` }))
+```
+
+> ⚠️ When multiple apps run on the same origin, either provide a distinct `APP_ID`
+> or an explicit prefix — otherwise their keys may collide.
 
 ## ClientId Service
 

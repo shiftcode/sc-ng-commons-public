@@ -8,7 +8,7 @@ import { provideNavigationClassHandler, provideTestingFab } from '@shiftcode/ngx
 import {
   filterIfInstanceOf,
   ORIGIN,
-  provideLocalStorage,
+  provideLocalStorageOptions,
   provideLogger,
   withBrowserConsoleTransport,
 } from '@shiftcode/ngx-core'
@@ -24,7 +24,7 @@ bootstrapApplication(AppComponent, {
     provideHttpClient(),
     provideRouter(ROUTES),
 
-    provideLocalStorage({ prefix: 'sg.' }),
+    provideLocalStorageOptions({ prefix: 'sg.' }),
     provideLogger(withBrowserConsoleTransport(() => ({ logLevel: LogLevel.DEBUG }))),
     provideNavigationClassHandler('sg-navigating'),
     provideSgConfig(),

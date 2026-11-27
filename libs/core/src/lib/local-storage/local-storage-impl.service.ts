@@ -3,7 +3,7 @@ import { filter, fromEvent, map, NEVER, Observable, share } from 'rxjs'
 
 import { WindowRef } from '../window/window-ref.service'
 import { LocalStorage } from './local-storage.service'
-import { LOCAL_STORAGE_OPTIONS } from './local-storage-options'
+import { LOCAL_STORAGE_OPTIONS } from './local-storage-options.token'
 import { StorageItemChangeEvent } from './storage-item-change-event.type'
 
 const STORAGE_EVENT_NAME = 'storage'

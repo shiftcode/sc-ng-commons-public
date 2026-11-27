@@ -10,7 +10,6 @@ export * from './lib/json-ld/json-ld.service'
 // local storage
 export * from './lib/local-storage/local-storage.service'
 export * from './lib/local-storage/local-storage-options'
-export * from './lib/local-storage/provide-local-storage'
 
 // logger
 export * from './lib/logger/log-request-info-fn.token'
