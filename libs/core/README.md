@@ -18,7 +18,8 @@ A factory decides on first injection whether the real LocalStorage or the in-mem
 
 #### Key prefix
 
-All keys are prefixed. By default, the prefix is derived from Angular's `APP_ID`: `` `${APP_ID}.` ``.
+All keys are prefixed.
+By default, the prefix is derived from Angular's `APP_ID`: `` `${APP_ID}.` ``.
 Since Angular's default `APP_ID` is `'ng'`, this results in `'ng.'` unless you provide your own `APP_ID`.
 
 To use a custom prefix, either provide an `APP_ID` or use `provideLocalStorageOptions`:
@@ -31,14 +32,14 @@ bootstrapApplication(AppComponent, {
 })
 ```
 
-Alternatively, pass a factory function. It runs in an injection context, so `inject()` can be used:
+Alternatively, pass a factory function.
+It runs in an injection context, so `inject()` can be used:
 
 ```ts
 provideLocalStorageOptions(() => ({ prefix: `${inject(APP_CONFIG).name}.` }))
 ```
 
-> ⚠️ When multiple apps run on the same origin, either provide a distinct `APP_ID`
-> or an explicit prefix — otherwise their keys may collide.
+> ⚠️ When multiple apps run on the same origin, either provide a distinct `APP_ID` or an explicit prefix — otherwise their keys may collide.
 
 ## ClientId Service
 
@@ -96,7 +97,8 @@ You can enrich your log requests for `Remote` and `CloudWatch` Transports with c
 #### Usage Example
 
 Use the feature `withRequestInfoFn` function to provide a factory for a `LogRequestInfoFn`.
-The `LogRequestInfoFn` is a function itself that is called prior every log request. Its return value needs to be an object with the information to be included.
+The `LogRequestInfoFn` is a function itself that is called prior every log request.
+Its return value needs to be an object with the information to be included.
 
 ```ts
 import { LogLevel, provideLogger, withRemoteTransport, withRequestInfoFn, LogRequestInfo } from '@shiftcode/ngx-core'
