@@ -2,10 +2,10 @@
   "$schema": "node_modules/lerna/schemas/lerna-schema.json",
   "useNx": false,
   "packages": ["libs/*", "apps/*"],
-  "version": "16.0.2",
+  "version": "16.0.3-pr0.0",
   "command": {
     "version": {
-      "allowBranch": "*",
+      "allowBranch": "**",
       "message": "build(release): next version [skip_build]",
       "forcePublish": true
     },
