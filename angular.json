@@ -5,21 +5,24 @@
   "projects": {
     "core": {
       "root": "libs/core",
-      "sourceRoot": "libs/core/src",
+      "sourceRoot": "libs/core",
       "projectType": "library",
       "prefix": "sc",
       "architect": {
         "build": {
-          "builder": "@angular/build:ng-packagr",
+          "builder": "@angular/build:library",
           "options": {
             "tsConfig": "libs/core/tsconfig.lib.json",
-            "project": "libs/core/ng-package.json"
+            "outputPath": "libs/core/dist",
+            "assets": ["libs/core/CHANGELOG.md", "libs/core/LICENSE"]
           },
           "configurations": {
             "production": {
               "tsConfig": "libs/core/tsconfig.lib.prod.json"
             },
-            "development": {}
+            "development": {
+              "compilationMode": "full"
+            }
           },
           "defaultConfiguration": "production"
         },
@@ -27,28 +30,32 @@
           "builder": "@angular/build:unit-test",
           "options": {
             "tsConfig": "tsconfig.spec.json",
-            "runner": "vitest"
+            "runner": "vitest",
+            "polyfills": []
           }
         }
       }
     },
     "components": {
       "root": "libs/components",
-      "sourceRoot": "libs/components/src",
+      "sourceRoot": "libs/components",
       "projectType": "library",
       "prefix": "sc",
       "architect": {
         "build": {
-          "builder": "@angular/build:ng-packagr",
+          "builder": "@angular/build:library",
           "options": {
-            "project": "libs/components/ng-package.json",
-            "tsConfig": "libs/components/tsconfig.lib.json"
+            "tsConfig": "libs/components/tsconfig.lib.json",
+            "outputPath": "libs/components/dist",
+            "assets": ["libs/components/CHANGELOG.md", "libs/components/LICENSE"]
           },
           "configurations": {
             "production": {
               "tsConfig": "libs/components/tsconfig.lib.prod.json"
             },
-            "development": {}
+            "development": {
+              "compilationMode": "full"
+            }
           },
           "defaultConfiguration": "production"
         },
@@ -56,7 +63,8 @@
           "builder": "@angular/build:unit-test",
           "options": {
             "tsConfig": "tsconfig.spec.json",
-            "runner": "vitest"
+            "runner": "vitest",
+            "polyfills": []
           }
         }
       }
