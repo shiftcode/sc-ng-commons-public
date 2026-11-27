@@ -1,5 +1,5 @@
 import { provideHttpClient } from '@angular/common/http'
-import { DOCUMENT, inject, provideEnvironmentInitializer, provideZoneChangeDetection } from '@angular/core'
+import { APP_ID, DOCUMENT, inject, provideEnvironmentInitializer, provideZoneChangeDetection } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { bootstrapApplication } from '@angular/platform-browser'
 import { NavigationEnd, provideRouter, Router } from '@angular/router'
@@ -20,6 +20,8 @@ import { ROUTES } from './routes/routes.const'
 
 bootstrapApplication(AppComponent, {
   providers: [
+    { provide: APP_ID, useValue: 'sg' },
+
     provideZoneChangeDetection(),
     provideHttpClient(),
     provideRouter(ROUTES),
