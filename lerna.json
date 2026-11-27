@@ -5,7 +5,7 @@
   "version": "16.0.2",
   "command": {
     "version": {
-      "allowBranch": "*",
+      "allowBranch": "**",
       "message": "build(release): next version [skip_build]",
       "forcePublish": true
     },
